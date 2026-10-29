@@ -9,7 +9,7 @@ O roteiro abaixo é **planejamento**, não promessa de prazo nem declaração de
 - [x] Proposta de arquitetura, política de dados e contribuição
 - [ ] Identidade visual oficial do VotoAberto; direitos e fontes dos materiais
 
-## M1 — Primeira experiência de produto (prioridade atual)
+## M1 — Primeira experiência de produto (entregue)
 
 - [x] Projeto Flutter executável no Windows e Web, runner Android e CI multiplataforma
 - [x] Mapa do Brasil com **27 UFs selecionáveis** e zoom/destaque/reversão
@@ -26,23 +26,40 @@ continuam fora do M1; identidade oficial ainda depende dos materiais UrnaLivre.
 
 **Critério M1:** mapa realmente clicável, seleção correta de UFs, interação coerente, execução local e resultados demonstrativos transparentes. Não aceitar telas estáticas disfarçadas de interativas.
 
-## M2 — Ingestão e verificação das fontes TSE
+## M2 — Data Engine compartilhado e VotoAberto Auditor (próximo marco)
 
-- [ ] Inventário dos ZIPs de 2026, origem, metadados e SHA-256
-- [ ] Inspeção de schema real, codificações e casos excepcionais
-- [ ] Normalização presidencial dos dois turnos e exterior, quando aplicável
-- [ ] Testes de reconciliação com resultados oficiais e relatório de cobertura
-- [ ] Banco/índices e implementação da API real
+**M2.1 — Descoberta e integridade**
 
-**Critério M2:** resultados reprocessáveis e cobertura explicitamente documentada, sem números inventados.
+- [ ] Estrutura `pipelines/tse_importer/` reutilizável e `apps/votoaberto_auditor/` como CLI Windows/Linux
+- [ ] Inventário local dos ZIPs de 2026, de seus membros e formatos; origem, tamanho, datas, SHA-256 e hashes oficiais de referência quando disponíveis
+- [ ] Inspeção amostral/streaming de schemas reais, codificações e casos excepcionais com limites seguros; relatório reproduzível, sem extração em massa
+- [ ] Fixtures sintéticos representativos, testes de arquivo malformado e documentação do que ainda não é suportado
 
-## M3 — Consulta granular e auditoria de dados
+**M2.2 — Extração e base pública**
 
-- [ ] Navegação a município, zona e seção
-- [ ] Referências a boletins e fonte original, com clareza sobre arquivo versus interpretação
-- [ ] Consulta e comparação por turno com manejo de seções agregadas/alteradas
-- [ ] Exportação, metadados de origem, tratamento de divergências
-- [ ] Documentação independente do pipeline de reprodução
+- [ ] Importador configurável por cargo/turno/território/perfil, com padrão **presidente, dois turnos, perfil público compacto**
+- [ ] Parsers para formatos oficialmente identificados; versões, erros e chaves compostas tratados explicitamente
+- [ ] Geração de **SQLite público versionado** com votos presidenciais por seção, agregações válidas, manifesto/hash e relatório
+- [ ] Boletins de urna tratados como **fontes de conferência** e investigação no Auditor, **sem copiar BUs integrais** para o dataset público
+- [ ] Importação idempotente/incremental, staging e validação antes de publicação
+
+**M2.3 — Reconciliação e dimensionamento**
+
+- [ ] Reconciliar fontes por turno/UF/município/zona/seção, documentando divergências e cobertura; considerar exterior ZZ sem tratá-lo como UF
+- [ ] Testar com arquivos locais oficiais, medir tempo/espaço/latência e decidir forma de distribuição para o Flutter
+- [ ] Registrar formatos e filtros por cargo implementados; não afirmar suporte a outros cargos antes de validação
+
+**Critério M2:** motor funcional e testado, dataset público presidencial reproduzível (ou lacunas claramente documentadas), sem dados fictícios apresentados como reais. A API e a conexão Flutter podem iniciar em um marco posterior.
+
+Detalhes em [DATA_ARCHITECTURE.md](DATA_ARCHITECTURE.md) e [ADR 0003](adr/0003-public-data-and-auditor.md).
+
+## M3 — Dados reais no VotoAberto público e aprofundamento do Auditor
+
+- [ ] Definir API/backend ou distribuição compacta com base nas medições do M2 e conectar o `ElectionRepository` real ao Flutter
+- [ ] Navegação por município, zona e seção, comparações entre turnos e cobertura ZZ quando adequada à interface
+- [ ] Referências aos BUs originais e resultados presidenciais extraídos, **sem armazenar boletins completos na base pública**
+- [ ] Expandir consultas e relatórios analíticos do Auditor sobre os arquivos completos
+- [ ] Exportação, metadados de origem, tratamento de divergências e documentação da reprodução independente
 
 ## M4 — Análises públicas e distribuição
 
@@ -54,4 +71,4 @@ continuam fora do M1; identidade oficial ainda depende dos materiais UrnaLivre.
 
 ## Fora do escopo inicial
 
-Sistema de coleta de votos, criptografia homomórfica, autenticação de eleitores, previsão eleitoral, certificação de integridade do processo e outros cargos/anos. Pesquisas futuras do UrnaLivre sobre votação verificável serão separadas deste aplicativo.
+Sistema de coleta de votos, criptografia homomórfica, autenticação de eleitores, previsão eleitoral e certificação de integridade do processo. Outros cargos/anos ficam fora do **recorte público inicial**, mas o importador será arquitetado para admiti-los no futuro. Pesquisas futuras do UrnaLivre sobre votação verificável serão separadas deste aplicativo.
