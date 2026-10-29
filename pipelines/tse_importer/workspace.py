@@ -43,6 +43,8 @@ class WorkRun:
         self.output, self.policy = output.resolve(), policy
         self.run_id = uuid.uuid4().hex
         self.root = self.output / policy.work_directory / self.run_id
+        if not self.root.resolve().is_relative_to(self.output):
+            raise ImportFailure("Área de trabalho fora do diretório de saída")
         self.ledger = self.output / ".runs" / (self.run_id + ".json")
         self.owned = {}
         self.completed_checkpoints = set()

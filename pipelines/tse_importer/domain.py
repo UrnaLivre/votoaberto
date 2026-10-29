@@ -107,8 +107,18 @@ class StoragePolicy:
             raise ImportFailure("Orçamento de disco/relatório inválido")
         if self.cleanup_policy not in ("owned", "retain"):
             raise ImportFailure("cleanup_policy deve ser owned ou retain")
+        if not isinstance(self.work_directory, str):
+            raise ImportFailure("work_directory deve ser um nome textual")
         path = Path(self.work_directory)
-        if path.is_absolute() or ".." in path.parts or len(path.parts) != 1:
+        if (
+            path.is_absolute()
+            or path.drive
+            or ":" in self.work_directory
+            or "\\" in self.work_directory
+            or "/" in self.work_directory
+            or ".." in path.parts
+            or len(path.parts) != 1
+        ):
             raise ImportFailure("work_directory deve ser um nome direto dentro da saída")
         if any(
             type(value) is not bool
