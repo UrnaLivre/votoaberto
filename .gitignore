@@ -52,5 +52,6 @@ obj/
 *.user
 
 # Local logs and temporary artifacts
+.local/
 *.log
 *.tmp
