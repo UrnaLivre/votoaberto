@@ -11,6 +11,8 @@ Obrigado por considerar contribuir com o **VotoAberto**, projeto open source do 
 
 ## Fluxo sugerido
 
+**Regra do repositório central:** manter apenas `main` e **uma** branch ativa de desenvolvimento por vez. Revisar, integrar e excluir a branch concluída antes de começar a próxima. Colaboradores paralelos podem usar forks próprios. Consulte [o fluxo de branches e revisão](docs/WORKFLOW.md).
+
 1. Crie uma branch de nome descritivo, por exemplo `feat/state-map` ou `docs/data-lineage`.
 2. Implemente mudanças menores e focadas com testes e documentação aplicáveis.
 3. Execute formatação, análise estática e testes disponíveis antes do PR.
