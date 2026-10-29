@@ -1,0 +1,149 @@
+"""Format-independent selections and records."""
+
+from dataclasses import asdict, dataclass, field
+from pathlib import Path
+from typing import Literal
+
+TERRITORIES = frozenset(
+    "AC AL AP AM BA CE DF ES GO MA MT MS MG PA PB PR PE PI RJ RN RS RO RR SC SP SE TO ZZ".split()
+)
+OFFICES = {"president": {"code": "1", "rounds": (1, 2)}}
+
+
+class ImportFailure(ValueError):
+    """Actionable data/configuration error; never silently repaired."""
+
+
+@dataclass(frozen=True)
+class Limits:
+    max_members: int = 1000
+    max_index_bytes: int = 8 * 1024**2
+    max_member_bytes: int = 8 * 1024**3
+    max_total_bytes: int = 16 * 1024**3
+    max_ratio: int = 300
+    max_line_bytes: int = 1024 * 1024
+    sqlite_cache_kib: int = 16384
+
+    def __post_init__(self) -> None:
+        if any(type(v) is not int or v <= 0 for v in asdict(self).values()):
+            raise ImportFailure("Limites devem ser inteiros positivos")
+
+
+@dataclass(frozen=True)
+class Selection:
+    election_year: int = 2026
+    offices: tuple[str, ...] = ("president",)
+    rounds: tuple[int, ...] = (1, 2)
+    territories: tuple[str, ...] = ("ALL",)
+    profile: Literal["public", "analyst"] = "public"
+
+    def __post_init__(self) -> None:
+        if self.offices != ("president",):
+            raise ImportFailure(
+                "Cargo não suportado: implemente parser e regras antes de selecioná-lo"
+            )
+        if not self.rounds or any(type(r) is not int or r not in (1, 2) for r in self.rounds):
+            raise ImportFailure("Turnos suportados: 1 e 2")
+        if not self.territories or (
+            self.territories != ("ALL",) and not set(self.territories) <= TERRITORIES
+        ):
+            raise ImportFailure("Abrangência deve ser ALL, UF ou ZZ; BR/VT não suportados")
+        if type(self.election_year) is not int or self.election_year != 2026:
+            raise ImportFailure("Somente o leiaute observado da eleição 2026 está habilitado")
+        if self.profile not in ("public", "analyst"):
+            raise ImportFailure("Perfil suportado: public ou analyst")
+        for values in (self.offices, self.rounds, self.territories):
+            if len(set(values)) != len(values):
+                raise ImportFailure("Seleção contém valores repetidos")
+
+
+@dataclass(frozen=True)
+class Config:
+    input_dir: Path
+    output_dir: Path
+    selection: Selection = field(default_factory=Selection)
+    limits: Limits = field(default_factory=Limits)
+    data_kind: Literal["official", "synthetic"] = "official"
+    references: dict = field(default_factory=dict)
+    source_metadata: dict = field(default_factory=dict)
+    resume: bool = True
+    require_verified: bool = False
+
+    def __post_init__(self) -> None:
+        if self.data_kind not in ("official", "synthetic"):
+            raise ImportFailure("data_kind: official ou synthetic")
+        if type(self.resume) is not bool or type(self.require_verified) is not bool:
+            raise ImportFailure("resume e require_verified devem ser booleanos")
+        if not isinstance(self.references, dict):
+            raise ImportFailure("references deve ser um objeto por caminho relativo do ZIP")
+        allowed_metadata = {
+            "source_url",
+            "catalog_url",
+            "consulted_at",
+            "license_label",
+            "attribution",
+        }
+        if not isinstance(self.source_metadata, dict) or any(
+            not isinstance(meta, dict)
+            or set(meta) - allowed_metadata
+            or any(not isinstance(value, str) for value in meta.values())
+            for meta in self.source_metadata.values()
+        ):
+            raise ImportFailure(
+                "source_metadata inválido: campos textuais de origem/consulta/atribuição"
+            )
+
+    @classmethod
+    def from_dict(cls, values: dict, base: Path | None = None) -> "Config":
+        base = base or Path.cwd()
+        allowed = {
+            "input_dir",
+            "output_dir",
+            "selection",
+            "limits",
+            "data_kind",
+            "references",
+            "source_metadata",
+            "resume",
+            "require_verified",
+        }
+        if set(values) - allowed:
+            raise ImportFailure(f"Opções desconhecidas: {sorted(set(values) - allowed)}")
+        values = dict(values)
+        for key in ("input_dir", "output_dir"):
+            if key not in values:
+                raise ImportFailure(f"Configuração exige {key}")
+            values[key] = (base / values[key]).resolve()
+        selection = dict(values.pop("selection", {}))
+        for key in ("offices", "rounds", "territories"):
+            if key in selection:
+                selection[key] = tuple(selection[key])
+        try:
+            limits = Limits(**values.pop("limits", {}))
+            return cls(**values, selection=Selection(**selection), limits=limits)
+        except TypeError as exc:
+            raise ImportFailure(f"Configuração inválida: {exc}") from exc
+
+
+@dataclass(frozen=True, slots=True)
+class VoteRecord:
+    election: str
+    year: int
+    round: int
+    uf: str
+    municipality: str
+    municipality_name: str
+    zone: str
+    section: str
+    local: str
+    votable: str
+    candidate_id: str | None
+    name: str
+    kind: str
+    votes: int
+    eligible: int | None
+    turnout: int | None
+    abstention: int | None
+    context: str
+    extra: str
+    line: int
