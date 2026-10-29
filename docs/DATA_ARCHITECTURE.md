@@ -106,6 +106,15 @@ O manifesto do dataset deve conter, no mínimo:
 
 Manter distinção entre `synthetic`, `official-derived` e `unverified` e não promover bases incompletas a `validated`. Nenhum hash isolado equivale a assinatura digital.
 
+Na implementação, natureza synthetic/official-derived e conferência de hashes são
+dimensões distintas. Avaliação v2 explicita integridade física, matemática,
+referencial, cobertura esperada/observada, hashes, reconciliação e prontidão pública.
+Um derivado parcial pode ser promovido **localmente** para investigação com lacunas
+declaradas; isso não o torna completo ou pronto para publicação pública. ALL não
+exige cobertura nacional. coverage_requirements com NATIONAL e turnos 1/2 exige
+presença dos 56 pares de 27 UFs + ZZ; não atesta exaustividade das seções.
+Critérios, estados e precedência dos caminhos: [guia operacional](DATA_ENGINE_OPERATIONS.md#avaliação-v2--integridade-cobertura-e-publicação).
+
 ## Organização aprovada
 
 ```text

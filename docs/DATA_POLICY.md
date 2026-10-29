@@ -25,6 +25,13 @@ exclusivamente sintético; não há publicação remota de banco ou integração
 9. Não excluir automaticamente os ZIPs originais fornecidos pelo operador; limpar apenas temporários gerados pelo importador, após conferência e publicação válida dos derivados.
 10. Exportar dados públicos de forma versionada e imutável, com manifesto dos hashes e relatório de cobertura; nunca promover uma importação incompleta ou falha como validada.
 
+Aplicação no M2: promoção local de uma investigação parcial não é publicação pública
+nem afirmação de completude. O manifesto v2 separa integridade física, matemática,
+referencial, cobertura, hashes, reconciliação e prontidão. Confiança `trusted` é
+atribuída pelo operador à referência; não autenticação automática da origem.
+ALL seleciona o disponível; cobertura exigida usa contrato explícito. Estados e
+limites no [guia operacional](DATA_ENGINE_OPERATIONS.md).
+
 ## Perfis de saída e separação de produtos
 
 A arquitetura aprovada separa **VotoAberto público** (derivados presidenciais compactos, sem BUs integrais) de **VotoAberto Auditor** (processamento e investigação local de fontes completas). Um mesmo motor de importação configura cargo, turno e perfil. Consulte [DATA_ARCHITECTURE.md](DATA_ARCHITECTURE.md) e [ADR 0003](adr/0003-public-data-and-auditor.md). A base pública é um derivado verificável; **não substitui as fontes originais**.

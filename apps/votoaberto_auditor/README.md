@@ -17,3 +17,11 @@ Presidente e ambos os turnos são padrão. `--synthetic` identifica fixtures;
 
 [Instalação, configuração, formatos, estados, segurança e retomada](../../docs/DATA_ARCHITECTURE.md).
 [Inspeção e importação real de SC](../../docs/TSE_2026_FORMAT_INVESTIGATION.md).
+
+Na versão 0.2.1, manifesto/relatório separam integridade física, referencial e
+matemática de cobertura, hashes, reconciliação e prontidão pública. ALL permite
+investigações parciais. `--require-territory NATIONAL --require-round 1
+--require-round 2` exige presença dos 56 pares UF/ZZ × turno; não comprova
+exaustividade das seções. `trusted` é declaração do operador sobre a referência.
+
+[Critérios e caminhos da integração oficial](../../docs/DATA_ENGINE_OPERATIONS.md).

@@ -37,7 +37,7 @@ Configuração: [exemplo](../config/president-2026.example.json). Padrão: presi
 2026, dois turnos, ALL, public. ALL significa abrangências disponíveis, sem
 prometer cobertura nacional. UF explícita exige presença em cada turno. JSON
 aceita `input_dir`, `output_dir`, `selection`, `limits`, `references`, `data_kind`,
-`resume`, `require_verified`, `source_metadata`; opções desconhecidas falham. Caminhos no JSON são
+`resume`, `require_verified`, `source_metadata`, `coverage_requirements`; opções desconhecidas falham. Caminhos no JSON são
 relativos à configuração; caminhos na CLI, ao diretório atual. Entrada e saída
 devem ser separadas, sem sobreposição. Não versionar caminhos pessoais.
 
@@ -148,7 +148,7 @@ Registrar apenas metadados efetivamente consultados; o motor não os inventa.
 | error | Falha de leitura/cálculo; fonte recusada |
 
 Mismatch, unsupported e erros bloqueiam importação. Sem referência, permitir
-derivado marcado unverified; `require_verified` bloqueia esse caso. Validação
+derivado com hashes não conferidos; `require_verified` bloqueia esse caso. Validação
 matemática/estrutural é distinta da confiança nos bytes. Hash não é assinatura.
 
 ## Reconciliação e qualidade
@@ -252,8 +252,125 @@ $env:TSE_REAL_CONFIG = "D:\config\sc-2026.json"
 python -m pytest -q -m official
 ```
 
-Sem TSE_REAL_INPUT, pular teste oficial. Fixtures gerados são fictícios, usam
+Sem TSE_REAL_INPUT e TSE_REAL_CONFIG, pular teste oficial. Fixtures gerados são fictícios, usam
 layouts observados, DF/ZZ/zeros, casos negativos e volume de 20.000 registros.
 CI separado faz instalação/CLI/formato/lint/testes no Ubuntu e Windows,
 Python 3.11/3.12, sem baixar TSE. Flutter CI fica preservado. Configuração de CI
-Linux não comprova execução Linux já realizada; consulte o relatório de evidências.
+Linux não comprova execução Linux desta revisão; consulte o relatório de evidências.
+
+## Avaliação v2 — integridade, cobertura e publicação
+
+Importador 0.2.1 mantém schema SQLite 1 e acrescenta `assessment_version: 2` no
+manifesto/relatório. Não há booleano global `valid` para datasets novos. Consumidores
+do JSON 0.2.0 precisam migrar: `coverage` tabular passou a `observed_coverage`;
+`assessment.coverage` contém o contrato de cobertura. O resumo histórico de SC
+permanece inalterado. Releases 0.2.0/schema 1 podem ser reavaliadas sem reescrita:
+as garantias novas são calculadas a partir do banco e das evidências retidas.
+
+| Dimensão em assessment | Estados e alcance |
+| --- | --- |
+| sqlite_integrity | passed/failed; PRAGMA integrity_check |
+| referential_integrity | passed/failed; foreign keys e eleição do candidato |
+| mathematics | passed/partially_checked/failed; somas e identidades disponíveis, contando seções com totais indisponíveis |
+| coverage | observed_only/complete/incomplete; presença dos pares UF/ZZ × turno explicitamente declarados |
+| source_hashes | matched_operator_trusted, partially_matched_operator_trusted, matched_without_assigned_trust, unverified ou failed |
+| reconciliation | complete/partial/not_verifiable/divergent/not_assessed; linhas e pares seção/turno confrontados |
+| local_release | eligible/blocked com motivos; permite uma investigação parcial legítima |
+| public_readiness | ready_for_declared_scope/not_ready com motivos; nunca significa cobertura nacional implícita |
+
+`structurally_valid` resume estrutura não vazia, integridade física e vínculos;
+não inclui sucesso matemático, cobertura, hashes ou reconciliação. Um SQLite
+estruturalmente íntegro com somas erradas apresenta mathematics=failed e é recusado.
+`data_nature` é synthetic ou official-derived, separado da confiança dos hashes.
+Ausência de totais mantém matemática parcialmente conferida, mesmo quando não há
+divergência nas somas conhecidas. A fonte nacional de SC continua sem referência
+oficial suficiente; isso não invalida a estrutura do SQLite.
+
+Uma release local é bloqueada por erros do banco/matemática, divergências confirmadas,
+falha de hash/referência, cobertura exigida ausente ou falta de confiança exigida
+por require_verified. Linhas sem BU/contextos ambíguos continuam permitidos quando
+há fonte primária inequívoca, com reconciliação parcial/não verificável.
+
+Prontidão pública exige cumulativamente: critérios locais, natureza official-derived
+declarada, cobertura territorial explícita satisfeita, comparação de todos os hashes
+com referências de confiança atribuída pelo operador, reconciliação completa e
+matemática disponível conferida. É prontidão técnica **no recorte declarado**,
+sem atestar licença, origem criptográfica ou integridade eleitoral; nenhum deploy
+é executado. current.json aponta uma release local, podendo estar publicamente
+not_ready. Um SQLite isolado informa public_readiness=not_assessed; use a release
+para avaliar catálogo e evidências de reconciliação.
+
+Código de saída 0 de validate significa elegibilidade local sob o contrato
+registrado (ou controles conhecidos do SQLite isolado); não afirma prontidão
+pública. Uma automação de distribuição deve examinar public_readiness e seu
+scope, mesmo após sucesso do comando.
+
+validate recalcula estrutura, matemática e cobertura observada; fontes não são
+relidas nesse comando. source_hashes.evidence=retained_catalog_no_source_reread e
+reconciliation.evidence=retained_report_and_database deixam isso explícito.
+Na importação, as evidências vêm dos streams e hashes correntes. report separa
+import_report de current_validation, inclusive para releases históricas.
+
+## Exigir cobertura sem alterar os filtros
+
+ALL permanece um filtro para as abrangências disponíveis. Exigências de saída são
+independentes e podem ser declaradas em JSON:
+
+```json
+"coverage_requirements": {
+  "territories": ["SC", "DF", "ZZ"],
+  "rounds": [1, 2]
+}
+```
+
+Isso exige os seis pares. NATIONAL expande para as 27 UFs e ZZ; com dois turnos,
+são 56 pares. [Exemplo nacional](../config/national-2026.example.json) exige também
+referências de hash, que o operador precisa fornecer após conferência.
+
+```powershell
+votoaberto-auditor import --input "D:\TSE" --output data/processed/national --require-territory NATIONAL --require-round 1 --require-round 2
+```
+
+Flags `--require-territory`/`--require-round` substituem os campos correspondentes
+do JSON. Filtros que excluem territórios/turnos exigidos são recusados. Sem exigência
+territorial explícita, uma seleção de UFs exige essas UFs nos turnos selecionados;
+ALL informa observed_only. Um contrato adicional define o recorte mínimo exigido;
+as observações adicionais continuam registradas. Turnos selecionados precisam
+ter dados. Pares ausentes impedem promoção local e preservam releases anteriores.
+
+coverage.scope=territory_round_presence não comprova presença de todas as seções
+eleitorais: section_completeness permanece not_assessed sem inventário independente.
+Mesmo NATIONAL completo não autoriza anunciar conferência exaustiva por seção.
+
+## Confiança atribuída pelo operador
+
+`trusted: true` é uma declaração do operador sobre a referência. URL HTTPS, domínio
+oficial ou coincidência SHA não autenticam automaticamente sua origem no motor.
+O nome legado verified em cada fonte significa exclusivamente digest coincidente
+sob essa declaração; acompanha status_scope e reference_trust=operator_declared.
+O agregado usa matched_operator_trusted para explicitar o limite. trusted=false
+com digest coincidente informa match sem confiança atribuída. Sempre são registrados
+origin_authentication=not_performed e signature_verification=not_performed.
+SHA-256/SHA-512 não são assinaturas digitais. As consultas de referência efetivamente
+feitas para SC continuam registradas na investigação original.
+
+## Caminhos do teste oficial
+
+O teste é habilitado com qualquer uma das duas variáveis:
+
+1. TSE_REAL_CONFIG aponta o JSON; caminhos relativos nele são resolvidos contra
+   a pasta do JSON, inclusive output_dir.
+2. TSE_REAL_INPUT, quando definido, **substitui** input_dir do JSON e é resolvido
+   contra o diretório de execução. Caminho inexistente falha, sem fallback ao JSON.
+3. Com apenas TSE_REAL_CONFIG, usar input_dir do JSON. Com apenas TSE_REAL_INPUT,
+   usar seleção SC/dois turnos e saída temporária do pytest. Sem ambos, pular.
+
+A resolução reutiliza import_config da CLI: variáveis são interpretadas somente
+pelo adaptador do teste oficial, não automaticamente pela CLI. Configuração
+oficial deve selecionar SC e ambos os turnos; output_dir do JSON é preservado.
+
+Durante a revisão local foram observadas negações intermitentes de acesso na
+renomeação de staging no Windows. A promoção continua os.replace atômico, com
+até seis tentativas apenas para WinError 5/32/33 (espera total máxima de 1,55 s).
+Erro persistente é propagado, destino existente não é sobrescrito e o ponteiro
+anterior permanece. Não foi atribuída uma causa específica ao bloqueio observado.
