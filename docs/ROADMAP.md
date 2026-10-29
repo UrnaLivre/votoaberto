@@ -28,11 +28,16 @@ continuam fora do M1; identidade oficial ainda depende dos materiais UrnaLivre.
 
 ## M2 — Ingestão e verificação das fontes TSE
 
-- [ ] Inventário dos ZIPs de 2026, origem, metadados e SHA-256
-- [ ] Inspeção de schema real, codificações e casos excepcionais
-- [ ] Normalização presidencial dos dois turnos e exterior, quando aplicável
-- [ ] Testes de reconciliação com resultados oficiais e relatório de cobertura
-- [ ] Banco/índices e implementação da API real
+- [x] Motor Python compartilhado e Auditor CLI, perfis public/analyst
+- [x] Inventário dos três ZIPs fornecidos, origem, SHA-256 e conferência SHA-512 dos BWEBs
+- [x] Inspeção de dois schemas reais, Latin-1 e particularidades documentadas
+- [x] Importação presidencial de SC nos dois turnos, SQLite compacto e manifesto
+- [x] Reconciliação BWEB × votação por seção de SC e testes sintéticos/CI preparado
+- [ ] Ampliar importação/conferência reais para todas as UFs e ZZ (presença no CSV nacional confirmada)
+- [ ] Implementar situações eleitorais e formatos atualmente não suportados
+- [ ] API real e adaptador Flutter
+
+Evidências e medições: [investigação dos formatos reais](TSE_2026_FORMAT_INVESTIGATION.md).
 
 **Critério M2:** resultados reprocessáveis e cobertura explicitamente documentada, sem números inventados.
 

@@ -1,13 +1,16 @@
 # Fontes, licenciamento e proveniência dos dados
 
-## Fontes primárias previstas
+## Fontes primárias
 
 - [Portal de Dados Abertos do TSE](https://dadosabertos.tse.jus.br/)
 - [Resultados eleitorais (categoria)](https://dadosabertos.tse.jus.br/dataset/?groups=resultados)
 
 Os conjuntos de **votação por seção**, **boletins de urna** e, se necessário, arquivos técnicos de totalização serão investigados separadamente. O recorte inicial é **presidente da República em 2026, ambos os turnos**, inclusive votação no exterior quando aplicável.
 
-**Status:** o projeto ainda não importou, validou nem publicou um banco de resultados. Não há nesta árvore dados eleitorais oficiais processados.
+**Status M2:** primeira importação local de SC/presidente nos dois turnos executada,
+com resultados e limites em [TSE_2026_FORMAT_INVESTIGATION](TSE_2026_FORMAT_INVESTIGATION.md).
+Os originais e derivados reais não são versionados. O aplicativo continua
+exclusivamente sintético; não há publicação remota de banco ou integração Flutter.
 
 ## Regras para o pipeline de ingestão
 

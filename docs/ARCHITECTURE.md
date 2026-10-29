@@ -1,6 +1,8 @@
 # Arquitetura do VotoAberto
 
-> M1 implementa Flutter + mock. Backend, API e pipelines do diagrama continuam futuros.
+> Flutter M1 mantém o mock. M2 implementa o motor Python e Auditor local,
+> descritos em [DATA_ARCHITECTURE](DATA_ARCHITECTURE.md) e no [ADR 0003](adr/0003-public-data-and-auditor.md).
+> Backend/API e integração dos dados reais à interface continuam futuros.
 > Decisões efetivas: [mapa vetorial](adr/0001-vector-map.md) e
 > [estado, domínio e navegação](adr/0002-state-data-navigation.md).
 
@@ -19,7 +21,7 @@
                [base normalizada/indexada]
                               ^
                               |
-                 [pipeline Python / DuckDB]
+                 [Data Engine Python / SQLite M2]
                               ^
                               |
              [arquivos oficiais do TSE, imutáveis]
@@ -33,7 +35,8 @@
 apps/
   votoaberto_flutter/         # Flutter Windows, Web e Android
 backend/                      # ASP.NET Core (futuro)
-pipelines/                    # importação/validação (futuro)
+pipelines/tse_importer/        # motor Python de importação e SQLite (M2)
+apps/votoaberto_auditor/       # CLI consumidora do motor (M2)
 docs/                         # escopo, decisões, fontes
 data/
   raw/                        # fora do Git
@@ -41,8 +44,8 @@ data/
   samples/                    # apenas pequenos dados sintéticos/licenciados
 ```
 
-A estrutura Flutter existe para Windows, Web e Android. `backend/` e `pipelines/`
-contêm somente README de escopo futuro, sem implementação fictícia. O contrato
+A estrutura Flutter existe para Windows, Web e Android. `backend/` continua
+documentado como futuro; o motor e a CLI estão implementados no M2. O contrato
 de dados fica em `features/elections/domain`; UI em `features/explorer/presentation`;
 renderização geográfica em `features/map`. O composition root é `lib/main.dart`.
 
@@ -77,7 +80,12 @@ não foram incorporados nem declarados testados. Detalhes e tradeoffs no ADR 000
 proveniência/condições em [CARTOGRAPHY.md](CARTOGRAPHY.md). Não há polígonos de
 zonas, seções, urnas ou exterior.
 
-## Backend e dados (etapas futuras)
+## Backend futuro e dados
+
+O fluxo efetivo de dados do M2 usa streams ZIP → checkpoints SQLite → reconciliação
+→ SQLite compacto e manifesto, sem modificar Flutter. Detalhes, schema e
+reprodução em [DATA_ARCHITECTURE](DATA_ARCHITECTURE.md). Os tópicos abaixo
+orientam a expansão posterior de backend e processamento nacional.
 
 - Processar ZIPs **fora do Git**, preservando originais e manifesto de SHA-256.
 - Avaliar Python + DuckDB para normalização e conferência, ASP.NET Core para API, PostgreSQL para índices e object storage para artefatos originais.

@@ -1,0 +1,473 @@
+{
+  "valid": true,
+  "coverage": [
+    {
+      "election": "6257",
+      "round": 1,
+      "rows": 136979,
+      "sections": 17326,
+      "uf": "SC",
+      "votes": 4648159
+    },
+    {
+      "election": "6258",
+      "round": 2,
+      "rows": 67266,
+      "sections": 17326,
+      "uf": "SC",
+      "votes": 4762303
+    }
+  ],
+  "candidate_totals": [
+    {
+      "kind": "nominal",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "number": "13",
+      "round": 1,
+      "uf": "SC",
+      "votes": 1127168
+    },
+    {
+      "kind": "nominal",
+      "name": "RENAN ANTONIO FERREIRA DOS SANTOS",
+      "number": "14",
+      "round": 1,
+      "uf": "SC",
+      "votes": 132795
+    },
+    {
+      "kind": "nominal",
+      "name": "HERTZ DA CONCEICAO DIAS",
+      "number": "16",
+      "round": 1,
+      "uf": "SC",
+      "votes": 1503
+    },
+    {
+      "kind": "nominal",
+      "name": "EDMILSON SILVA COSTA",
+      "number": "21",
+      "round": 1,
+      "uf": "SC",
+      "votes": 828
+    },
+    {
+      "kind": "nominal",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "number": "22",
+      "round": 1,
+      "uf": "SC",
+      "votes": 3000020
+    },
+    {
+      "kind": "nominal",
+      "name": "CLARIANA ZACARKIM BARAO",
+      "number": "27",
+      "round": 1,
+      "uf": "SC",
+      "votes": 1429
+    },
+    {
+      "kind": "nominal",
+      "name": "LEONARDO ALVES DE ARAUJO",
+      "number": "28",
+      "round": 1,
+      "uf": "SC",
+      "votes": 184
+    },
+    {
+      "kind": "nominal",
+      "name": "RUI COSTA PIMENTA",
+      "number": "29",
+      "round": 1,
+      "uf": "SC",
+      "votes": 643
+    },
+    {
+      "kind": "nominal",
+      "name": "ROMEU ZEMA NETO",
+      "number": "30",
+      "round": 1,
+      "uf": "SC",
+      "votes": 16718
+    },
+    {
+      "kind": "nominal",
+      "name": "WILSON GRASSI JUNIOR",
+      "number": "35",
+      "round": 1,
+      "uf": "SC",
+      "votes": 560
+    },
+    {
+      "kind": "nominal",
+      "name": "RONALDO RAMOS CAIADO",
+      "number": "55",
+      "round": 1,
+      "uf": "SC",
+      "votes": 79911
+    },
+    {
+      "kind": "nominal",
+      "name": "AUGUSTO JORGE CURY",
+      "number": "70",
+      "round": 1,
+      "uf": "SC",
+      "votes": 134273
+    },
+    {
+      "kind": "nominal",
+      "name": "SAMARA MARTINS DA SILVA FEITOSA",
+      "number": "80",
+      "round": 1,
+      "uf": "SC",
+      "votes": 5049
+    },
+    {
+      "kind": "blank",
+      "name": "VOTO BRANCO",
+      "number": "95",
+      "round": 1,
+      "uf": "SC",
+      "votes": 69007
+    },
+    {
+      "kind": "null",
+      "name": "VOTO NULO",
+      "number": "96",
+      "round": 1,
+      "uf": "SC",
+      "votes": 78071
+    },
+    {
+      "kind": "nominal",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "number": "13",
+      "round": 2,
+      "uf": "SC",
+      "votes": 1418314
+    },
+    {
+      "kind": "nominal",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "number": "22",
+      "round": 2,
+      "uf": "SC",
+      "votes": 3220071
+    },
+    {
+      "kind": "blank",
+      "name": "VOTO BRANCO",
+      "number": "95",
+      "round": 2,
+      "uf": "SC",
+      "votes": 48674
+    },
+    {
+      "kind": "null",
+      "name": "VOTO NULO",
+      "number": "96",
+      "round": 2,
+      "uf": "SC",
+      "votes": 75244
+    }
+  ],
+  "comparison": {
+    "matched": 34652
+  },
+  "reconciliation": {
+    "ambiguous_locations": 0,
+    "bu_math_errors": 0,
+    "different_rows": 0,
+    "matched_rows": 204245,
+    "only_bu_rows": 0,
+    "only_section_rows": 0
+  },
+  "performance": {
+    "checkpoints_reused": 0,
+    "elapsed_seconds": 60.841,
+    "memory": {
+      "method": "Windows PeakWorkingSetSize",
+      "peak_bytes": 80601088
+    },
+    "sqlite_bytes": 30089216
+  },
+  "release_id": "16048b78c3065046c7464fcd",
+  "rules_sha256": "72d615dfb9a558e6937ab5f9f6f65444a3f61342316131770dfc39a95f2eb7aa",
+  "artifacts": {
+    "divergences.jsonl": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "election.sqlite": {
+      "bytes": 30089216,
+      "sha256": "371dbe72ef0bcf2ff156191a8733d905307d63b9285c49d77e9645a0a446a534"
+    },
+    "validation.json": {
+      "bytes": 13563,
+      "sha256": "42ccbcabe610aec801476ee73dfd94d42e55e435c036cca544058037447222d7"
+    }
+  },
+  "sources": {
+    "files": [
+      {
+        "bytes": 153178332,
+        "compressed_bytes": 153178052,
+        "declared_bytes": 978876024,
+        "hashes": {
+          "sha256": "af9e03f17cefe6f4a0be48093a920974d61feb9b07d3ea69b1b84fb7c9a7599f",
+          "sha512": "618c1cacf80bc2964d3bb5e6274ba3e2adeed853077083bc01004e5110e79615868cf3c39b490e283c181c716275d4473da35d11f407111f4170fc91a8a93db7"
+        },
+        "issues": [],
+        "member_count": 2,
+        "members": [
+          {
+            "bytes": 978668939,
+            "compressed_bytes": 152986410,
+            "crc32": "a9dc5e6e",
+            "directory": false,
+            "extension": ".csv",
+            "issues": [],
+            "name": "bweb_1t_SC_051020261403.csv"
+          },
+          {
+            "bytes": 207085,
+            "compressed_bytes": 191642,
+            "crc32": "6d50843c",
+            "directory": false,
+            "extension": ".pdf",
+            "issues": [],
+            "name": "_leiame-boletimurnaweb.pdf"
+          }
+        ],
+        "metadata": {
+          "attribution": "Tribunal Superior Eleitoral",
+          "catalog_url": "https://dadosabertos.tse.jus.br/dataset/resultados-2026-boletim-de-urna/resource/6b41d6e9-1de3-4091-a543-9e1b7da96b2d",
+          "consulted_at": "2026-10-29",
+          "license_label": "Creative Commons Atribuição",
+          "source_url": "https://cdn.tse.jus.br/estatistica/sead/eleicoes/eleicoes2026/buweb/bweb_1t_SC_051020261403.zip"
+        },
+        "name": "bweb_1t_SC_051020261403.zip",
+        "path": "Boletim de Urna/1 turno/SC/bweb_1t_SC_051020261403.zip",
+        "status": "ok",
+        "verification": {
+          "matches": true,
+          "reference": {
+            "algorithm": "sha512",
+            "digest": "618c1cacf80bc2964d3bb5e6274ba3e2adeed853077083bc01004e5110e79615868cf3c39b490e283c181c716275d4473da35d11f407111f4170fc91a8a93db7",
+            "origin": "https://cdn.tse.jus.br/estatistica/sead/eleicoes/eleicoes2026/buweb/bweb_1t_SC_051020261403.zip.sha512",
+            "trusted": true
+          },
+          "status": "verified"
+        }
+      },
+      {
+        "bytes": 158,
+        "hashes": {
+          "sha256": "c3770b9af5de0972bd0e32b44f286c61f453dc9de887bfbc4aa56cded780c35b",
+          "sha512": "8744997ba8dbb215739d29e151947e7a35b24de71107e20a12d75c31210a98bb115df97814c21e25971e15244e678cc38aa610af8642453504f8e51830c3bf3f"
+        },
+        "name": "bweb_1t_SC_051020261403.zip.sha512",
+        "path": "Boletim de Urna/1 turno/SC/bweb_1t_SC_051020261403.zip.sha512",
+        "status": "auxiliary"
+      },
+      {
+        "bytes": 4487185,
+        "compressed_bytes": 4486905,
+        "declared_bytes": 29905193,
+        "hashes": {
+          "sha256": "6f169b88a07858e920b3c9e974f3ae5238f36dfe6e6d138a1758764c5b4de697",
+          "sha512": "01b1e9638654fa6914ad4d8a9001de33cb4fc5386d280ccdea7576d7c993c04e9162075db0a1fed8f571e87ce5349151e6a44bc4d5300b3e828a0123c6b90c8e"
+        },
+        "issues": [],
+        "member_count": 2,
+        "members": [
+          {
+            "bytes": 29698108,
+            "compressed_bytes": 4295263,
+            "crc32": "3ace29fd",
+            "directory": false,
+            "extension": ".csv",
+            "issues": [],
+            "name": "bweb_2t_SC_261020260742.csv"
+          },
+          {
+            "bytes": 207085,
+            "compressed_bytes": 191642,
+            "crc32": "6d50843c",
+            "directory": false,
+            "extension": ".pdf",
+            "issues": [],
+            "name": "_leiame-boletimurnaweb.pdf"
+          }
+        ],
+        "metadata": {
+          "attribution": "Tribunal Superior Eleitoral",
+          "catalog_url": "https://dadosabertos.tse.jus.br/dataset/resultados-2026-boletim-de-urna/resource/7c874499-a9dd-440e-9526-d46033e93625",
+          "consulted_at": "2026-10-29",
+          "license_label": "Creative Commons Atribuição",
+          "source_url": "https://cdn.tse.jus.br/estatistica/sead/eleicoes/eleicoes2026/buweb/bweb_2t_SC_261020260742.zip"
+        },
+        "name": "bweb_2t_SC_261020260742.zip",
+        "path": "Boletim de Urna/2 turno/SC/bweb_2t_SC_261020260742.zip",
+        "status": "ok",
+        "verification": {
+          "matches": true,
+          "reference": {
+            "algorithm": "sha512",
+            "digest": "01b1e9638654fa6914ad4d8a9001de33cb4fc5386d280ccdea7576d7c993c04e9162075db0a1fed8f571e87ce5349151e6a44bc4d5300b3e828a0123c6b90c8e",
+            "origin": "https://cdn.tse.jus.br/estatistica/sead/eleicoes/eleicoes2026/buweb/bweb_2t_SC_261020260742.zip.sha512",
+            "trusted": true
+          },
+          "status": "verified"
+        }
+      },
+      {
+        "bytes": 158,
+        "hashes": {
+          "sha256": "55f4337ba5e83c1df034798b9f0fb7d01d69c423e6d9b38d99920c7e30ca9c96",
+          "sha512": "d9cea6f1e581364168417ba0aec8647031dd01bb66721eea6ca0c67d3bc2a228513f6135a1059fee8dbf0b9d6427d8756dccccab672ac11644b3262e412fcfec"
+        },
+        "name": "bweb_2t_SC_261020260742.zip.sha512",
+        "path": "Boletim de Urna/2 turno/SC/bweb_2t_SC_261020260742.zip.sha512",
+        "status": "auxiliary"
+      },
+      {
+        "bytes": 241891087,
+        "compressed_bytes": 241890843,
+        "declared_bytes": 1578737508,
+        "hashes": {
+          "sha256": "c928321f63f2d095706fca73d4607c048d2ada23bda6876455d6911aaf1bc9c1",
+          "sha512": "4bdd302e64afb5b9c16081dc03433f23392415aacc56b0d894283c09bc8245e8448d5c54d44ea6e25939478fa408bef21dea00fc0b7e3c9f05abdbf2f51de536"
+        },
+        "issues": [],
+        "member_count": 2,
+        "members": [
+          {
+            "bytes": 1578545088,
+            "compressed_bytes": 241710212,
+            "crc32": "1f09ce4b",
+            "directory": false,
+            "extension": ".csv",
+            "issues": [],
+            "name": "votacao_secao_2026_BR.csv"
+          },
+          {
+            "bytes": 192420,
+            "compressed_bytes": 180631,
+            "crc32": "7d7e4419",
+            "directory": false,
+            "extension": ".pdf",
+            "issues": [],
+            "name": "leiame.pdf"
+          }
+        ],
+        "metadata": {
+          "attribution": "Tribunal Superior Eleitoral",
+          "catalog_url": "https://dadosabertos.tse.jus.br/dataset/resultados-2026/resource/01ea4ccd-f443-469c-9f29-c69ff97f7d4c",
+          "consulted_at": "2026-10-29",
+          "license_label": "Creative Commons Attribution",
+          "source_url": "https://cdn.tse.jus.br/estatistica/sead/odsele/votacao_secao/votacao_secao_2026_BR.zip"
+        },
+        "name": "votacao_secao_2026_BR.zip",
+        "path": "Votação por Seção/votacao_secao_2026_BR.zip",
+        "status": "ok",
+        "verification": {
+          "reason": "Sem referência suficiente",
+          "status": "unverified"
+        }
+      }
+    ],
+    "inventory_version": 1
+  },
+  "additional_observations": {
+    "totals": [
+      [
+        1,
+        17326,
+        5734651,
+        4648159,
+        1086492,
+        4501081,
+        69007,
+        78071,
+        720,
+        579
+      ],
+      [
+        2,
+        17326,
+        5734687,
+        4762303,
+        972384,
+        4638385,
+        48674,
+        75244,
+        1387,
+        651
+      ]
+    ],
+    "municipalities": 295,
+    "zones": 100,
+    "section_keys_only_first": 0,
+    "section_keys_only_second": 0,
+    "3d7c4a23d23f8d7a0266b33e02d949758576173161e5ce433da4099543f628f9": [
+      {
+        "round": 2,
+        "contexts": 17326,
+        "aggregated_section_groups": 226,
+        "aggregated_examples": [
+          [
+            "80020",
+            "65",
+            "110",
+            "112"
+          ],
+          [
+            "80020",
+            "65",
+            "111",
+            "113"
+          ],
+          [
+            "80020",
+            "65",
+            "99",
+            "116"
+          ]
+        ],
+        "distinct_equipment_number_strings": 17326,
+        "equipment_number_with_multiple_locations": 0
+      }
+    ],
+    "a2dd3f77445f93324e590ef3eb3c27ff693b2f8b27111bef8e4d2529cebb14c2": [
+      {
+        "round": 1,
+        "contexts": 17326,
+        "aggregated_section_groups": 226,
+        "aggregated_examples": [
+          [
+            "80020",
+            "65",
+            "110",
+            "112"
+          ],
+          [
+            "80020",
+            "65",
+            "111",
+            "113"
+          ],
+          [
+            "80020",
+            "65",
+            "99",
+            "116"
+          ]
+        ],
+        "distinct_equipment_number_strings": 17326,
+        "equipment_number_with_multiple_locations": 0
+      }
+    ]
+  }
+}
