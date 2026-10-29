@@ -2,7 +2,7 @@
 
 **Explore, compare e confira os resultados eleitorais brasileiros.**
 
-[English summary](#english-summary) · [Visão do projeto](docs/VISION.md) · [Arquitetura proposta](docs/ARCHITECTURE.md) · [Dados e proveniência](docs/DATA_POLICY.md) · [Roadmap](docs/ROADMAP.md) · [Como contribuir](CONTRIBUTING.md)
+[English summary](#english-summary) · [Visão do projeto](docs/VISION.md) · [Arquitetura proposta](docs/ARCHITECTURE.md) · [Arquitetura de dados](docs/DATA_ARCHITECTURE.md) · [Dados e proveniência](docs/DATA_POLICY.md) · [Roadmap](docs/ROADMAP.md) · [Como contribuir](CONTRIBUTING.md)
 
 > **M1 — demonstração funcional local.** O aplicativo Flutter explora as 27 UFs e compara dois turnos usando **somente dados sintéticos**. Não há aplicativo publicado nem resultados eleitorais oficiais processados neste repositório.
 
@@ -14,7 +14,7 @@ O **VotoAberto** é um projeto de software livre do ecossistema [UrnaLivre](http
 
 - **Mapa interativo do Brasil** com navegação de país → unidade federativa → município → zona → seção eleitoral, de acordo com a granularidade efetivamente presente nas fontes.
 - **Resultados presidenciais de 2026**, comparando o primeiro e o segundo turnos, com cobertura nacional e do eleitorado no exterior quando disponível.
-- **Consulta a boletins de urna (BU)**, com referência inequívoca ao arquivo/registro de origem, identificação e informações de integridade.
+- **Consulta por seção eleitoral** com votos presidenciais, metadados mínimos e proveniência; os boletins de urna poderão ser usados na conferência e ter suas referências indicadas, **sem armazenar os BUs integrais na base pública**.
 - **Painéis, filtros e gráficos** de votação, comparecimento, abstenção e variações entre turnos, respeitando as definições e limitações dos dados.
 - **Análises exploratórias reproduzíveis**, com metodologia visível, possibilidade de exportação e explicações sobre hipóteses alternativas.
 - **Experiência multiplataforma**: Windows, Web e Android, projetada para acessibilidade e uso por não especialistas.
@@ -30,6 +30,16 @@ O recorte inicial é **exclusivamente a eleição para presidente da República 
 5. **Rigor nas inferências.** Uma anomalia estatística não prova fraude; a ausência de uma anomalia também não é prova geral de ausência de irregularidades.
 6. **Transparência sobre limitações.** Uma seção eleitoral, seu boletim e um equipamento físico não devem ser tratados como equivalentes sem verificar os identificadores e eventos pertinentes.
 
+## Produtos e estratégia de dados
+
+O ecossistema adotará **um motor de importação configurável** e dois consumidores distintos:
+
+- **VotoAberto (público):** Windows, Web e Android, com base derivada **compacta**, inicialmente apenas para **presidente da República em 2026**, nos dois turnos. O cidadão não precisa baixar os ZIPs completos do TSE para consultar os resultados. A base poderá apresentar votos por candidato e seção, totais definidos pelas fontes e proveniência, **sem armazenar boletins de urna integrais**.
+- **VotoAberto Auditor (analistas):** ferramenta local planejada para Windows e Linux, começando por CLI, que lê os arquivos oficiais completos, confere integridade, executa análises detalhadas e gera/reproduz as bases do VotoAberto.
+- **Data Engine compartilhado:** importador com seleção de cargos, turnos, abrangências e perfis de exportação. Configuração padrão: **presidente, 1º e 2º turnos, perfil público compacto**. Outros cargos só serão habilitados após a validação de seus formatos específicos.
+
+O formato inicial de entrega pública planejado é **SQLite versionado, acompanhado de manifesto e relatório de validação**, antes de decidir a distribuição por API. O Flutter M1 continua usando apenas dados sintéticos. Veja a [decisão arquitetural ADR 0003](docs/adr/0003-public-data-and-auditor.md), a [arquitetura de dados](docs/DATA_ARCHITECTURE.md) e o [roadmap](docs/ROADMAP.md).
+
 ## Dados oficiais e responsabilidade
 
 Fonte primária prevista: [Portal de Dados Abertos do TSE](https://dadosabertos.tse.jus.br/), especialmente os conjuntos de **resultados por seção eleitoral** e **boletins de urna**. Os arquivos brutos não serão incorporados ao histórico do Git; a proposta é fornecer um pipeline documentado para que outros possam obter os originais e reproduzir os resultados.
@@ -38,14 +48,14 @@ O projeto é **independente**: não é mantido, patrocinado, homologado nem endo
 
 ## Tecnologia e estágio atual
 
-A interface Flutter/Dart e o repositório demonstrativo estão implementados em `apps/votoaberto_flutter/`. API ASP.NET Core, processamento Python/DuckDB e armazenamento indexado continuam **propostos para etapas futuras**.
+A interface Flutter/Dart e o repositório demonstrativo estão implementados em `apps/votoaberto_flutter/`. O importador compartilhado e o VotoAberto Auditor (Python/Windows/Linux) são o próximo marco; SQLite compactado e versionado é a saída inicial proposta. API ASP.NET Core e distribuição pública continuam **propostas para etapas futuras**, após a validação dos dados e do tamanho dos artefatos.
 
 | Etapa | Estado |
 | --- | --- |
 | Documento de visão, princípios e plano inicial | Publicado |
 | Explorador Flutter com dados sintéticos | Implementado no M1; verificações em [VALIDATION.md](docs/VALIDATION.md) |
-| Importação e validação dos arquivos do TSE | Planejado |
-| Consulta por zona, seção e boletins originais | Planejado |
+| Importador configurável e base presidencial pública compacta | Planejado — M2 |
+| Consulta por zona e seção; referências aos boletins de origem | Planejado — M3 |
 | Publicação Web / Windows / Android | Planejado |
 
 Para detalhes e critérios de aceitação, consulte o [roadmap](docs/ROADMAP.md).
@@ -125,8 +135,8 @@ apps/votoaberto_flutter/
   lib/features/map/           GeoJSON, projeção, hit-test, câmera e renderizador
   assets/geo/                 geometria IBGE e atribuição
   test/                       domínio, controller, mapa e widgets
-backend/                      apenas reserva documentada para M2
-pipelines/                    apenas reserva documentada para M2
+backend/                      API planejada após validação dos dados
+pipelines/                    próximo marco: importador compartilhado
 ```
 
 Estado com `ChangeNotifier`/`ListenableBuilder` e navegação com `go_router`.
