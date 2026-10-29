@@ -1,6 +1,8 @@
-# Arquitetura proposta (não implementada)
+# Arquitetura do VotoAberto
 
-> Este documento registra decisões iniciais; serve como orientação para implementação e poderá evoluir por decisões arquiteturais (ADRs).
+> M1 implementa Flutter + mock. Backend, API e pipelines do diagrama continuam futuros.
+> Decisões efetivas: [mapa vetorial](adr/0001-vector-map.md) e
+> [estado, domínio e navegação](adr/0002-state-data-navigation.md).
 
 ## Componentes
 
@@ -39,7 +41,10 @@ data/
   samples/                    # apenas pequenos dados sintéticos/licenciados
 ```
 
-O Codex poderá estabelecer a estrutura completa do Flutter no primeiro ciclo. Evitar pastas vazias artificiais com código inventado.
+A estrutura Flutter existe para Windows, Web e Android. `backend/` e `pipelines/`
+contêm somente README de escopo futuro, sem implementação fictícia. O contrato
+de dados fica em `features/elections/domain`; UI em `features/explorer/presentation`;
+renderização geográfica em `features/map`. O composition root é `lib/main.dart`.
 
 ## Modelo de domínio (conceitual)
 
@@ -66,7 +71,11 @@ Nunca usar apenas o número de seção como chave global. Chaves de consulta dev
 
 ## Mapas
 
-Investigar GeoJSON de limites de UFs proveniente de fonte governamental/documentada e sua licença. Não presumir que os limites de zonas eleitorais possam ser desenhados como polígonos. Avaliar `maplibre` para Flutter, **mas validar Windows, Web e Android** antes de adotá-lo: o suporte desktop pode depender de WebView e ter limitações. SVG/GeoJSON com transformação e hit-test é alternativa válida para a primeira etapa se oferecer melhor confiabilidade e qualidade.
+M1 usa GeoJSON simplificado do IBGE com `CustomPainter`, transformação e hit-test,
+sem tiles nem WebView. MapLibre e flutter_map foram avaliados documentalmente;
+não foram incorporados nem declarados testados. Detalhes e tradeoffs no ADR 0001;
+proveniência/condições em [CARTOGRAPHY.md](CARTOGRAPHY.md). Não há polígonos de
+zonas, seções, urnas ou exterior.
 
 ## Backend e dados (etapas futuras)
 

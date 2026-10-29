@@ -11,14 +11,18 @@ O roteiro abaixo é **planejamento**, não promessa de prazo nem declaração de
 
 ## M1 — Primeira experiência de produto (prioridade atual)
 
-- [ ] Projeto Flutter executável no Windows, com suporte planejado a Web e Android
-- [ ] Mapa do Brasil com **27 UFs selecionáveis** e zoom/destaque/reversão
-- [ ] Tela nacional com painel lateral, pesquisa de UF e identidade visual consistente
-- [ ] Tela estadual com comparação 1º/2º turno usando **somente dados fictícios claramente marcados**
-- [ ] Hierarquia de navegação futura: município → zona → seção → boletim (sem inventar dados reais)
-- [ ] Layout responsivo desktop/mobile, estados de vazio/erro/carregamento
-- [ ] Separação `ElectionRepository` mock/API; modelos e testes essenciais
-- [ ] Documentação de execução, limitações, testes e decisões de biblioteca de mapas
+- [x] Projeto Flutter executável no Windows e Web, runner Android e CI multiplataforma
+- [x] Mapa do Brasil com **27 UFs selecionáveis** e zoom/destaque/reversão
+- [x] Tela nacional com painel lateral, pesquisa de UF e identidade visual temporária consistente
+- [x] Tela estadual com comparação 1º/2º turno usando **somente dados fictícios claramente marcados**
+- [x] Hierarquia futura representada por modelos/chaves e indicação explícita de indisponibilidade; Brasil/UF funcionais
+- [x] Layout responsivo desktop/mobile, estados de vazio/erro/carregamento
+- [x] Contrato `ElectionRepository`, mock funcional, extensão API abstrata; modelos e testes
+- [x] Documentação de execução, limitações, testes e decisões de biblioteca de mapas
+
+Evidências, plataformas efetivamente validadas e pendências de ambiente em
+[VALIDATION.md](VALIDATION.md). Consulta granular, dados reais e publicação
+continuam fora do M1; identidade oficial ainda depende dos materiais UrnaLivre.
 
 **Critério M1:** mapa realmente clicável, seleção correta de UFs, interação coerente, execução local e resultados demonstrativos transparentes. Não aceitar telas estáticas disfarçadas de interativas.
 

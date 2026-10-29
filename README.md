@@ -4,9 +4,11 @@
 
 [English summary](#english-summary) · [Visão do projeto](docs/VISION.md) · [Arquitetura proposta](docs/ARCHITECTURE.md) · [Dados e proveniência](docs/DATA_POLICY.md) · [Roadmap](docs/ROADMAP.md) · [Como contribuir](CONTRIBUTING.md)
 
-> **Em fase inicial de desenvolvimento.** Ainda não há aplicativo publicado nem resultados processados neste repositório. As primeiras interfaces poderão usar apenas dados sintéticos, identificados como demonstração.
+> **M1 — demonstração funcional local.** O aplicativo Flutter explora as 27 UFs e compara dois turnos usando **somente dados sintéticos**. Não há aplicativo publicado nem resultados eleitorais oficiais processados neste repositório.
 
 O **VotoAberto** é um projeto de software livre do ecossistema [UrnaLivre](https://urnalivre.com.br/) para facilitar a exploração, a comparação e a conferência independente dos **dados eleitorais oficiais publicados pelo Tribunal Superior Eleitoral (TSE)**. A proposta é transformar conjuntos de dados complexos em consultas transparentes, acessíveis e reproduzíveis — sem substituir os documentos de origem.
+
+![Prévia real do M1 — mapa IBGE e números inteiramente fictícios](docs/images/m1-desktop.jpg)
 
 ## O que queremos construir
 
@@ -36,17 +38,112 @@ O projeto é **independente**: não é mantido, patrocinado, homologado nem endo
 
 ## Tecnologia e estágio atual
 
-A arquitetura **proposta** considera Flutter/Dart para a interface, API ASP.NET Core, processamento Python/DuckDB e armazenamento indexado. São decisões iniciais que serão testadas e documentadas; não significa que esses componentes já tenham sido implementados.
+A interface Flutter/Dart e o repositório demonstrativo estão implementados em `apps/votoaberto_flutter/`. API ASP.NET Core, processamento Python/DuckDB e armazenamento indexado continuam **propostos para etapas futuras**.
 
 | Etapa | Estado |
 | --- | --- |
-| Documento de visão, princípios e plano inicial | Em elaboração |
-| Protótipo de interface com dados sintéticos | Planejado |
+| Documento de visão, princípios e plano inicial | Publicado |
+| Explorador Flutter com dados sintéticos | Implementado no M1; verificações em [VALIDATION.md](docs/VALIDATION.md) |
 | Importação e validação dos arquivos do TSE | Planejado |
 | Consulta por zona, seção e boletins originais | Planejado |
 | Publicação Web / Windows / Android | Planejado |
 
 Para detalhes e critérios de aceitação, consulte o [roadmap](docs/ROADMAP.md).
+
+## Executar o aplicativo
+
+Pré-requisitos: **Flutter 3.47.8 / Dart 3.13.7** (versão de referência do M1),
+Git e navegador compatível. Windows requer Visual Studio com **Desktop development
+with C++**, MSVC, CMake e Windows SDK. Android requer JDK 17, Android SDK e
+licenças aceitas; veja também o diagnóstico `flutter doctor -v`.
+
+```powershell
+cd apps/votoaberto_flutter
+flutter pub get
+flutter run -d windows
+# Ou navegador:
+flutter run -d chrome
+```
+
+Na máquina de desenvolvimento desta entrega o SDK fica em `.local/flutter/`,
+ignorado pelo Git, sem alterar o PATH global. Na raiz, para usar essa instalação:
+
+```powershell
+$env:PATH = "$PWD\.local\flutter\bin;$env:PATH"
+cd apps/votoaberto_flutter
+flutter doctor -v
+flutter run -d windows
+```
+
+### Builds e testes
+
+```powershell
+flutter pub get
+dart format --output=none --set-exit-if-changed lib test
+flutter analyze
+flutter test --coverage
+flutter build windows --release
+flutter build web --release --no-web-resources-cdn
+flutter build apk --debug
+# Com um dispositivo/emulador Android configurado:
+flutter devices
+flutter run -d <id-do-dispositivo>
+```
+
+APK debug serve para validação local; assinatura/distribuição de produção não
+estão configuradas. O workflow [Flutter M1](.github/workflows/flutter.yml)
+verifica formato, análise, testes e builds, sem publicar artefatos em produção.
+Resultados **efetivamente executados** e limitações: [relatório de validação](docs/VALIDATION.md).
+
+### O que experimentar
+
+Selecione uma UF pelo mapa ou pesquise nome/sigla (sem necessidade de acentos).
+O mapa enquadra a seleção, o painel apresenta o estado e o seletor de turno
+mantém essa seleção. Use **Comparar** para contagens, percentuais dos candidatos
+e variações; **Explorar os Dados** para o ranking de comparecimento fictício.
+**Brasil** retorna ao país. Tema e fontes ficam no cabeçalho.
+
+No mapa, Tab dá foco; setas percorrem UFs alfabeticamente; Enter seleciona;
+Escape/Home retorna ao Brasil. Busca/lista são alternativas para o DF e UFs
+pequenas. Gráficos possuem resumos semânticos. A preferência de redução de
+movimento desativa a animação do mapa. Desktop tem painel lateral com rolagem;
+mobile/tablet usam mapa e painel em sequência, com rolagem vertical.
+
+URLs Web usam o hash padrão do Flutter, por exemplo
+`/#/uf/SP?turno=2&visao=comparison`; voltar/avançar recupera o recorte da URL.
+Municípios, zonas, seções e boletins são explicitamente futuros, sem números
+inventados. `ZZ` está previsto no modelo e não é um polígono do mapa.
+
+### Código, dados e decisões
+
+```text
+apps/votoaberto_flutter/
+  lib/app/                    composição, tema, strings e roteamento
+  lib/core/                   formatação e componentes compartilhados
+  lib/features/elections/     domínio, contrato e mock determinístico
+  lib/features/explorer/      controller e experiência de exploração
+  lib/features/map/           GeoJSON, projeção, hit-test, câmera e renderizador
+  assets/geo/                 geometria IBGE e atribuição
+  test/                       domínio, controller, mapa e widgets
+backend/                      apenas reserva documentada para M2
+pipelines/                    apenas reserva documentada para M2
+```
+
+Estado com `ChangeNotifier`/`ListenableBuilder` e navegação com `go_router`.
+`intl` e localizações Flutter fornecem pt-BR. O renderizador usa `CustomPainter`,
+sem WebView, tiles, fontes externas ou chamadas de rede durante a exploração.
+O mock-v1 é determinístico e matematicamente consistente, mas não representa
+população, votação ou comportamento real. Brasil soma as 27 UFs; exterior não
+incluído. Não inferimos transferência de votos entre pessoas.
+
+- [Arquitetura e substituição pela API](docs/ARCHITECTURE.md)
+- [Decisão de cartografia](docs/adr/0001-vector-map.md)
+- [Estado, navegação e mock](docs/adr/0002-state-data-navigation.md)
+- [Origem, condições de uso e hash do GeoJSON](docs/CARTOGRAPHY.md)
+
+Continuam pendentes: importação TSE, cobertura exterior, API/banco, consulta
+granular e BU, exportação, identidade oficial, persistência de preferências,
+segundo idioma, avaliação de acessibilidade com usuários e distribuição.
 
 ## Relação com o UrnaLivre
 
@@ -64,6 +161,6 @@ Contribuições, sugestões de acessibilidade, revisão de métodos estatístico
 
 **VotoAberto** is an independent, open-source project within the **UrnaLivre** ecosystem to explore, compare, and trace Brazil's officially published election results back to their sources. The initial scope is the **2026 presidential election**, both rounds, with a navigable Brazil map and future polling-station/ballot-report consultation.
 
-The project is at an **early planning stage**. No real results have yet been processed here. Any early sample statistics must be visibly marked as **FICTIONAL**. Statistical outliers are **not**, by themselves, proof of misconduct. VotoAberto is **not affiliated with or endorsed by the Brazilian Superior Electoral Court (TSE)**.
+The **M1 local Flutter explorer** uses a real 27-state IBGE map and deterministic synthetic results. No real election results have been processed here. All sample statistics are visibly marked as **FICTIONAL**. Statistical outliers are **not**, by themselves, proof of misconduct. VotoAberto is **not affiliated with or endorsed by the Brazilian Superior Electoral Court (TSE)**. See the validation report for platform/build evidence and current limitations.
 
 The source code is MIT-licensed; third-party datasets, maps and trademarks retain their own terms.
