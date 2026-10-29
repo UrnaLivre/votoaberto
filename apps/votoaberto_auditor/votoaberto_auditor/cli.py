@@ -13,6 +13,7 @@ from tse_importer.discovery import drain, inventory, member_stream
 from tse_importer.domain import Config, ImportFailure, Limits
 from tse_importer.engine import run_import, validate_release, write_json
 from tse_importer.parsers import inspect_member
+from tse_importer.planning import plan
 from tse_importer.validation import validate_database
 
 
@@ -48,6 +49,30 @@ def parser() -> argparse.ArgumentParser:
         "--require-territory", action="append", help="Exigir UF/ZZ, ou NATIONAL (27 UFs + ZZ)"
     )
     command.add_argument("--require-round", choices=[1, 2], type=int, action="append")
+    command.add_argument(
+        "--source",
+        action="append",
+        help="ZIP relativo explícito; repetível, sem cópia dos originais",
+    )
+    command.add_argument("--inventory-cache", type=Path)
+    for option in (
+        "max-work-disk-bytes",
+        "min-free-disk-bytes",
+        "detailed-report-bytes",
+        "projected-peak-bytes",
+    ):
+        command.add_argument("--" + option, type=int)
+    command.add_argument("--work-directory")
+    command.add_argument("--cleanup-policy", choices=["owned", "retain"])
+    command.add_argument(
+        "--retain-checkpoints", action=argparse.BooleanOptionalAction, default=None
+    )
+    command.add_argument(
+        "--retain-failed-diagnostics", action=argparse.BooleanOptionalAction, default=None
+    )
+    planning = sub.add_parser("plan")
+    planning.add_argument("--config", type=Path, required=True)
+    planning.add_argument("--json", type=Path, dest="json_path")
     for name in ("validate", "report"):
         command = sub.add_parser(name)
         command.add_argument("--dataset", required=True, type=Path)
@@ -84,6 +109,23 @@ def import_config(args) -> Config:
         coverage["territories"] = args.require_territory
     if args.require_round is not None:
         coverage["rounds"] = args.require_round
+    if args.source is not None:
+        values["source_paths"] = args.source
+    if args.inventory_cache is not None:
+        values["inventory_cache"] = str(args.inventory_cache.resolve())
+    storage = values.setdefault("storage", {})
+    for key in (
+        "max_work_disk_bytes",
+        "min_free_disk_bytes",
+        "detailed_report_bytes",
+        "projected_peak_bytes",
+        "work_directory",
+        "cleanup_policy",
+        "retain_checkpoints",
+        "retain_failed_diagnostics",
+    ):
+        if (value := getattr(args, key)) is not None:
+            storage[key] = value
     return Config.from_dict(values, base)
 
 
@@ -96,7 +138,12 @@ def main(argv: list[str] | None = None) -> int:
             )
             print(json.dumps({"release": str(release)}, ensure_ascii=False))
             return 0
-        if args.command in ("validate", "report"):
+        if args.command == "plan":
+            config = Config.from_dict(
+                json.loads(args.config.read_text(encoding="utf8")), args.config.resolve().parent
+            )
+            result = plan(config)
+        elif args.command in ("validate", "report"):
             target = args.dataset
             if (target / "current.json").is_file():
                 pointer = json.loads((target / "current.json").read_text(encoding="utf8"))
@@ -155,7 +202,11 @@ def main(argv: list[str] | None = None) -> int:
         if args.json_path:
             write_json(args.json_path, result)
         print(json.dumps(result, ensure_ascii=False, indent=2))
-        if "assessment" in result:
+        if "input_eligible" in result:
+            success = (
+                result["input_eligible"] and result["capacity_for_declared_projection"] is not False
+            )
+        elif "assessment" in result:
             success = result["assessment"]["local_release"]["status"] == "eligible"
         elif "structurally_valid" in result:
             success = (

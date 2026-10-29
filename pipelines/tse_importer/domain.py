@@ -81,6 +81,43 @@ class CoverageRequirements:
 
 
 @dataclass(frozen=True)
+class StoragePolicy:
+    max_work_disk_bytes: int = 8 * 1024**3
+    min_free_disk_bytes: int = 15 * 1024**3
+    work_directory: str = ".work"
+    cleanup_policy: str = "owned"
+    retain_checkpoints: bool = False
+    retain_failed_diagnostics: bool = True
+    detailed_report_bytes: int = 8 * 1024**2
+    projected_peak_bytes: int = 0
+
+    def __post_init__(self):
+        if (
+            any(
+                type(value) is not int or value < 0
+                for value in (
+                    self.max_work_disk_bytes,
+                    self.min_free_disk_bytes,
+                    self.detailed_report_bytes,
+                    self.projected_peak_bytes,
+                )
+            )
+            or not self.max_work_disk_bytes
+        ):
+            raise ImportFailure("Orçamento de disco/relatório inválido")
+        if self.cleanup_policy not in ("owned", "retain"):
+            raise ImportFailure("cleanup_policy deve ser owned ou retain")
+        path = Path(self.work_directory)
+        if path.is_absolute() or ".." in path.parts or len(path.parts) != 1:
+            raise ImportFailure("work_directory deve ser um nome direto dentro da saída")
+        if any(
+            type(value) is not bool
+            for value in (self.retain_checkpoints, self.retain_failed_diagnostics)
+        ):
+            raise ImportFailure("Retenção deve ser booleana")
+
+
+@dataclass(frozen=True)
 class Config:
     input_dir: Path
     output_dir: Path
@@ -92,6 +129,9 @@ class Config:
     resume: bool = True
     require_verified: bool = False
     coverage_requirements: CoverageRequirements = field(default_factory=CoverageRequirements)
+    storage: StoragePolicy = field(default_factory=StoragePolicy)
+    inventory_cache: str | None = None
+    source_paths: tuple[str, ...] = ()
 
     def __post_init__(self) -> None:
         if self.data_kind not in ("official", "synthetic"):
@@ -100,6 +140,16 @@ class Config:
             raise ImportFailure("resume e require_verified devem ser booleanos")
         if not isinstance(self.references, dict):
             raise ImportFailure("references deve ser um objeto por caminho relativo do ZIP")
+        if len(self.source_paths) != len(set(self.source_paths)) or any(
+            not isinstance(value, str)
+            or Path(value).is_absolute()
+            or ".." in Path(value).parts
+            or ":" in value
+            or "\\" in value
+            or not value.lower().endswith(".zip")
+            for value in self.source_paths
+        ):
+            raise ImportFailure("source_paths deve conter caminhos relativos únicos de ZIPs")
         expected = self.coverage_requirements.expected_territories(self.selection)
         if self.selection.territories != ("ALL",) and not set(expected) <= set(
             self.selection.territories
@@ -138,10 +188,14 @@ class Config:
             "resume",
             "require_verified",
             "coverage_requirements",
+            "storage",
+            "inventory_cache",
+            "source_paths",
         }
         if set(values) - allowed:
             raise ImportFailure(f"Opções desconhecidas: {sorted(set(values) - allowed)}")
         values = dict(values)
+        values["source_paths"] = tuple(values.get("source_paths", ()))
         for key in ("input_dir", "output_dir"):
             if key not in values:
                 raise ImportFailure(f"Configuração exige {key}")
@@ -156,11 +210,15 @@ class Config:
             for key in ("territories", "rounds"):
                 if key in coverage:
                     coverage[key] = tuple(coverage[key])
+            storage = StoragePolicy(**values.pop("storage", {}))
+            if values.get("inventory_cache"):
+                values["inventory_cache"] = str((base / values["inventory_cache"]).resolve())
             return cls(
                 **values,
                 selection=Selection(**selection),
                 limits=limits,
                 coverage_requirements=CoverageRequirements(**coverage),
+                storage=storage,
             )
         except TypeError as exc:
             raise ImportFailure(f"Configuração inválida: {exc}") from exc

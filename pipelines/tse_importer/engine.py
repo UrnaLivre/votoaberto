@@ -12,23 +12,28 @@ from pathlib import Path
 
 from . import ASSESSMENT_VERSION, SCHEMA_VERSION, __version__
 from .assessment import assess_release, source_hash_assessment
-from .discovery import drain, inventory, member_stream
+from .discovery import inventory
 from .domain import Config, CoverageRequirements, ImportFailure, Selection
-from .integrity import fingerprint, hashes
-from .parsers import inspect_member, parse
+from .integrity import hashes
 from .storage import (
-    RECORD_COLUMNS,
-    compact,
     connect,
-    create_stage,
-    create_unit,
-    insert_records,
-    project,
 )
-from .validation import reconcile, validate_database
+from .validation import validate_database
+from .workspace import ACTIVE_WORK, WorkRun, no_links
 
 
 def write_json(path: Path, value) -> None:
+    if work := ACTIVE_WORK.get():
+        if not path.exists():
+            work.file(path)
+        work.allowed(path)
+        no_links(path)
+        info = path.stat()
+        if work.owned.get(str(path)) != (info.st_dev, info.st_ino):
+            raise ImportFailure(
+                "Artefato substituído ou de propriedade desconhecida; escrita recusada"
+            )
+        work.check(len(json.dumps(value, ensure_ascii=False).encode("utf8")) * 2 + 1024)
     path.write_text(
         json.dumps(value, indent=2, sort_keys=True, ensure_ascii=False) + "\n", encoding="utf8"
     )
@@ -108,11 +113,18 @@ def validate_release(directory: Path) -> dict:
     if manifest.get("assessment_version", 1) not in (1, ASSESSMENT_VERSION):
         raise ImportFailure("Versão de avaliação não suportada")
     for name, digest in manifest["artifacts"].items():
-        if name not in ("election.sqlite", "validation.json", "divergences.jsonl"):
+        if name not in (
+            "election.sqlite",
+            "validation.json",
+            "divergences.jsonl",
+            "divergences-summary.json",
+        ):
             raise ImportFailure("Artefato desconhecido no manifesto")
         if hashes(directory / name)["sha256"] != digest["sha256"]:
             raise ImportFailure(f"Hash de artefato divergente: {name}")
     required = {"election.sqlite", "validation.json", "divergences.jsonl"}
+    if manifest.get("report_version") == 2:
+        required.add("divergences-summary.json")
     if set(manifest["artifacts"]) != required:
         raise ImportFailure("Manifesto incompleto")
     report = json.loads((directory / "validation.json").read_text(encoding="utf8"))
@@ -141,6 +153,7 @@ def validate_release(directory: Path) -> dict:
 
 def run_import(config: Config, progress=lambda message: None) -> Path:
     start = time.perf_counter()
+    no_links(config.output_dir.absolute())
     root, output = config.input_dir.resolve(), config.output_dir.resolve()
     if output == root or root.is_relative_to(output) or output.is_relative_to(root):
         raise ImportFailure("Entrada e saída devem ser diretórios separados, sem sobreposição")
@@ -155,7 +168,13 @@ def run_import(config: Config, progress=lambda message: None) -> Path:
     try:
         os.write(fd, str(os.getpid()).encode())
         os.close(fd)
-        return _run(config, root, output, start, progress)
+        with WorkRun(output, config.storage) as work:
+            try:
+                return _run(config, root, output, start, progress, work)
+            except Exception:
+                if work.failure:
+                    raise work.failure from None
+                raise
     finally:
         lock.unlink(missing_ok=True)
 
@@ -175,9 +194,12 @@ def promote_directory(stage: Path, release: Path) -> None:
             time.sleep(delays[attempt])
 
 
-def _run(config, root, output, start, progress):
+def _run(config, root, output, start, progress, work):
     progress("Inventariando e calculando SHA-256/SHA-512")
-    catalog = inventory(root, config.limits, config.references)
+    catalog = inventory(
+        root, config.limits, config.references, config.inventory_cache, config.source_paths
+    )
+    write_json(work.root / "inventory.json", catalog)
     archives = [item for item in catalog["files"] if item["name"].lower().endswith(".zip")]
     if set(config.source_metadata) - {item["path"] for item in archives}:
         raise ImportFailure("source_metadata contém fonte não encontrada")
@@ -204,10 +226,22 @@ def _run(config, root, output, start, progress):
         "assessment_version": ASSESSMENT_VERSION,
         "rules_sha256": rules_digest(),
     }
+    if (
+        config.data_kind == "official"
+        and config.coverage_requirements.territories == ("NATIONAL",)
+        and not config.storage.projected_peak_bytes
+    ):
+        raise ImportFailure(
+            "Carga NATIONAL oficial exige projected_peak_bytes fundamentado em piloto; execute plan"
+        )
     release_id = identity({"config": semantics, "sources": catalog})[:24]
+    work.checkpoint_key = identity(semantics)
+    work.save("running")
     releases = output / "releases"
+    no_links(releases)
     releases.mkdir(exist_ok=True)
     release = releases / release_id
+    no_links(release)
     if release.exists():
         result = validate_release(release)
         if result["assessment"]["local_release"]["status"] != "eligible":
@@ -215,106 +249,16 @@ def _run(config, root, output, start, progress):
         _publish_pointer(output, release_id)
         progress(f"Release idempotente reutilizada: {release_id}")
         return release
-    stage = output / ".staging" / (release_id + "-" + uuid.uuid4().hex[:8])
-    stage.mkdir(parents=True)
-    cache = output / ".checkpoints"
-    cache.mkdir(exist_ok=True)
-    write_json(stage / "inventory.json", catalog)
-    checkpoints = []
-    reused = 0
-    source_stats = []
-    for item in archives:
-        path = root / item["path"]
-        source_before = fingerprint(path)
-        for member in item["members"]:
-            if member["directory"]:
-                continue
-            description = inspect_member(path, member["name"], config.limits, sample_rows=0)
-            if description["status"] != "supported":
-                if member["extension"] != ".pdf":
-                    raise ImportFailure(
-                        f"Formato não suportado: {item['path']}:{member['name']}; {description['reason']}"
-                    )
-                with member_stream(path, member["name"], config.limits) as stream:
-                    drain(stream, config.limits)
-                source_stats.append(
-                    {
-                        "archive": item["path"],
-                        "member": member["name"],
-                        "status": "auxiliary_unsupported",
-                        "crc_checked": True,
-                    }
-                )
-                continue
-            source_id = identity([item["hashes"]["sha256"], member["name"]])
-            unit_id = identity([source_id, semantics])
-            unit_path = cache / (unit_id + ".sqlite")
-            unit_meta = cache / (unit_id + ".json")
-            valid_cache = False
-            if config.resume and unit_path.is_file() and unit_meta.is_file():
-                try:
-                    meta = json.loads(unit_meta.read_text(encoding="utf8"))
-                    valid_cache = (
-                        meta["unit_id"] == unit_id and hashes(unit_path)["sha256"] == meta["sha256"]
-                    )
-                except (OSError, ValueError, KeyError):
-                    valid_cache = False
-            if valid_cache:
-                stats = meta["stats"]
-                reused += 1
-                progress(f"Checkpoint conferido: {item['name']}:{member['name']}")
-            else:
-                stats = {}
-                pending = cache / (unit_id + "-" + uuid.uuid4().hex + ".partial")
-                progress(f"Processando em fluxo: {item['name']}:{member['name']}")
-                db = connect(pending, config.limits)
-                try:
-                    create_unit(db)
-                    insert_records(
-                        db, parse(path, member["name"], config.selection, config.limits, stats)
-                    )
-                    db.execute(
-                        "INSERT INTO checkpoint VALUES (?)",
-                        (json.dumps({"unit_id": unit_id, "stats": stats}),),
-                    )
-                    db.commit()
-                finally:
-                    db.close()
-                if fingerprint(path) != source_before or hashes(path) != item["hashes"]:
-                    raise ImportFailure("Fonte mudou durante parsing; checkpoint não publicado")
-                os.replace(pending, unit_path)
-                write_json(
-                    unit_meta,
-                    {"unit_id": unit_id, "sha256": hashes(unit_path)["sha256"], "stats": stats},
-                )
-            source_stats.append({"archive": item["path"], "member": member["name"], **stats})
-            checkpoints.append((unit_path, source_id, item, member, stats["format"]))
-        if fingerprint(path) != source_before or hashes(path) != item["hashes"]:
-            raise ImportFailure("Fonte alterada antes da consolidação")
+    stage = work.root / "staging"
+    stage.mkdir()
+    from .partitioned import build
+
+    reconciliation, source_stats, reused, timings = build(
+        config, root, archives, semantics, work, stage, progress, identity, write_json
+    )
     db_path = stage / "election.sqlite"
     connection = connect(db_path, config.limits)
     try:
-        create_stage(connection)
-        for unit_path, source_id, item, member, fmt in checkpoints:
-            connection.execute("ATTACH DATABASE ? AS unit", (str(unit_path),))
-            connection.execute(
-                f"INSERT INTO raw SELECT ?,?,{RECORD_COLUMNS} FROM unit.records", (source_id, fmt)
-            )
-            connection.execute(
-                "INSERT INTO sources VALUES (?,?,?,?,?,?)",
-                (
-                    source_id,
-                    item["path"],
-                    member["name"],
-                    item["hashes"]["sha256"],
-                    fmt,
-                    json.dumps(item["verification"], sort_keys=True),
-                ),
-            )
-            connection.commit()
-            connection.execute("DETACH DATABASE unit")
-        project(connection, config.selection.profile)
-        reconciliation = reconcile(connection, stage / "divergences.jsonl")
         connection.execute(f"PRAGMA user_version={SCHEMA_VERSION}")
         connection.executemany(
             "INSERT INTO metadata VALUES (?,?)",
@@ -322,19 +266,17 @@ def _run(config, root, output, start, progress):
                 ("schema_version", str(SCHEMA_VERSION)),
                 ("importer_version", __version__),
                 ("configuration", json.dumps(semantics, sort_keys=True)),
-                (
-                    "source_hash_status",
-                    source_hash_assessment(catalog)["status"],
-                ),
+                ("source_hash_status", source_hash_assessment(catalog)["status"]),
                 (
                     "data_nature",
                     "official-derived" if config.data_kind == "official" else "synthetic",
                 ),
             ],
         )
-        compact(connection)
+        connection.commit()
     finally:
         connection.close()
+    validation_start = time.perf_counter()
     validation = validate_database(db_path)
     validation["assessment"] = assess_release(
         validation,
@@ -355,6 +297,15 @@ def _run(config, root, output, start, progress):
         "memory": peak_memory(),
         "sqlite_bytes": db_path.stat().st_size,
         "checkpoints_reused": reused,
+        "source_csv_uncompressed_bytes_read": sum(
+            item.get("uncompressed_bytes_read", 0)
+            for item in source_stats
+            if not item.get("checkpoint_reused")
+        ),
+        "source_read_measurement": "CSV bytes decompressed to EOF (excludes header probes, PDF and ZIP index reads); compressed OS read bytes not measured",
+        **timings,
+        "validation_seconds": round(time.perf_counter() - validation_start, 3),
+        "storage_before_cleanup": work.metrics(),
     }
     write_json(stage / "validation.json", validation)
     if validation["assessment"]["local_release"]["status"] != "eligible":
@@ -370,6 +321,9 @@ def _run(config, root, output, start, progress):
     ]
     manifest = {
         "dataset": "VotoAberto presidencial",
+        "report_version": 2,
+        "storage_policy": asdict(config.storage),
+        "run_id": work.run_id,
         "data_nature": "official-derived" if config.data_kind == "official" else "synthetic",
         "release_id": release_id,
         **semantics,
@@ -382,17 +336,40 @@ def _run(config, root, output, start, progress):
         "limitations": limitations,
         "artifacts": {
             name: {"sha256": hashes(stage / name)["sha256"], "bytes": (stage / name).stat().st_size}
-            for name in ("election.sqlite", "validation.json", "divergences.jsonl")
+            for name in (
+                "election.sqlite",
+                "validation.json",
+                "divergences.jsonl",
+                "divergences-summary.json",
+            )
         },
     }
     write_json(stage / "manifest.json", manifest)
+    work.check()
+    if validate_release(stage)["assessment"]["local_release"]["status"] != "eligible":
+        raise ImportFailure("Validação final recusou promoção")
     promote_directory(stage, release)
-    _publish_pointer(output, release_id)
+    work.promoted_to(stage, release)
+    work.check()
+    try:
+        _publish_pointer(output, release_id)
+    except BaseException:
+        # Return this run's unreferenced directory to diagnostics; never touch an older release.
+        try:
+            promote_directory(release, stage)
+            work.demoted_to(release, stage)
+        except (OSError, ImportFailure) as exc:
+            work.refused.append({"path": str(release), "reason": f"Rollback de promoção: {exc}"})
+        raise
+    work.published = True
     progress(f"Release concluída: {release}")
     return release
 
 
 def _publish_pointer(output: Path, release_id: str):
-    pending = output / ("current-" + uuid.uuid4().hex + ".tmp")
+    work = ACTIVE_WORK.get()
+    pending = (
+        work.root / "current.tmp" if work else output / ("current-" + uuid.uuid4().hex + ".tmp")
+    )
     write_json(pending, {"release_id": release_id, "path": f"releases/{release_id}"})
     os.replace(pending, output / "current.json")

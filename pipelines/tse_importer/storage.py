@@ -5,6 +5,7 @@ from dataclasses import astuple, fields
 from pathlib import Path
 
 from .domain import ImportFailure, Limits, VoteRecord
+from .workspace import ACTIVE_WORK
 
 KEY = "election,uf,municipality,zone,section"
 RECORD_COLUMNS = ",".join(f.name for f in fields(VoteRecord))
@@ -19,12 +20,18 @@ RECORD_SCHEMA = """
 
 
 def connect(path: Path, limits: Limits = Limits()) -> sqlite3.Connection:
+    work = ACTIVE_WORK.get()
+    if work and not path.exists():
+        work.file(path)
     connection = sqlite3.connect(path)
+    connection.execute("PRAGMA auto_vacuum=INCREMENTAL")
     connection.execute("PRAGMA foreign_keys=ON")
     connection.execute("PRAGMA journal_mode=DELETE")
     connection.execute("PRAGMA synchronous=FULL")
     connection.execute("PRAGMA temp_store=FILE")
     connection.execute(f"PRAGMA cache_size=-{limits.sqlite_cache_kib}")
+    if work:
+        work.database(path, connection)
     return connection
 
 
@@ -42,7 +49,10 @@ def insert_records(connection: sqlite3.Connection, records) -> None:
         for record in records:
             batch.append(astuple(record))
             if len(batch) >= 2000:
+                if work := ACTIVE_WORK.get():
+                    work.reserve_batch()
                 connection.executemany(query, batch)
+                connection.commit()
                 batch.clear()
         connection.executemany(query, batch)
     except sqlite3.IntegrityError as exc:
@@ -149,6 +159,10 @@ def project(connection: sqlite3.Connection, profile: str) -> None:
 def compact(connection: sqlite3.Connection) -> None:
     connection.executescript("DROP VIEW chosen; DROP VIEW location_families; DROP TABLE raw;")
     connection.commit()
-    connection.execute("VACUUM")
+    # Incremental reclamation avoids VACUUM's extra full-database copy.
+    while connection.execute("PRAGMA freelist_count").fetchone()[0]:
+        if work := ACTIVE_WORK.get():
+            work.reserve_batch()
+        connection.execute("PRAGMA incremental_vacuum(1024)").fetchall()
     connection.execute("PRAGMA optimize")
     connection.commit()

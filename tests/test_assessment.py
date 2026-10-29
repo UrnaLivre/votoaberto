@@ -69,7 +69,7 @@ def test_all_allows_partial_national_failure_preserves_release(source_set, tmp_p
         run_import(replace(c, coverage_requirements=requirements))
     assert (c.output_dir / "current.json").read_bytes() == pointer
     assert validate_release(first)["assessment"]["local_release"]["status"] == "eligible"
-    failed = next((c.output_dir / ".staging").glob("*/validation.json"))
+    failed = next((c.output_dir / ".work").glob("*/staging/validation.json"))
     report = read_json(failed)
     assert report["structurally_valid"]
     coverage = report["assessment"]["coverage"]

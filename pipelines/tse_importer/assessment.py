@@ -158,6 +158,15 @@ def assess_release(
     if comparison["status"] in ("divergent", "not_assessed"):
         local_blockers.append("reconciliation_divergent_or_unassessed")
     public_blockers = list(local_blockers)
+    if any(
+        item.get("hash_calculation") == "reused_local_fingerprint_cache"
+        for item in catalog["files"]
+        if item["name"].lower().endswith(".zip")
+    ):
+        public_blockers.append("source_hashes_reused_from_local_cache")
+        source_hashes["calculation_evidence"] = "local_fingerprint_cache_not_current_byte_hash"
+        if evidence == "import_streams":
+            source_hashes["evidence"] = "local_fingerprint_cache_and_current_hashes"
     if data_kind != "official":
         public_blockers.append("synthetic_data")
     if coverage["status"] != "complete":
