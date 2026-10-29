@@ -1,0 +1,56 @@
+# Data files: originals and generated outputs never belong in Git
+/data/raw/
+/data/processed/
+/data/cache/
+/data/local/
+/data/tmp/
+/data/**/*.sqlite
+/data/**/*.sqlite3
+/data/**/*.db
+
+# User/local secrets
+.env
+.env.*
+!.env.example
+*.pfx
+*.pem
+*.key
+secrets.json
+
+# Python / notebooks / processing
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# Flutter / Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+coverage/
+**/flutter_*.png
+**/linked_*.ds
+**/generated_plugin_registrant.dart
+
+# IDE / OS
+.idea/
+.vscode/
+*.iml
+*.swp
+.DS_Store
+Thumbs.db
+.vs/
+bin/
+obj/
+*.user
+
+# Local logs and temporary artifacts
+*.log
+*.tmp
