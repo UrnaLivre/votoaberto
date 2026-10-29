@@ -2,7 +2,7 @@ name: Flutter M1
 
 on:
   push:
-    branches: [main, feat/m1-interactive-explorer]
+    # Validate the current working branch without tying CI to its temporary name.
     paths: ['apps/votoaberto_flutter/**', '.github/workflows/flutter.yml']
   pull_request:
     paths: ['apps/votoaberto_flutter/**', '.github/workflows/flutter.yml']
