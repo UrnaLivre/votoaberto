@@ -1,0 +1,10 @@
+* text=auto
+*.dart text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+# Preserve the exact downloaded cartographic bytes and their documented hash.
+*.geojson -text
+*.ttf binary
+*.png binary
+*.jpg binary
+*.ico binary
