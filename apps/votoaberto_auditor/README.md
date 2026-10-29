@@ -3,7 +3,7 @@
 CLI local para o motor compartilhado em `pipelines/tse_importer`. Python 3.11+;
 não depende do Flutter. Instalar na raiz: `python -m pip install '.[dev]'`.
 
-Comandos: `votoaberto-auditor inventory|inspect|verify|import|validate|report`.
+Comandos: `votoaberto-auditor inventory|inspect|verify|plan|import|validate|report`.
 Cada um oferece `--help`; não há perguntas interativas nem downloads automáticos.
 
 ```powershell
@@ -25,3 +25,8 @@ investigações parciais. `--require-territory NATIONAL --require-round 1
 exaustividade das seções. `trusted` é declaração do operador sobre a referência.
 
 [Critérios e caminhos da integração oficial](../../docs/DATA_ENGINE_OPERATIONS.md).
+
+0.3.1 acrescenta preflight (`plan`), processamento sequencial por UF/turno e
+política de disco padrão de 8 GiB adicionais com reserva livre de 15 GiB.
+Temporários têm propriedade registrada; os anteriores nunca são apagados
+automaticamente. [Importação nacional e recuperação](../../docs/NATIONAL_IMPORT.md).

@@ -1,4 +1,4 @@
-# Operação do Data Engine e VotoAberto Auditor — M2
+# Operação do Data Engine e VotoAberto Auditor — M2 / M3.1
 
 Biblioteca Python 3.11+ e CLI Windows/Linux, independentes do Flutter. Runtime
 sem dependências externas: `csv`, `zipfile`, `hashlib` e SQLite. O mock M1 permanece
@@ -23,6 +23,7 @@ votoaberto-auditor inventory --input "D:\TSE" --json inventory.json
 votoaberto-auditor inspect --input "D:\TSE" --json inspection.json
 votoaberto-auditor verify --input "D:\TSE" --crc --json verification.json
 votoaberto-auditor import --config config/president-2026.example.json
+votoaberto-auditor plan --config config/national-2026.example.json --json plan.json
 votoaberto-auditor import --input "D:\TSE" --output data/processed/sc --territory SC
 votoaberto-auditor validate --dataset data/processed/sc
 votoaberto-auditor report --dataset data/processed/sc --json report.json
@@ -37,7 +38,8 @@ Configuração: [exemplo](../config/president-2026.example.json). Padrão: presi
 2026, dois turnos, ALL, public. ALL significa abrangências disponíveis, sem
 prometer cobertura nacional. UF explícita exige presença em cada turno. JSON
 aceita `input_dir`, `output_dir`, `selection`, `limits`, `references`, `data_kind`,
-`resume`, `require_verified`, `source_metadata`, `coverage_requirements`; opções desconhecidas falham. Caminhos no JSON são
+`resume`, `require_verified`, `source_metadata`, `coverage_requirements`, `storage`,
+`source_paths`, `inventory_cache`; opções desconhecidas falham. Caminhos no JSON são
 relativos à configuração; caminhos na CLI, ao diretório atual. Entrada e saída
 devem ser separadas, sem sobreposição. Não versionar caminhos pessoais.
 
@@ -58,6 +60,10 @@ pipelines/tse_importer/
   storage.py      staging e exportação SQLite
   validation.py   matemática, reconciliação e validação independente do banco
   engine.py       checkpoints, relatórios e promoção local
+  partitioned.py  unidades primárias e consolidação sequencial por UF/turno
+  workspace.py    orçamento, propriedade, temporários e limpeza segura
+  reporting.py    resumo exato e detalhe limitado
+  planning.py     preflight sem gerar bancos
 apps/votoaberto_auditor/votoaberto_auditor/cli.py
 tests/            fixtures gerados, falhas, integração e volume
 ```
@@ -123,10 +129,14 @@ download ou exclusão automática de originais.
 
 ## Hashes, confiança e proveniência
 
-Calcular SHA-256/SHA-512 em blocos. Comparar tamanho, mtime e identidade antes/depois;
-recalcular hashes após parsing e antes de reutilizar checkpoints. Isso detecta
-mudanças observáveis; não oferece snapshot contra autor hostil restaurando
-bytes/mtime entre leituras. CRC verifica corrupção, não autenticidade.
+Calcular SHA-256/SHA-512 em blocos durante o inventário. Comparar tamanho, mtime e
+identidade durante inventário, antes/depois dos streams e antes da consolidação.
+Checkpoint retido é relido e seu hash e marcador transacional são conferidos.
+Não reler desnecessariamente todos os ZIPs depois de cada membro. O cache opcional
+de hashes usa a identidade local do arquivo; não equivale a recalcular seus bytes
+e bloqueia prontidão pública. Isso detecta mudanças observáveis; não oferece
+snapshot contra autor hostil restaurando bytes/mtime entre leituras. CRC verifica
+corrupção, não autenticidade. Detalhes no [guia nacional](NATIONAL_IMPORT.md).
 
 Referências são objetos por caminho relativo do ZIP com `algorithm` (sha256 ou
 sha512), `digest` hexadecimal completo, `origin` e `trusted` booleano. Confiança
@@ -175,7 +185,11 @@ aptos = comparecimento + abstenções; estabilidade dos totais no contexto;
 integridade SQLite/foreign keys/unicidade; totais por categoria/seção, agregações
 e vínculo de eleição do candidato. Nominal não certifica situação jurídica.
 
-`divergences.jsonl` contém código, severidade, registros, fontes e linhas.
+`divergences-summary.json` contém contagens exatas por UF/turno e código.
+Ausência de fonte BWEB fica agregada; ausência de seção/votável, diferença de
+votos/local, ambiguidade e matemática possuem códigos separados.
+`divergences.jsonl` contém detalhe limitado, com registros, fontes e linhas.
+Limite padrão: 8 MiB; truncamento e contagem omitida ficam explícitos no resumo.
 Severidades: fatal/interrupção, divergence/diferença, warning/ambiguidade,
 not_verifiable/cobertura insuficiente; informações de sucesso/cobertura ficam em
 validation.json. Registros inválidos não são descartados silenciosamente.
@@ -204,13 +218,15 @@ nos agregados; não pertence ao mock nacional. Nenhuma alteração Flutter nesta
 ```text
 output/
   .import.lock
-  .checkpoints/<hash>.sqlite + <hash>.json
-  .staging/<release>-<execução>/
+  .runs/<run-id>.json
+  .work/<run-id>/checkpoints/<hash>.sqlite + <hash>.json
+                   staging/
+                   tmp/
   releases/<release>/election.sqlite
                      manifest.json
                      validation.json
                      divergences.jsonl
-                     inventory.json
+                     divergences-summary.json
   current.json
 ```
 
@@ -218,20 +234,25 @@ Lock exclusivo impede escritores simultâneos. Após queda abrupta, confirmar
 ausência de processo ativo antes de remover somente `.import.lock`. Ctrl+C fecha
 conexões, retira lock e preserva versão anterior. `.partial` nunca é reutilizado.
 Unidade completa usa hash da fonte/membro/configuração/schema/versão/código e hash
-do checkpoint SQLite. Corrupção reinicia aquela unidade. `--no-resume` reprocessa
+do checkpoint SQLite. Retenção é explícita (`retain_checkpoints: true`); o padrão
+elimina bancos intermediários após sucesso/falha. Retomada só reutiliza unidades
+completas com registro de propriedade, hash e marcador válidos; checkpoints M2
+antigos ficam intactos e não são adotados. Corrupção reinicia aquela unidade. `--no-resume` reprocessa
 unidades, mas release já concluída e íntegra continua idempotente.
 
-Consolidar em staging, finalizar/fechar transações, VACUUM, validar, calcular
+Consolidar por UF/turno em staging, fechar transações, recuperar páginas livres
+com incremental_vacuum sem criar cópia integral do banco, validar, calcular
 hashes finais, escrever relatórios/manifesto, mover diretório e trocar current.json
 atomicamente no mesmo volume. Não sobrescrever release. Falha preserva diagnóstico
 e ponteiro anterior; não há deploy. Queda de energia/disco depende das garantias
-do SO/SQLite/filesystem. Temporários/cache/diagnósticos não são excluídos
-automaticamente; limpar apenas depois de encerrar o processo, preservando os
-relatórios necessários, sem tocar na entrada.
+do SO/SQLite/filesystem. Limpeza automática restrita aos arquivos desta execução
+com identidade confirmada; nenhuma limpeza recursiva genérica. Arquivos desconhecidos,
+originais e releases anteriores são preservados. Política e métricas de disco:
+[NATIONAL_IMPORT.md](NATIONAL_IMPORT.md).
 
 Manifesto: versões/schema/digest de regras, seleção/cobertura, origem local,
 hashes/referências/confiança, contagens, data de processamento UTC, natureza
-oficial/sintética declarada, limitações, atribuição, hashes dos três artefatos
+oficial/sintética declarada, limitações, atribuição, hashes dos quatro artefatos
 finais. URLs/datas de consulta realmente conhecidas ficam nas referências e no
 relatório investigativo. SQLite é determinístico para fontes/opções/regras iguais
 no mesmo runtime e representação de código (inclusive finais de linha);
@@ -260,8 +281,9 @@ Linux não comprova execução Linux desta revisão; consulte o relatório de ev
 
 ## Avaliação v2 — integridade, cobertura e publicação
 
-Importador 0.2.1 mantém schema SQLite 1 e acrescenta `assessment_version: 2` no
-manifesto/relatório. Não há booleano global `valid` para datasets novos. Consumidores
+A avaliação introduzida no importador 0.2.1 continua na versão 0.3.1, mantendo
+schema SQLite 1 e `assessment_version: 2` no manifesto/relatório. Não há booleano
+global `valid` para datasets novos. Consumidores
 do JSON 0.2.0 precisam migrar: `coverage` tabular passou a `observed_coverage`;
 `assessment.coverage` contém o contrato de cobertura. O resumo histórico de SC
 permanece inalterado. Releases 0.2.0/schema 1 podem ser reavaliadas sem reescrita:
@@ -324,8 +346,10 @@ independentes e podem ser declaradas em JSON:
 ```
 
 Isso exige os seis pares. NATIONAL expande para as 27 UFs e ZZ; com dois turnos,
-são 56 pares. [Exemplo nacional](../config/national-2026.example.json) exige também
-referências de hash, que o operador precisa fornecer após conferência.
+são 56 pares. O [exemplo nacional](../config/national-2026.example.json) permite
+análise local sem checksum oficial de todos os arquivos, mantendo public_readiness
+conservador. Exige projeção de disco fundamentada em piloto antes da carga oficial
+NATIONAL; o valor 0 do exemplo indica projeção ainda não feita.
 
 ```powershell
 votoaberto-auditor import --input "D:\TSE" --output data/processed/national --require-territory NATIONAL --require-round 1 --require-round 2

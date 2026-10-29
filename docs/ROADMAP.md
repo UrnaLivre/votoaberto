@@ -26,7 +26,7 @@ continuam fora do M1; identidade oficial ainda depende dos materiais UrnaLivre.
 
 **Critério M1:** mapa realmente clicável, seleção correta de UFs, interação coerente, execução local e resultados demonstrativos transparentes. Não aceitar telas estáticas disfarçadas de interativas.
 
-## M2 — Data Engine compartilhado e VotoAberto Auditor (implementado inicialmente; consolidação em revisão)
+## M2 — Data Engine compartilhado e VotoAberto Auditor (integrado pelo PR #2)
 
 **M2.1 — Descoberta e integridade**
 
@@ -47,7 +47,8 @@ continuam fora do M1; identidade oficial ainda depende dos materiais UrnaLivre.
 
 - [x] Reconciliar fontes presidenciais dos dois turnos de SC por município/zona/seção; ZZ identificado no CSV e coberto por fixtures, sem alegar conferência nacional
 - [x] Testar com os três ZIPs locais oficiais e medir processamento/espaço de SC
-- [ ] Expandir conferência real para todas as UFs/ZZ, formatos excepcionais e decidir distribuição/latência Flutter
+- [x] Expandir conferência real para os arquivos fornecidos de todas as UFs/ZZ, documentada no M3.1
+- [ ] Ampliar formatos excepcionais suportados e decidir distribuição/latência Flutter
 - [x] Registrar formatos e filtros por cargo implementados; não afirmar suporte a outros cargos antes de validação
 
 **Critério M2:** motor funcional e testado, dataset público presidencial reproduzível (ou lacunas claramente documentadas), sem dados fictícios apresentados como reais. A API e a conexão Flutter podem iniciar em um marco posterior.
@@ -61,6 +62,19 @@ Detalhes em [DATA_ARCHITECTURE.md](DATA_ARCHITECTURE.md) e [ADR 0003](adr/0003-p
 - [ ] Referências aos BUs originais e resultados presidenciais extraídos, **sem armazenar boletins completos na base pública**
 - [ ] Expandir consultas e relatórios analíticos do Auditor sobre os arquivos completos
 - [ ] Exportação, metadados de origem, tratamento de divergências e documentação da reprodução independente
+
+### M3.1 — Primeira importação nacional local
+
+- [x] Orçamento de disco, reserva livre, registro de propriedade e limpeza de artefatos próprios
+- [x] Consolidação sequencial por UF/turno e relatórios de reconciliação limitados
+- [x] Inventário nacional local, piloto AC/2º turno e leitura real dos BWEBs de ZZ
+- [x] Concluir carga nacional local com os 56 pares e 5.731.614 resultados presidenciais reconciliados
+- [x] Validar SQLite, matemática, referências e regressão SC; medir disco/memória e eliminar intermediários próprios
+- [ ] Revisar distribuição e política pública após conferir integralmente os dados
+
+[Operação](NATIONAL_IMPORT.md) e [evidências e limites](TSE_2026_NATIONAL_INVESTIGATION.md).
+A base é elegível localmente, com `public_readiness: not_ready`; a presença dos
+56 pares não comprova completude de todas as seções.
 
 ## M4 — Análises públicas e distribuição
 

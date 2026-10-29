@@ -4,7 +4,7 @@
 
 [English summary](#english-summary) · [Visão do projeto](docs/VISION.md) · [Arquitetura proposta](docs/ARCHITECTURE.md) · [Arquitetura de dados](docs/DATA_ARCHITECTURE.md) · [Dados e proveniência](docs/DATA_POLICY.md) · [Roadmap](docs/ROADMAP.md) · [Como contribuir](CONTRIBUTING.md)
 
-> **Flutter M1 — demonstração funcional local.** O aplicativo continua usando **somente dados sintéticos**. M2 implementa Data Engine, Auditor CLI e uma primeira importação local de SC, documentada separadamente. Originais e derivados oficiais ficam fora do Git; não há aplicativo ou base publicados remotamente.
+> **Flutter M1 — demonstração funcional local.** O aplicativo continua usando **somente dados sintéticos**. M2 entregou o Data Engine, o Auditor CLI e a importação local de SC; M3.1 gerou a primeira base presidencial nacional local, com prontidão pública `not_ready`. Originais e bases oficiais derivadas ficam fora do Git; não há aplicativo ou base publicados remotamente.
 
 O **VotoAberto** é um projeto de software livre do ecossistema [UrnaLivre](https://urnalivre.com.br/) para facilitar a exploração, a comparação e a conferência independente dos **dados eleitorais oficiais publicados pelo Tribunal Superior Eleitoral (TSE)**. A proposta é transformar conjuntos de dados complexos em consultas transparentes, acessíveis e reproduzíveis — sem substituir os documentos de origem.
 
@@ -50,11 +50,21 @@ O projeto é **independente**: não é mantido, patrocinado, homologado nem endo
 
 A interface Flutter/Dart e o mock estão em `apps/votoaberto_flutter/`. O Data Engine e o Auditor CLI implementam inventário, hashes, parsers de dois layouts reais, reconciliação e SQLite local. [Investigação de SC](docs/TSE_2026_FORMAT_INVESTIGATION.md) e [operação](docs/DATA_ENGINE_OPERATIONS.md) registram evidências e limites. API ASP.NET Core, distribuição pública e integração Flutter continuam futuras, condicionadas à validação e ao dimensionamento.
 
+M3.1 acrescenta processamento por UF/turno, orçamento e limpeza segura de disco.
+A carga local contém os 56 pares de 27 UFs + ZZ nos dois turnos e 5.731.614
+resultados presidenciais reconciliados, sem diferenças entre as fontes fornecidas.
+Isso não comprova completude de todas as seções nem autenticação das fontes.
+SQLite de 935.424.000 bytes, pico contabilizado de 2,68 GiB e prontidão pública
+`not_ready`. [Guia de operação nacional](docs/NATIONAL_IMPORT.md) e
+[relatório investigativo](docs/TSE_2026_NATIONAL_INVESTIGATION.md).
+Entrega, testes, recursos e limites no [relatório M3.1](docs/M3_1_COMPLETION_REPORT.md).
+
 | Etapa | Estado |
 | --- | --- |
 | Documento de visão, princípios e plano inicial | Publicado |
 | Explorador Flutter com dados sintéticos | Implementado no M1; verificações em [VALIDATION.md](docs/VALIDATION.md) |
 | Importador configurável e SQLite presidencial compacto | Implementados no M2; primeira validação local de SC, sem publicação remota |
+| Importação presidencial nacional, dois turnos e ZZ | Executada localmente no M3.1; política de prontidão pública ainda bloqueia publicação |
 | Consulta por zona e seção; referências aos boletins de origem | Planejado — M3 |
 | Publicação Web / Windows / Android | Planejado |
 
@@ -172,6 +182,6 @@ Contribuições, sugestões de acessibilidade, revisão de métodos estatístico
 
 **VotoAberto** is an independent, open-source project within the **UrnaLivre** ecosystem to explore, compare, and trace Brazil's officially published election results back to their sources. The initial scope is the **2026 presidential election**, both rounds, with a navigable Brazil map and future polling-station/ballot-report consultation.
 
-The **M1 local Flutter explorer** uses a real 27-state IBGE map and deterministic synthetic results. M2 adds a shared Python engine and local Auditor CLI; an actual SC import is documented separately, with generated data excluded from Git. The Flutter app still uses only synthetic data. All sample statistics are visibly marked as **FICTIONAL**. Statistical outliers are **not**, by themselves, proof of misconduct. VotoAberto is **not affiliated with or endorsed by the Brazilian Superior Electoral Court (TSE)**. See the validation report for platform/build evidence and current limitations.
+The **M1 local Flutter explorer** uses a real 27-state IBGE map and deterministic synthetic results. M2 adds a shared Python engine and local Auditor CLI; M3.1 produced a local presidential database covering both rounds and all 27 states plus overseas voting (ZZ). Its public readiness remains `not_ready`; generated databases are excluded from Git. The Flutter app still uses only synthetic data. All sample statistics are visibly marked as **FICTIONAL**. Statistical outliers are **not**, by themselves, proof of misconduct. VotoAberto is **not affiliated with or endorsed by the Brazilian Superior Electoral Court (TSE)**. See the validation report for platform/build evidence and current limitations.
 
 The source code is MIT-licensed; third-party datasets, maps and trademarks retain their own terms.
