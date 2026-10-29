@@ -1,39 +1,40 @@
 # Arquitetura do VotoAberto
 
-> M1 implementa Flutter + mock. Backend, API e pipelines do diagrama continuam futuros.
+> M1 implementa Flutter + mock. O próximo marco (M2) implementará o motor de importação e a CLI do Auditor; backend/API permanecem futuros.
 > Decisões efetivas: [mapa vetorial](adr/0001-vector-map.md) e
 > [estado, domínio e navegação](adr/0002-state-data-navigation.md).
 
 ## Componentes
 
 ```text
-[Flutter: Windows | Web | Android]
-          |
-          | ElectionRepository (contrato)
-          +------------------+
-          |                  |
- [MockRepository]       [ApiRepository]   <-- implementação futura
-                              |
-                       [ASP.NET Core API]  <-- futura
-                              |
-               [base normalizada/indexada]
-                              ^
-                              |
-                 [pipeline Python / DuckDB]
-                              ^
-                              |
-             [arquivos oficiais do TSE, imutáveis]
+[TSE: ZIPs oficiais completos, preservados fora do Git]
+                           |
+              [Data Engine compartilhado]
+               inventário / filtros / validação
+                      /           \
+         [perfil público]     [perfil analista]
+         SQLite compacto       dados técnicos
+         + manifesto           + relatórios
+              |                     |
+       [API/arquivo futuro]  [Auditor CLI: Win/Linux]
+              |
+   [Flutter: Windows | Web | Android]
+              |
+     ElectionRepository
+       mock (M1) / real (futuro)
 ```
 
-**Etapa inicial:** implementar apenas o **Flutter + mock**, sem requerer servidor, banco, download de dados nem rede para carregar as estatísticas de demonstração. A troca do mock por API deve ocorrer atrás do contrato de repositório.
+**M1:** apenas **Flutter + mock**, sem servidor, banco ou ZIP oficial. **M2:** importador compartilhado + Auditor CLI, com SQLite público de saída e manifestos. A troca do mock por dados reais continuará atrás do contrato de repositório, em etapa posterior à validação.
 
 ## Estrutura-alvo (ajustável durante o scaffold)
 
 ```text
 apps/
   votoaberto_flutter/         # Flutter Windows, Web e Android
+  votoaberto_auditor/         # CLI local Windows/Linux planejada para M2
 backend/                      # ASP.NET Core (futuro)
-pipelines/                    # importação/validação (futuro)
+pipelines/
+  tse_importer/              # importação compartilhada planejada para M2
 docs/                         # escopo, decisões, fontes
 data/
   raw/                        # fora do Git
@@ -77,12 +78,13 @@ não foram incorporados nem declarados testados. Detalhes e tradeoffs no ADR 000
 proveniência/condições em [CARTOGRAPHY.md](CARTOGRAPHY.md). Não há polígonos de
 zonas, seções, urnas ou exterior.
 
-## Backend e dados (etapas futuras)
+## Importação, Auditor e backend (M2 e etapas posteriores)
 
-- Processar ZIPs **fora do Git**, preservando originais e manifesto de SHA-256.
-- Avaliar Python + DuckDB para normalização e conferência, ASP.NET Core para API, PostgreSQL para índices e object storage para artefatos originais.
-- Só fixar schema, índices, arquitetura de hospedagem e custo após examinar arquivos reais.
-- API paginada e agregações pré-calculadas para evitar transferir bases completas ao cliente.
-- Um modo de auditoria local/reproduzível deverá poder reprocessar as fontes sem confiar nos totais da nossa API.
+- Implementar **um motor de importação reutilizável**, configurável por cargo, turno, território e perfil. O padrão é **presidente, ambos os turnos e perfil público compacto**; outros cargos dependem de suporte validado por schema.
+- O **VotoAberto Auditor** começa como CLI em Python para Windows/Linux e poderá trabalhar com os ZIPs integrais e metadados técnicos.
+- O **VotoAberto público não armazena BUs completos**: receberá somente o que for necessário à consulta presidencial por seção e suas referências de proveniência. Os ZIPs e BUs continuam sendo insumos e fontes de conferência do Auditor/pipeline.
+- Preservar arquivos originais fora do Git e jamais apagá-los automaticamente; calcular SHA-256 de cópia e conferir referências oficiais SHA-256/SHA-512 **quando estiverem disponíveis**, sem confundir hash com assinatura digital.
+- Escolher o schema concreto após a inspeção dos datasets. **SQLite versionado + manifesto de integridade + relatório de validação** é a primeira forma de exportação pública proposta; DuckDB/Parquet podem ser usados internamente para análise e reconciliação.
+- API ASP.NET Core, banco hospedado e distribuição pública serão decididos após medir volume, latência e cobertura. O Flutter não deverá carregar todos os dados por navegador/móvel sem estratégia de consulta.
 
-Detalhes da rastreabilidade em [DATA_POLICY.md](DATA_POLICY.md).
+Veja [DATA_ARCHITECTURE.md](DATA_ARCHITECTURE.md), [ADR 0003](adr/0003-public-data-and-auditor.md) e [DATA_POLICY.md](DATA_POLICY.md).
