@@ -159,6 +159,10 @@ def validate_database(path: Path) -> dict:
         election_errors = db.execute("""SELECT COUNT(*) FROM results r
           JOIN sections s ON s.id=r.section_id JOIN candidates c ON c.id=r.candidate_id
           WHERE c.election<>s.election""").fetchone()[0]
+        total_sections, unavailable_totals = db.execute("""SELECT COUNT(*),
+          COALESCE(SUM(eligible IS NULL OR turnout IS NULL OR abstention IS NULL),0)
+          FROM section_totals""").fetchone()
+        math_errors = mathematical + aggregate_errors + totals_errors + category_errors
         coverage = [
             dict(zip(("election", "round", "uf", "sections", "rows", "votes"), row, strict=True))
             for row in db.execute("""
@@ -174,13 +178,10 @@ def validate_database(path: Path) -> dict:
           JOIN candidates c ON c.id=r.candidate_id GROUP BY e.round,s.uf,c.id ORDER BY e.round,s.uf,c.number""")
         ]
         return {
-            "valid": integrity == "ok"
+            "assessment_scope": "sqlite_only",
+            "structurally_valid": integrity == "ok"
             and not foreign_keys
             and rows > 0
-            and not mathematical
-            and not aggregate_errors
-            and not totals_errors
-            and not category_errors
             and not election_errors,
             "sqlite_integrity": integrity,
             "foreign_key_errors": foreign_keys,
@@ -190,8 +191,35 @@ def validate_database(path: Path) -> dict:
             "category_total_errors": category_errors,
             "election_link_errors": election_errors,
             "result_rows": rows,
-            "coverage": coverage,
+            "observed_coverage": coverage,
             "candidate_totals": candidates,
+            "checks": {
+                "sqlite_integrity": {
+                    "status": "passed" if integrity == "ok" else "failed",
+                    "result": integrity,
+                },
+                "referential_integrity": {
+                    "status": "failed" if foreign_keys or election_errors else "passed",
+                    "foreign_key_errors": foreign_keys,
+                    "election_link_errors": election_errors,
+                },
+                "mathematics": {
+                    "status": "failed"
+                    if math_errors
+                    else "partially_checked"
+                    if unavailable_totals or not total_sections
+                    else "passed",
+                    "errors": math_errors,
+                    "sections_with_unavailable_totals": unavailable_totals,
+                    "observed_section_rounds": total_sections,
+                    "scope": "available_counts_and_derived_sums",
+                },
+                "data_structure": {"status": "passed" if rows else "failed", "result_rows": rows},
+            },
+            "public_readiness": {
+                "status": "not_assessed",
+                "reason": "SQLite isolado não permite avaliar referências e reconciliação; valide a release",
+            },
             "comparison": dict(
                 db.execute("SELECT comparison,COUNT(*) FROM section_totals GROUP BY comparison")
             ),

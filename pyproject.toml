@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "votoaberto-data"
-version = "0.2.0"
+version = "0.2.1"
 description = "Motor de dados TSE e VotoAberto Auditor"
 requires-python = ">=3.11"
 license = "MIT"

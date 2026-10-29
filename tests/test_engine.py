@@ -10,6 +10,7 @@ from pathlib import Path
 
 import pytest
 from conftest import row, write_zip
+from official_support import official_config
 from tse_importer.discovery import BoundedReader, inventory, member_stream
 from tse_importer.domain import Config, ImportFailure, Limits, Selection
 from tse_importer.engine import run_import, validate_release
@@ -191,7 +192,7 @@ def test_schema_drift(tmp_path, delimiter, header):
 def test_full_pipeline_concrete_queries(source_set, tmp_path):
     release = run_import(config(source_set, tmp_path))
     result = validate_release(release)
-    assert result["valid"]
+    assert result["structurally_valid"]
     assert result["result_rows"] == 24
     assert result["comparison"] == {"matched": 2, "not_verifiable": 4}
     with sqlite3.connect(release / "election.sqlite") as db:
@@ -225,7 +226,7 @@ def test_full_pipeline_concrete_queries(source_set, tmp_path):
         assert db.execute("PRAGMA foreign_key_check").fetchall() == []
     manifest = json.loads((release / "manifest.json").read_text(encoding="utf8"))
     assert manifest["data_kind"] == "synthetic"
-    assert manifest["source_integrity"] == "unverified"
+    assert manifest["assessment"]["source_hashes"]["status"] == "unverified"
     assert (
         manifest["artifacts"]["election.sqlite"]["sha256"]
         == hashes(release / "election.sqlite")["sha256"]
@@ -258,7 +259,7 @@ def test_changed_source_and_failure_preserve_previous(source_set, tmp_path):
     with pytest.raises(ImportFailure, match="duplicado"):
         run_import(c)
     assert (c.output_dir / "current.json").read_bytes() == pointer
-    assert validate_release(first)["valid"]
+    assert validate_release(first)["structurally_valid"]
 
 
 def test_divergence_blocks_publish(source_set, tmp_path):
@@ -301,7 +302,7 @@ def test_filters_and_analyst(source_set, tmp_path):
     with sqlite3.connect(release / "election.sqlite") as db:
         assert db.execute("SELECT COUNT(*) FROM results").fetchone()[0] == 4
         assert db.execute("SELECT COUNT(*) FROM analyst_presidential").fetchone()[0] == 8
-    assert validate_release(release)["valid"]
+    assert validate_release(release)["structurally_valid"]
 
 
 def test_hash_mismatch_and_required_verification(source_set, tmp_path):
@@ -402,7 +403,11 @@ def test_math_errors_and_tampering(source_set, tmp_path):
     with sqlite3.connect(release / "election.sqlite") as db:
         db.execute("UPDATE section_totals SET blank=999 WHERE section_id=1")
         db.commit()
-    assert not validate_database(release / "election.sqlite")["valid"]
+    result = validate_database(release / "election.sqlite")
+    assert result["structurally_valid"]
+    assert result["checks"]["sqlite_integrity"]["status"] == "passed"
+    assert result["checks"]["mathematics"]["status"] == "failed"
+    assert main(["validate", "--dataset", str(release / "election.sqlite")]) == 1
     with pytest.raises(ImportFailure, match="Hash"):
         validate_release(release)
 
@@ -464,30 +469,25 @@ def test_volume_generated_stream(tmp_path):
 
 @pytest.mark.official
 @pytest.mark.skipif(
-    not os.environ.get("TSE_REAL_INPUT"),
-    reason="Defina TSE_REAL_INPUT para integração local opt-in",
+    not (os.environ.get("TSE_REAL_INPUT") or os.environ.get("TSE_REAL_CONFIG")),
+    reason="Defina TSE_REAL_INPUT ou TSE_REAL_CONFIG para integração local opt-in",
 )
 def test_official_sc_both_rounds(tmp_path):
-    if config_path := os.environ.get("TSE_REAL_CONFIG"):
-        config_path = Path(config_path).resolve()
-        c = Config.from_dict(json.loads(config_path.read_text(encoding="utf8")), config_path.parent)
-        assert c.selection.territories == ("SC",)
-        assert c.selection.rounds == (1, 2)
-    else:
-        c = Config(
-            Path(os.environ["TSE_REAL_INPUT"]),
-            tmp_path / "official",
-            selection=Selection(territories=("SC",)),
-        )
+    c = official_config(os.environ, tmp_path / "official")
+    assert c.selection.territories == ("SC",)
+    assert c.selection.rounds == (1, 2)
     release = run_import(c)
     result = validate_release(release)
-    assert result["valid"]
-    assert [(r["round"], r["rows"]) for r in result["coverage"]] == [(1, 136979), (2, 67266)]
+    assert result["structurally_valid"]
+    assert [(r["round"], r["rows"]) for r in result["observed_coverage"]] == [
+        (1, 136979),
+        (2, 67266),
+    ]
     report = json.loads((release / "validation.json").read_text(encoding="utf8"))
     assert report["reconciliation"]["matched_rows"] == 204245
     assert report["reconciliation"]["different_rows"] == 0
-    assert [r["sections"] for r in result["coverage"]] == [17326, 17326]
-    assert [r["votes"] for r in result["coverage"]] == [4648159, 4762303]
+    assert [r["sections"] for r in result["observed_coverage"]] == [17326, 17326]
+    assert [r["votes"] for r in result["observed_coverage"]] == [4648159, 4762303]
     assert {
         (r["round"], r["number"]): r["votes"]
         for r in result["candidate_totals"]

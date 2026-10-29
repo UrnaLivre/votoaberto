@@ -10,9 +10,10 @@ from datetime import UTC, datetime
 from importlib.resources import files
 from pathlib import Path
 
-from . import SCHEMA_VERSION, __version__
+from . import ASSESSMENT_VERSION, SCHEMA_VERSION, __version__
+from .assessment import assess_release, source_hash_assessment
 from .discovery import drain, inventory, member_stream
-from .domain import Config, ImportFailure
+from .domain import Config, CoverageRequirements, ImportFailure, Selection
 from .integrity import fingerprint, hashes
 from .parsers import inspect_member, parse
 from .storage import (
@@ -102,8 +103,10 @@ def peak_memory() -> dict:
 
 def validate_release(directory: Path) -> dict:
     manifest = json.loads((directory / "manifest.json").read_text(encoding="utf8"))
-    if manifest["schema_version"] != SCHEMA_VERSION or manifest["importer_version"] != __version__:
-        raise ImportFailure("Release incompatível com este importador/schema")
+    if manifest["schema_version"] != SCHEMA_VERSION:
+        raise ImportFailure("Release incompatível com este schema")
+    if manifest.get("assessment_version", 1) not in (1, ASSESSMENT_VERSION):
+        raise ImportFailure("Versão de avaliação não suportada")
     for name, digest in manifest["artifacts"].items():
         if name not in ("election.sqlite", "validation.json", "divergences.jsonl"):
             raise ImportFailure("Artefato desconhecido no manifesto")
@@ -112,7 +115,28 @@ def validate_release(directory: Path) -> dict:
     required = {"election.sqlite", "validation.json", "divergences.jsonl"}
     if set(manifest["artifacts"]) != required:
         raise ImportFailure("Manifesto incompleto")
-    return validate_database(directory / "election.sqlite")
+    report = json.loads((directory / "validation.json").read_text(encoding="utf8"))
+    result = validate_database(directory / "election.sqlite")
+    options = dict(manifest["selection"])
+    for key in ("offices", "rounds", "territories"):
+        options[key] = tuple(options[key])
+    requirements = {
+        key: tuple(value) for key, value in manifest.get("coverage_requirements", {}).items()
+    }
+    result["assessment"] = assess_release(
+        result,
+        Selection(**options),
+        CoverageRequirements(**requirements),
+        manifest["sources"],
+        report.get("reconciliation"),
+        manifest["data_kind"],
+        require_verified=manifest.get("require_verified", False),
+        evidence="retained_report_and_database",
+    )
+    result["assessment_scope"] = "release_with_retained_source_evidence"
+    result["assessment_version"] = ASSESSMENT_VERSION
+    result.pop("public_readiness")
+    return result
 
 
 def run_import(config: Config, progress=lambda message: None) -> Path:
@@ -134,6 +158,21 @@ def run_import(config: Config, progress=lambda message: None) -> Path:
         return _run(config, root, output, start, progress)
     finally:
         lock.unlink(missing_ok=True)
+
+
+def promote_directory(stage: Path, release: Path) -> None:
+    """Retry transient Windows sharing/access errors without changing atomic promotion."""
+    delays = (0.05, 0.1, 0.2, 0.4, 0.8)
+    for attempt in range(len(delays) + 1):
+        if release.exists():
+            raise ImportFailure("Destino de release já existe; promoção recusada")
+        try:
+            os.replace(stage, release)
+            return
+        except PermissionError as exc:
+            if getattr(exc, "winerror", None) not in (5, 32, 33) or attempt == len(delays):
+                raise
+            time.sleep(delays[attempt])
 
 
 def _run(config, root, output, start, progress):
@@ -161,6 +200,8 @@ def _run(config, root, output, start, progress):
         "schema_version": SCHEMA_VERSION,
         "importer_version": __version__,
         "require_verified": config.require_verified,
+        "coverage_requirements": asdict(config.coverage_requirements),
+        "assessment_version": ASSESSMENT_VERSION,
         "rules_sha256": rules_digest(),
     }
     release_id = identity({"config": semantics, "sources": catalog})[:24]
@@ -169,7 +210,7 @@ def _run(config, root, output, start, progress):
     release = releases / release_id
     if release.exists():
         result = validate_release(release)
-        if not result["valid"]:
+        if result["assessment"]["local_release"]["status"] != "eligible":
             raise ImportFailure("Release anterior inválida; não reutilizada")
         _publish_pointer(output, release_id)
         progress(f"Release idempotente reutilizada: {release_id}")
@@ -282,10 +323,12 @@ def _run(config, root, output, start, progress):
                 ("importer_version", __version__),
                 ("configuration", json.dumps(semantics, sort_keys=True)),
                 (
-                    "source_integrity",
-                    "verified"
-                    if all(i["verification"]["status"] == "verified" for i in archives)
-                    else "unverified",
+                    "source_hash_status",
+                    source_hash_assessment(catalog)["status"],
+                ),
+                (
+                    "data_nature",
+                    "official-derived" if config.data_kind == "official" else "synthetic",
                 ),
             ],
         )
@@ -293,32 +336,18 @@ def _run(config, root, output, start, progress):
     finally:
         connection.close()
     validation = validate_database(db_path)
-    actual_rounds = {r["round"] for r in validation["coverage"]}
-    actual_territories = {r["uf"] for r in validation["coverage"]}
-    if actual_rounds != set(config.selection.rounds):
-        validation["valid"] = False
-        validation["missing_rounds"] = sorted(set(config.selection.rounds) - actual_rounds)
-    if (
-        config.selection.territories != ("ALL",)
-        and not set(config.selection.territories) <= actual_territories
-    ):
-        validation["valid"] = False
-        validation["missing_territories"] = sorted(
-            set(config.selection.territories) - actual_territories
-        )
-    if config.selection.territories != ("ALL",):
-        present = {(r["round"], r["uf"]) for r in validation["coverage"]}
-        missing = sorted(
-            (turn, uf)
-            for turn in config.selection.rounds
-            for uf in config.selection.territories
-            if (turn, uf) not in present
-        )
-        if missing:
-            validation["valid"] = False
-            validation["missing_round_territory_pairs"] = missing
-    if reconciliation["different_rows"] or reconciliation["bu_math_errors"]:
-        validation["valid"] = False
+    validation["assessment"] = assess_release(
+        validation,
+        config.selection,
+        config.coverage_requirements,
+        catalog,
+        reconciliation,
+        config.data_kind,
+        require_verified=config.require_verified,
+    )
+    validation["assessment_scope"] = "import_streams_and_database"
+    validation["assessment_version"] = ASSESSMENT_VERSION
+    validation.pop("public_readiness")
     validation["reconciliation"] = reconciliation
     validation["sources"] = source_stats
     validation["performance"] = {
@@ -328,7 +357,7 @@ def _run(config, root, output, start, progress):
         "checkpoints_reused": reused,
     }
     write_json(stage / "validation.json", validation)
-    if not validation["valid"]:
+    if validation["assessment"]["local_release"]["status"] != "eligible":
         raise ImportFailure(f"Validação recusou publicação; diagnóstico preservado em {stage}")
     limitations = [
         "Hash não é assinatura digital nem certificação eleitoral",
@@ -341,17 +370,15 @@ def _run(config, root, output, start, progress):
     ]
     manifest = {
         "dataset": "VotoAberto presidencial",
+        "data_nature": "official-derived" if config.data_kind == "official" else "synthetic",
         "release_id": release_id,
         **semantics,
         "processed_at": datetime.now(UTC).isoformat(),
         "sources": catalog,
         "source_stats": source_stats,
         "attribution": "Tribunal Superior Eleitoral (fontes declaradas como oficiais); fixtures sintéticos são demonstração",
-        "coverage": validation["coverage"],
-        "validation": {"valid": True, "reconciliation": reconciliation},
-        "source_integrity": "verified"
-        if all(i["verification"]["status"] == "verified" for i in archives)
-        else "unverified",
+        "observed_coverage": validation["observed_coverage"],
+        "assessment": validation["assessment"],
         "limitations": limitations,
         "artifacts": {
             name: {"sha256": hashes(stage / name)["sha256"], "bytes": (stage / name).stat().st_size}
@@ -359,7 +386,7 @@ def _run(config, root, output, start, progress):
         },
     }
     write_json(stage / "manifest.json", manifest)
-    os.replace(stage, release)
+    promote_directory(stage, release)
     _publish_pointer(output, release_id)
     progress(f"Release concluída: {release}")
     return release

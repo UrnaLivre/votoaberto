@@ -35,6 +35,24 @@ def checksum_line(text: str, filename: str, algorithm: str) -> str:
 
 
 def verify(path: Path, calculated: dict, reference: dict | None = None) -> dict:
+    result = _verify(path, calculated, reference)
+    result.update(
+        digest_comparison="match"
+        if result.get("matches") is True
+        else "mismatch"
+        if result.get("matches") is False
+        else "not_compared",
+        reference_trust="operator_declared"
+        if result.get("reference", {}).get("trusted") is True
+        else "not_assigned",
+        origin_authentication="not_performed",
+        signature_verification="not_performed",
+        status_scope="digest_comparison_under_operator_assigned_trust",
+    )
+    return result
+
+
+def _verify(path: Path, calculated: dict, reference: dict | None = None) -> dict:
     if reference:
         required = {"algorithm", "digest", "origin", "trusted"}
         if set(reference) != required or reference.get("algorithm") not in calculated:

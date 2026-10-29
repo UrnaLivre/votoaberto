@@ -44,6 +44,10 @@ def parser() -> argparse.ArgumentParser:
     command.add_argument("--synthetic", action="store_true", default=None)
     command.add_argument("--no-resume", action="store_true", default=None)
     command.add_argument("--require-verified", action="store_true", default=None)
+    command.add_argument(
+        "--require-territory", action="append", help="Exigir UF/ZZ, ou NATIONAL (27 UFs + ZZ)"
+    )
+    command.add_argument("--require-round", choices=[1, 2], type=int, action="append")
     for name in ("validate", "report"):
         command = sub.add_parser(name)
         command.add_argument("--dataset", required=True, type=Path)
@@ -75,6 +79,11 @@ def import_config(args) -> Config:
         values["resume"] = False
     if args.require_verified:
         values["require_verified"] = True
+    coverage = values.setdefault("coverage_requirements", {})
+    if args.require_territory is not None:
+        coverage["territories"] = args.require_territory
+    if args.require_round is not None:
+        coverage["rounds"] = args.require_round
     return Config.from_dict(values, base)
 
 
@@ -99,8 +108,12 @@ def main(argv: list[str] | None = None) -> int:
                 result = validate_release(target)
                 if args.command == "report":
                     result = {
-                        **json.loads((target / "validation.json").read_text(encoding="utf8")),
+                        "import_report": json.loads(
+                            (target / "validation.json").read_text(encoding="utf8")
+                        ),
                         "current_validation": result,
+                        "assessment": result["assessment"],
+                        "assessment_version": result["assessment_version"],
                     }
             else:
                 result = validate_database(target)
@@ -142,7 +155,16 @@ def main(argv: list[str] | None = None) -> int:
         if args.json_path:
             write_json(args.json_path, result)
         print(json.dumps(result, ensure_ascii=False, indent=2))
-        return 0 if result.get("valid", True) else 1
+        if "assessment" in result:
+            success = result["assessment"]["local_release"]["status"] == "eligible"
+        elif "structurally_valid" in result:
+            success = (
+                result["structurally_valid"]
+                and result["checks"]["mathematics"]["status"] != "failed"
+            )
+        else:
+            success = result.get("valid", True)
+        return 0 if success else 1
     except KeyboardInterrupt:
         print(
             "Cancelado; publicação anterior preservada. Checkpoints completos podem ser retomados.",

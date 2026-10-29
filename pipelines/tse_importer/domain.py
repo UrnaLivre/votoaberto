@@ -58,6 +58,29 @@ class Selection:
 
 
 @dataclass(frozen=True)
+class CoverageRequirements:
+    """Expected presence of territory/round pairs, independently of input filtering."""
+
+    territories: tuple[str, ...] = ()
+    rounds: tuple[int, ...] = ()
+
+    def __post_init__(self) -> None:
+        if self.territories != ("NATIONAL",) and not set(self.territories) <= TERRITORIES:
+            raise ImportFailure("Cobertura exigida: UFs/ZZ ou somente NATIONAL (27 UFs + ZZ)")
+        if any(type(turn) is not int or turn not in (1, 2) for turn in self.rounds):
+            raise ImportFailure("Turnos exigidos devem ser 1 ou 2")
+        if any(len(values) != len(set(values)) for values in (self.territories, self.rounds)):
+            raise ImportFailure("Cobertura exigida contém valores repetidos")
+
+    def expected_territories(self, selection: Selection) -> tuple[str, ...]:
+        if self.territories == ("NATIONAL",):
+            return tuple(sorted(TERRITORIES))
+        return self.territories or (
+            () if selection.territories == ("ALL",) else selection.territories
+        )
+
+
+@dataclass(frozen=True)
 class Config:
     input_dir: Path
     output_dir: Path
@@ -68,6 +91,7 @@ class Config:
     source_metadata: dict = field(default_factory=dict)
     resume: bool = True
     require_verified: bool = False
+    coverage_requirements: CoverageRequirements = field(default_factory=CoverageRequirements)
 
     def __post_init__(self) -> None:
         if self.data_kind not in ("official", "synthetic"):
@@ -76,6 +100,13 @@ class Config:
             raise ImportFailure("resume e require_verified devem ser booleanos")
         if not isinstance(self.references, dict):
             raise ImportFailure("references deve ser um objeto por caminho relativo do ZIP")
+        expected = self.coverage_requirements.expected_territories(self.selection)
+        if self.selection.territories != ("ALL",) and not set(expected) <= set(
+            self.selection.territories
+        ):
+            raise ImportFailure("Filtro de territórios exclui parte da cobertura exigida")
+        if not set(self.coverage_requirements.rounds) <= set(self.selection.rounds):
+            raise ImportFailure("Filtro de turnos exclui parte da cobertura exigida")
         allowed_metadata = {
             "source_url",
             "catalog_url",
@@ -106,6 +137,7 @@ class Config:
             "source_metadata",
             "resume",
             "require_verified",
+            "coverage_requirements",
         }
         if set(values) - allowed:
             raise ImportFailure(f"Opções desconhecidas: {sorted(set(values) - allowed)}")
@@ -120,7 +152,16 @@ class Config:
                 selection[key] = tuple(selection[key])
         try:
             limits = Limits(**values.pop("limits", {}))
-            return cls(**values, selection=Selection(**selection), limits=limits)
+            coverage = dict(values.pop("coverage_requirements", {}))
+            for key in ("territories", "rounds"):
+                if key in coverage:
+                    coverage[key] = tuple(coverage[key])
+            return cls(
+                **values,
+                selection=Selection(**selection),
+                limits=limits,
+                coverage_requirements=CoverageRequirements(**coverage),
+            )
         except TypeError as exc:
             raise ImportFailure(f"Configuração inválida: {exc}") from exc
 
