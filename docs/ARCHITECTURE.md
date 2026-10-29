@@ -1,42 +1,40 @@
 # Arquitetura do VotoAberto
 
-> Flutter M1 mantém o mock. M2 implementa o motor Python e Auditor local,
-> descritos em [DATA_ARCHITECTURE](DATA_ARCHITECTURE.md) e no [ADR 0003](adr/0003-public-data-and-auditor.md).
-> Backend/API e integração dos dados reais à interface continuam futuros.
+> M1 implementa Flutter + mock. M2 implementa o motor de importação e a CLI do Auditor; backend/API permanecem futuros.
 > Decisões efetivas: [mapa vetorial](adr/0001-vector-map.md) e
 > [estado, domínio e navegação](adr/0002-state-data-navigation.md).
 
 ## Componentes
 
 ```text
-[Flutter: Windows | Web | Android]
-          |
-          | ElectionRepository (contrato)
-          +------------------+
-          |                  |
- [MockRepository]       [ApiRepository]   <-- implementação futura
-                              |
-                       [ASP.NET Core API]  <-- futura
-                              |
-               [base normalizada/indexada]
-                              ^
-                              |
-                 [Data Engine Python / SQLite M2]
-                              ^
-                              |
-             [arquivos oficiais do TSE, imutáveis]
+[TSE: ZIPs oficiais completos, preservados fora do Git]
+                           |
+              [Data Engine compartilhado]
+               inventário / filtros / validação
+                      /           \
+         [perfil público]     [perfil analista]
+         SQLite compacto       dados técnicos
+         + manifesto           + relatórios
+              |                     |
+       [API/arquivo futuro]  [Auditor CLI: Win/Linux]
+              |
+   [Flutter: Windows | Web | Android]
+              |
+     ElectionRepository
+       mock (M1) / real (futuro)
 ```
 
-**Etapa inicial:** implementar apenas o **Flutter + mock**, sem requerer servidor, banco, download de dados nem rede para carregar as estatísticas de demonstração. A troca do mock por API deve ocorrer atrás do contrato de repositório.
+**M1:** apenas **Flutter + mock**, sem servidor, banco ou ZIP oficial. **M2:** importador compartilhado + Auditor CLI, com SQLite público de saída e manifestos. A troca do mock por dados reais continuará atrás do contrato de repositório, em etapa posterior à validação.
 
 ## Estrutura-alvo (ajustável durante o scaffold)
 
 ```text
 apps/
   votoaberto_flutter/         # Flutter Windows, Web e Android
+  votoaberto_auditor/         # CLI local Windows/Linux implementada no M2
 backend/                      # ASP.NET Core (futuro)
-pipelines/tse_importer/        # motor Python de importação e SQLite (M2)
-apps/votoaberto_auditor/       # CLI consumidora do motor (M2)
+pipelines/
+  tse_importer/              # importação compartilhada implementada no M2
 docs/                         # escopo, decisões, fontes
 data/
   raw/                        # fora do Git
@@ -44,8 +42,8 @@ data/
   samples/                    # apenas pequenos dados sintéticos/licenciados
 ```
 
-A estrutura Flutter existe para Windows, Web e Android. `backend/` continua
-documentado como futuro; o motor e a CLI estão implementados no M2. O contrato
+A estrutura Flutter existe para Windows, Web e Android. `backend/` continua futuro;
+`pipelines/tse_importer` e a CLI do Auditor estão implementados no M2. O contrato
 de dados fica em `features/elections/domain`; UI em `features/explorer/presentation`;
 renderização geográfica em `features/map`. O composition root é `lib/main.dart`.
 
@@ -80,17 +78,21 @@ não foram incorporados nem declarados testados. Detalhes e tradeoffs no ADR 000
 proveniência/condições em [CARTOGRAPHY.md](CARTOGRAPHY.md). Não há polígonos de
 zonas, seções, urnas ou exterior.
 
-## Backend futuro e dados
+## Importação, Auditor e backend (M2 e etapas posteriores)
 
-O fluxo efetivo de dados do M2 usa streams ZIP → checkpoints SQLite → reconciliação
-→ SQLite compacto e manifesto, sem modificar Flutter. Detalhes, schema e
-reprodução em [DATA_ARCHITECTURE](DATA_ARCHITECTURE.md). Os tópicos abaixo
-orientam a expansão posterior de backend e processamento nacional.
+- Implementar **um motor de importação reutilizável**, configurável por cargo, turno, território e perfil. O padrão é **presidente, ambos os turnos e perfil público compacto**; outros cargos dependem de suporte validado por schema.
+- O **VotoAberto Auditor** começa como CLI em Python para Windows/Linux e poderá trabalhar com os ZIPs integrais e metadados técnicos.
+- O **VotoAberto público não armazena BUs completos**: receberá somente o que for necessário à consulta presidencial por seção e suas referências de proveniência. Os ZIPs e BUs continuam sendo insumos e fontes de conferência do Auditor/pipeline.
+- Preservar arquivos originais fora do Git e jamais apagá-los automaticamente; calcular SHA-256 de cópia e conferir referências oficiais SHA-256/SHA-512 **quando estiverem disponíveis**, sem confundir hash com assinatura digital.
+- Escolher o schema concreto após a inspeção dos datasets. **SQLite versionado + manifesto de integridade + relatório de validação** é a primeira forma de exportação pública proposta; DuckDB/Parquet podem ser usados internamente para análise e reconciliação.
+- API ASP.NET Core, banco hospedado e distribuição pública serão decididos após medir volume, latência e cobertura. O Flutter não deverá carregar todos os dados por navegador/móvel sem estratégia de consulta.
 
-- Processar ZIPs **fora do Git**, preservando originais e manifesto de SHA-256.
-- Avaliar Python + DuckDB para normalização e conferência, ASP.NET Core para API, PostgreSQL para índices e object storage para artefatos originais.
-- Só fixar schema, índices, arquitetura de hospedagem e custo após examinar arquivos reais.
-- API paginada e agregações pré-calculadas para evitar transferir bases completas ao cliente.
-- Um modo de auditoria local/reproduzível deverá poder reprocessar as fontes sem confiar nos totais da nossa API.
+Veja [DATA_ARCHITECTURE.md](DATA_ARCHITECTURE.md), [ADR 0003](adr/0003-public-data-and-auditor.md) e [DATA_POLICY.md](DATA_POLICY.md).
 
-Detalhes da rastreabilidade em [DATA_POLICY.md](DATA_POLICY.md).
+## Evidências da implementação M2
+
+Streams ZIP → checkpoints SQLite → reconciliação → derivado compacto com manifesto,
+sem alterar o Flutter. Foram observados dois schemas reais e processados os dois
+turnos presidenciais de SC. Schema físico, formatos não suportados e limitações
+em [DATA_ENGINE_OPERATIONS](DATA_ENGINE_OPERATIONS.md); inventário, hashes e
+resultados em [TSE_2026_FORMAT_INVESTIGATION](TSE_2026_FORMAT_INVESTIGATION.md).

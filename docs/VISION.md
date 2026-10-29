@@ -11,7 +11,7 @@ O VotoAberto pretende tornar os resultados eleitorais oficiais do Brasil **fáce
 1. Na página inicial, um **mapa político do Brasil** ocupa a área visual principal; um painel lateral contém opções de exploração.
 2. Ao selecionar uma **UF**, a região fica destacada e o mapa aproxima a seleção. O painel muda de contexto e mostra estatísticas do **primeiro e segundo turnos**.
 3. O usuário pode pesquisar/selecionar **município**, depois navegar por **zona e seção eleitoral**, conforme a identificação oficial.
-4. Uma seção apresenta resultados por turno e, futuramente, links para o **registro de boletim de urna correspondente** e seus metadados de proveniência.
+4. Uma seção apresenta resultados presidenciais por turno, com proveniência e, quando possível, **referência ao boletim original**. O documento completo não precisa integrar a base pública compacta; sua inspeção detalhada pertence ao Auditor.
 5. O usuário pode voltar pelos breadcrumbs até o nível nacional, ajustar filtros, comparar métricas e acessar explicações acessíveis sobre cada cálculo.
 6. No futuro, uma área **Explorar os Dados** oferece achados interessantes e análises reprodutíveis sem induzir conclusões.
 
@@ -30,8 +30,12 @@ A navegação geográfica é por **UF e município**. **Zonas e seções** podem
 - Mapa nacional: selecionar UF, recuperar seleção e zoom, buscar UF.
 - Painel estadual: comparativo 1º/2º turno, votos válidos, brancos/nulos e comparecimento quando disponível e conceitualmente correto.
 - Visão município/zona/seção: filtros hierárquicos e comparação sem pressupor equivalência automática de equipamento físico.
-- Consulta ao BU: renderização legível **com proveniência explícita**, sem alegar ser o documento oficial se for apenas uma interpretação.
+- Conferência com BU: no produto público, referência à fonte e aos dados presidenciais extraídos, **sem incorporar integralmente o BU**. No Auditor, inspeção de documentos/arquivos completos. Uma representação derivada não deve ser rotulada como documento oficial.
 - Módulo de análises: histograma, distribuição, diferenças entre turnos, explicações e exportação com dados de origem.
+
+## Produtos complementares
+
+O **VotoAberto público** prioriza consultas simples e dados presidenciais compactos para Windows/Web/Android. O **VotoAberto Auditor** prioriza importação local dos ZIPs oficiais completos, análises avançadas e reprodução em Windows/Linux. O motor de importação é único e configurável; veja [a arquitetura de dados](DATA_ARCHITECTURE.md).
 
 ## Critérios de confiança
 

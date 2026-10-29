@@ -17,11 +17,17 @@ exclusivamente sintético; não há publicação remota de banco ou integração
 1. Registrar cada recurso baixado: URL exata, título do conjunto, órgão, data da coleta, data/versão de publicação quando informada, tamanho em bytes e SHA-256 do arquivo efetivamente recebido.
 2. Registrar separadamente hashes/metadados eventualmente publicados pelo próprio TSE e o algoritmo/formato empregado. **Hash igual confirma correspondência de bytes sob as premissas da fonte de comparação; não demonstra sozinho autenticidade eleitoral ou ausência de fraude.**
 3. Manter os originais **imutáveis** fora do controle de versão; transformar em derivados com schemas, logs, parâmetros e versões reproduzíveis.
-4. Importar apenas o cargo presidencial no banco de consulta, preservando a capacidade de voltar aos arquivos originais.
+4. No **perfil público inicial**, importar somente **presidente de 2026, turnos 1 e 2**; no **perfil analista**, permitir filtros configuráveis por cargo/turno conforme parsers efetivamente suportados. Boletins completos não são copiados para o banco público; referências e valores presidenciais extraídos podem ser preservados com linhagem explícita.
 5. Reconciliar somas por turno e âmbito com os totais oficiais correspondentes, documentando faltas, duplicações, registros anulados/substituídos e exceções que o dataset revelar.
 6. Documentar chaves compostas e a relação entre seção, boletim, urna/equipamento e eventuais contingências. Não assumir correspondência 1:1 sem confirmação documental.
 7. Manter relatório de cobertura e divergências com estados explícitos: `verificado`, `pendente`, `sem dado`, `divergente`, `não aplicável` (com definições).
 8. Para toda transformação estatística, registrar filtros, denominadores e metodologia.
+9. Não excluir automaticamente os ZIPs originais fornecidos pelo operador; limpar apenas temporários gerados pelo importador, após conferência e publicação válida dos derivados.
+10. Exportar dados públicos de forma versionada e imutável, com manifesto dos hashes e relatório de cobertura; nunca promover uma importação incompleta ou falha como validada.
+
+## Perfis de saída e separação de produtos
+
+A arquitetura aprovada separa **VotoAberto público** (derivados presidenciais compactos, sem BUs integrais) de **VotoAberto Auditor** (processamento e investigação local de fontes completas). Um mesmo motor de importação configura cargo, turno e perfil. Consulte [DATA_ARCHITECTURE.md](DATA_ARCHITECTURE.md) e [ADR 0003](adr/0003-public-data-and-auditor.md). A base pública é um derivado verificável; **não substitui as fontes originais**.
 
 ## Dados de demonstração
 

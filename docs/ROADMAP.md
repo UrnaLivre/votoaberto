@@ -9,7 +9,7 @@ O roteiro abaixo é **planejamento**, não promessa de prazo nem declaração de
 - [x] Proposta de arquitetura, política de dados e contribuição
 - [ ] Identidade visual oficial do VotoAberto; direitos e fontes dos materiais
 
-## M1 — Primeira experiência de produto (prioridade atual)
+## M1 — Primeira experiência de produto (entregue)
 
 - [x] Projeto Flutter executável no Windows e Web, runner Android e CI multiplataforma
 - [x] Mapa do Brasil com **27 UFs selecionáveis** e zoom/destaque/reversão
@@ -26,28 +26,41 @@ continuam fora do M1; identidade oficial ainda depende dos materiais UrnaLivre.
 
 **Critério M1:** mapa realmente clicável, seleção correta de UFs, interação coerente, execução local e resultados demonstrativos transparentes. Não aceitar telas estáticas disfarçadas de interativas.
 
-## M2 — Ingestão e verificação das fontes TSE
+## M2 — Data Engine compartilhado e VotoAberto Auditor (implementado inicialmente; consolidação em revisão)
 
-- [x] Motor Python compartilhado e Auditor CLI, perfis public/analyst
-- [x] Inventário dos três ZIPs fornecidos, origem, SHA-256 e conferência SHA-512 dos BWEBs
-- [x] Inspeção de dois schemas reais, Latin-1 e particularidades documentadas
-- [x] Importação presidencial de SC nos dois turnos, SQLite compacto e manifesto
-- [x] Reconciliação BWEB × votação por seção de SC e testes sintéticos/CI preparado
-- [ ] Ampliar importação/conferência reais para todas as UFs e ZZ (presença no CSV nacional confirmada)
-- [ ] Implementar situações eleitorais e formatos atualmente não suportados
-- [ ] API real e adaptador Flutter
+**M2.1 — Descoberta e integridade**
 
-Evidências e medições: [investigação dos formatos reais](TSE_2026_FORMAT_INVESTIGATION.md).
+- [x] Estrutura `pipelines/tse_importer/` reutilizável e `apps/votoaberto_auditor/` como CLI Windows/Linux
+- [x] Inventário local dos ZIPs de 2026, de seus membros e formatos; origem, tamanho, datas, SHA-256 e hashes oficiais de referência quando disponíveis
+- [x] Inspeção amostral/streaming de schemas reais, codificações e casos excepcionais com limites seguros; relatório reproduzível, sem extração em massa
+- [x] Fixtures sintéticos representativos, testes de arquivo malformado e documentação do que ainda não é suportado
 
-**Critério M2:** resultados reprocessáveis e cobertura explicitamente documentada, sem números inventados.
+**M2.2 — Extração e base pública**
 
-## M3 — Consulta granular e auditoria de dados
+- [x] Importador configurável por cargo/turno/território/perfil, com padrão **presidente, dois turnos, perfil público compacto**
+- [x] Parsers para formatos oficialmente identificados; versões, erros e chaves compostas tratados explicitamente
+- [x] Geração de **SQLite público versionado** com votos presidenciais por seção, agregações válidas, manifesto/hash e relatório
+- [x] Boletins de urna tratados como **fontes de conferência** e investigação no Auditor, **sem copiar BUs integrais** para o dataset público
+- [x] Importação idempotente/incremental, staging e validação antes de publicação
 
-- [ ] Navegação a município, zona e seção
-- [ ] Referências a boletins e fonte original, com clareza sobre arquivo versus interpretação
-- [ ] Consulta e comparação por turno com manejo de seções agregadas/alteradas
-- [ ] Exportação, metadados de origem, tratamento de divergências
-- [ ] Documentação independente do pipeline de reprodução
+**M2.3 — Reconciliação e dimensionamento**
+
+- [x] Reconciliar fontes presidenciais dos dois turnos de SC por município/zona/seção; ZZ identificado no CSV e coberto por fixtures, sem alegar conferência nacional
+- [x] Testar com os três ZIPs locais oficiais e medir processamento/espaço de SC
+- [ ] Expandir conferência real para todas as UFs/ZZ, formatos excepcionais e decidir distribuição/latência Flutter
+- [x] Registrar formatos e filtros por cargo implementados; não afirmar suporte a outros cargos antes de validação
+
+**Critério M2:** motor funcional e testado, dataset público presidencial reproduzível (ou lacunas claramente documentadas), sem dados fictícios apresentados como reais. A API e a conexão Flutter podem iniciar em um marco posterior.
+
+Detalhes em [DATA_ARCHITECTURE.md](DATA_ARCHITECTURE.md) e [ADR 0003](adr/0003-public-data-and-auditor.md).
+
+## M3 — Dados reais no VotoAberto público e aprofundamento do Auditor
+
+- [ ] Definir API/backend ou distribuição compacta com base nas medições do M2 e conectar o `ElectionRepository` real ao Flutter
+- [ ] Navegação por município, zona e seção, comparações entre turnos e cobertura ZZ quando adequada à interface
+- [ ] Referências aos BUs originais e resultados presidenciais extraídos, **sem armazenar boletins completos na base pública**
+- [ ] Expandir consultas e relatórios analíticos do Auditor sobre os arquivos completos
+- [ ] Exportação, metadados de origem, tratamento de divergências e documentação da reprodução independente
 
 ## M4 — Análises públicas e distribuição
 
@@ -59,4 +72,7 @@ Evidências e medições: [investigação dos formatos reais](TSE_2026_FORMAT_IN
 
 ## Fora do escopo inicial
 
-Sistema de coleta de votos, criptografia homomórfica, autenticação de eleitores, previsão eleitoral, certificação de integridade do processo e outros cargos/anos. Pesquisas futuras do UrnaLivre sobre votação verificável serão separadas deste aplicativo.
+Sistema de coleta de votos, criptografia homomórfica, autenticação de eleitores, previsão eleitoral e certificação de integridade do processo. Outros cargos/anos ficam fora do **recorte público inicial**, mas o importador será arquitetado para admiti-los no futuro. Pesquisas futuras do UrnaLivre sobre votação verificável serão separadas deste aplicativo.
+
+Evidências M2: [investigação de SC](TSE_2026_FORMAT_INVESTIGATION.md),
+[operação](DATA_ENGINE_OPERATIONS.md) e relatório de consolidação da revisão.
