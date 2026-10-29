@@ -1,0 +1,1 @@
+"""VotoAberto Auditor CLI adapter."""

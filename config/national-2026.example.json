@@ -1,0 +1,19 @@
+{
+  "input_dir": "../data/raw",
+  "output_dir": "../data/processed/president-2026-national",
+  "selection": {
+    "election_year": 2026,
+    "offices": ["president"],
+    "rounds": [1, 2],
+    "territories": ["ALL"],
+    "profile": "public"
+  },
+  "coverage_requirements": {
+    "territories": ["NATIONAL"],
+    "rounds": [1, 2]
+  },
+  "data_kind": "official",
+  "require_verified": true,
+  "references": {},
+  "source_metadata": {}
+}

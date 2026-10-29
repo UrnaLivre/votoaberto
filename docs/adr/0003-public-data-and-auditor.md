@@ -1,6 +1,6 @@
 # ADR 0003 — Uma cadeia de dados, dois produtos e perfis de exportação
 
-- **Estado:** aceito como direção arquitetural (implementação pendente).
+- **Estado:** aceito; implementação inicial M2, com expansões pendentes.
 - **Data:** 2026-10-29.
 - **Produtos:** VotoAberto (consulta pública) e VotoAberto Auditor (análise local).
 - **Decisão anterior relacionada:** [ADR 0002](0002-state-data-navigation.md).
@@ -48,3 +48,27 @@ Não inventar campo oficial, chave 1:1 entre BU e equipamento, vínculo entre tu
 - **Futuro:** funcionalidades avançadas do Auditor sobre dados integrais, exportação alternativa para outros cargos, download automático e atualização baseada em manifestos assinados.
 
 Esta decisão **não** autoriza substituir a base fictícia no Flutter por dados reais sem verificação e indicação inequívoca da fonte.
+
+## Aplicação na implementação M2
+
+As oito decisões acima e o contrato lógico provêm da main (`84e38c9`) e
+continuam vinculantes. A branch M2 partiu de `37c066b`, anterior a esses registros;
+o merge preserva o ADR da main e acrescenta evidências, sem substituir decisões.
+
+O motor Python em `pipelines/tse_importer` é consumido pela CLI fina. Foram
+confirmados BWEB/VOTACAO_SECAO 2026 e importado SC/presidente nos dois turnos.
+PUBLIC não copia BUs completos; ANALYST mantém o recorte presidencial normalizado
+e contexto selecionado, não todos os cargos. SQLite também serve como staging e
+checkpoint transacional por membro; hashes de fonte/configuração/código/schema
+inviabilizam retomada incompatível. DuckDB/Parquet não se mostraram necessários
+na medição atual; continuam alternativas futuras.
+
+Releases são locais e imutáveis, com current.json atômico após validação; isso
+não faz deploy nem certifica prontidão pública. Chaves eleitorais são textuais;
+contextos BWEB ambíguos não são somados nem identificam automaticamente equipamento
+físico. Seções agregadas não são expandidas artificialmente; ausência não vira zero.
+Somente presidente/2026 e situações confirmadas estão habilitados. O Flutter
+e o contrato ElectionRepository permanecem intactos.
+
+Detalhes: [operação](../DATA_ENGINE_OPERATIONS.md) e
+[investigação](../TSE_2026_FORMAT_INVESTIGATION.md).

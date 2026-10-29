@@ -1,6 +1,6 @@
 # Arquitetura de dados — VotoAberto e VotoAberto Auditor
 
-> **Planejamento técnico (M2).** M1 tem apenas mock sintético. Nenhum ZIP oficial foi importado ou validado neste repositório.
+> **Direção arquitetural da main preservada; implementação M2 documentada.** Flutter M1 mantém o mock. A primeira importação local de SC é descrita na investigação; fontes e derivados oficiais não são versionados.
 
 ## Visão geral
 
@@ -59,17 +59,19 @@ A lista exata depende de inspeção dos arquivos reais.
 - Consultas ad hoc e exportação para formatos analíticos, sem afirmar que qualquer campo indisponível nos dados pode ser inferido.
 - Seleção por cargo/turno/abrangência, com validações específicas por origem. O uso de dados completos pode exigir espaço e processamento substanciais.
 
-## Configuração prevista
+## Configuração e implementação
 
-Exemplo **ilustrativo**, não afirma que o comando ou o perfil já foram implementados:
+Exemplo do JSON implementado (caminhos relativos ao arquivo de configuração):
 
 ```json
 {
-  "election_year": 2026,
-  "offices": ["president"],
-  "rounds": [1, 2],
-  "territories": ["ALL"],
-  "profile": "public",
+  "selection": {
+    "election_year": 2026,
+    "offices": ["president"],
+    "rounds": [1, 2],
+    "territories": ["ALL"],
+    "profile": "public"
+  },
   "input_dir": "data/raw",
   "output_dir": "data/processed"
 }
@@ -104,7 +106,16 @@ O manifesto do dataset deve conter, no mínimo:
 
 Manter distinção entre `synthetic`, `official-derived` e `unverified` e não promover bases incompletas a `validated`. Nenhum hash isolado equivale a assinatura digital.
 
-## Organização pretendida
+Na implementação, natureza synthetic/official-derived e conferência de hashes são
+dimensões distintas. Avaliação v2 explicita integridade física, matemática,
+referencial, cobertura esperada/observada, hashes, reconciliação e prontidão pública.
+Um derivado parcial pode ser promovido **localmente** para investigação com lacunas
+declaradas; isso não o torna completo ou pronto para publicação pública. ALL não
+exige cobertura nacional. coverage_requirements com NATIONAL e turnos 1/2 exige
+presença dos 56 pares de 27 UFs + ZZ; não atesta exaustividade das seções.
+Critérios, estados e precedência dos caminhos: [guia operacional](DATA_ENGINE_OPERATIONS.md#avaliação-v2--integridade-cobertura-e-publicação).
+
+## Organização aprovada
 
 ```text
 apps/
@@ -112,7 +123,7 @@ apps/
   votoaberto_auditor/              # CLI fina Windows/Linux, futura UX analítica
 pipelines/
   tse_importer/                    # motor de ingestão, filtros, validadores e exportadores
-    ...                           # estrutura interna decidida pelo Codex, testada
+    ...                           # módulos implementados, detalhados no guia operacional
 backend/                          # futura API
 docs/
   DATA_ARCHITECTURE.md
@@ -140,3 +151,17 @@ A biblioteca de importação deve ser **independente da CLI** e o Auditor não d
 ## Princípios de auditoria e interpretação
 
 Os registros publicados pelo TSE, ainda que íntegros e matematicamente consistentes, têm limites informacionais. Um padrão anômalo pode demandar investigação, mas não prova fraude; uma conciliação de totais tampouco prova que todas as etapas de votação transcorreram corretamente. O sistema deve expor separadamente **observações**, **métodos**, **fontes** e **inferências**.
+
+## Implementação observada e operação
+
+O [guia operacional](DATA_ENGINE_OPERATIONS.md) preserva os detalhes do M2:
+instalação, CLI, limites ZIP, schemas observados, códigos e sentinelas, SQLite,
+checkpoints e limpeza. O perfil analyst atual guarda somente o recorte presidencial
+normalizado e contexto técnico selecionado; análises de todos os cargos/BUs
+continuam futuras. SQLite atende o processamento medido de SC; DuckDB/Parquet
+permanecem opções a avaliar com demanda concreta. Não há distribuição/API real.
+
+[Investigação real](TSE_2026_FORMAT_INVESTIGATION.md): hashes, diferenças entre os
+turnos, seções agregadas, resultados e medições. A implementação acrescenta
+estados separados de integridade, cobertura, confiança e prontidão, descritos
+no guia; uma release local parcial não representa uma base pública completa.

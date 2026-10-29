@@ -26,28 +26,29 @@ continuam fora do M1; identidade oficial ainda depende dos materiais UrnaLivre.
 
 **Critério M1:** mapa realmente clicável, seleção correta de UFs, interação coerente, execução local e resultados demonstrativos transparentes. Não aceitar telas estáticas disfarçadas de interativas.
 
-## M2 — Data Engine compartilhado e VotoAberto Auditor (próximo marco)
+## M2 — Data Engine compartilhado e VotoAberto Auditor (implementado inicialmente; consolidação em revisão)
 
 **M2.1 — Descoberta e integridade**
 
-- [ ] Estrutura `pipelines/tse_importer/` reutilizável e `apps/votoaberto_auditor/` como CLI Windows/Linux
-- [ ] Inventário local dos ZIPs de 2026, de seus membros e formatos; origem, tamanho, datas, SHA-256 e hashes oficiais de referência quando disponíveis
-- [ ] Inspeção amostral/streaming de schemas reais, codificações e casos excepcionais com limites seguros; relatório reproduzível, sem extração em massa
-- [ ] Fixtures sintéticos representativos, testes de arquivo malformado e documentação do que ainda não é suportado
+- [x] Estrutura `pipelines/tse_importer/` reutilizável e `apps/votoaberto_auditor/` como CLI Windows/Linux
+- [x] Inventário local dos ZIPs de 2026, de seus membros e formatos; origem, tamanho, datas, SHA-256 e hashes oficiais de referência quando disponíveis
+- [x] Inspeção amostral/streaming de schemas reais, codificações e casos excepcionais com limites seguros; relatório reproduzível, sem extração em massa
+- [x] Fixtures sintéticos representativos, testes de arquivo malformado e documentação do que ainda não é suportado
 
 **M2.2 — Extração e base pública**
 
-- [ ] Importador configurável por cargo/turno/território/perfil, com padrão **presidente, dois turnos, perfil público compacto**
-- [ ] Parsers para formatos oficialmente identificados; versões, erros e chaves compostas tratados explicitamente
-- [ ] Geração de **SQLite público versionado** com votos presidenciais por seção, agregações válidas, manifesto/hash e relatório
-- [ ] Boletins de urna tratados como **fontes de conferência** e investigação no Auditor, **sem copiar BUs integrais** para o dataset público
-- [ ] Importação idempotente/incremental, staging e validação antes de publicação
+- [x] Importador configurável por cargo/turno/território/perfil, com padrão **presidente, dois turnos, perfil público compacto**
+- [x] Parsers para formatos oficialmente identificados; versões, erros e chaves compostas tratados explicitamente
+- [x] Geração de **SQLite público versionado** com votos presidenciais por seção, agregações válidas, manifesto/hash e relatório
+- [x] Boletins de urna tratados como **fontes de conferência** e investigação no Auditor, **sem copiar BUs integrais** para o dataset público
+- [x] Importação idempotente/incremental, staging e validação antes de publicação
 
 **M2.3 — Reconciliação e dimensionamento**
 
-- [ ] Reconciliar fontes por turno/UF/município/zona/seção, documentando divergências e cobertura; considerar exterior ZZ sem tratá-lo como UF
-- [ ] Testar com arquivos locais oficiais, medir tempo/espaço/latência e decidir forma de distribuição para o Flutter
-- [ ] Registrar formatos e filtros por cargo implementados; não afirmar suporte a outros cargos antes de validação
+- [x] Reconciliar fontes presidenciais dos dois turnos de SC por município/zona/seção; ZZ identificado no CSV e coberto por fixtures, sem alegar conferência nacional
+- [x] Testar com os três ZIPs locais oficiais e medir processamento/espaço de SC
+- [ ] Expandir conferência real para todas as UFs/ZZ, formatos excepcionais e decidir distribuição/latência Flutter
+- [x] Registrar formatos e filtros por cargo implementados; não afirmar suporte a outros cargos antes de validação
 
 **Critério M2:** motor funcional e testado, dataset público presidencial reproduzível (ou lacunas claramente documentadas), sem dados fictícios apresentados como reais. A API e a conexão Flutter podem iniciar em um marco posterior.
 
@@ -72,3 +73,6 @@ Detalhes em [DATA_ARCHITECTURE.md](DATA_ARCHITECTURE.md) e [ADR 0003](adr/0003-p
 ## Fora do escopo inicial
 
 Sistema de coleta de votos, criptografia homomórfica, autenticação de eleitores, previsão eleitoral e certificação de integridade do processo. Outros cargos/anos ficam fora do **recorte público inicial**, mas o importador será arquitetado para admiti-los no futuro. Pesquisas futuras do UrnaLivre sobre votação verificável serão separadas deste aplicativo.
+
+Evidências M2: [investigação de SC](TSE_2026_FORMAT_INVESTIGATION.md),
+[operação](DATA_ENGINE_OPERATIONS.md) e relatório de consolidação da revisão.

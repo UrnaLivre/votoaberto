@@ -1,13 +1,16 @@
 # Fontes, licenciamento e proveniência dos dados
 
-## Fontes primárias previstas
+## Fontes primárias
 
 - [Portal de Dados Abertos do TSE](https://dadosabertos.tse.jus.br/)
 - [Resultados eleitorais (categoria)](https://dadosabertos.tse.jus.br/dataset/?groups=resultados)
 
 Os conjuntos de **votação por seção**, **boletins de urna** e, se necessário, arquivos técnicos de totalização serão investigados separadamente. O recorte inicial é **presidente da República em 2026, ambos os turnos**, inclusive votação no exterior quando aplicável.
 
-**Status:** o projeto ainda não importou, validou nem publicou um banco de resultados. Não há nesta árvore dados eleitorais oficiais processados.
+**Status M2:** primeira importação local de SC/presidente nos dois turnos executada,
+com resultados e limites em [TSE_2026_FORMAT_INVESTIGATION](TSE_2026_FORMAT_INVESTIGATION.md).
+Os originais e derivados reais não são versionados. O aplicativo continua
+exclusivamente sintético; não há publicação remota de banco ou integração Flutter.
 
 ## Regras para o pipeline de ingestão
 
@@ -21,6 +24,13 @@ Os conjuntos de **votação por seção**, **boletins de urna** e, se necessári
 8. Para toda transformação estatística, registrar filtros, denominadores e metodologia.
 9. Não excluir automaticamente os ZIPs originais fornecidos pelo operador; limpar apenas temporários gerados pelo importador, após conferência e publicação válida dos derivados.
 10. Exportar dados públicos de forma versionada e imutável, com manifesto dos hashes e relatório de cobertura; nunca promover uma importação incompleta ou falha como validada.
+
+Aplicação no M2: promoção local de uma investigação parcial não é publicação pública
+nem afirmação de completude. O manifesto v2 separa integridade física, matemática,
+referencial, cobertura, hashes, reconciliação e prontidão. Confiança `trusted` é
+atribuída pelo operador à referência; não autenticação automática da origem.
+ALL seleciona o disponível; cobertura exigida usa contrato explícito. Estados e
+limites no [guia operacional](DATA_ENGINE_OPERATIONS.md).
 
 ## Perfis de saída e separação de produtos
 

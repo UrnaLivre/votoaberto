@@ -1,0 +1,47 @@
+{
+  "input_dir": "../data/raw/tse-reference",
+  "output_dir": "../data/processed/sc-2026",
+  "selection": {
+    "territories": [
+      "SC"
+    ]
+  },
+  "references": {
+    "Boletim de Urna/1 turno/SC/bweb_1t_SC_051020261403.zip": {
+      "algorithm": "sha512",
+      "digest": "618c1cacf80bc2964d3bb5e6274ba3e2adeed853077083bc01004e5110e79615868cf3c39b490e283c181c716275d4473da35d11f407111f4170fc91a8a93db7",
+      "origin": "https://cdn.tse.jus.br/estatistica/sead/eleicoes/eleicoes2026/buweb/bweb_1t_SC_051020261403.zip.sha512",
+      "trusted": true
+    },
+    "Boletim de Urna/2 turno/SC/bweb_2t_SC_261020260742.zip": {
+      "algorithm": "sha512",
+      "digest": "01b1e9638654fa6914ad4d8a9001de33cb4fc5386d280ccdea7576d7c993c04e9162075db0a1fed8f571e87ce5349151e6a44bc4d5300b3e828a0123c6b90c8e",
+      "origin": "https://cdn.tse.jus.br/estatistica/sead/eleicoes/eleicoes2026/buweb/bweb_2t_SC_261020260742.zip.sha512",
+      "trusted": true
+    }
+  },
+  "data_kind": "official",
+  "source_metadata": {
+    "Votação por Seção/votacao_secao_2026_BR.zip": {
+      "source_url": "https://cdn.tse.jus.br/estatistica/sead/odsele/votacao_secao/votacao_secao_2026_BR.zip",
+      "catalog_url": "https://dadosabertos.tse.jus.br/dataset/resultados-2026/resource/01ea4ccd-f443-469c-9f29-c69ff97f7d4c",
+      "consulted_at": "2026-10-29",
+      "license_label": "Creative Commons Attribution",
+      "attribution": "Tribunal Superior Eleitoral"
+    },
+    "Boletim de Urna/1 turno/SC/bweb_1t_SC_051020261403.zip": {
+      "source_url": "https://cdn.tse.jus.br/estatistica/sead/eleicoes/eleicoes2026/buweb/bweb_1t_SC_051020261403.zip",
+      "catalog_url": "https://dadosabertos.tse.jus.br/dataset/resultados-2026-boletim-de-urna/resource/6b41d6e9-1de3-4091-a543-9e1b7da96b2d",
+      "consulted_at": "2026-10-29",
+      "license_label": "Creative Commons Atribuição",
+      "attribution": "Tribunal Superior Eleitoral"
+    },
+    "Boletim de Urna/2 turno/SC/bweb_2t_SC_261020260742.zip": {
+      "source_url": "https://cdn.tse.jus.br/estatistica/sead/eleicoes/eleicoes2026/buweb/bweb_2t_SC_261020260742.zip",
+      "catalog_url": "https://dadosabertos.tse.jus.br/dataset/resultados-2026-boletim-de-urna/resource/7c874499-a9dd-440e-9526-d46033e93625",
+      "consulted_at": "2026-10-29",
+      "license_label": "Creative Commons Atribuição",
+      "attribution": "Tribunal Superior Eleitoral"
+    }
+  }
+}
