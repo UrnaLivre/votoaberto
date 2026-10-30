@@ -4,7 +4,7 @@
 
 [English summary](#english-summary) · [Visão do projeto](docs/VISION.md) · [Arquitetura proposta](docs/ARCHITECTURE.md) · [Arquitetura de dados](docs/DATA_ARCHITECTURE.md) · [Dados e proveniência](docs/DATA_POLICY.md) · [Roadmap](docs/ROADMAP.md) · [Como contribuir](CONTRIBUTING.md)
 
-> **Flutter M1 — demonstração funcional local.** O aplicativo continua usando **somente dados sintéticos**. M2 entregou o Data Engine, o Auditor CLI e a importação local de SC; M3.1 gerou a primeira base presidencial nacional local, com prontidão pública `not_ready`. Originais e bases oficiais derivadas ficam fora do Git; não há aplicativo ou base publicados remotamente.
+> **M4 — consulta municipal embarcada em prévia local.** O Flutter preserva a demonstração M1 e acrescenta um modo real explícito por JSONs derivados da release M3.1. Brasil, 27 UFs, municípios e exterior nos dois turnos funcionam sem API de resultados. Prontidão pública permanece `not_ready`; originais e derivados reais ficam fora do Git, sem publicação remota. [Operação](docs/EMBEDDED_DATA_MVP.md) · [Evidências M4](docs/M4_COMPLETION_REPORT.md).
 
 O **VotoAberto** é um projeto de software livre do ecossistema [UrnaLivre](https://urnalivre.com.br/) para facilitar a exploração, a comparação e a conferência independente dos **dados eleitorais oficiais publicados pelo Tribunal Superior Eleitoral (TSE)**. A proposta é transformar conjuntos de dados complexos em consultas transparentes, acessíveis e reproduzíveis — sem substituir os documentos de origem.
 
@@ -38,7 +38,7 @@ O ecossistema adotará **um motor de importação configurável** e dois consumi
 - **VotoAberto Auditor (analistas):** ferramenta local para Windows e Linux, implementada inicialmente como CLI, que lê os arquivos oficiais completos, confere integridade, executa análises detalhadas e gera/reproduz as bases do VotoAberto.
 - **Data Engine compartilhado:** importador com seleção de cargos, turnos, abrangências e perfis de exportação. Configuração padrão: **presidente, 1º e 2º turnos, perfil público compacto**. Outros cargos só serão habilitados após a validação de seus formatos específicos.
 
-O formato inicial de entrega pública implementado no motor é **SQLite versionado, acompanhado de manifesto e relatório de validação**, antes de decidir a distribuição por API. O Flutter M1 continua usando apenas dados sintéticos. Veja a [decisão arquitetural ADR 0003](docs/adr/0003-public-data-and-auditor.md), a [arquitetura de dados](docs/DATA_ARCHITECTURE.md) e o [roadmap](docs/ROADMAP.md).
+O motor mantém **SQLite versionado, manifesto e relatório** como base de processamento. M4 exporta dessa release, em modo somente leitura, **JSONs municipais compactos** para o cliente, sem transportar o SQLite completo. A futura API atenderá consultas detalhadas. Veja [ADR 0003](docs/adr/0003-public-data-and-auditor.md), [ADR 0004](docs/adr/0004-embedded-municipal-data.md), [arquitetura de dados](docs/DATA_ARCHITECTURE.md) e [roadmap](docs/ROADMAP.md).
 
 ## Dados oficiais e responsabilidade
 
@@ -48,7 +48,7 @@ O projeto é **independente**: não é mantido, patrocinado, homologado nem endo
 
 ## Tecnologia e estágio atual
 
-A interface Flutter/Dart e o mock estão em `apps/votoaberto_flutter/`. O Data Engine e o Auditor CLI implementam inventário, hashes, parsers de dois layouts reais, reconciliação e SQLite local. [Investigação de SC](docs/TSE_2026_FORMAT_INVESTIGATION.md) e [operação](docs/DATA_ENGINE_OPERATIONS.md) registram evidências e limites. API ASP.NET Core, distribuição pública e integração Flutter continuam futuras, condicionadas à validação e ao dimensionamento.
+A interface Flutter/Dart, o mock e o repositório de assets estão em `apps/votoaberto_flutter/`. O motor e o Auditor implementam inventário, hashes, parsers, reconciliação, SQLite e exportação JSON. [Investigação de SC](docs/TSE_2026_FORMAT_INVESTIGATION.md) e [operação](docs/DATA_ENGINE_OPERATIONS.md) preservam evidências anteriores. API ASP.NET Core e distribuição pública continuam futuras.
 
 M3.1 acrescenta processamento por UF/turno, orçamento e limpeza segura de disco.
 A carga local contém os 56 pares de 27 UFs + ZZ nos dois turnos e 5.731.614
@@ -65,7 +65,8 @@ Entrega, testes, recursos e limites no [relatório M3.1](docs/M3_1_COMPLETION_RE
 | Explorador Flutter com dados sintéticos | Implementado no M1; verificações em [VALIDATION.md](docs/VALIDATION.md) |
 | Importador configurável e SQLite presidencial compacto | Implementados no M2; primeira validação local de SC, sem publicação remota |
 | Importação presidencial nacional, dois turnos e ZZ | Executada localmente no M3.1; política de prontidão pública ainda bloqueia publicação |
-| Consulta por zona e seção; referências aos boletins de origem | Planejado — M3 |
+| Consulta Brasil → UF → município e ZZ | Implementada M4, prévia local com JSONs reais fora do Git |
+| Consulta por zona e seção; referências aos boletins de origem | Futura API |
 | Publicação Web / Windows / Android | Planejado |
 
 Para detalhes e critérios de aceitação, consulte o [roadmap](docs/ROADMAP.md).
@@ -95,11 +96,26 @@ flutter doctor -v
 flutter run -d windows
 ```
 
-### Builds e testes
+### Modo real e builds
+
+Na raiz, após instalar o Auditor e gerar os JSONs da release existente:
+
+```powershell
+votoaberto-auditor export-embedded --dataset data/processed/national-2026 --output data/processed/embedded-presidential-2026 --json .local/embedded-export.json
+python apps/votoaberto_flutter/tool/embedded_build.py windows --mode real --source data/processed/embedded-presidential-2026 --flutter .local/flutter/bin/flutter.bat
+python apps/votoaberto_flutter/tool/embedded_build.py run --mode real --flutter .local/flutter/bin/flutter.bat -- -d windows
+```
+
+O build real falha sem a mini-base validada. `--mode fixture` usa somente dados
+fictícios do CI; `--mode demo` preserva o M1. O wrapper empacota apenas o modo
+escolhido e restaura o pubspec. [Contrato, instalação, Web/APK e limites
+offline](docs/EMBEDDED_DATA_MVP.md).
+
+### Testes e demonstração M1
 
 ```powershell
 flutter pub get
-dart format --output=none --set-exit-if-changed lib test
+dart format --output=none --set-exit-if-changed lib test integration_test
 flutter analyze
 flutter test --coverage
 flutter build windows --release
@@ -111,9 +127,9 @@ flutter run -d <id-do-dispositivo>
 ```
 
 APK debug serve para validação local; assinatura/distribuição de produção não
-estão configuradas. O workflow [Flutter M1](.github/workflows/flutter.yml)
+estão configuradas. O workflow [Flutter](.github/workflows/flutter.yml)
 verifica formato, análise, testes e builds, sem publicar artefatos em produção.
-Resultados **efetivamente executados** e limitações: [relatório de validação](docs/VALIDATION.md).
+Resultados executados: [M1 histórico](docs/VALIDATION.md) e [M4](docs/M4_COMPLETION_REPORT.md).
 
 ### O que experimentar
 
@@ -131,8 +147,10 @@ mobile/tablet usam mapa e painel em sequência, com rolagem vertical.
 
 URLs Web usam o hash padrão do Flutter, por exemplo
 `/#/uf/SP?turno=2&visao=comparison`; voltar/avançar recupera o recorte da URL.
-Municípios, zonas, seções e boletins são explicitamente futuros, sem números
-inventados. `ZZ` está previsto no modelo e não é um polígono do mapa.
+No modo embarcado, busque uma cidade após escolher a UF, por exemplo
+`/#/uf/SP/municipio/71072?turno=2&visao=comparison`. Exterior tem entrada própria,
+sem polígono; Brasil real inclui ZZ e a metodologia distingue o total doméstico.
+Zonas, seções e boletins continuam futuros. A demonstração M1 conserva seus limites.
 
 ### Código, dados e decisões
 
@@ -140,7 +158,7 @@ inventados. `ZZ` está previsto no modelo e não é um polígono do mapa.
 apps/votoaberto_flutter/
   lib/app/                    composição, tema, strings e roteamento
   lib/core/                   formatação e componentes compartilhados
-  lib/features/elections/     domínio, contrato e mock determinístico
+  lib/features/elections/     domínio, contrato, mock e repositório de assets
   lib/features/explorer/      controller e experiência de exploração
   lib/features/map/           GeoJSON, projeção, hit-test, câmera e renderizador
   assets/geo/                 geometria IBGE e atribuição
@@ -153,6 +171,8 @@ pipelines/tse_importer/        motor compartilhado e SQLite
 Estado com `ChangeNotifier`/`ListenableBuilder` e navegação com `go_router`.
 `intl` e localizações Flutter fornecem pt-BR. O renderizador usa `CustomPainter`,
 sem WebView, tiles, fontes externas ou chamadas de rede durante a exploração.
+O modo real carrega primeiro manifesto/Brasil/UFs e mantém cache municipal limitado.
+Web não garante offline após reiniciar o navegador; PWA fica para outra etapa.
 O mock-v1 é determinístico e matematicamente consistente, mas não representa
 população, votação ou comportamento real. Brasil soma as 27 UFs; exterior não
 incluído. Não inferimos transferência de votos entre pessoas.
@@ -162,8 +182,8 @@ incluído. Não inferimos transferência de votos entre pessoas.
 - [Estado, navegação e mock](docs/adr/0002-state-data-navigation.md)
 - [Origem, condições de uso e hash do GeoJSON](docs/CARTOGRAPHY.md)
 
-Continuam pendentes no aplicativo: integração TSE, cobertura exterior, API, consulta
-granular e BU, exportação, identidade oficial, persistência de preferências,
+Continuam pendentes no aplicativo: API, consulta por zona/seção e BU, exportação
+pelo cidadão, identidade oficial, persistência de preferências,
 segundo idioma, avaliação de acessibilidade com usuários e distribuição.
 
 ## Relação com o UrnaLivre
@@ -182,6 +202,6 @@ Contribuições, sugestões de acessibilidade, revisão de métodos estatístico
 
 **VotoAberto** is an independent, open-source project within the **UrnaLivre** ecosystem to explore, compare, and trace Brazil's officially published election results back to their sources. The initial scope is the **2026 presidential election**, both rounds, with a navigable Brazil map and future polling-station/ballot-report consultation.
 
-The **M1 local Flutter explorer** uses a real 27-state IBGE map and deterministic synthetic results. M2 adds a shared Python engine and local Auditor CLI; M3.1 produced a local presidential database covering both rounds and all 27 states plus overseas voting (ZZ). Its public readiness remains `not_ready`; generated databases are excluded from Git. The Flutter app still uses only synthetic data. All sample statistics are visibly marked as **FICTIONAL**. Statistical outliers are **not**, by themselves, proof of misconduct. VotoAberto is **not affiliated with or endorsed by the Brazilian Superior Electoral Court (TSE)**. See the validation report for platform/build evidence and current limitations.
+The **M1 demonstration** remains explicitly fictional. M2 adds the shared engine and Auditor; M3.1 produced the local presidential SQLite database. M4 exports independently validated compact JSONs for national/state/municipal and overseas Flutter consultation. Real builds remain local previews: public readiness is still `not_ready`, and real datasets are excluded from Git. No results API or public deployment was introduced. Web offline across browser sessions is not guaranteed. Statistical outliers do not establish misconduct; VotoAberto is **not affiliated with or endorsed by the TSE**. See the [M4 report](docs/M4_COMPLETION_REPORT.md).
 
 The source code is MIT-licensed; third-party datasets, maps and trademarks retain their own terms.

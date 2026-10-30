@@ -1,6 +1,6 @@
 # Arquitetura de dados — VotoAberto e VotoAberto Auditor
 
-> **Direção arquitetural da main preservada; implementação M2 documentada.** Flutter M1 mantém o mock. A primeira importação local de SC é descrita na investigação; fontes e derivados oficiais não são versionados.
+> **Direção arquitetural preservada.** M1 mantém o mock; M4 acrescenta modo real local por JSON derivado do SQLite M3.1. Fontes e derivados reais não são versionados; prontidão pública continua `not_ready`.
 
 ## Visão geral
 
@@ -20,7 +20,7 @@
      SQLite compacto +                  Relatórios, consultas
      manifesto + relatório              e derivados completos
           |                               |
-  Adaptador/API futuro            VotoAberto Auditor CLI
+  Exportador JSON M4              VotoAberto Auditor CLI
           |                       (Windows e Linux)
   VotoAberto Flutter
   (Windows/Web/Android)
@@ -37,7 +37,7 @@
 | Fonte operacional | base derivada compacta | arquivos oficiais completos fornecidos localmente |
 | Escopo inicial | presidente 2026, 1º/2º turnos | importação por cargos/turnos configuráveis, na medida em que formatos forem implementados |
 | Boletim de urna completo | **não** armazenado na base pública | pode ser aberto, analisado e cruzado com outros registros |
-| Resultado detalhado por seção | sim, com procedência e limites | sim, inclusive campos adicionais conforme fonte |
+| Resultado detalhado por seção | futuro na UI/API; SQLite do motor já contém o recorte | sim, inclusive campos adicionais conforme fonte |
 | Objetivo | navegação, comparação, acesso fácil | inspeção de formatos, reconciliação, análises reproduzíveis |
 
 ### Campos lógicos do perfil público
@@ -119,7 +119,7 @@ Critérios, estados e precedência dos caminhos: [guia operacional](DATA_ENGINE_
 
 ```text
 apps/
-  votoaberto_flutter/              # M1, não alterar por causa do importador
+  votoaberto_flutter/              # M1 mock + M4 assets; não importa ZIPs
   votoaberto_auditor/              # CLI fina Windows/Linux, futura UX analítica
 pipelines/
   tse_importer/                    # motor de ingestão, filtros, validadores e exportadores
@@ -174,3 +174,17 @@ sem copiar BUs integrais ao perfil público. Unidades BWEB separadas com cobertu
 UF/turno sobreposta são recusadas explicitamente neste modo; múltiplos contextos
 dentro da unidade continuam registrados como ambíguos. A fonte não é descartada
 silenciosamente. [Guia nacional](NATIONAL_IMPORT.md).
+
+## M4 — Derivado municipal para o cliente
+
+SQLite continua sendo a base normalizada de processamento/validação. O módulo
+`embedded_exporter` agrega seção e candidato em consultas separadas, preserva
+identificadores/disponibilidade e confere os JSONs por SQL independente.
+Produz releases imutáveis com catálogo nominal por eleição, Brasil incluindo ZZ,
+Brasil doméstico, UFs e arquivos municipais separados. Não replica o banco ou BUs.
+
+O manifesto JSON schema 1 preserva a avaliação v2 da origem, incluindo hashes,
+cobertura, reconciliação e prontidão. Uma derivação matematicamente correta não
+remove bloqueios de origem. O cliente lê Brasil/UFs primeiro e municípios sob
+demanda, sem HTTP de resultados ou SQLite. [Contrato, promoção, builds e limites
+Web](EMBEDDED_DATA_MVP.md).

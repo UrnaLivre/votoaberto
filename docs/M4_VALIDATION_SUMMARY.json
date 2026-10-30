@@ -1,0 +1,1913 @@
+{
+  "purpose": "M4 validation evidence; aggregate statistics and hashes only; real JSON dataset remains outside Git",
+  "dataset_id": "e4e9c9cb5189ab5d4e124bfc",
+  "source_release": "6305f74561d4687a23bd3054",
+  "source_sqlite_sha256": "c9eaefb7e02ab50d2922eb843715ea47346e9e60cf8d4f9c4a6f448c3b27fdc4",
+  "generation_commit": "986d5c71e1b772dff74c3224cd98aa60757149be",
+  "schema_version": 1,
+  "rules_version": "municipal-1",
+  "sql_comparison_during_export": "passed",
+  "standalone_json_validation": "passed",
+  "standalone_sqlite_comparison": "not_repeated",
+  "differences": [],
+  "municipality_counts": {
+    "AC": 22,
+    "AL": 102,
+    "AM": 62,
+    "AP": 16,
+    "BA": 417,
+    "CE": 184,
+    "DF": 1,
+    "ES": 78,
+    "GO": 246,
+    "MA": 217,
+    "MG": 853,
+    "MS": 79,
+    "MT": 142,
+    "PA": 144,
+    "PB": 223,
+    "PE": 185,
+    "PI": 224,
+    "PR": 399,
+    "RJ": 92,
+    "RN": 167,
+    "RO": 52,
+    "RR": 15,
+    "RS": 497,
+    "SC": 295,
+    "SE": 75,
+    "SP": 645,
+    "TO": 139,
+    "ZZ": 145
+  },
+  "municipal_round_records": 11431,
+  "national": {
+    "dataset_id": "e4e9c9cb5189ab5d4e124bfc",
+    "domestic_rounds": [
+      {
+        "available_sections": {
+          "abstention": 497897,
+          "blank": 471532,
+          "counted": 497897,
+          "eligible": 497897,
+          "null": 491267,
+          "turnout": 497897,
+          "valid": 497897
+        },
+        "candidates": {
+          "6257:13": 53722151,
+          "6257:14": 2667307,
+          "6257:16": 42730,
+          "6257:21": 22272,
+          "6257:22": 55960603,
+          "6257:27": 39218,
+          "6257:28": 5123,
+          "6257:29": 14825,
+          "6257:30": 323159,
+          "6257:35": 16508,
+          "6257:55": 2600440,
+          "6257:70": 3438835,
+          "6257:80": 121858
+        },
+        "election": "6257",
+        "round": 1,
+        "sections": 497897,
+        "totals": {
+          "abstention": 32894899,
+          "blank": 2294982,
+          "counted": 124934069,
+          "eligible": 157828968,
+          "null": 3664058,
+          "turnout": 124934069,
+          "valid": 118975029
+        }
+      },
+      {
+        "available_sections": {
+          "abstention": 497897,
+          "blank": 446436,
+          "counted": 497897,
+          "eligible": 497897,
+          "null": 484008,
+          "turnout": 497897,
+          "valid": 497897
+        },
+        "candidates": {
+          "6258:13": 64056078,
+          "6258:22": 59654544
+        },
+        "election": "6258",
+        "round": 2,
+        "sections": 497897,
+        "totals": {
+          "abstention": 29974188,
+          "blank": 1425821,
+          "counted": 127854631,
+          "eligible": 157828819,
+          "null": 2718188,
+          "turnout": 127854631,
+          "valid": 123710622
+        }
+      }
+    ],
+    "includes_abroad": true,
+    "rounds": [
+      {
+        "available_sections": {
+          "abstention": 499206,
+          "blank": 472724,
+          "counted": 499206,
+          "eligible": 499206,
+          "null": 492447,
+          "turnout": 499206,
+          "valid": 499206
+        },
+        "candidates": {
+          "6257:13": 53879538,
+          "6257:14": 2675887,
+          "6257:16": 43103,
+          "6257:21": 22693,
+          "6257:22": 56104503,
+          "6257:27": 40043,
+          "6257:28": 5246,
+          "6257:29": 15024,
+          "6257:30": 326488,
+          "6257:35": 16881,
+          "6257:55": 2605148,
+          "6257:70": 3448569,
+          "6257:80": 122911
+        },
+        "election": "6257",
+        "round": 1,
+        "sections": 499206,
+        "totals": {
+          "abstention": 33469172,
+          "blank": 2300798,
+          "counted": 125275835,
+          "eligible": 158745007,
+          "null": 3669003,
+          "turnout": 125275835,
+          "valid": 119306034
+        }
+      },
+      {
+        "available_sections": {
+          "abstention": 499205,
+          "blank": 447601,
+          "counted": 499205,
+          "eligible": 499205,
+          "null": 485202,
+          "turnout": 499205,
+          "valid": 499205
+        },
+        "candidates": {
+          "6258:13": 64256232,
+          "6258:22": 59826041
+        },
+        "election": "6258",
+        "round": 2,
+        "sections": 499205,
+        "totals": {
+          "abstention": 30508903,
+          "blank": 1430496,
+          "counted": 128236074,
+          "eligible": 158744977,
+          "null": 2723305,
+          "turnout": 128236074,
+          "valid": 124082273
+        }
+      }
+    ],
+    "schema_version": 1
+  },
+  "state_totals": [
+    {
+      "code": "AC",
+      "rounds": [
+        {
+          "round": 1,
+          "election": "6257",
+          "sections": 2270,
+          "totals": {
+            "abstention": 125412,
+            "blank": 5579,
+            "counted": 488330,
+            "eligible": 613742,
+            "null": 13662,
+            "turnout": 488330,
+            "valid": 469089
+          },
+          "available_sections": {
+            "abstention": 2270,
+            "blank": 1919,
+            "counted": 2270,
+            "eligible": 2270,
+            "null": 2240,
+            "turnout": 2270,
+            "valid": 2270
+          }
+        },
+        {
+          "round": 2,
+          "election": "6258",
+          "sections": 2270,
+          "totals": {
+            "abstention": 160061,
+            "blank": 5016,
+            "counted": 453654,
+            "eligible": 613715,
+            "null": 16410,
+            "turnout": 453654,
+            "valid": 432228
+          },
+          "available_sections": {
+            "abstention": 2270,
+            "blank": 1897,
+            "counted": 2270,
+            "eligible": 2270,
+            "null": 2263,
+            "turnout": 2270,
+            "valid": 2270
+          }
+        }
+      ]
+    },
+    {
+      "code": "AL",
+      "rounds": [
+        {
+          "round": 1,
+          "election": "6257",
+          "sections": 7101,
+          "totals": {
+            "abstention": 503698,
+            "blank": 33712,
+            "counted": 1938428,
+            "eligible": 2442126,
+            "null": 85787,
+            "turnout": 1938428,
+            "valid": 1818929
+          },
+          "available_sections": {
+            "abstention": 7101,
+            "blank": 6920,
+            "counted": 7101,
+            "eligible": 7101,
+            "null": 7092,
+            "turnout": 7101,
+            "valid": 7101
+          }
+        },
+        {
+          "round": 2,
+          "election": "6258",
+          "sections": 7101,
+          "totals": {
+            "abstention": 490449,
+            "blank": 16983,
+            "counted": 1951632,
+            "eligible": 2442081,
+            "null": 37888,
+            "turnout": 1951632,
+            "valid": 1896761
+          },
+          "available_sections": {
+            "abstention": 7101,
+            "blank": 6195,
+            "counted": 7101,
+            "eligible": 7101,
+            "null": 7022,
+            "turnout": 7101,
+            "valid": 7101
+          }
+        }
+      ]
+    },
+    {
+      "code": "AM",
+      "rounds": [
+        {
+          "round": 1,
+          "election": "6257",
+          "sections": 8157,
+          "totals": {
+            "abstention": 564062,
+            "blank": 24402,
+            "counted": 2234549,
+            "eligible": 2798611,
+            "null": 39302,
+            "turnout": 2234549,
+            "valid": 2170845
+          },
+          "available_sections": {
+            "abstention": 8157,
+            "blank": 6804,
+            "counted": 8157,
+            "eligible": 8157,
+            "null": 7859,
+            "turnout": 8157,
+            "valid": 8157
+          }
+        },
+        {
+          "round": 2,
+          "election": "6258",
+          "sections": 8157,
+          "totals": {
+            "abstention": 606602,
+            "blank": 18324,
+            "counted": 2192059,
+            "eligible": 2798661,
+            "null": 52707,
+            "turnout": 2192059,
+            "valid": 2121028
+          },
+          "available_sections": {
+            "abstention": 8157,
+            "blank": 6644,
+            "counted": 8157,
+            "eligible": 8157,
+            "null": 8063,
+            "turnout": 8157,
+            "valid": 8157
+          }
+        }
+      ]
+    },
+    {
+      "code": "AP",
+      "rounds": [
+        {
+          "round": 1,
+          "election": "6257",
+          "sections": 1914,
+          "totals": {
+            "abstention": 100426,
+            "blank": 4415,
+            "counted": 476562,
+            "eligible": 576988,
+            "null": 7272,
+            "turnout": 476562,
+            "valid": 464875
+          },
+          "available_sections": {
+            "abstention": 1914,
+            "blank": 1600,
+            "counted": 1914,
+            "eligible": 1914,
+            "null": 1817,
+            "turnout": 1914,
+            "valid": 1914
+          }
+        },
+        {
+          "round": 2,
+          "election": "6258",
+          "sections": 1914,
+          "totals": {
+            "abstention": 146935,
+            "blank": 3320,
+            "counted": 429975,
+            "eligible": 576910,
+            "null": 5013,
+            "turnout": 429975,
+            "valid": 421642
+          },
+          "available_sections": {
+            "abstention": 1914,
+            "blank": 1469,
+            "counted": 1914,
+            "eligible": 1914,
+            "null": 1676,
+            "turnout": 1914,
+            "valid": 1914
+          }
+        }
+      ]
+    },
+    {
+      "code": "BA",
+      "rounds": [
+        {
+          "round": 1,
+          "election": "6257",
+          "sections": 35476,
+          "totals": {
+            "abstention": 2259151,
+            "blank": 154936,
+            "counted": 9053601,
+            "eligible": 11312752,
+            "null": 338123,
+            "turnout": 9053601,
+            "valid": 8560542
+          },
+          "available_sections": {
+            "abstention": 35476,
+            "blank": 33577,
+            "counted": 35476,
+            "eligible": 35476,
+            "null": 35247,
+            "turnout": 35476,
+            "valid": 35476
+          }
+        },
+        {
+          "round": 2,
+          "election": "6258",
+          "sections": 35476,
+          "totals": {
+            "abstention": 1890844,
+            "blank": 92721,
+            "counted": 9422047,
+            "eligible": 11312891,
+            "null": 235307,
+            "turnout": 9422047,
+            "valid": 9094019
+          },
+          "available_sections": {
+            "abstention": 35476,
+            "blank": 31131,
+            "counted": 35476,
+            "eligible": 35476,
+            "null": 34961,
+            "turnout": 35476,
+            "valid": 35476
+          }
+        }
+      ]
+    },
+    {
+      "code": "CE",
+      "rounds": [
+        {
+          "round": 1,
+          "election": "6257",
+          "sections": 23765,
+          "totals": {
+            "abstention": 1086074,
+            "blank": 103295,
+            "counted": 5910471,
+            "eligible": 6996545,
+            "null": 189185,
+            "turnout": 5910471,
+            "valid": 5617991
+          },
+          "available_sections": {
+            "abstention": 23765,
+            "blank": 22719,
+            "counted": 23765,
+            "eligible": 23765,
+            "null": 23609,
+            "turnout": 23765,
+            "valid": 23765
+          }
+        },
+        {
+          "round": 2,
+          "election": "6258",
+          "sections": 23765,
+          "totals": {
+            "abstention": 971678,
+            "blank": 56386,
+            "counted": 6024843,
+            "eligible": 6996521,
+            "null": 112855,
+            "turnout": 6024843,
+            "valid": 5855602
+          },
+          "available_sections": {
+            "abstention": 23765,
+            "blank": 20450,
+            "counted": 23765,
+            "eligible": 23765,
+            "null": 23109,
+            "turnout": 23765,
+            "valid": 23765
+          }
+        }
+      ]
+    },
+    {
+      "code": "DF",
+      "rounds": [
+        {
+          "round": 1,
+          "election": "6257",
+          "sections": 6969,
+          "totals": {
+            "abstention": 426924,
+            "blank": 25362,
+            "counted": 1831396,
+            "eligible": 2258320,
+            "null": 33169,
+            "turnout": 1831396,
+            "valid": 1772865
+          },
+          "available_sections": {
+            "abstention": 6969,
+            "blank": 6708,
+            "counted": 6969,
+            "eligible": 6969,
+            "null": 6820,
+            "turnout": 6969,
+            "valid": 6969
+          }
+        },
+        {
+          "round": 2,
+          "election": "6258",
+          "sections": 6969,
+          "totals": {
+            "abstention": 390715,
+            "blank": 22386,
+            "counted": 1868280,
+            "eligible": 2258995,
+            "null": 41128,
+            "turnout": 1868280,
+            "valid": 1804766
+          },
+          "available_sections": {
+            "abstention": 6969,
+            "blank": 6595,
+            "counted": 6969,
+            "eligible": 6969,
+            "null": 6920,
+            "turnout": 6969,
+            "valid": 6969
+          }
+        }
+      ]
+    },
+    {
+      "code": "ES",
+      "rounds": [
+        {
+          "round": 1,
+          "election": "6257",
+          "sections": 9844,
+          "totals": {
+            "abstention": 639368,
+            "blank": 43211,
+            "counted": 2352282,
+            "eligible": 2991650,
+            "null": 57872,
+            "turnout": 2352282,
+            "valid": 2251199
+          },
+          "available_sections": {
+            "abstention": 9844,
+            "blank": 9515,
+            "counted": 9844,
+            "eligible": 9844,
+            "null": 9713,
+            "turnout": 9844,
+            "valid": 9844
+          }
+        },
+        {
+          "round": 2,
+          "election": "6258",
+          "sections": 9844,
+          "totals": {
+            "abstention": 582301,
+            "blank": 33080,
+            "counted": 2409214,
+            "eligible": 2991515,
+            "null": 79665,
+            "turnout": 2409214,
+            "valid": 2296469
+          },
+          "available_sections": {
+            "abstention": 9844,
+            "blank": 9330,
+            "counted": 9844,
+            "eligible": 9844,
+            "null": 9812,
+            "turnout": 9844,
+            "valid": 9844
+          }
+        }
+      ]
+    },
+    {
+      "code": "GO",
+      "rounds": [
+        {
+          "round": 1,
+          "election": "6257",
+          "sections": 15686,
+          "totals": {
+            "abstention": 1109003,
+            "blank": 45643,
+            "counted": 3971587,
+            "eligible": 5080590,
+            "null": 98014,
+            "turnout": 3971587,
+            "valid": 3827930
+          },
+          "available_sections": {
+            "abstention": 15686,
+            "blank": 14165,
+            "counted": 15686,
+            "eligible": 15686,
+            "null": 15487,
+            "turnout": 15686,
+            "valid": 15686
+          }
+        },
+        {
+          "round": 2,
+          "election": "6258",
+          "sections": 15686,
+          "totals": {
+            "abstention": 1033105,
+            "blank": 43214,
+            "counted": 4047280,
+            "eligible": 5080385,
+            "null": 73177,
+            "turnout": 4047280,
+            "valid": 3930889
+          },
+          "available_sections": {
+            "abstention": 15686,
+            "blank": 14310,
+            "counted": 15686,
+            "eligible": 15686,
+            "null": 15349,
+            "turnout": 15686,
+            "valid": 15686
+          }
+        }
+      ]
+    },
+    {
+      "code": "MA",
+      "rounds": [
+        {
+          "round": 1,
+          "election": "6257",
+          "sections": 18093,
+          "totals": {
+            "abstention": 1022772,
+            "blank": 46315,
+            "counted": 4160343,
+            "eligible": 5183115,
+            "null": 103244,
+            "turnout": 4160343,
+            "valid": 4010784
+          },
+          "available_sections": {
+            "abstention": 18093,
+            "blank": 15092,
+            "counted": 18093,
+            "eligible": 18093,
+            "null": 17705,
+            "turnout": 18093,
+            "valid": 18093
+          }
+        },
+        {
+          "round": 2,
+          "election": "6258",
+          "sections": 18093,
+          "totals": {
+            "abstention": 1055278,
+            "blank": 30855,
+            "counted": 4127771,
+            "eligible": 5183049,
+            "null": 58714,
+            "turnout": 4127771,
+            "valid": 4038202
+          },
+          "available_sections": {
+            "abstention": 18093,
+            "blank": 13365,
+            "counted": 18093,
+            "eligible": 18093,
+            "null": 16659,
+            "turnout": 18093,
+            "valid": 18093
+          }
+        }
+      ]
+    },
+    {
+      "code": "MG",
+      "rounds": [
+        {
+          "round": 1,
+          "election": "6257",
+          "sections": 52062,
+          "totals": {
+            "abstention": 3735098,
+            "blank": 268302,
+            "counted": 12637274,
+            "eligible": 16372372,
+            "null": 392176,
+            "turnout": 12637274,
+            "valid": 11976796
+          },
+          "available_sections": {
+            "abstention": 52062,
+            "blank": 50252,
+            "counted": 52062,
+            "eligible": 52062,
+            "null": 51616,
+            "turnout": 52062,
+            "valid": 52062
+          }
+        },
+        {
+          "round": 2,
+          "election": "6258",
+          "sections": 52062,
+          "totals": {
+            "abstention": 3327941,
+            "blank": 164141,
+            "counted": 13044203,
+            "eligible": 16372144,
+            "null": 287177,
+            "turnout": 13044203,
+            "valid": 12592885
+          },
+          "available_sections": {
+            "abstention": 52062,
+            "blank": 48052,
+            "counted": 52062,
+            "eligible": 52062,
+            "null": 51061,
+            "turnout": 52062,
+            "valid": 52062
+          }
+        }
+      ]
+    },
+    {
+      "code": "MS",
+      "rounds": [
+        {
+          "round": 1,
+          "election": "6257",
+          "sections": 7106,
+          "totals": {
+            "abstention": 483210,
+            "blank": 21270,
+            "counted": 1541220,
+            "eligible": 2024430,
+            "null": 29596,
+            "turnout": 1541220,
+            "valid": 1490354
+          },
+          "available_sections": {
+            "abstention": 7106,
+            "blank": 6430,
+            "counted": 7106,
+            "eligible": 7106,
+            "null": 6820,
+            "turnout": 7106,
+            "valid": 7106
+          }
+        },
+        {
+          "round": 2,
+          "election": "6258",
+          "sections": 7106,
+          "totals": {
+            "abstention": 429977,
+            "blank": 14958,
+            "counted": 1594460,
+            "eligible": 2024437,
+            "null": 22637,
+            "turnout": 1594460,
+            "valid": 1556865
+          },
+          "available_sections": {
+            "abstention": 7106,
+            "blank": 5956,
+            "counted": 7106,
+            "eligible": 7106,
+            "null": 6567,
+            "turnout": 7106,
+            "valid": 7106
+          }
+        }
+      ]
+    },
+    {
+      "code": "MT",
+      "rounds": [
+        {
+          "round": 1,
+          "election": "6257",
+          "sections": 8287,
+          "totals": {
+            "abstention": 585668,
+            "blank": 20756,
+            "counted": 2052133,
+            "eligible": 2637801,
+            "null": 37994,
+            "turnout": 2052133,
+            "valid": 1993383
+          },
+          "available_sections": {
+            "abstention": 8287,
+            "blank": 7181,
+            "counted": 8287,
+            "eligible": 8287,
+            "null": 8034,
+            "turnout": 8287,
+            "valid": 8287
+          }
+        },
+        {
+          "round": 2,
+          "election": "6258",
+          "sections": 8287,
+          "totals": {
+            "abstention": 552545,
+            "blank": 15431,
+            "counted": 2085334,
+            "eligible": 2637879,
+            "null": 24637,
+            "turnout": 2085334,
+            "valid": 2045266
+          },
+          "available_sections": {
+            "abstention": 8287,
+            "blank": 6713,
+            "counted": 8287,
+            "eligible": 8287,
+            "null": 7591,
+            "turnout": 8287,
+            "valid": 8287
+          }
+        }
+      ]
+    },
+    {
+      "code": "PA",
+      "rounds": [
+        {
+          "round": 1,
+          "election": "6257",
+          "sections": 20827,
+          "totals": {
+            "abstention": 1195893,
+            "blank": 54203,
+            "counted": 5066504,
+            "eligible": 6262397,
+            "null": 148946,
+            "turnout": 5066504,
+            "valid": 4863355
+          },
+          "available_sections": {
+            "abstention": 20827,
+            "blank": 17295,
+            "counted": 20827,
+            "eligible": 20827,
+            "null": 20549,
+            "turnout": 20827,
+            "valid": 20827
+          }
+        },
+        {
+          "round": 2,
+          "election": "6258",
+          "sections": 20827,
+          "totals": {
+            "abstention": 1272490,
+            "blank": 36501,
+            "counted": 4989573,
+            "eligible": 6262063,
+            "null": 62683,
+            "turnout": 4989573,
+            "valid": 4890389
+          },
+          "available_sections": {
+            "abstention": 20827,
+            "blank": 15700,
+            "counted": 20827,
+            "eligible": 20827,
+            "null": 18667,
+            "turnout": 20827,
+            "valid": 20827
+          }
+        }
+      ]
+    },
+    {
+      "code": "PB",
+      "rounds": [
+        {
+          "round": 1,
+          "election": "6257",
+          "sections": 10712,
+          "totals": {
+            "abstention": 564543,
+            "blank": 52297,
+            "counted": 2683988,
+            "eligible": 3248531,
+            "null": 117854,
+            "turnout": 2683988,
+            "valid": 2513837
+          },
+          "available_sections": {
+            "abstention": 10712,
+            "blank": 10406,
+            "counted": 10712,
+            "eligible": 10712,
+            "null": 10692,
+            "turnout": 10712,
+            "valid": 10712
+          }
+        },
+        {
+          "round": 2,
+          "election": "6258",
+          "sections": 10712,
+          "totals": {
+            "abstention": 504874,
+            "blank": 25943,
+            "counted": 2743560,
+            "eligible": 3248434,
+            "null": 58348,
+            "turnout": 2743560,
+            "valid": 2659269
+          },
+          "available_sections": {
+            "abstention": 10712,
+            "blank": 9437,
+            "counted": 10712,
+            "eligible": 10712,
+            "null": 10556,
+            "turnout": 10712,
+            "valid": 10712
+          }
+        }
+      ]
+    },
+    {
+      "code": "PE",
+      "rounds": [
+        {
+          "round": 1,
+          "election": "6257",
+          "sections": 21418,
+          "totals": {
+            "abstention": 1312388,
+            "blank": 109491,
+            "counted": 5911062,
+            "eligible": 7223450,
+            "null": 200416,
+            "turnout": 5911062,
+            "valid": 5601155
+          },
+          "available_sections": {
+            "abstention": 21418,
+            "blank": 20843,
+            "counted": 21418,
+            "eligible": 21418,
+            "null": 21346,
+            "turnout": 21418,
+            "valid": 21418
+          }
+        },
+        {
+          "round": 2,
+          "election": "6258",
+          "sections": 21418,
+          "totals": {
+            "abstention": 1096760,
+            "blank": 56758,
+            "counted": 6126467,
+            "eligible": 7223227,
+            "null": 119642,
+            "turnout": 6126467,
+            "valid": 5950067
+          },
+          "available_sections": {
+            "abstention": 21418,
+            "blank": 19267,
+            "counted": 21418,
+            "eligible": 21418,
+            "null": 21141,
+            "turnout": 21418,
+            "valid": 21418
+          }
+        }
+      ]
+    },
+    {
+      "code": "PI",
+      "rounds": [
+        {
+          "round": 1,
+          "election": "6257",
+          "sections": 10225,
+          "totals": {
+            "abstention": 463875,
+            "blank": 28329,
+            "counted": 2240883,
+            "eligible": 2704758,
+            "null": 66108,
+            "turnout": 2240883,
+            "valid": 2146446
+          },
+          "available_sections": {
+            "abstention": 10225,
+            "blank": 9032,
+            "counted": 10225,
+            "eligible": 10225,
+            "null": 10033,
+            "turnout": 10225,
+            "valid": 10225
+          }
+        },
+        {
+          "round": 2,
+          "election": "6258",
+          "sections": 10225,
+          "totals": {
+            "abstention": 464865,
+            "blank": 16137,
+            "counted": 2239830,
+            "eligible": 2704695,
+            "null": 43845,
+            "turnout": 2239830,
+            "valid": 2179848
+          },
+          "available_sections": {
+            "abstention": 10225,
+            "blank": 7594,
+            "counted": 10225,
+            "eligible": 10225,
+            "null": 9776,
+            "turnout": 10225,
+            "valid": 10225
+          }
+        }
+      ]
+    },
+    {
+      "code": "PR",
+      "rounds": [
+        {
+          "round": 1,
+          "election": "6257",
+          "sections": 27142,
+          "totals": {
+            "abstention": 1772200,
+            "blank": 122499,
+            "counted": 6841457,
+            "eligible": 8613657,
+            "null": 133447,
+            "turnout": 6841457,
+            "valid": 6585511
+          },
+          "available_sections": {
+            "abstention": 27142,
+            "blank": 26246,
+            "counted": 27142,
+            "eligible": 27142,
+            "null": 26528,
+            "turnout": 27142,
+            "valid": 27142
+          }
+        },
+        {
+          "round": 2,
+          "election": "6258",
+          "sections": 27142,
+          "totals": {
+            "abstention": 1554289,
+            "blank": 82572,
+            "counted": 7059339,
+            "eligible": 8613628,
+            "null": 118819,
+            "turnout": 7059339,
+            "valid": 6857948
+          },
+          "available_sections": {
+            "abstention": 27142,
+            "blank": 25219,
+            "counted": 27142,
+            "eligible": 27142,
+            "null": 26259,
+            "turnout": 27142,
+            "valid": 27142
+          }
+        }
+      ]
+    },
+    {
+      "code": "RJ",
+      "rounds": [
+        {
+          "round": 1,
+          "election": "6257",
+          "sections": 37675,
+          "totals": {
+            "abstention": 2997846,
+            "blank": 201979,
+            "counted": 9859802,
+            "eligible": 12857648,
+            "null": 287736,
+            "turnout": 9859802,
+            "valid": 9370087
+          },
+          "available_sections": {
+            "abstention": 37675,
+            "blank": 36927,
+            "counted": 37675,
+            "eligible": 37675,
+            "null": 37451,
+            "turnout": 37675,
+            "valid": 37675
+          }
+        },
+        {
+          "round": 2,
+          "election": "6258",
+          "sections": 37675,
+          "totals": {
+            "abstention": 2780077,
+            "blank": 111682,
+            "counted": 10077449,
+            "eligible": 12857526,
+            "null": 231341,
+            "turnout": 10077449,
+            "valid": 9734426
+          },
+          "available_sections": {
+            "abstention": 37675,
+            "blank": 34926,
+            "counted": 37675,
+            "eligible": 37675,
+            "null": 37324,
+            "turnout": 37675,
+            "valid": 37675
+          }
+        }
+      ]
+    },
+    {
+      "code": "RN",
+      "rounds": [
+        {
+          "round": 1,
+          "election": "6257",
+          "sections": 8115,
+          "totals": {
+            "abstention": 488812,
+            "blank": 33172,
+            "counted": 2171013,
+            "eligible": 2659825,
+            "null": 65880,
+            "turnout": 2171013,
+            "valid": 2071961
+          },
+          "available_sections": {
+            "abstention": 8115,
+            "blank": 7797,
+            "counted": 8115,
+            "eligible": 8115,
+            "null": 8070,
+            "turnout": 8115,
+            "valid": 8115
+          }
+        },
+        {
+          "round": 2,
+          "election": "6258",
+          "sections": 8115,
+          "totals": {
+            "abstention": 427044,
+            "blank": 19939,
+            "counted": 2232823,
+            "eligible": 2659867,
+            "null": 61879,
+            "turnout": 2232823,
+            "valid": 2151005
+          },
+          "available_sections": {
+            "abstention": 8115,
+            "blank": 7183,
+            "counted": 8115,
+            "eligible": 8115,
+            "null": 8083,
+            "turnout": 8115,
+            "valid": 8115
+          }
+        }
+      ]
+    },
+    {
+      "code": "RO",
+      "rounds": [
+        {
+          "round": 1,
+          "election": "6257",
+          "sections": 4698,
+          "totals": {
+            "abstention": 274813,
+            "blank": 9846,
+            "counted": 991080,
+            "eligible": 1265893,
+            "null": 13109,
+            "turnout": 991080,
+            "valid": 968125
+          },
+          "available_sections": {
+            "abstention": 4698,
+            "blank": 3936,
+            "counted": 4698,
+            "eligible": 4698,
+            "null": 4245,
+            "turnout": 4698,
+            "valid": 4698
+          }
+        },
+        {
+          "round": 2,
+          "election": "6258",
+          "sections": 4698,
+          "totals": {
+            "abstention": 277437,
+            "blank": 8361,
+            "counted": 988489,
+            "eligible": 1265926,
+            "null": 11300,
+            "turnout": 988489,
+            "valid": 968828
+          },
+          "available_sections": {
+            "abstention": 4698,
+            "blank": 3759,
+            "counted": 4698,
+            "eligible": 4698,
+            "null": 4111,
+            "turnout": 4698,
+            "valid": 4698
+          }
+        }
+      ]
+    },
+    {
+      "code": "RR",
+      "rounds": [
+        {
+          "round": 1,
+          "election": "6257",
+          "sections": 1519,
+          "totals": {
+            "abstention": 68749,
+            "blank": 2618,
+            "counted": 332772,
+            "eligible": 401521,
+            "null": 4595,
+            "turnout": 332772,
+            "valid": 325559
+          },
+          "available_sections": {
+            "abstention": 1519,
+            "blank": 1171,
+            "counted": 1519,
+            "eligible": 1519,
+            "null": 1407,
+            "turnout": 1519,
+            "valid": 1519
+          }
+        },
+        {
+          "round": 2,
+          "election": "6258",
+          "sections": 1519,
+          "totals": {
+            "abstention": 92943,
+            "blank": 2176,
+            "counted": 308597,
+            "eligible": 401540,
+            "null": 3241,
+            "turnout": 308597,
+            "valid": 303180
+          },
+          "available_sections": {
+            "abstention": 1519,
+            "blank": 1047,
+            "counted": 1519,
+            "eligible": 1519,
+            "null": 1255,
+            "turnout": 1519,
+            "valid": 1519
+          }
+        }
+      ]
+    },
+    {
+      "code": "RS",
+      "rounds": [
+        {
+          "round": 1,
+          "election": "6257",
+          "sections": 27547,
+          "totals": {
+            "abstention": 1819642,
+            "blank": 148339,
+            "counted": 6702903,
+            "eligible": 8522545,
+            "null": 131265,
+            "turnout": 6702903,
+            "valid": 6423299
+          },
+          "available_sections": {
+            "abstention": 27547,
+            "blank": 26770,
+            "counted": 27547,
+            "eligible": 27547,
+            "null": 26625,
+            "turnout": 27547,
+            "valid": 27547
+          }
+        },
+        {
+          "round": 2,
+          "election": "6258",
+          "sections": 27547,
+          "totals": {
+            "abstention": 1632680,
+            "blank": 89463,
+            "counted": 6889638,
+            "eligible": 8522318,
+            "null": 101245,
+            "turnout": 6889638,
+            "valid": 6698930
+          },
+          "available_sections": {
+            "abstention": 27547,
+            "blank": 25768,
+            "counted": 27547,
+            "eligible": 27547,
+            "null": 25931,
+            "turnout": 27547,
+            "valid": 27547
+          }
+        }
+      ]
+    },
+    {
+      "code": "SC",
+      "rounds": [
+        {
+          "round": 1,
+          "election": "6257",
+          "sections": 17326,
+          "totals": {
+            "abstention": 1086492,
+            "blank": 69007,
+            "counted": 4648159,
+            "eligible": 5734651,
+            "null": 78071,
+            "turnout": 4648159,
+            "valid": 4501081
+          },
+          "available_sections": {
+            "abstention": 17326,
+            "blank": 16606,
+            "counted": 17326,
+            "eligible": 17326,
+            "null": 16747,
+            "turnout": 17326,
+            "valid": 17326
+          }
+        },
+        {
+          "round": 2,
+          "election": "6258",
+          "sections": 17326,
+          "totals": {
+            "abstention": 972384,
+            "blank": 48674,
+            "counted": 4762303,
+            "eligible": 5734687,
+            "null": 75244,
+            "turnout": 4762303,
+            "valid": 4638385
+          },
+          "available_sections": {
+            "abstention": 17326,
+            "blank": 15939,
+            "counted": 17326,
+            "eligible": 17326,
+            "null": 16675,
+            "turnout": 17326,
+            "valid": 17326
+          }
+        }
+      ]
+    },
+    {
+      "code": "SE",
+      "rounds": [
+        {
+          "round": 1,
+          "election": "6257",
+          "sections": 5923,
+          "totals": {
+            "abstention": 301053,
+            "blank": 24859,
+            "counted": 1439082,
+            "eligible": 1740135,
+            "null": 49970,
+            "turnout": 1439082,
+            "valid": 1364253
+          },
+          "available_sections": {
+            "abstention": 5923,
+            "blank": 5692,
+            "counted": 5923,
+            "eligible": 5923,
+            "null": 5894,
+            "turnout": 5923,
+            "valid": 5923
+          }
+        },
+        {
+          "round": 2,
+          "election": "6258",
+          "sections": 5923,
+          "totals": {
+            "abstention": 273434,
+            "blank": 13135,
+            "counted": 1466659,
+            "eligible": 1740093,
+            "null": 31129,
+            "turnout": 1466659,
+            "valid": 1422395
+          },
+          "available_sections": {
+            "abstention": 5923,
+            "blank": 5063,
+            "counted": 5923,
+            "eligible": 5923,
+            "null": 5823,
+            "turnout": 5923,
+            "valid": 5923
+          }
+        }
+      ]
+    },
+    {
+      "code": "SP",
+      "rounds": [
+        {
+          "round": 1,
+          "election": "6257",
+          "sections": 103656,
+          "totals": {
+            "abstention": 7690900,
+            "blank": 632801,
+            "counted": 26431992,
+            "eligible": 34122892,
+            "null": 914888,
+            "turnout": 26431992,
+            "valid": 24884303
+          },
+          "available_sections": {
+            "abstention": 103656,
+            "blank": 102390,
+            "counted": 103656,
+            "eligible": 103656,
+            "null": 103292,
+            "turnout": 103656,
+            "valid": 103656
+          }
+        },
+        {
+          "round": 2,
+          "election": "6258",
+          "sections": 103656,
+          "totals": {
+            "abstention": 6759202,
+            "blank": 389606,
+            "counted": 27364389,
+            "eligible": 34123591,
+            "null": 716331,
+            "turnout": 27364389,
+            "valid": 26258452
+          },
+          "available_sections": {
+            "abstention": 103656,
+            "blank": 99849,
+            "counted": 103656,
+            "eligible": 103656,
+            "null": 102984,
+            "turnout": 103656,
+            "valid": 103656
+          }
+        }
+      ]
+    },
+    {
+      "code": "TO",
+      "rounds": [
+        {
+          "round": 1,
+          "election": "6257",
+          "sections": 4384,
+          "totals": {
+            "abstention": 216827,
+            "blank": 8344,
+            "counted": 965196,
+            "eligible": 1182023,
+            "null": 26377,
+            "turnout": 965196,
+            "valid": 930475
+          },
+          "available_sections": {
+            "abstention": 4384,
+            "blank": 3539,
+            "counted": 4384,
+            "eligible": 4384,
+            "null": 4329,
+            "turnout": 4384,
+            "valid": 4384
+          }
+        },
+        {
+          "round": 2,
+          "election": "6258",
+          "sections": 4384,
+          "totals": {
+            "abstention": 227278,
+            "blank": 8059,
+            "counted": 954763,
+            "eligible": 1182041,
+            "null": 35826,
+            "turnout": 954763,
+            "valid": 910878
+          },
+          "available_sections": {
+            "abstention": 4384,
+            "blank": 3578,
+            "counted": 4384,
+            "eligible": 4384,
+            "null": 4370,
+            "turnout": 4384,
+            "valid": 4384
+          }
+        }
+      ]
+    },
+    {
+      "code": "ZZ",
+      "rounds": [
+        {
+          "round": 1,
+          "election": "6257",
+          "sections": 1309,
+          "totals": {
+            "abstention": 574273,
+            "blank": 5816,
+            "counted": 341766,
+            "eligible": 916039,
+            "null": 4945,
+            "turnout": 341766,
+            "valid": 331005
+          },
+          "available_sections": {
+            "abstention": 1309,
+            "blank": 1192,
+            "counted": 1309,
+            "eligible": 1309,
+            "null": 1180,
+            "turnout": 1309,
+            "valid": 1309
+          }
+        },
+        {
+          "round": 2,
+          "election": "6258",
+          "sections": 1308,
+          "totals": {
+            "abstention": 534715,
+            "blank": 4675,
+            "counted": 381443,
+            "eligible": 916158,
+            "null": 5117,
+            "turnout": 381443,
+            "valid": 371651
+          },
+          "available_sections": {
+            "abstention": 1308,
+            "blank": 1165,
+            "counted": 1308,
+            "eligible": 1308,
+            "null": 1194,
+            "turnout": 1308,
+            "valid": 1308
+          }
+        }
+      ]
+    }
+  ],
+  "artifacts": {
+    "municipalities/AC.json": {
+      "bytes": 17393,
+      "sha256": "d51d78ac17611c475c55a1205ffe4216f454d4cc38311f4aec435b43d5be02b2"
+    },
+    "municipalities/AL.json": {
+      "bytes": 79740,
+      "sha256": "3b2934596632e32fa18d8dd03a9f7386825a52f2ff8bb5dd1d433c3403bb6fd5"
+    },
+    "municipalities/AM.json": {
+      "bytes": 48259,
+      "sha256": "fcb3587c96aad8b2f73d3c456818135a50da808beeaad2ba1d162a877c4b414b"
+    },
+    "municipalities/AP.json": {
+      "bytes": 12611,
+      "sha256": "27d81d66a7856e2d5e20b01ef8e15fbb4557f73758ddbc999c2b7c527eb5b88e"
+    },
+    "municipalities/BA.json": {
+      "bytes": 326921,
+      "sha256": "73e17aa0544e3ced6c445bb3e9f265f42d2efb00db6a45540d840d29ae93f501"
+    },
+    "municipalities/CE.json": {
+      "bytes": 145890,
+      "sha256": "213302100c5a3324a051e6c52eb865de858c8510961b9682c26566c705b9999f"
+    },
+    "municipalities/DF.json": {
+      "bytes": 996,
+      "sha256": "d5a3ee8273d861231b8ebb8b3490cb54cd13af04d287655ee556d9f023564e6e"
+    },
+    "municipalities/ES.json": {
+      "bytes": 62530,
+      "sha256": "fb1c632f96800245419066d1ce313da859112612f947cf25ffcd0917ea16c854"
+    },
+    "municipalities/GO.json": {
+      "bytes": 186990,
+      "sha256": "4cb62ef09ce016779be4efaef9b447ece1c2f50bf0c4ec621464cac59a7598f8"
+    },
+    "municipalities/MA.json": {
+      "bytes": 169812,
+      "sha256": "a81d3b4bc8225e019567899f94db206195aeb303770f3eafdd2605fda30d4148"
+    },
+    "municipalities/MG.json": {
+      "bytes": 659492,
+      "sha256": "b38467f040991c9a9df5d4ba32f662fe39847a62e27653fd39d478ca8a631968"
+    },
+    "municipalities/MS.json": {
+      "bytes": 61518,
+      "sha256": "e97f39516d069ceafc3e25126b55ad9259ccb659f1642472b943ac3b50cc570d"
+    },
+    "municipalities/MT.json": {
+      "bytes": 108750,
+      "sha256": "376f402d7ff613507a15b4925817583b9bb269f48df163e83430789cf94fe13d"
+    },
+    "municipalities/PA.json": {
+      "bytes": 114912,
+      "sha256": "c5d54695f09810d4255a3a4ad71837a987a6d47825af62d99406ecafc44356aa"
+    },
+    "municipalities/PB.json": {
+      "bytes": 170041,
+      "sha256": "0ba455b404a0d2d8e5e7130e3e68236ffd837668b656d3e1c5082fe958a7e623"
+    },
+    "municipalities/PE.json": {
+      "bytes": 146030,
+      "sha256": "bbdacd883aae40a22bad7ed01943d54dba754e074ac1f46267189467eb129c73"
+    },
+    "municipalities/PI.json": {
+      "bytes": 170071,
+      "sha256": "61f8a46bb6391293e1c7a396e38fe15031936b548aac0e5260da32f37c6db9a9"
+    },
+    "municipalities/PR.json": {
+      "bytes": 307072,
+      "sha256": "6c6579bda13788589d89089d3b56e506a76b322ad8761f891ee6405ec28c71ef"
+    },
+    "municipalities/RJ.json": {
+      "bytes": 76342,
+      "sha256": "a6f3989df4d6e4a095e8cd2e75e821afc976d63dfdba4a557d974ada4a20d77a"
+    },
+    "municipalities/RN.json": {
+      "bytes": 127500,
+      "sha256": "fbd0136d270bb86dbb36737d85cb461b1691c9f3f597444845db867e9aacb87f"
+    },
+    "municipalities/RO.json": {
+      "bytes": 40667,
+      "sha256": "5e54ac075daa9988a805b572366f1d74665900042ca7abbd0796e565e600cdf9"
+    },
+    "municipalities/RR.json": {
+      "bytes": 11658,
+      "sha256": "2d2687aa6f1e1b1a883c3b561b5099758ae9727f6ae23834c39814280816643b"
+    },
+    "municipalities/RS.json": {
+      "bytes": 377891,
+      "sha256": "5eefb01b0dc56aecdf891b3aefd2f4c6af6539d6fcb460b46f33f05d1975f80a"
+    },
+    "municipalities/SC.json": {
+      "bytes": 226900,
+      "sha256": "20d61711c07f54b08b6bb4e9508fc0a1bce6084c6fa1046e939707a1501d6f93"
+    },
+    "municipalities/SE.json": {
+      "bytes": 58645,
+      "sha256": "381b67d1aef7afaf0ad73910d47f1fdd8b2479a1a3050b6f673e65ba2165605f"
+    },
+    "municipalities/SP.json": {
+      "bytes": 506260,
+      "sha256": "6a184b71bf0c8999eeba147b1528debcb0831eb0249c275b12448d4c2515388c"
+    },
+    "municipalities/TO.json": {
+      "bytes": 102975,
+      "sha256": "17bb780b5479fd4554fe008115fa0e0af043293a3fee59527a7d64eea7783a5b"
+    },
+    "municipalities/ZZ.json": {
+      "bytes": 103887,
+      "sha256": "dd63fff8bd188d021679487df3b8e238ae0f945598a1a8977f7cfeacdab32ccd"
+    },
+    "national.json": {
+      "bytes": 2013,
+      "sha256": "40bcbb8da58b42bfb65dcc643570513eab13896b07ab4c1483e528c4d6504a27"
+    },
+    "states.json": {
+      "bytes": 25189,
+      "sha256": "71779e08aa1e1d4ac8afd2c735895bb06613f06d3a370a1f9ae3d31c7317aa8a"
+    },
+    "validation.json": {
+      "bytes": 564,
+      "sha256": "863c430ba02d97dc713cb16ad8e718c22dc315de87b827a18b3e0e3f8f9206d2"
+    },
+    "manifest.json": {
+      "bytes": 25976,
+      "sha256": "c4dcddacb8092ff1dfffb35b07b739dbf360232e701e080087f52a4a09e20637"
+    }
+  },
+  "json_files": 32,
+  "dataset_bytes": 4475495,
+  "initial_manifest_national_states_bytes": 53178,
+  "serialization_comparison": {
+    "normalized_data_bytes": 4448955,
+    "inline_candidate_metadata_bytes": 11130583,
+    "method": "serialization length comparison; no second real dataset stored"
+  },
+  "elapsed_seconds": 508.489,
+  "memory": {
+    "peak_bytes": 88158208,
+    "method": "Windows PeakWorkingSetSize"
+  },
+  "storage": {
+    "run_id": "f9efec8e42084e318126755a63afdca6",
+    "policy": {
+      "max_work_disk_bytes": 8589934592,
+      "min_free_disk_bytes": 16106127360,
+      "work_directory": ".work",
+      "cleanup_policy": "owned",
+      "retain_checkpoints": false,
+      "retain_failed_diagnostics": true,
+      "detailed_report_bytes": 8388608,
+      "projected_peak_bytes": 0
+    },
+    "free_before_bytes": 440458190848,
+    "minimum_free_bytes": 440124907520,
+    "peak_accounted_bytes": 333283328,
+    "peak_visible_file_bytes": 244286064,
+    "growth_safety_margin_bytes": 67108864,
+    "peak_work_bytes": 244284368,
+    "peak_journal_bytes": 0,
+    "remaining_owned_bytes": 4499441,
+    "remaining_work_bytes": 0,
+    "removed_files": 0,
+    "recovered_logical_bytes": 0,
+    "cleanup_refused": [],
+    "accounting_error": null,
+    "sqlite_temporary_files_observed": 19,
+    "sqlite_temporaries_no_longer_present": 19,
+    "measurement": "logical file lengths + conservative volume free-space delta; 100ms sampling and SQL/batch checks; not an OS quota",
+    "observed_sqlite_temporary_files": 19
+  },
+  "public_readiness": {
+    "status": "not_ready",
+    "blockers": [
+      "source_hashes_reused_from_local_cache",
+      "operator_trusted_hashes_incomplete"
+    ],
+    "origin_authentication": "not_performed"
+  },
+  "packages": {
+    "web": {
+      "real_json_files": 32,
+      "real_json_bytes": 4475495,
+      "all_hashes_match": true,
+      "synthetic_json_files": 0,
+      "build_directory_bytes": 47804004
+    },
+    "windows": {
+      "real_json_files": 32,
+      "real_json_bytes": 4475495,
+      "all_hashes_match": true,
+      "synthetic_json_files": 0,
+      "build_directory_bytes": 33890390
+    },
+    "android_debug": {
+      "real_json_files": 32,
+      "real_json_bytes_uncompressed": 4475495,
+      "real_json_compressed_bytes": 1042490,
+      "all_hashes_match": true,
+      "synthetic_json_files": 0,
+      "apk_bytes": 171151665,
+      "apk_sha256": "07df7f14dd58bab8e64c9c09c041133e89e9a4b24073072be59ba36b7d0e83e5"
+    }
+  },
+  "web_service_worker_settings_in_bootstrap": false,
+  "preserved_outputs": [
+    {
+      "path": "data/processed/national-2026",
+      "bytes": 936423406,
+      "size_unchanged": true
+    },
+    {
+      "path": "data/processed/sc-2026",
+      "bytes": 812529200,
+      "size_unchanged": true
+    },
+    {
+      "path": "data/processed/sc-2026-review",
+      "bytes": 580681064,
+      "size_unchanged": true
+    }
+  ],
+  "source_fingerprint_unchanged": true,
+  "disk_final": {
+    "canonical_embedded_bytes": 4499541,
+    "installed_real_asset_bytes": 4475495,
+    "free_bytes_at_inventory": 436619444224
+  },
+  "test_results": {
+    "pytest_passed": 113,
+    "pytest_skipped": 2,
+    "pytest_seconds": 435.95,
+    "post_web_policy_regression_passed": 2,
+    "flutter_passed": 57,
+    "flutter_default_skipped": 7,
+    "real_flutter_passed": 7,
+    "native_windows_passed": 1,
+    "native_application_http_attempts": 0
+  },
+  "cleanup": {
+    "owned_pytest_directories": 13,
+    "logical_bytes_removed": 56854759,
+    "method": "file-by-file identity-checked; no links/reparse; previous datasets preserved"
+  },
+  "flutter_debug_harness_metrics": {
+    "initial_dataset_debug_ms": 59.059,
+    "SP_load_debug_ms": 75.295,
+    "SP_search_debug_ms": 10.209,
+    "SP_search_matches": 29,
+    "AC_load_debug_ms": 3.122,
+    "AC_search_debug_ms": 0.324,
+    "AC_search_matches": 0,
+    "RS_load_debug_ms": 24.075,
+    "RS_search_debug_ms": 1.163,
+    "RS_search_matches": 37,
+    "SC_load_debug_ms": 11.148,
+    "SC_search_debug_ms": 0.319,
+    "SC_search_matches": 21,
+    "ZZ_load_debug_ms": 7.19,
+    "ZZ_search_debug_ms": 0.153,
+    "ZZ_search_matches": 4,
+    "BR_first_results_widget_debug_ms": 897.277,
+    "BR_round_1_widget_debug_ms": 255.127,
+    "BR_round_2_widget_debug_ms": 130.395,
+    "SP_first_results_widget_debug_ms": 346.423,
+    "SP_round_1_widget_debug_ms": 149.103,
+    "SP_round_2_widget_debug_ms": 137.036,
+    "SP_search_widget_debug_ms": 222.832,
+    "SP_city_change_widget_debug_ms": 136.791,
+    "AC_first_results_widget_debug_ms": 480.939,
+    "AC_round_1_widget_debug_ms": 215.904,
+    "AC_round_2_widget_debug_ms": 283.871,
+    "AC_search_widget_debug_ms": 210.267,
+    "AC_city_change_widget_debug_ms": 181.044,
+    "RS_first_results_widget_debug_ms": 702.67,
+    "RS_round_1_widget_debug_ms": 183.531,
+    "RS_round_2_widget_debug_ms": 177.473,
+    "RS_search_widget_debug_ms": 182.487,
+    "RS_city_change_widget_debug_ms": 132.819,
+    "SC_first_results_widget_debug_ms": 460.442,
+    "SC_round_1_widget_debug_ms": 153.872,
+    "SC_round_2_widget_debug_ms": 179.556,
+    "SC_search_widget_debug_ms": 151.144,
+    "SC_city_change_widget_debug_ms": 190.235,
+    "ZZ_first_results_widget_debug_ms": 496.358,
+    "ZZ_round_1_widget_debug_ms": 170.128,
+    "ZZ_round_2_widget_debug_ms": 202.087,
+    "ZZ_search_widget_debug_ms": 164.681,
+    "ZZ_city_change_widget_debug_ms": 134.2
+  },
+  "native_debug_harness_metrics": {
+    "first_national_frame_ms": 1184.433,
+    "round_change_ms": 532.461,
+    "state_selection_ms": 937.577,
+    "municipal_search_ms": 396.896,
+    "municipal_selection_ms": 111.674,
+    "application_http_attempts": 0
+  }
+}

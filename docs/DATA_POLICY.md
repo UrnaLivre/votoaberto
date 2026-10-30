@@ -9,8 +9,10 @@ Os conjuntos de **votação por seção**, **boletins de urna** e, se necessári
 
 **Status M2:** primeira importação local de SC/presidente nos dois turnos executada,
 com resultados e limites em [TSE_2026_FORMAT_INVESTIGATION](TSE_2026_FORMAT_INVESTIGATION.md).
-Os originais e derivados reais não são versionados. O aplicativo continua
-exclusivamente sintético; não há publicação remota de banco ou integração Flutter.
+Os originais e derivados reais não são versionados. M4 acrescenta prévia Flutter
+local por JSONs derivados da base M3.1; a demonstração fictícia permanece separada.
+Não há publicação remota. `public_readiness: not_ready` é preservado e apresentado
+na metodologia.
 
 ## Regras para o pipeline de ingestão
 
@@ -66,3 +68,15 @@ data/samples/      # pequenos fixtures sintéticos, versionáveis
 ```
 
 Este repositório **não** pretende servir como espelho dos gigabytes de arquivos oficiais. A reprodutibilidade virá dos scripts, manifestos, documentação e links às fontes.
+
+## Prévia municipal M4
+
+Builds reais usam apenas JSONs agregados conferidos contra o SQLite existente,
+com hashes, atribuição e limitações herdadas. Hashes da mini-base verificam o
+pacote selecionado; não autenticam a origem do TSE.
+`source_hashes_reused_from_local_cache` e `operator_trusted_hashes_incomplete`
+continuam bloqueando prontidão pública. M4 não baixa/reimporta fontes nem muda
+artificialmente confiança. Fixtures são fictícios e empacotados separadamente.
+Assets reais ausentes ou incompatíveis impedem build real, sem fallback mock.
+A licença MIT não é aplicada aos dados por essa conversão.
+[Operação e atualização](EMBEDDED_DATA_MVP.md).
