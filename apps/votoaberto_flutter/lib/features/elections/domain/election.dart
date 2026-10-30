@@ -50,7 +50,17 @@ class Candidate {
   final String name;
   final String? number;
   final String? sourceCandidateId;
-  String get comparisonKey => number == null ? id : '$number:$name';
+
+  /// Scoped to the same year/office in an ElectionDataset, never a global ID.
+  /// The nominal catalog has one entry per ballot number and round. Names are
+  /// source labels and may change spelling between those rounds.
+  String get comparisonKey => number == null ? 'id:$id' : 'number:$number';
+
+  bool sameCandidateAs(Candidate other) =>
+      comparisonKey == other.comparisonKey &&
+      (sourceCandidateId == null ||
+          other.sourceCandidateId == null ||
+          sourceCandidateId == other.sourceCandidateId);
 }
 
 class CandidateResult {

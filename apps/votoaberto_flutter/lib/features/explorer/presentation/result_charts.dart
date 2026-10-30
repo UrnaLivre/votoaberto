@@ -104,35 +104,28 @@ class ComparisonChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int? complete(VoteTotals totals, String key, int? value) =>
-        totals.complete(key) ? value : null;
-    final metrics = <(String, int?, int?)>[
+    final metrics = <(String, String, int?, int?)>[
       (
         'Eleitores aptos',
-        complete(first.totals, 'eligible', first.totals.eligible),
-        complete(second.totals, 'eligible', second.totals.eligible),
+        'eligible',
+        first.totals.eligible,
+        second.totals.eligible,
       ),
       (
         'Comparecimento',
-        complete(first.totals, 'turnout', first.totals.turnout),
-        complete(second.totals, 'turnout', second.totals.turnout),
+        'turnout',
+        first.totals.turnout,
+        second.totals.turnout,
       ),
       (
         'Abstenção',
-        complete(first.totals, 'abstention', first.totals.abstention),
-        complete(second.totals, 'abstention', second.totals.abstention),
+        'abstention',
+        first.totals.abstention,
+        second.totals.abstention,
       ),
-      ('Votos válidos', first.totals.valid, second.totals.valid),
-      (
-        'Votos brancos',
-        complete(first.totals, 'blank', first.totals.blank),
-        complete(second.totals, 'blank', second.totals.blank),
-      ),
-      (
-        'Votos nulos',
-        complete(first.totals, 'null', first.totals.invalid),
-        complete(second.totals, 'null', second.totals.invalid),
-      ),
+      ('Votos válidos', 'valid', first.totals.valid, second.totals.valid),
+      ('Votos brancos', 'blank', first.totals.blank, second.totals.blank),
+      ('Votos nulos', 'null', first.totals.invalid, second.totals.invalid),
     ];
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -143,7 +136,14 @@ class ComparisonChart extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         for (final metric in metrics)
-          _pair(context, metric.$1, metric.$2, metric.$3),
+          _pair(
+            context,
+            metric.$1,
+            metric.$3,
+            metric.$4,
+            partialA: !first.totals.complete(metric.$2),
+            partialB: !second.totals.complete(metric.$2),
+          ),
         const Divider(),
         Text(
           'Votação por candidato',
@@ -152,8 +152,7 @@ class ComparisonChart extends StatelessWidget {
         const SizedBox(height: 16),
         for (final candidate in first.candidates) ...[
           if (second.candidates.any(
-            (c) =>
-                c.candidate.comparisonKey == candidate.candidate.comparisonKey,
+            (c) => c.candidate.sameCandidateAs(candidate.candidate),
           )) ...[
             _pair(
               context,
@@ -161,9 +160,7 @@ class ComparisonChart extends StatelessWidget {
               candidate.votes,
               second.candidates
                   .firstWhere(
-                    (c) =>
-                        c.candidate.comparisonKey ==
-                        candidate.candidate.comparisonKey,
+                    (c) => c.candidate.sameCandidateAs(candidate.candidate),
                   )
                   .votes,
             ),
@@ -171,7 +168,7 @@ class ComparisonChart extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: 18),
               child: Text(
                 'Dos válidos: ${percent(candidate.shareOfValid(first.totals.valid))} → '
-                '${percent(second.candidates.firstWhere((c) => c.candidate.comparisonKey == candidate.candidate.comparisonKey).shareOfValid(second.totals.valid))}',
+                '${percent(second.candidates.firstWhere((c) => c.candidate.sameCandidateAs(candidate.candidate)).shareOfValid(second.totals.valid))}',
                 style: Theme.of(context).textTheme.labelMedium,
               ),
             ),
@@ -181,32 +178,63 @@ class ComparisonChart extends StatelessWidget {
               child: Text(
                 '${candidate.candidate.name}: ${count(candidate.votes)} votos no 1º turno '
                 '(${percent(candidate.shareOfValid(first.totals.valid))} dos válidos). '
-                '${second.unreportedCandidates.any((c) => c.comparisonKey == candidate.candidate.comparisonKey) ? 'Sem registro neste recorte do 2º turno.' : 'Não disputa o 2º turno.'}',
+                '${_participationStatus(candidate.candidate, second, '2º turno')}',
               ),
             ),
         ],
         for (final candidate in second.candidates.where(
           (c) => !first.candidates.any(
-            (a) => a.candidate.comparisonKey == c.candidate.comparisonKey,
+            (a) => a.candidate.sameCandidateAs(c.candidate),
           ),
         ))
           Padding(
             padding: const EdgeInsets.only(bottom: 16),
             child: Text(
               '${candidate.candidate.name}: ${count(candidate.votes)} votos no 2º turno. '
-              '${first.unreportedCandidates.any((c) => c.comparisonKey == candidate.candidate.comparisonKey) ? 'Sem registro no recorte do 1º turno.' : 'Não disputa o 1º turno.'}',
+              '${_participationStatus(candidate.candidate, first, '1º turno')}',
             ),
           ),
       ],
     );
   }
 
-  Widget _pair(BuildContext context, String label, int? a, int? b) {
-    if (a == null || b == null) {
+  String _participationStatus(
+    Candidate candidate,
+    RoundResult other,
+    String round,
+  ) {
+    final participants = [
+      for (final result in other.candidates) result.candidate,
+      ...other.unreportedCandidates,
+    ];
+    if (participants.any(
+      (c) =>
+          c.comparisonKey == candidate.comparisonKey &&
+          !c.sameCandidateAs(candidate),
+    )) {
+      return 'Correspondência de identidade entre turnos não confirmada.';
+    }
+    return other.unreportedCandidates.any((c) => c.sameCandidateAs(candidate))
+        ? 'Sem registro neste recorte do $round.'
+        : 'Não disputa o $round.';
+  }
+
+  Widget _pair(
+    BuildContext context,
+    String label,
+    int? a,
+    int? b, {
+    bool partialA = false,
+    bool partialB = false,
+  }) {
+    if (a == null || b == null || partialA || partialB) {
+      String describe(int? value, bool partial) =>
+          '${count(value)}${value != null && partial ? ' · registros parciais' : ''}';
       return Padding(
         padding: const EdgeInsets.only(bottom: 16),
         child: Text(
-          '$label: ${count(a)} → ${count(b)}. Comparação indisponível.',
+          '$label: ${describe(a, partialA)} → ${describe(b, partialB)}. '
+          '${partialA && a != null || partialB && b != null ? 'Comparação de totais completos indisponível.' : 'Comparação indisponível.'}',
         ),
       );
     }
