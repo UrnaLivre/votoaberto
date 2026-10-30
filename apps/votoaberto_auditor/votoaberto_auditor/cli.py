@@ -10,7 +10,8 @@ from dataclasses import asdict
 from pathlib import Path
 
 from tse_importer.discovery import drain, inventory, member_stream
-from tse_importer.domain import Config, ImportFailure, Limits
+from tse_importer.domain import Config, ImportFailure, Limits, StoragePolicy
+from tse_importer.embedded_exporter import export_embedded
 from tse_importer.engine import run_import, validate_release, write_json
 from tse_importer.parsers import inspect_member
 from tse_importer.planning import plan
@@ -73,6 +74,12 @@ def parser() -> argparse.ArgumentParser:
     planning = sub.add_parser("plan")
     planning.add_argument("--config", type=Path, required=True)
     planning.add_argument("--json", type=Path, dest="json_path")
+    embedded = sub.add_parser("export-embedded")
+    embedded.add_argument("--dataset", required=True, type=Path)
+    embedded.add_argument("--output", required=True, type=Path)
+    embedded.add_argument("--json", type=Path, dest="json_path")
+    embedded.add_argument("--max-work-disk-bytes", type=int, default=8 * 1024**3)
+    embedded.add_argument("--min-free-disk-bytes", type=int, default=15 * 1024**3)
     for name in ("validate", "report"):
         command = sub.add_parser(name)
         command.add_argument("--dataset", required=True, type=Path)
@@ -138,7 +145,17 @@ def main(argv: list[str] | None = None) -> int:
             )
             print(json.dumps({"release": str(release)}, ensure_ascii=False))
             return 0
-        if args.command == "plan":
+        if args.command == "export-embedded":
+            result = export_embedded(
+                args.dataset,
+                args.output,
+                policy=StoragePolicy(
+                    max_work_disk_bytes=args.max_work_disk_bytes,
+                    min_free_disk_bytes=args.min_free_disk_bytes,
+                ),
+                progress=lambda m: print(m, file=sys.stderr, flush=True),
+            )
+        elif args.command == "plan":
             config = Config.from_dict(
                 json.loads(args.config.read_text(encoding="utf8")), args.config.resolve().parent
             )
