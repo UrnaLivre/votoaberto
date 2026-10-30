@@ -90,7 +90,7 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "UrnaLivre contributors" "\0"
-            VALUE "FileDescription", "VotoAberto — Demonstração" "\0"
+            VALUE "FileDescription", "VotoAberto — Consulta local" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "votoaberto" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2026 UrnaLivre contributors. MIT License." "\0"

@@ -11,8 +11,13 @@ const _candidateColors = [
 ];
 
 class DistributionChart extends StatelessWidget {
-  const DistributionChart({super.key, required this.result});
+  const DistributionChart({
+    super.key,
+    required this.result,
+    this.synthetic = true,
+  });
   final RoundResult result;
+  final bool synthetic;
   @override
   Widget build(BuildContext context) => Column(
     children: [
@@ -23,9 +28,12 @@ class DistributionChart extends StatelessWidget {
 
   Widget _candidate(BuildContext context, CandidateResult candidate, int i) {
     final share = candidate.shareOfValid(result.totals.valid);
+    final colorIndex =
+        (int.tryParse(candidate.candidate.number ?? '') ?? i) %
+        _candidateColors.length;
     return Semantics(
       label:
-          '${candidate.candidate.name}, ${count(candidate.votes)} votos fictícios, '
+          '${candidate.candidate.name}, ${count(candidate.votes)} votos${synthetic ? ' fictícios' : ''}, '
           '${percent(share)} dos válidos',
       child: ExcludeSemantics(
         child: Padding(
@@ -38,12 +46,16 @@ class DistributionChart extends StatelessWidget {
                     width: 8,
                     height: 8,
                     decoration: BoxDecoration(
-                      color: _candidateColors[i],
+                      color: _candidateColors[colorIndex],
                       shape: BoxShape.circle,
                     ),
                   ),
                   const SizedBox(width: 8),
-                  Expanded(child: Text(candidate.candidate.name)),
+                  Expanded(
+                    child: Text(
+                      '${candidate.candidate.number == null ? '' : '${candidate.candidate.number} · '}${candidate.candidate.name}',
+                    ),
+                  ),
                   Text(
                     percent(share),
                     style: const TextStyle(fontWeight: FontWeight.w700),
@@ -54,9 +66,9 @@ class DistributionChart extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(3),
                 child: LinearProgressIndicator(
-                  value: share,
+                  value: share ?? 0,
                   minHeight: 7,
-                  color: _candidateColors[i],
+                  color: _candidateColors[colorIndex],
                   backgroundColor: Theme.of(
                     context,
                   ).colorScheme.surfaceContainerHighest,
@@ -80,18 +92,40 @@ class DistributionChart extends StatelessWidget {
 }
 
 class ComparisonChart extends StatelessWidget {
-  const ComparisonChart({super.key, required this.first, required this.second});
+  const ComparisonChart({
+    super.key,
+    required this.first,
+    required this.second,
+    this.synthetic = true,
+  });
   final RoundResult first;
   final RoundResult second;
+  final bool synthetic;
 
   @override
   Widget build(BuildContext context) {
-    final metrics = <(String, int, int)>[
-      ('Comparecimento', first.totals.turnout, second.totals.turnout),
-      ('Abstenção', first.totals.abstention, second.totals.abstention),
-      ('Votos válidos', first.totals.valid, second.totals.valid),
-      ('Votos brancos', first.totals.blank, second.totals.blank),
-      ('Votos nulos', first.totals.invalid, second.totals.invalid),
+    final metrics = <(String, String, int?, int?)>[
+      (
+        'Eleitores aptos',
+        'eligible',
+        first.totals.eligible,
+        second.totals.eligible,
+      ),
+      (
+        'Comparecimento',
+        'turnout',
+        first.totals.turnout,
+        second.totals.turnout,
+      ),
+      (
+        'Abstenção',
+        'abstention',
+        first.totals.abstention,
+        second.totals.abstention,
+      ),
+      ('Votos válidos', 'valid', first.totals.valid, second.totals.valid),
+      ('Votos brancos', 'blank', first.totals.blank, second.totals.blank),
+      ('Votos nulos', 'null', first.totals.invalid, second.totals.invalid),
     ];
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -102,7 +136,14 @@ class ComparisonChart extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         for (final metric in metrics)
-          _pair(context, metric.$1, metric.$2, metric.$3),
+          _pair(
+            context,
+            metric.$1,
+            metric.$3,
+            metric.$4,
+            partialA: !first.totals.complete(metric.$2),
+            partialB: !second.totals.complete(metric.$2),
+          ),
         const Divider(),
         Text(
           'Votação por candidato',
@@ -111,21 +152,23 @@ class ComparisonChart extends StatelessWidget {
         const SizedBox(height: 16),
         for (final candidate in first.candidates) ...[
           if (second.candidates.any(
-            (c) => c.candidate.id == candidate.candidate.id,
+            (c) => c.candidate.sameCandidateAs(candidate.candidate),
           )) ...[
             _pair(
               context,
               candidate.candidate.name,
               candidate.votes,
               second.candidates
-                  .firstWhere((c) => c.candidate.id == candidate.candidate.id)
+                  .firstWhere(
+                    (c) => c.candidate.sameCandidateAs(candidate.candidate),
+                  )
                   .votes,
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 18),
               child: Text(
                 'Dos válidos: ${percent(candidate.shareOfValid(first.totals.valid))} → '
-                '${percent(second.candidates.firstWhere((c) => c.candidate.id == candidate.candidate.id).shareOfValid(second.totals.valid))}',
+                '${percent(second.candidates.firstWhere((c) => c.candidate.sameCandidateAs(candidate.candidate)).shareOfValid(second.totals.valid))}',
                 style: Theme.of(context).textTheme.labelMedium,
               ),
             ),
@@ -134,22 +177,74 @@ class ComparisonChart extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: 16),
               child: Text(
                 '${candidate.candidate.name}: ${count(candidate.votes)} votos no 1º turno '
-                '(${percent(candidate.shareOfValid(first.totals.valid))} dos válidos). Não disputa o 2º turno.',
+                '(${percent(candidate.shareOfValid(first.totals.valid))} dos válidos). '
+                '${_participationStatus(candidate.candidate, second, '2º turno')}',
               ),
             ),
         ],
+        for (final candidate in second.candidates.where(
+          (c) => !first.candidates.any(
+            (a) => a.candidate.sameCandidateAs(c.candidate),
+          ),
+        ))
+          Padding(
+            padding: const EdgeInsets.only(bottom: 16),
+            child: Text(
+              '${candidate.candidate.name}: ${count(candidate.votes)} votos no 2º turno. '
+              '${_participationStatus(candidate.candidate, first, '1º turno')}',
+            ),
+          ),
       ],
     );
   }
 
-  Widget _pair(BuildContext context, String label, int a, int b) {
+  String _participationStatus(
+    Candidate candidate,
+    RoundResult other,
+    String round,
+  ) {
+    final participants = [
+      for (final result in other.candidates) result.candidate,
+      ...other.unreportedCandidates,
+    ];
+    if (participants.any(
+      (c) =>
+          c.comparisonKey == candidate.comparisonKey &&
+          !c.sameCandidateAs(candidate),
+    )) {
+      return 'Correspondência de identidade entre turnos não confirmada.';
+    }
+    return other.unreportedCandidates.any((c) => c.sameCandidateAs(candidate))
+        ? 'Sem registro neste recorte do $round.'
+        : 'Não disputa o $round.';
+  }
+
+  Widget _pair(
+    BuildContext context,
+    String label,
+    int? a,
+    int? b, {
+    bool partialA = false,
+    bool partialB = false,
+  }) {
+    if (a == null || b == null || partialA || partialB) {
+      String describe(int? value, bool partial) =>
+          '${count(value)}${value != null && partial ? ' · registros parciais' : ''}';
+      return Padding(
+        padding: const EdgeInsets.only(bottom: 16),
+        child: Text(
+          '$label: ${describe(a, partialA)} → ${describe(b, partialB)}. '
+          '${partialA && a != null || partialB && b != null ? 'Comparação de totais completos indisponível.' : 'Comparação indisponível.'}',
+        ),
+      );
+    }
     final change = VoteChange(a, b);
     final maxValue = math.max(a, b);
     final colors = Theme.of(context).colorScheme;
     return Semantics(
       label:
           '$label: primeiro turno ${count(a)}, segundo turno ${count(b)}. '
-          'Variação ${signedCount(change.absolute)}, ${signedPercent(change.relative)}. Dados fictícios.',
+          'Variação ${signedCount(change.absolute)}, ${signedPercent(change.relative)}.${synthetic ? ' Dados fictícios.' : ''}',
       child: ExcludeSemantics(
         child: Padding(
           padding: const EdgeInsets.only(bottom: 18),

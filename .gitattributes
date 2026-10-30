@@ -4,6 +4,8 @@
 *.yml text eol=lf
 # Preserve the exact downloaded cartographic bytes and their documented hash.
 *.geojson -text
+# Fixtures have byte-level hashes in their manifest on Windows and Linux.
+/apps/votoaberto_flutter/assets/data/synthetic/** text eol=lf
 *.ttf binary
 *.png binary
 *.jpg binary

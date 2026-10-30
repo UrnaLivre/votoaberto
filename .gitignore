@@ -63,5 +63,12 @@ obj/
 
 # Local logs and temporary artifacts
 .local/
+.embedded-build.lock
+/apps/votoaberto_flutter/assets/data/real/**
+/apps/votoaberto_flutter/assets/data/.runs/
+/apps/votoaberto_flutter/assets/data/.work/
+!/apps/votoaberto_flutter/assets/data/real/.gitkeep
+!/apps/votoaberto_flutter/assets/data/real/municipalities/
+!/apps/votoaberto_flutter/assets/data/real/municipalities/.gitkeep
 *.log
 *.tmp

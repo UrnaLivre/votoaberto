@@ -1,5 +1,24 @@
 import 'package:flutter/material.dart';
 import '../app/strings.dart';
+import '../features/elections/domain/election.dart';
+
+class SourceBanner extends StatelessWidget {
+  const SourceBanner({super.key, required this.synthetic});
+  final bool synthetic;
+  @override
+  Widget build(BuildContext context) => synthetic
+      ? const DemoBanner()
+      : Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          color: Theme.of(context).colorScheme.secondaryContainer,
+          child: Text(
+            'PRÉVIA LOCAL · Dados derivados do TSE · Verificação de origem limitada',
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.labelMedium,
+          ),
+        );
+}
 
 class DemoBanner extends StatelessWidget {
   const DemoBanner({super.key});
@@ -66,22 +85,39 @@ class StatusMessage extends StatelessWidget {
   );
 }
 
-Future<void> showMethodology(BuildContext context) => showDialog<void>(
+Future<void> showMethodology(
+  BuildContext context, {
+  DataProvenance? provenance,
+}) => showDialog<void>(
   context: context,
   builder: (context) => AlertDialog(
     title: const Text(AppStrings.methodology),
-    content: const SizedBox(
+    content: SizedBox(
       width: 580,
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              AppStrings.demo,
-              style: TextStyle(fontWeight: FontWeight.bold),
+              provenance == null || provenance.synthetic
+                  ? AppStrings.demo
+                  : 'Dados derivados do TSE · Prévia local de validação',
+              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 16),
-            SelectableText(AppStrings.methodologyBody),
+            const SizedBox(height: 16),
+            SelectableText(
+              provenance == null || provenance.version == 'mock-v1'
+                  ? AppStrings.methodologyBody
+                  : '${provenance.synthetic ? 'Fonte: fixture sintético para testes, sem resultados reais.' : 'Fonte: dados abertos do TSE · processamento independente pelo VotoAberto.'}\n\n'
+                        '${provenance.transformations}\n\n'
+                        'Versão: ${provenance.version}. Release de origem: ${provenance.sourceRelease}.\n'
+                        'Prontidão pública: ${provenance.publicReadiness}. Esta instalação é uma prévia local, sem publicação pública aprovada.\n\n'
+                        'Percentuais dos candidatos dividem pelos votos válidos. Comparecimento e abstenção dividem pelos aptos quando completos. '
+                        'Totais parciais são identificados; valores indisponíveis não são zero. '
+                        'As listas de candidatos e os aptos podem mudar entre turnos. ${AppStrings.interpretation}\n\n'
+                        'SHA-256 compara bytes; não é assinatura nem certificação. VotoAberto é independente do TSE. '
+                        'Cartografia IBGE, Malhas Geográficas v3, simplificada por UF; sem localização de equipamentos ou votação no exterior.',
+            ),
           ],
         ),
       ),
@@ -91,7 +127,7 @@ Future<void> showMethodology(BuildContext context) => showDialog<void>(
         onPressed: () => showLicensePage(
           context: context,
           applicationName: AppStrings.title,
-          applicationVersion: '0.1.0',
+          applicationVersion: '0.4.0',
         ),
         child: const Text('Licenças de software'),
       ),

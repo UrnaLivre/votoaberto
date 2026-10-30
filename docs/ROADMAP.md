@@ -57,8 +57,9 @@ Detalhes em [DATA_ARCHITECTURE.md](DATA_ARCHITECTURE.md) e [ADR 0003](adr/0003-p
 
 ## M3 — Dados reais no VotoAberto público e aprofundamento do Auditor
 
-- [ ] Definir API/backend ou distribuição compacta com base nas medições do M2 e conectar o `ElectionRepository` real ao Flutter
-- [ ] Navegação por município, zona e seção, comparações entre turnos e cobertura ZZ quando adequada à interface
+- [x] Definir distribuição compacta e conectar repositório real ao Flutter — M4, JSON embarcado em prévia local
+- [x] Navegação municipal, comparações e ZZ — M4
+- [ ] Navegação por zona/seção através de futura API
 - [ ] Referências aos BUs originais e resultados presidenciais extraídos, **sem armazenar boletins completos na base pública**
 - [ ] Expandir consultas e relatórios analíticos do Auditor sobre os arquivos completos
 - [ ] Exportação, metadados de origem, tratamento de divergências e documentação da reprodução independente
@@ -76,7 +77,23 @@ Detalhes em [DATA_ARCHITECTURE.md](DATA_ARCHITECTURE.md) e [ADR 0003](adr/0003-p
 A base é elegível localmente, com `public_readiness: not_ready`; a presença dos
 56 pares não comprova completude de todas as seções.
 
-## M4 — Análises públicas e distribuição
+## M4 — MVP municipal offline (validação local)
+
+- [x] Exportar release SQLite somente leitura para JSON compacto com catálogo por turno
+- [x] Validar municípios/UFs/Brasil/doméstico/ZZ por SQL independente e hashes
+- [x] Integrar assets, cache limitado e navegação Brasil → UF → município
+- [x] Preservar mock, mapa, temas, URLs e testes; buscas sem acento e por teclado
+- [x] Separar builds fixture/demo/real e impedir fallback fictício no modo real
+- [x] Executar exportação real e teste Windows com HTTP da aplicação bloqueado
+- [x] Compilar Web, Windows e APK debug localmente com os JSONs reais
+- [ ] Validar em dispositivo Android físico e acessibilidade com usuários
+- [ ] Autenticação/proveniência completa e revisão da prontidão pública da base
+- [ ] PWA offline entre sessões e política de atualização de cache
+
+[Contrato e operação](EMBEDDED_DATA_MVP.md), [relatório e limites](M4_COMPLETION_REPORT.md).
+Assets reais ficam fora do Git; `not_ready` continua bloqueando publicação pública.
+
+## Etapas posteriores — Análises públicas e distribuição
 
 - [ ] Gráficos exploratórios com cálculos testados e contexto explicativo
 - [ ] Web e Android validados e publicados, distribuição Windows

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
+
 import '../../../app/strings.dart';
 import '../../../core/formatters.dart';
 import '../../../core/widgets.dart';
@@ -9,15 +10,20 @@ import '../../elections/domain/geography.dart';
 import '../../map/domain/brazil_geometry.dart';
 import '../../map/presentation/brazil_map.dart';
 import 'explorer_controller.dart';
+import 'municipality_search.dart';
 import 'result_charts.dart';
 import 'state_search.dart';
 
 String explorerLocation(
   BrazilianState? state,
   ElectionRound round,
-  ExplorerView view,
-) => Uri(
-  path: state == null ? '/' : '/uf/${state.code}',
+  ExplorerView view, {
+  bool abroad = false,
+  String? municipality,
+}) => Uri(
+  path: state == null && !abroad
+      ? '/'
+      : '/uf/${abroad ? 'ZZ' : state!.code}${municipality == null ? '' : '/municipio/$municipality'}',
   queryParameters: {
     'turno': round == ElectionRound.first ? '1' : '2',
     'visao': view.name,
@@ -65,12 +71,19 @@ class _ExplorerPageState extends State<ExplorerPage> {
     bool reset = false,
     ElectionRound? round,
     ExplorerView? view,
+    String? municipality,
+    bool clearMunicipality = false,
+    bool abroad = false,
   }) {
     context.go(
       explorerLocation(
         reset ? null : state ?? c.selected,
         round ?? c.round,
         view ?? c.view,
+        abroad: !reset && (abroad || (state == null && c.abroad)),
+        municipality: reset || clearMunicipality || state != null || abroad
+            ? null
+            : municipality ?? c.municipalityCode,
       ),
     );
   }
@@ -103,16 +116,31 @@ class _ExplorerPageState extends State<ExplorerPage> {
   Widget build(BuildContext context) => ListenableBuilder(
     listenable: c,
     builder: (context, _) => PopScope(
-      canPop: c.selected == null,
+      canPop: c.territoryCode == null,
       onPopInvokedWithResult: (didPop, result) {
-        if (!didPop && c.selected != null) _navigate(reset: true);
+        if (!didPop && c.territoryCode != null) {
+          if (c.municipalityCode != null) {
+            _navigate(clearMunicipality: true);
+          } else {
+            _navigate(reset: true);
+          }
+        }
       },
       child: Scaffold(
         body: SafeArea(
           child: Column(
             children: [
               _header(context),
-              const DemoBanner(),
+              if (c.dataset == null &&
+                  c.election.id != Election.demonstration.id)
+                const Padding(
+                  padding: EdgeInsets.all(8),
+                  child: Text(
+                    'Conjunto local selecionado · aguardando leitura',
+                  ),
+                )
+              else
+                SourceBanner(synthetic: c.synthetic),
               Expanded(
                 child: LayoutBuilder(
                   builder: (context, constraints) {
@@ -240,7 +268,10 @@ class _ExplorerPageState extends State<ExplorerPage> {
         ),
         IconButton(
           tooltip: AppStrings.methodology,
-          onPressed: () => showMethodology(context),
+          onPressed: c.dataset == null
+              ? null
+              : () =>
+                    showMethodology(context, provenance: c.dataset?.provenance),
           icon: const Icon(Icons.info_outline),
         ),
       ],
@@ -258,31 +289,37 @@ class _ExplorerPageState extends State<ExplorerPage> {
             onPressed: () => _navigate(reset: true),
             child: const Text('Brasil'),
           ),
-          if (c.selected != null) ...[
+          if (c.territoryCode != null) ...[
             const Icon(Icons.chevron_right, size: 16),
             Text(
-              c.selected!.code,
+              c.territoryCode!,
               style: const TextStyle(fontWeight: FontWeight.w700),
             ),
             const SizedBox(width: 12),
-            Text(
-              'Municípios · em breve',
-              style: Theme.of(context).textTheme.labelSmall,
-            ),
+            if (c.municipalityCode != null)
+              TextButton(
+                onPressed: () => _navigate(clearMunicipality: true),
+                child: const Text('Voltar à abrangência'),
+              ),
           ],
         ],
       ),
       const SizedBox(height: 8),
       Text(
-        c.selected?.name ?? 'O Brasil, em perspectiva.',
+        c.municipality?.municipality.name ??
+            (c.abroad
+                ? 'Exterior'
+                : c.selected?.name ?? 'O Brasil, em perspectiva.'),
         key: const ValueKey('map-title'),
         style: Theme.of(context).textTheme.headlineLarge,
       ),
       const SizedBox(height: 8),
       Text(
-        c.selected == null
-            ? '27 unidades federativas. Um caminho para explorar os dados.'
-            : 'Explore os dois turnos e compare resultados demonstrativos.',
+        c.synthetic
+            ? 'Explore os dois turnos e compare resultados demonstrativos.'
+            : c.abroad
+            ? 'Localidades eleitorais no exterior, sem distribuição no mapa.'
+            : 'Resultados presidenciais por UF e município. Selecione no mapa ou use a busca.',
         style: Theme.of(context).textTheme.bodyMedium,
       ),
     ],
@@ -320,16 +357,25 @@ class _ExplorerPageState extends State<ExplorerPage> {
       return StatusMessage(message: AppStrings.loadError, onRetry: c.load);
     }
     final rounds = c.results;
-    if (rounds == null || !rounds.containsKey(c.round)) {
-      return const StatusMessage(message: AppStrings.empty);
-    }
-    final national = c.selected == null;
+    final national = c.territoryCode == null;
+    final municipal = c.municipalityCode != null;
+    final title = municipal
+        ? c.municipality?.municipality.name ?? 'Município indisponível'
+        : c.abroad
+        ? 'Exterior'
+        : national
+        ? 'Brasil'
+        : c.selected!.name;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           national
               ? 'EXPLORAÇÃO NACIONAL'
+              : municipal
+              ? 'VISÃO MUNICIPAL · ${c.territoryCode}'
+              : c.abroad
+              ? 'VOTAÇÃO NO EXTERIOR · ZZ'
               : 'VISÃO ESTADUAL · ${c.selected!.code}',
           style: Theme.of(context).textTheme.labelSmall?.copyWith(
             color: Theme.of(context).colorScheme.primary,
@@ -339,7 +385,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
         ),
         const SizedBox(height: 12),
         Text(
-          national ? 'Brasil' : c.selected!.name,
+          title,
           key: const ValueKey('panel-title'),
           style: Theme.of(context).textTheme.headlineMedium,
         ),
@@ -347,9 +393,18 @@ class _ExplorerPageState extends State<ExplorerPage> {
         const Text('Eleições Presidenciais 2026'),
         const SizedBox(height: 18),
         if (national) ...[
-          const Text(
-            'Comece por uma UF ou compare os turnos. Todos os números desta versão são fictícios.',
+          Text(
+            c.synthetic
+                ? 'Comece por uma UF ou compare os turnos. Todos os números desta versão são fictícios.'
+                : 'Brasil inclui os votos no exterior (ZZ). Selecione uma UF para consultar seus municípios.',
           ),
+          if (c.dataset?.overseas != null)
+            TextButton.icon(
+              key: const ValueKey('select-ZZ'),
+              onPressed: () => _navigate(abroad: true),
+              icon: const Icon(Icons.public),
+              label: const Text('Consultar exterior (ZZ)'),
+            ),
           const SizedBox(height: 20),
           StateSearch(onSelect: (state) => _navigate(state: state)),
         ] else ...[
@@ -369,6 +424,31 @@ class _ExplorerPageState extends State<ExplorerPage> {
               ),
             ],
           ),
+        ],
+        if (!national && c.municipalSupported) ...[
+          const SizedBox(height: 12),
+          if (c.municipalStatus == LoadStatus.loading)
+            const StatusMessage(message: 'Abrindo localidades…', loading: true)
+          else if (c.municipalStatus == LoadStatus.error)
+            StatusMessage(
+              message:
+                  'Não foi possível carregar as localidades desta abrangência.',
+              onRetry: c.loadMunicipalities,
+            )
+          else
+            MunicipalitySearch(
+              key: ValueKey('cities-${c.territoryCode}-${c.municipalityCode}'),
+              municipalities: c.municipalities,
+              abroad: c.abroad,
+              onSelect: (code) => _navigate(municipality: code),
+            ),
+          if (municipal)
+            TextButton.icon(
+              key: const ValueKey('back-uf'),
+              onPressed: () => _navigate(clearMunicipality: true),
+              icon: const Icon(Icons.west),
+              label: Text('Voltar para ${c.territoryCode}'),
+            ),
         ],
         const Divider(),
         Wrap(
@@ -406,8 +486,17 @@ class _ExplorerPageState extends State<ExplorerPage> {
           ],
         ),
         const SizedBox(height: 26),
-        if (c.view == ExplorerView.summary) _summary(context, rounds[c.round]!),
-        if (c.view == ExplorerView.comparison)
+        if (rounds == null || !rounds.containsKey(c.round))
+          StatusMessage(
+            message: municipal && c.municipalStatus == LoadStatus.loading
+                ? 'Abrindo município…'
+                : municipal
+                ? 'Município ou turno não disponível neste conjunto.'
+                : AppStrings.empty,
+          )
+        else if (c.view == ExplorerView.summary)
+          _summary(context, rounds[c.round]!),
+        if (c.view == ExplorerView.comparison && rounds != null)
           if (rounds.containsKey(ElectionRound.first) &&
               rounds.containsKey(ElectionRound.second)) ...[
             Text(
@@ -415,11 +504,16 @@ class _ExplorerPageState extends State<ExplorerPage> {
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 8),
-            const Text('DEMONSTRAÇÃO · valores e variações fictícios'),
+            Text(
+              c.synthetic
+                  ? 'DEMONSTRAÇÃO · valores e variações fictícios'
+                  : 'Contagens publicadas · aptos e candidaturas podem mudar',
+            ),
             const SizedBox(height: 20),
             ComparisonChart(
               first: rounds[ElectionRound.first]!,
               second: rounds[ElectionRound.second]!,
+              synthetic: c.synthetic,
             ),
             const Text(AppStrings.interpretation),
           ] else
@@ -427,7 +521,8 @@ class _ExplorerPageState extends State<ExplorerPage> {
         if (c.view == ExplorerView.insights) _insights(context),
         const Divider(),
         TextButton.icon(
-          onPressed: () => showMethodology(context),
+          onPressed: () =>
+              showMethodology(context, provenance: c.dataset?.provenance),
           icon: const Icon(Icons.menu_book_outlined, size: 18),
           label: const Text(AppStrings.methodology),
         ),
@@ -435,7 +530,9 @@ class _ExplorerPageState extends State<ExplorerPage> {
         const Text(AppStrings.future, style: TextStyle(fontSize: 12)),
         const SizedBox(height: 16),
         Text(
-          'Fonte: gerador sintético · mock-v1\n${national || c.view == ExplorerView.insights ? '27 UFs · exterior não incluído' : c.selected!.code} · ${c.round.index + 1}º turno',
+          c.synthetic
+              ? 'Fonte: gerador sintético · ${c.dataset!.provenance.version}\n${national || c.view == ExplorerView.insights ? (c.dataset!.overseas == null ? '27 UFs · exterior não incluído' : '27 UFs + exterior fictício') : c.territoryCode} · ${c.round.index + 1}º turno'
+              : 'Fonte: dados abertos do TSE · processamento independente pelo VotoAberto\nPrévia local · ${c.round.index + 1}º turno',
           style: Theme.of(context).textTheme.labelSmall,
         ),
       ],
@@ -460,29 +557,67 @@ class _ExplorerPageState extends State<ExplorerPage> {
             fontWeight: FontWeight.w700,
           ),
         ),
-        Text('de comparecimento · ${count(t.turnout)} eleitores'),
+        Text(
+          'de comparecimento · ${_available(t, 'turnout', t.turnout)} eleitores',
+        ),
         const SizedBox(height: 22),
-        _metric(context, 'Eleitores aptos', count(t.eligible)),
+        _metric(
+          context,
+          'Eleitores aptos',
+          _available(t, 'eligible', t.eligible),
+        ),
         _metric(
           context,
           'Abstenção',
-          '${count(t.abstention)} · ${percent(t.abstentionRate)}',
+          '${_available(t, 'abstention', t.abstention)} · ${percent(t.abstentionRate)}',
         ),
+        _metric(context, 'Votos contabilizados', count(t.counted)),
+        if (c.territoryCode == null &&
+            c.dataset?.domestic?.rounds[c.round] != null)
+          ExpansionTile(
+            tilePadding: EdgeInsets.zero,
+            title: const Text('Brasil doméstico · 27 UFs'),
+            children: [
+              ListTile(
+                contentPadding: EdgeInsets.zero,
+                title: Text(
+                  '${count(c.dataset!.domestic!.rounds[c.round]!.totals.counted)} votos contabilizados',
+                ),
+                subtitle: const Text(
+                  'Recorte sem votação no exterior. O resultado Brasil acima inclui ZZ.',
+                ),
+              ),
+            ],
+          ),
         _metric(context, 'Votos válidos', count(t.valid)),
-        _metric(context, 'Votos brancos', count(t.blank)),
-        _metric(context, 'Votos nulos', count(t.invalid)),
+        _metric(
+          context,
+          'Votos brancos',
+          '${count(t.blank)}${t.blank != null && !t.complete('blank') ? ' · registros parciais' : ''}',
+        ),
+        _metric(
+          context,
+          'Votos nulos',
+          '${count(t.invalid)}${t.invalid != null && !t.complete('null') ? ' · registros parciais' : ''}',
+        ),
         const Divider(),
         Text(
           'Distribuição dos votos válidos',
           style: Theme.of(context).textTheme.titleMedium,
         ),
         const SizedBox(height: 4),
-        const Text(
-          'Candidatos fictícios · % dos votos válidos',
-          style: TextStyle(fontSize: 12),
+        Text(
+          c.synthetic
+              ? 'Candidatos fictícios · % dos votos válidos'
+              : 'Candidatos · % dos votos válidos',
+          style: const TextStyle(fontSize: 12),
         ),
         const SizedBox(height: 20),
-        DistributionChart(result: result),
+        DistributionChart(result: result, synthetic: c.synthetic),
+        for (final candidate in result.unreportedCandidates)
+          Text(
+            '${candidate.number} · ${candidate.name}: sem registro de votos neste recorte.',
+          ),
       ],
     );
   }
@@ -500,14 +635,20 @@ class _ExplorerPageState extends State<ExplorerPage> {
     ),
   );
 
+  String _available(VoteTotals totals, String key, int? value) =>
+      '${count(value)}${value != null && !totals.complete(key) ? ' · parcial' : ''}';
+
   Widget _insights(BuildContext context) {
-    final ranking = [...c.dataset!.states]
-      ..sort((a, b) {
-        final rate = b.rounds[c.round]!.totals.turnoutRate.compareTo(
-          a.rounds[c.round]!.totals.turnoutRate,
-        );
-        return rate == 0 ? a.state.code.compareTo(b.state.code) : rate;
-      });
+    final ranking =
+        c.dataset!.states
+            .where((s) => s.rounds[c.round]?.totals.turnoutRate != null)
+            .toList()
+          ..sort((a, b) {
+            final rate = b.rounds[c.round]!.totals.turnoutRate!.compareTo(
+              a.rounds[c.round]!.totals.turnoutRate!,
+            );
+            return rate == 0 ? a.state.code.compareTo(b.state.code) : rate;
+          });
     if (ranking.isEmpty) return const StatusMessage(message: AppStrings.empty);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -518,7 +659,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
         ),
         const SizedBox(height: 10),
         Text(
-          'Maiores taxas de comparecimento fictício · ${c.round.index + 1}º turno',
+          'Maiores taxas de comparecimento${c.synthetic ? ' fictício' : ''} · ${c.round.index + 1}º turno',
         ),
         const SizedBox(height: 16),
         for (var i = 0; i < ranking.length; i++)
@@ -537,17 +678,17 @@ class _ExplorerPageState extends State<ExplorerPage> {
                 _navigate(state: ranking[i].state, view: ExplorerView.summary),
           ),
         const SizedBox(height: 16),
-        const Text(
-          'Como ler: comparecimento ÷ eleitores aptos. Ordenação decrescente; '
-          'empates por sigla. Este ranking usa somente o mock-v1 das 27 UFs, sem exterior. '
-          'Não descreve a eleição real nem explica comportamentos individuais.',
+        Text(
+          c.synthetic
+              ? 'Como ler: comparecimento ÷ eleitores aptos. Ordenação decrescente; empates por sigla. Este ranking usa somente o mock-v1 das 27 UFs, sem exterior. Não descreve a eleição real nem explica comportamentos individuais.'
+              : 'Comparecimento ÷ aptos, somente com totais completos. Ordenação decrescente; empates por sigla. Abrangências domésticas observadas; ZZ não integra este ranking. Não explica comportamentos individuais.',
         ),
       ],
     );
   }
 
   Widget _footer(BuildContext context) => Text(
-    'VotoAberto 0.1.0 · ${AppStrings.independence}',
+    'VotoAberto 0.4.0 · ${AppStrings.independence}',
     style: Theme.of(context).textTheme.labelSmall,
   );
 }

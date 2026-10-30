@@ -1,11 +1,11 @@
 {
-    "name": "VotoAberto — Demonstração",
+    "name": "VotoAberto",
     "short_name": "VotoAberto",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#fafbf9",
     "theme_color": "#006962",
-    "description": "Explorador independente com dados fictícios. Uma iniciativa UrnaLivre.",
+    "description": "Consultas presidenciais locais. Origem e limitações identificadas no aplicativo. Uma iniciativa UrnaLivre.",
     "orientation": "any",
     "prefer_related_applications": false,
     "icons": [

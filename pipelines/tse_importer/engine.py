@@ -348,16 +348,18 @@ def _run(config, root, output, start, progress, work):
     work.check()
     if validate_release(stage)["assessment"]["local_release"]["status"] != "eligible":
         raise ImportFailure("Validação final recusou promoção")
-    promote_directory(stage, release)
-    work.promoted_to(stage, release)
+    with work.mutex:
+        promote_directory(stage, release)
+        work.promoted_to(stage, release)
     work.check()
     try:
         _publish_pointer(output, release_id)
     except BaseException:
         # Return this run's unreferenced directory to diagnostics; never touch an older release.
         try:
-            promote_directory(release, stage)
-            work.demoted_to(release, stage)
+            with work.mutex:
+                promote_directory(release, stage)
+                work.demoted_to(release, stage)
         except (OSError, ImportFailure) as exc:
             work.refused.append({"path": str(release), "reason": f"Rollback de promoção: {exc}"})
         raise

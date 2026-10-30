@@ -72,3 +72,11 @@ e o contrato ElectionRepository permanecem intactos.
 
 Detalhes: [operação](../DATA_ENGINE_OPERATIONS.md) e
 [investigação](../TSE_2026_FORMAT_INVESTIGATION.md).
+
+## Evolução M4
+
+As decisões acima permanecem: SQLite é a base do motor e o cliente não recebe BUs
+integrais. O [ADR 0004](0004-embedded-municipal-data.md) define o derivado JSON
+municipal e o adaptador de assets, sem API ou SQLite no Flutter. O mock M1 fica
+em modo separado. A prévia real local conserva a avaliação M3.1; não representa
+autorização de distribuição pública.

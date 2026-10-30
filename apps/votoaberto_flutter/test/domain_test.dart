@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:votoaberto/core/formatters.dart';
 import 'package:votoaberto/features/elections/data/mock_election_repository.dart';
 import 'package:votoaberto/features/elections/domain/election.dart';
 import 'package:votoaberto/features/elections/domain/election_repository.dart';
 import 'package:votoaberto/features/elections/domain/geography.dart';
-import 'package:votoaberto/core/formatters.dart';
 
 void main() {
   late ElectionDataset data;
@@ -29,14 +29,14 @@ void main() {
       for (final result in state.rounds.values) {
         final t = result.totals;
         expect(result.candidates.fold(0, (sum, c) => sum + c.votes), t.valid);
-        expect(t.valid + t.blank + t.invalid, t.turnout);
-        expect(t.abstention + t.turnout, t.eligible);
-        expect(t.turnout, lessThanOrEqualTo(t.eligible));
-        expect(t.turnoutRate + t.abstentionRate, closeTo(1, 1e-12));
+        expect(t.valid + t.blank! + t.invalid!, t.turnout!);
+        expect(t.abstention! + t.turnout!, t.eligible!);
+        expect(t.turnout!, lessThanOrEqualTo(t.eligible!));
+        expect(t.turnoutRate! + t.abstentionRate!, closeTo(1, 1e-12));
         expect(
           result.candidates.fold(
             0.0,
-            (sum, c) => sum + c.shareOfValid(t.valid),
+            (sum, c) => sum + c.shareOfValid(t.valid)!,
           ),
           closeTo(1, 1e-12),
         );
@@ -52,12 +52,12 @@ void main() {
     for (final round in ElectionRound.values) {
       final national = data.national.rounds[round]!;
       for (final read in <int Function(VoteTotals)>[
-        (t) => t.eligible,
-        (t) => t.turnout,
-        (t) => t.abstention,
+        (t) => t.eligible!,
+        (t) => t.turnout!,
+        (t) => t.abstention!,
         (t) => t.valid,
-        (t) => t.blank,
-        (t) => t.invalid,
+        (t) => t.blank!,
+        (t) => t.invalid!,
       ]) {
         expect(
           read(national.totals),

@@ -3,7 +3,11 @@
 CLI local para o motor compartilhado em `pipelines/tse_importer`. Python 3.11+;
 não depende do Flutter. Instalar na raiz: `python -m pip install '.[dev]'`.
 
-Comandos: `votoaberto-auditor inventory|inspect|verify|plan|import|validate|report`.
+Comandos: `votoaberto-auditor inventory|inspect|verify|plan|import|validate|report|export-embedded|validate-embedded`.
+
+M4 acrescenta exportação municipal JSON do SQLite já validado, somente leitura,
+e validação dos artefatos. [Contrato, comandos e limites](../../docs/EMBEDDED_DATA_MVP.md).
+A exportação não reimporta ZIPs.
 Cada um oferece `--help`; não há perguntas interativas nem downloads automáticos.
 
 ```powershell

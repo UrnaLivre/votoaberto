@@ -17,22 +17,36 @@ class VotoAbertoApp extends StatefulWidget {
     required this.repository,
     this.initialLocation,
     this.geometryLoader,
+    this.election = Election.demonstration,
   });
   final ElectionRepository repository;
   final String? initialLocation;
   final Future<BrazilGeometry> Function()? geometryLoader;
+  final Election election;
   @override
   State<VotoAbertoApp> createState() => _VotoAbertoAppState();
 }
 
 class _VotoAbertoAppState extends State<VotoAbertoApp> {
-  late final controller = ExplorerController(widget.repository)..load();
+  late final controller = ExplorerController(
+    widget.repository,
+    election: widget.election,
+  )..load();
   late final router = GoRouter(
     initialLocation: widget.initialLocation,
     redirect: (context, state) {
       final path = state.uri.path;
-      final uf = state.pathParameters['uf'];
-      if (uf != null && BrazilianState.fromCode(uf) == null) {
+      final uf = state.pathParameters['uf']?.toUpperCase();
+      final requestedRound = state.uri.queryParameters['turno'];
+      final requestedView = state.uri.queryParameters['visao'];
+      if ((requestedRound != null && !['1', '2'].contains(requestedRound)) ||
+          (requestedView != null &&
+              !ExplorerView.values.any((v) => v.name == requestedView))) {
+        return '/indisponivel';
+      }
+      if (uf != null &&
+          BrazilianState.fromCode(uf) == null &&
+          !(uf == 'ZZ' && widget.election.id != Election.demonstration.id)) {
         return '/indisponivel';
       }
       if (path == '/' || path.startsWith('/uf/')) {
@@ -50,6 +64,8 @@ class _VotoAbertoAppState extends State<VotoAbertoApp> {
           round,
           view,
           notify: false,
+          overseas: uf == 'ZZ',
+          municipality: state.pathParameters['municipality'],
         );
       }
       return null;
@@ -57,6 +73,10 @@ class _VotoAbertoAppState extends State<VotoAbertoApp> {
     routes: [
       GoRoute(path: '/', pageBuilder: (context, state) => _explorer()),
       GoRoute(path: '/uf/:uf', pageBuilder: (context, state) => _explorer()),
+      GoRoute(
+        path: '/uf/:uf/municipio/:municipality',
+        pageBuilder: (context, state) => _explorer(),
+      ),
       GoRoute(
         path: '/indisponivel',
         builder: (context, state) => _unavailable(context),
@@ -79,10 +99,13 @@ class _VotoAbertoAppState extends State<VotoAbertoApp> {
     body: SafeArea(
       child: Column(
         children: [
-          const DemoBanner(),
+          if (widget.election.id == Election.demonstration.id)
+            const DemoBanner(),
           Expanded(
             child: StatusMessage(
-              message: 'Este endereço não está disponível no M1.',
+              message: widget.election.id == Election.demonstration.id
+                  ? 'Este endereço não está disponível no M1.'
+                  : 'Este endereço não está disponível.',
               onRetry: () => context.go('/'),
             ),
           ),

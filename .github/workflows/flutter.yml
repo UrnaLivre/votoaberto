@@ -1,11 +1,11 @@
-name: Flutter M1
+name: Flutter
 
 on:
   push:
     # Validate the current working branch without tying CI to its temporary name.
-    paths: ['apps/votoaberto_flutter/**', '.github/workflows/flutter.yml']
+    paths: ['apps/votoaberto_flutter/**', 'pipelines/tse_importer/embedded*.py', '.github/workflows/flutter.yml']
   pull_request:
-    paths: ['apps/votoaberto_flutter/**', '.github/workflows/flutter.yml']
+    paths: ['apps/votoaberto_flutter/**', 'pipelines/tse_importer/embedded*.py', '.github/workflows/flutter.yml']
   workflow_dispatch:
 
 permissions:
@@ -28,35 +28,44 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: stable
           cache: true
       - run: flutter pub get
-      - run: dart format --output=none --set-exit-if-changed lib test
+      - run: dart format --output=none --set-exit-if-changed lib test integration_test
       - run: flutter analyze
       - run: flutter test --coverage
-      - run: flutter build web --release --no-web-resources-cdn
+      - run: python tool/embedded_build.py web --mode fixture
 
   windows:
     runs-on: windows-latest
     timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: stable
           cache: true
       - run: flutter pub get
-      - run: flutter build windows --release
+      - run: python tool/embedded_build.py windows --mode fixture
 
   android:
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -67,4 +76,4 @@ jobs:
           channel: stable
           cache: true
       - run: flutter pub get
-      - run: flutter build apk --debug
+      - run: python tool/embedded_build.py apk --mode fixture

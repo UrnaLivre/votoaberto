@@ -44,16 +44,18 @@ enum BrazilianState {
 enum ElectoralTerritory { domestic, abroad }
 
 class Municipality {
-  const Municipality({
+  Municipality({
     required this.code,
     required this.name,
     required this.state,
-  });
+    String? territoryCode,
+  }) : territoryCode = territoryCode ?? state!.code;
 
   /// TSE code; not interchangeable with an IBGE municipality code.
   final String code;
   final String name;
-  final BrazilianState state;
+  final BrazilianState? state;
+  final String territoryCode;
 }
 
 class ElectoralZone {
