@@ -12,8 +12,11 @@ class StateSearch extends StatefulWidget {
 
 class _StateSearchState extends State<StateSearch> {
   String _query = '';
+  bool _showAll = false;
   List<BrazilianState> _matches(String value) {
     final query = normalizeSearch(value);
+    final exact = BrazilianState.fromCode(query);
+    if (exact != null) return [exact];
     return BrazilianState.values
         .where((s) => normalizeSearch('${s.name} ${s.code}').contains(query))
         .toList();
@@ -48,9 +51,16 @@ class _StateSearchState extends State<StateSearch> {
             padding: EdgeInsets.all(16),
             child: Text(AppStrings.noState),
           )
+        else if (query.isEmpty && !_showAll)
+          TextButton.icon(
+            key: const ValueKey('show-states'),
+            onPressed: () => setState(() => _showAll = true),
+            icon: const Icon(Icons.list, size: 18),
+            label: const Text('Ver as 27 UFs'),
+          )
         else
           SizedBox(
-            height: query.isEmpty ? 176 : 224,
+            height: (states.length * 56.0).clamp(56.0, 176.0).toDouble(),
             child: Scrollbar(
               child: ListView.builder(
                 primary: false,

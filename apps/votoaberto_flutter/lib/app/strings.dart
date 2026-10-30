@@ -6,10 +6,10 @@ abstract final class AppStrings {
   static const independence = 'Uma iniciativa UrnaLivre. Independente do TSE.';
   static const search = 'Buscar estado ou sigla';
   static const noState = 'Nenhuma UF encontrada. Tente o nome ou a sigla.';
-  static const loadError = 'Não foi possível carregar a demonstração.';
+  static const loadError = 'Não foi possível carregar os dados selecionados.';
   static const empty = 'Não há dados para este recorte.';
   static const future =
-      'Municípios, zonas, seções e boletins: disponíveis em marcos futuros.';
+      'Consultas por zona, seção e boletim serão acrescentadas em outro marco.';
   static const interpretation =
       'Diferenças entre turnos não identificam transferência de votos entre eleitores.';
   static const methodology = 'Fontes e metodologia';

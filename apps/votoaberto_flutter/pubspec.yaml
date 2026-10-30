@@ -1,7 +1,7 @@
 name: votoaberto
-description: Explorador independente de dados eleitorais — demonstração M1.
+description: Explorador independente de resultados presidenciais locais e demonstrativos.
 publish_to: none
-version: 0.1.0+1
+version: 0.4.0+2
 
 environment:
   sdk: '>=3.10.0 <4.0.0'
@@ -14,8 +14,11 @@ dependencies:
   go_router: ^17.0.0
   intl: ^0.20.2
   cupertino_icons: ^1.0.8
+  crypto: ^3.0.7
 
 dev_dependencies:
+  integration_test:
+    sdk: flutter
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
@@ -25,6 +28,10 @@ flutter:
   assets:
     - assets/geo/br_states.geojson
     - assets/fonts/LICENSE-Roboto.txt
+    # BEGIN EMBEDDED ASSETS
+    - assets/data/synthetic/
+    - assets/data/synthetic/municipalities/
+    # END EMBEDDED ASSETS
   fonts:
     - family: VotoSans
       fonts:

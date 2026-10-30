@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -8,8 +9,8 @@ import 'package:votoaberto/app/votoaberto_app.dart';
 import 'package:votoaberto/features/elections/data/mock_election_repository.dart';
 import 'package:votoaberto/features/elections/domain/election.dart';
 import 'package:votoaberto/features/elections/domain/election_repository.dart';
-import 'package:votoaberto/features/map/presentation/brazil_map.dart';
 import 'package:votoaberto/features/map/domain/brazil_geometry.dart';
+import 'package:votoaberto/features/map/presentation/brazil_map.dart';
 
 class ErrorRepository implements ElectionRepository {
   @override
@@ -65,6 +66,18 @@ Future<void> reveal(WidgetTester tester, Finder finder) async {
 }
 
 void main() {
+  testWidgets('an exact UF abbreviation takes priority over name substrings', (
+    tester,
+  ) async {
+    await open(tester);
+    await tester.enterText(find.byKey(const ValueKey('state-search')), 'SP');
+    await tester.testTextInput.receiveAction(TextInputAction.search);
+    await tester.pumpAndSettle();
+    expect(
+      tester.widget<Text>(find.byKey(const ValueKey('panel-title'))).data,
+      'São Paulo',
+    );
+  });
   testWidgets('real pending load displays loading and resolves', (
     tester,
   ) async {

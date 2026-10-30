@@ -80,10 +80,10 @@ class MockElectionRepository implements ElectionRepository {
     return RoundResult(
       round: round,
       totals: VoteTotals(
-        eligible: sum((t) => t.eligible),
+        eligible: sum((t) => t.eligible!),
         valid: sum((t) => t.valid),
-        blank: sum((t) => t.blank),
-        invalid: sum((t) => t.invalid),
+        blank: sum((t) => t.blank!),
+        invalid: sum((t) => t.invalid!),
       ),
       candidates: [
         for (final candidate in results.first.candidates)
