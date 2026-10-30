@@ -17,10 +17,20 @@ from tse_importer.embedded_assets import build_metadata, install_assets  # noqa:
 
 def resolve_flutter(requested):
     """Resolve PATH/PATHEXT before subprocess; explicit paths use the caller's cwd."""
-    candidate = (
-        str(Path(requested).resolve()) if "/" in requested or "\\" in requested else requested
-    )
+    explicit = "/" in requested or "\\" in requested
+    candidate = str(Path(requested).resolve()) if explicit else requested
     resolved = shutil.which(candidate)
+    if resolved is None and os.name == "nt" and explicit and not Path(candidate).suffix:
+        # Python 3.11 checks an explicit path without expanding PATHEXT.
+        # Append only suffixes in the requested directory, never search PATH.
+        for extension in (os.environ.get("PATHEXT") or ".COM;.EXE;.BAT;.CMD").split(";"):
+            extension = extension.strip()
+            if not extension.startswith(".") or not extension[1:].isalnum():
+                continue
+            executable = candidate + extension
+            if os.path.isfile(executable) and os.access(executable, os.F_OK | os.X_OK):
+                resolved = executable
+                break
     if resolved is None:
         raise ImportFailure(
             f"Executável Flutter não encontrado: {requested}. "

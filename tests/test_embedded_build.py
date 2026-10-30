@@ -142,6 +142,78 @@ def test_explicit_relative_and_absolute_paths_use_operator_cwd(tmp_path, monkeyp
     assert module.resolve_flutter(str(script.relative_to(tmp_path))) == str(script.resolve())
     if os.name == "nt":
         assert module.resolve_flutter(str(script.with_suffix(""))) == str(script.resolve())
+        assert module.resolve_flutter(str(script.with_suffix("").relative_to(tmp_path))) == str(
+            script.resolve()
+        )
+
+
+def legacy_explicit_which(monkeypatch, module):
+    """Reproduce Python 3.11's direct check before PATHEXT for a directory path."""
+    native_which = module.shutil.which
+
+    def which(command):
+        if os.path.dirname(command):
+            return command if os.path.isfile(command) and os.access(command, os.X_OK) else None
+        return native_which(command)
+
+    monkeypatch.setattr(module.shutil, "which", which)
+
+
+@pytest.mark.skipif(os.name != "nt", reason="Windows PATHEXT compatibility")
+@pytest.mark.parametrize("legacy", [False, True], ids=["native", "python311_semantics"])
+@pytest.mark.parametrize("relative", [False, True], ids=["absolute", "relative"])
+@pytest.mark.parametrize("extension", [False, True], ids=["extensionless", "bat"])
+def test_windows_explicit_paths_across_which_versions(
+    tmp_path, monkeypatch, legacy, relative, extension
+):
+    module = tool()
+    script = fake_flutter(tmp_path)
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setenv("PATHEXT", ".COM;.EXE;.BAT;.CMD")
+    monkeypatch.setattr(module, "APP", tmp_path / "different app directory")
+    if legacy:
+        legacy_explicit_which(monkeypatch, module)
+    requested = script if extension else script.with_suffix("")
+    if relative:
+        requested = requested.relative_to(tmp_path)
+    assert Path(module.resolve_flutter(str(requested))) == script.resolve()
+
+
+@pytest.mark.skipif(os.name != "nt", reason="Windows PATHEXT compatibility")
+def test_legacy_fallback_obeys_pathext_order_and_ignores_directory_components(
+    tmp_path, monkeypatch
+):
+    module = tool()
+    script = fake_flutter(tmp_path)
+    command_script = script.with_suffix(".cmd")
+    command_script.write_bytes(script.read_bytes())
+    legacy_explicit_which(monkeypatch, module)
+    # Only suffixes can participate; malformed entries must not change directory.
+    monkeypatch.setenv("PATHEXT", r"..\elsewhere\flutter.BAT;BAT;.CMD;.BAT")
+    assert Path(module.resolve_flutter(str(script.with_suffix("")))) == command_script.resolve()
+    monkeypatch.setenv("PATHEXT", ".BAT;.CMD")
+    assert Path(module.resolve_flutter(str(script.with_suffix("")))) == script.resolve()
+    monkeypatch.setenv("PATHEXT", ".EXE")
+    with pytest.raises(module.ImportFailure, match="Executável Flutter não encontrado"):
+        module.resolve_flutter(str(script.with_suffix("")))
+
+
+@pytest.mark.skipif(os.name != "nt", reason="Windows PATHEXT compatibility")
+@pytest.mark.parametrize("kind", ["missing", "directory", "not_executable"])
+def test_legacy_fallback_requires_existing_executable_file(tmp_path, monkeypatch, kind):
+    module = tool()
+    folder = tmp_path / "Explicit SDK with spaces"
+    folder.mkdir()
+    candidate = folder / "flutter.bat"
+    if kind == "directory":
+        candidate.mkdir()
+    elif kind == "not_executable":
+        candidate.write_text("@echo off\n", encoding="utf8")
+        monkeypatch.setattr(module.os, "access", lambda *args: False)
+    monkeypatch.setenv("PATHEXT", ".BAT")
+    legacy_explicit_which(monkeypatch, module)
+    with pytest.raises(module.ImportFailure, match="Executável Flutter não encontrado"):
+        module.resolve_flutter(str(candidate.with_suffix("")))
 
 
 def test_explicit_missing_path_never_falls_back_to_path(tmp_path, monkeypatch):

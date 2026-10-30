@@ -121,3 +121,43 @@ Commits locais de código:
 Este relatório e o guia operacional são registrados em commit documental
 posterior, cujo SHA é informado na entrega. A branch e o histórico são
 preservados; working tree limpa ao concluir. Sem push, nova branch ou merge.
+
+## PR #4 — Caminhos sem extensão no Python 3.11
+
+Correção pontual adicional em 30/10/2026, a partir de `6604865`, na mesma branch.
+O [run 41118760004](https://github.com/UrnaLivre/votoaberto/actions/runs/41118760004),
+job `124279732298`, confirmou a falha apenas no Windows/Python 3.11 ao resolver
+um caminho absoluto terminado em `flutter`, quando o arquivo é `flutter.bat`.
+A [documentação do Python 3.12](https://docs.python.org/3.12/library/shutil.html#shutil.which)
+registra a mudança: `which` passou a expandir PATHEXT também para comandos com
+componentes de diretório. No 3.11, esse caminho recebe apenas a checagem direta.
+
+`resolve_flutter` mantém `shutil.which` como primeira escolha. Se ele falhar no
+Windows para um caminho **explícito sem extensão**, tenta os sufixos de PATHEXT
+na ordem declarada, exclusivamente no diretório já resolvido em relação ao cwd
+do operador. Entradas com separadores/componentes de diretório são ignoradas.
+Cada candidato precisa ser arquivo regular e passar em `os.access(F_OK | X_OK)`.
+Na ausência de PATHEXT, usa os sufixos padrão COM/EXE/BAT/CMD. Não procura outro
+SDK no PATH; Linux, argumentos individuais e `shell=False` ficam inalterados.
+
+Primeiro foi executado o teste indicado pelo revisor: passou no Python 3.12.10
+local. Duas regressões que reproduzem a checagem direta do Python 3.11 falharam
+antes do ajuste (absoluto/relativo sem extensão), confirmando o defeito mesmo
+sem um interpretador 3.11 instalado localmente. Após a correção, passaram.
+As regressões Windows cobrem os dois comportamentos de `which`, caminhos com
+espaços absolutos/relativos, com/sem `.bat`, ordem/restrição de PATHEXT, arquivo
+ausente, diretório e acesso de execução recusado. A matriz CI continua executando
+as versões nativas 3.11/3.12 em Windows e Linux.
+
+O teste originalmente apontado passou novamente e os **22 testes do wrapper**
+passaram em 4,80 s, incluindo restauração do pubspec/lock após todos os desfechos,
+pinagem de dataset/hash e passagem de argumentos com espaços. Ruff format/check
+do escopo completo do workflow também passaram. A execução conjunta de
+`tests/test_embedded_build.py` e `tests/test_embedded_exporter.py` aprovou
+**41 testes em 30,98 s**. `git diff --check` passou. Não se repetiram builds ou
+testes de widgets, pois esta correção altera somente a resolução Python do SDK.
+
+Nenhuma alteração em exportador, arquitetura Flutter, SQLite, ZIPs, JSONs reais,
+totais eleitorais ou histórico de resultados. Os testes usam apenas fixtures
+sintéticos; não houve importação/exportação nacional real. A execução remota do
+novo commit ainda depende do push do mantenedor; não houve push ou merge automático.
