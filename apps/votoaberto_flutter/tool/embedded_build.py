@@ -3,6 +3,7 @@
 import argparse
 import json
 import os
+import shutil
 import subprocess
 import sys
 from contextlib import contextmanager
@@ -12,6 +13,21 @@ APP = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(APP.parents[1] / "pipelines"))
 from tse_importer.domain import ImportFailure  # noqa: E402
 from tse_importer.embedded_assets import build_metadata, install_assets  # noqa: E402
+
+
+def resolve_flutter(requested):
+    """Resolve PATH/PATHEXT before subprocess; explicit paths use the caller's cwd."""
+    candidate = (
+        str(Path(requested).resolve()) if "/" in requested or "\\" in requested else requested
+    )
+    resolved = shutil.which(candidate)
+    if resolved is None:
+        raise ImportFailure(
+            f"Executável Flutter não encontrado: {requested}. "
+            "Inclua o SDK no PATH ou informe --flutter com o caminho do executável "
+            "(flutter.bat no Windows)."
+        )
+    return str(Path(resolved).resolve())
 
 
 @contextmanager
@@ -63,8 +79,6 @@ def main(argv=None):
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--device", default="windows", help="Dispositivo do smoke nativo opcional")
     args, extra = parser.parse_known_args(argv)
-    if "/" in args.flutter or "\\" in args.flutter:
-        args.flutter = str(Path(args.flutter).resolve())
     try:
         if args.command == "native-test" and args.mode != "real":
             raise ImportFailure("O smoke nativo real exige --mode real")
@@ -81,11 +95,12 @@ def main(argv=None):
                 "--dart-define=VOTOABERTO_MANIFEST_SHA256=" + meta["manifest_sha256"],
             ]
             print(json.dumps(meta), flush=True)
+        flutter = resolve_flutter(args.flutter)
         command = (
-            [args.flutter, "run"]
+            [flutter, "run"]
             if args.command == "run"
             else [
-                args.flutter,
+                flutter,
                 "build",
                 args.command,
                 "--debug" if args.command == "apk" else "--release",
@@ -93,7 +108,7 @@ def main(argv=None):
         )
         if args.command == "native-test":
             command = [
-                args.flutter,
+                flutter,
                 "test",
                 "integration_test/offline_results_test.dart",
                 "-d",
@@ -115,7 +130,15 @@ def main(argv=None):
             "CI": "true",
         }
         with selected_assets(args.mode):
-            return subprocess.call(command, cwd=APP, env=environment)
+            try:
+                code = subprocess.call(command, cwd=APP, env=environment, shell=False)
+            except OSError as error:
+                raise ImportFailure(
+                    f"Não foi possível iniciar o Flutter resolvido em {flutter}: {error}"
+                ) from error
+        if code:
+            print(f"Comando Flutter falhou (código {code}): {flutter}", file=sys.stderr)
+        return code
     except (OSError, ValueError, KeyError, TypeError, ImportFailure) as error:
         print("Erro: " + str(error), file=sys.stderr)
         return 2
