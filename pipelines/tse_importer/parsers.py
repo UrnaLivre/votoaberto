@@ -83,6 +83,8 @@ def inspect_member(
 
 def parse(path: Path, member: str, selection: Selection, limits: Limits, stats: dict):
     counts, types, urn_types = Counter(), Counter(), Counter()
+    generations, sentinel_totals = Counter(), Counter()
+    aggregated = set()
     stats.update(rows_read=0, rows_selected=0)
     with member_stream(path, member, limits) as stream:
         reader = csv.reader(lines(stream, limits), delimiter=";", strict=True)
@@ -192,6 +194,22 @@ def parse(path: Path, member: str, selection: Selection, limits: Limits, stats: 
                         )
                     extra["SQ_CANDIDATO"] = r["SQ_CANDIDATO"]
                 votes = number(r["QT_VOTOS"])
+                generations[(r["DT_GERACAO"], r["HH_GERACAO"], extra["election_date"])] += 1
+                if fmt == "bweb":
+                    for field in ("QT_APTOS", "QT_COMPARECIMENTO", "QT_ABSTENCOES"):
+                        if r[field] in MISSING:
+                            sentinel_totals[(field, r[field])] += 1
+                    if r["DS_SECOES_AGREGADAS"] not in MISSING:
+                        aggregated.add(
+                            (
+                                r["CD_ELEICAO"],
+                                uf,
+                                r["CD_MUNICIPIO"],
+                                r["NR_ZONA"],
+                                r["NR_SECAO"],
+                                context,
+                            )
+                        )
                 yield VoteRecord(
                     r["CD_ELEICAO"],
                     selection.election_year,
@@ -222,4 +240,16 @@ def parse(path: Path, member: str, selection: Selection, limits: Limits, stats: 
     ]
     stats["vote_types"] = dict(types)
     stats["bu_statuses"] = dict(urn_types)
+    stats["generations"] = [
+        {"date": k[0], "time": k[1], "election_date": k[2], "rows": v}
+        for k, v in sorted(generations.items())
+    ]
+    stats["aggregated_location_contexts"] = len(aggregated)
+    stats["sentinel_totals"] = [
+        {"field": k[0], "value": k[1], "rows": v} for k, v in sorted(sentinel_totals.items())
+    ]
+    stats["ignored_other_offices"] = sum(v for k, v in counts.items() if k[1] != "1")
+    stats["quarantined_records"] = 0
+    stats["unsupported_policy"] = "abort_without_publication; no silent quarantine"
     stats["crc_checked"] = True
+    stats["uncompressed_bytes_read"] = stream.raw.count

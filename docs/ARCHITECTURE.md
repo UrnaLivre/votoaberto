@@ -96,3 +96,10 @@ sem alterar o Flutter. Foram observados dois schemas reais e processados os dois
 turnos presidenciais de SC. Schema físico, formatos não suportados e limitações
 em [DATA_ENGINE_OPERATIONS](DATA_ENGINE_OPERATIONS.md); inventário, hashes e
 resultados em [TSE_2026_FORMAT_INVESTIGATION](TSE_2026_FORMAT_INVESTIGATION.md).
+
+M3.1 mantém esses contratos e substitui a retenção automática de todos os bancos
+por unidades primárias e consolidação sequencial por UF/turno. A área exclusiva
+de cada execução contabiliza bancos, journals, temporários e relatórios; o SQLite
+público continua no schema 1. [Operação nacional e disco](NATIONAL_IMPORT.md) e
+[investigação nacional](TSE_2026_NATIONAL_INVESTIGATION.md) registram a carga local
+dos 56 pares e sua reconciliação, com prontidão pública ainda `not_ready`.

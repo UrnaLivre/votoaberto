@@ -1,4 +1,4 @@
-name: Data Engine M2
+name: Data Engine
 on:
   push:
     paths: ['pipelines/**', 'apps/votoaberto_auditor/**', 'tests/**', 'pyproject.toml', '.github/workflows/data-engine.yml']

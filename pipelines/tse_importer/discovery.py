@@ -1,6 +1,7 @@
 """Inventory and bounded ZIP streams; never extracts filesystem members."""
 
 import io
+import json
 import re
 import stat
 import struct
@@ -112,10 +113,25 @@ def zip_index(path: Path, limits: Limits) -> dict:
         }
 
 
-def inventory(root: Path, limits: Limits = Limits(), references: dict | None = None) -> dict:
+def inventory(
+    root: Path,
+    limits: Limits = Limits(),
+    references: dict | None = None,
+    cache_path: str | None = None,
+    source_paths: tuple[str, ...] = (),
+) -> dict:
     root = root.resolve()
     if not root.is_dir():
         raise ImportFailure(f"Diretório de entrada inexistente: {root}")
+    cached = {}
+    if cache_path:
+        cache_file = Path(cache_path)
+        if cache_file.stat().st_size > 4 * 1024**2:
+            raise ImportFailure("Cache de hashes excede 4 MiB")
+        cache = json.loads(cache_file.read_text(encoding="utf8"))
+        if cache.get("source_root") != str(root) or cache.get("inventory_version") != 1:
+            raise ImportFailure("Cache não corresponde ao diretório de entrada")
+        cached = {item["path"]: item for item in cache["files"]}
     files = []
     for path in sorted(root.rglob("*")):
         if not path.is_file() or path.suffix.lower() not in (".zip", ".sha256", ".sha512"):
@@ -123,15 +139,38 @@ def inventory(root: Path, limits: Limits = Limits(), references: dict | None = N
         if path.is_symlink() or not path.resolve().is_relative_to(root):
             raise ImportFailure("Links para fontes não são aceitos")
         relative = path.relative_to(root).as_posix()
+        if (
+            source_paths
+            and relative not in source_paths
+            and not any(
+                relative == source + suffix
+                for source in source_paths
+                for suffix in (".sha256", ".sha512")
+            )
+        ):
+            continue
         item = {"path": relative, "name": path.name, "bytes": path.stat().st_size}
         before = fingerprint(path)
         try:
-            item["hashes"] = hashes(path)
+            previous = cached.get(relative, {})
+            if previous.get("fingerprint") == list(before):
+                digests = previous.get("hashes", {})
+                if any(
+                    not re.fullmatch(r"[0-9a-f]{" + str(length) + "}", digests.get(name, ""))
+                    for name, length in (("sha256", 64), ("sha512", 128))
+                ):
+                    raise ImportFailure("Cache contém digest inválido")
+                item["hashes"] = digests
+                item["hash_calculation"] = "reused_local_fingerprint_cache"
+            else:
+                item["hashes"] = hashes(path)
+                item["hash_calculation"] = "read_current_bytes"
+            item["fingerprint"] = list(before)
             if path.suffix.lower() == ".zip":
-                item.update(zip_index(path, limits))
                 item["verification"] = verify(
                     path, item["hashes"], (references or {}).get(relative)
                 )
+                item.update(zip_index(path, limits))
                 item["status"] = (
                     "unsafe"
                     if item["issues"] or any(m["issues"] for m in item["members"])
@@ -149,7 +188,10 @@ def inventory(root: Path, limits: Limits = Limits(), references: dict | None = N
     }
     if unknown:
         raise ImportFailure(f"Referências sem fonte correspondente: {sorted(unknown)}")
-    return {"inventory_version": 1, "files": files}
+    missing = set(source_paths) - {item["path"] for item in files}
+    if missing:
+        raise ImportFailure(f"ZIPs selecionados ausentes: {sorted(missing)}")
+    return {"inventory_version": 1, "source_root": str(root), "files": files}
 
 
 class BoundedReader(io.RawIOBase):

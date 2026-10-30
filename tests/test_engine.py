@@ -12,7 +12,7 @@ import pytest
 from conftest import row, write_zip
 from official_support import official_config
 from tse_importer.discovery import BoundedReader, inventory, member_stream
-from tse_importer.domain import Config, ImportFailure, Limits, Selection
+from tse_importer.domain import Config, ImportFailure, Limits, Selection, StoragePolicy
 from tse_importer.engine import run_import, validate_release
 from tse_importer.integrity import checksum_line, hashes, verify
 from tse_importer.parsers import SCHEMAS, inspect_member, parse
@@ -234,7 +234,7 @@ def test_full_pipeline_concrete_queries(source_set, tmp_path):
 
 
 def test_idempotence_and_checkpoint_resume(source_set, tmp_path):
-    c = config(source_set, tmp_path)
+    c = config(source_set, tmp_path, storage=StoragePolicy(retain_checkpoints=True))
     first = run_import(c)
     assert run_import(c) == first
     # Remove only pointer/release via rename to simulate consolidation interrupted after units.
@@ -277,7 +277,7 @@ def test_divergence_blocks_publish(source_set, tmp_path):
     with pytest.raises(ImportFailure, match="Validação"):
         run_import(c)
     assert not (c.output_dir / "current.json").exists()
-    reports = list((c.output_dir / ".staging").glob("*/validation.json"))
+    reports = list((c.output_dir / ".work").glob("*/staging/validation.json"))
     assert (
         json.loads(reports[0].read_text(encoding="utf8"))["reconciliation"]["different_rows"] == 2
     )

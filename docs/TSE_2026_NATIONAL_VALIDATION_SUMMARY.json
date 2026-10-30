@@ -1,0 +1,8427 @@
+{
+  "summary_version": 1,
+  "release_id": "6305f74561d4687a23bd3054",
+  "import_rules_commit": "0760cefc53d0406672afaf83c7fa8bdc99e3f8b5",
+  "importer_version": "0.3.1",
+  "schema_version": 1,
+  "assessment": {
+    "sqlite_integrity": {
+      "status": "passed",
+      "result": "ok"
+    },
+    "referential_integrity": {
+      "status": "passed",
+      "foreign_key_errors": [],
+      "election_link_errors": 0
+    },
+    "mathematics": {
+      "status": "passed",
+      "errors": 0,
+      "sections_with_unavailable_totals": 0,
+      "observed_section_rounds": 998411,
+      "scope": "available_counts_and_derived_sums"
+    },
+    "data_structure": {
+      "status": "passed",
+      "result_rows": 5731614
+    },
+    "coverage": {
+      "status": "complete",
+      "scope": "territory_round_presence",
+      "basis": "explicit_requirements",
+      "expected_pairs": [
+        {
+          "round": 1,
+          "uf": "AC"
+        },
+        {
+          "round": 1,
+          "uf": "AL"
+        },
+        {
+          "round": 1,
+          "uf": "AM"
+        },
+        {
+          "round": 1,
+          "uf": "AP"
+        },
+        {
+          "round": 1,
+          "uf": "BA"
+        },
+        {
+          "round": 1,
+          "uf": "CE"
+        },
+        {
+          "round": 1,
+          "uf": "DF"
+        },
+        {
+          "round": 1,
+          "uf": "ES"
+        },
+        {
+          "round": 1,
+          "uf": "GO"
+        },
+        {
+          "round": 1,
+          "uf": "MA"
+        },
+        {
+          "round": 1,
+          "uf": "MG"
+        },
+        {
+          "round": 1,
+          "uf": "MS"
+        },
+        {
+          "round": 1,
+          "uf": "MT"
+        },
+        {
+          "round": 1,
+          "uf": "PA"
+        },
+        {
+          "round": 1,
+          "uf": "PB"
+        },
+        {
+          "round": 1,
+          "uf": "PE"
+        },
+        {
+          "round": 1,
+          "uf": "PI"
+        },
+        {
+          "round": 1,
+          "uf": "PR"
+        },
+        {
+          "round": 1,
+          "uf": "RJ"
+        },
+        {
+          "round": 1,
+          "uf": "RN"
+        },
+        {
+          "round": 1,
+          "uf": "RO"
+        },
+        {
+          "round": 1,
+          "uf": "RR"
+        },
+        {
+          "round": 1,
+          "uf": "RS"
+        },
+        {
+          "round": 1,
+          "uf": "SC"
+        },
+        {
+          "round": 1,
+          "uf": "SE"
+        },
+        {
+          "round": 1,
+          "uf": "SP"
+        },
+        {
+          "round": 1,
+          "uf": "TO"
+        },
+        {
+          "round": 1,
+          "uf": "ZZ"
+        },
+        {
+          "round": 2,
+          "uf": "AC"
+        },
+        {
+          "round": 2,
+          "uf": "AL"
+        },
+        {
+          "round": 2,
+          "uf": "AM"
+        },
+        {
+          "round": 2,
+          "uf": "AP"
+        },
+        {
+          "round": 2,
+          "uf": "BA"
+        },
+        {
+          "round": 2,
+          "uf": "CE"
+        },
+        {
+          "round": 2,
+          "uf": "DF"
+        },
+        {
+          "round": 2,
+          "uf": "ES"
+        },
+        {
+          "round": 2,
+          "uf": "GO"
+        },
+        {
+          "round": 2,
+          "uf": "MA"
+        },
+        {
+          "round": 2,
+          "uf": "MG"
+        },
+        {
+          "round": 2,
+          "uf": "MS"
+        },
+        {
+          "round": 2,
+          "uf": "MT"
+        },
+        {
+          "round": 2,
+          "uf": "PA"
+        },
+        {
+          "round": 2,
+          "uf": "PB"
+        },
+        {
+          "round": 2,
+          "uf": "PE"
+        },
+        {
+          "round": 2,
+          "uf": "PI"
+        },
+        {
+          "round": 2,
+          "uf": "PR"
+        },
+        {
+          "round": 2,
+          "uf": "RJ"
+        },
+        {
+          "round": 2,
+          "uf": "RN"
+        },
+        {
+          "round": 2,
+          "uf": "RO"
+        },
+        {
+          "round": 2,
+          "uf": "RR"
+        },
+        {
+          "round": 2,
+          "uf": "RS"
+        },
+        {
+          "round": 2,
+          "uf": "SC"
+        },
+        {
+          "round": 2,
+          "uf": "SE"
+        },
+        {
+          "round": 2,
+          "uf": "SP"
+        },
+        {
+          "round": 2,
+          "uf": "TO"
+        },
+        {
+          "round": 2,
+          "uf": "ZZ"
+        }
+      ],
+      "observed_pairs": [
+        {
+          "round": 1,
+          "uf": "AC"
+        },
+        {
+          "round": 1,
+          "uf": "AL"
+        },
+        {
+          "round": 1,
+          "uf": "AM"
+        },
+        {
+          "round": 1,
+          "uf": "AP"
+        },
+        {
+          "round": 1,
+          "uf": "BA"
+        },
+        {
+          "round": 1,
+          "uf": "CE"
+        },
+        {
+          "round": 1,
+          "uf": "DF"
+        },
+        {
+          "round": 1,
+          "uf": "ES"
+        },
+        {
+          "round": 1,
+          "uf": "GO"
+        },
+        {
+          "round": 1,
+          "uf": "MA"
+        },
+        {
+          "round": 1,
+          "uf": "MG"
+        },
+        {
+          "round": 1,
+          "uf": "MS"
+        },
+        {
+          "round": 1,
+          "uf": "MT"
+        },
+        {
+          "round": 1,
+          "uf": "PA"
+        },
+        {
+          "round": 1,
+          "uf": "PB"
+        },
+        {
+          "round": 1,
+          "uf": "PE"
+        },
+        {
+          "round": 1,
+          "uf": "PI"
+        },
+        {
+          "round": 1,
+          "uf": "PR"
+        },
+        {
+          "round": 1,
+          "uf": "RJ"
+        },
+        {
+          "round": 1,
+          "uf": "RN"
+        },
+        {
+          "round": 1,
+          "uf": "RO"
+        },
+        {
+          "round": 1,
+          "uf": "RR"
+        },
+        {
+          "round": 1,
+          "uf": "RS"
+        },
+        {
+          "round": 1,
+          "uf": "SC"
+        },
+        {
+          "round": 1,
+          "uf": "SE"
+        },
+        {
+          "round": 1,
+          "uf": "SP"
+        },
+        {
+          "round": 1,
+          "uf": "TO"
+        },
+        {
+          "round": 1,
+          "uf": "ZZ"
+        },
+        {
+          "round": 2,
+          "uf": "AC"
+        },
+        {
+          "round": 2,
+          "uf": "AL"
+        },
+        {
+          "round": 2,
+          "uf": "AM"
+        },
+        {
+          "round": 2,
+          "uf": "AP"
+        },
+        {
+          "round": 2,
+          "uf": "BA"
+        },
+        {
+          "round": 2,
+          "uf": "CE"
+        },
+        {
+          "round": 2,
+          "uf": "DF"
+        },
+        {
+          "round": 2,
+          "uf": "ES"
+        },
+        {
+          "round": 2,
+          "uf": "GO"
+        },
+        {
+          "round": 2,
+          "uf": "MA"
+        },
+        {
+          "round": 2,
+          "uf": "MG"
+        },
+        {
+          "round": 2,
+          "uf": "MS"
+        },
+        {
+          "round": 2,
+          "uf": "MT"
+        },
+        {
+          "round": 2,
+          "uf": "PA"
+        },
+        {
+          "round": 2,
+          "uf": "PB"
+        },
+        {
+          "round": 2,
+          "uf": "PE"
+        },
+        {
+          "round": 2,
+          "uf": "PI"
+        },
+        {
+          "round": 2,
+          "uf": "PR"
+        },
+        {
+          "round": 2,
+          "uf": "RJ"
+        },
+        {
+          "round": 2,
+          "uf": "RN"
+        },
+        {
+          "round": 2,
+          "uf": "RO"
+        },
+        {
+          "round": 2,
+          "uf": "RR"
+        },
+        {
+          "round": 2,
+          "uf": "RS"
+        },
+        {
+          "round": 2,
+          "uf": "SC"
+        },
+        {
+          "round": 2,
+          "uf": "SE"
+        },
+        {
+          "round": 2,
+          "uf": "SP"
+        },
+        {
+          "round": 2,
+          "uf": "TO"
+        },
+        {
+          "round": 2,
+          "uf": "ZZ"
+        }
+      ],
+      "missing_pairs": [],
+      "missing_selected_rounds": [],
+      "additional_observed_pairs": [],
+      "national_presence": {
+        "rounds": [
+          1,
+          2
+        ],
+        "status": "complete"
+      },
+      "section_completeness": {
+        "status": "not_assessed",
+        "reason": "Sem inventário exaustivo independente das seções esperadas"
+      }
+    },
+    "source_hashes": {
+      "status": "partially_matched_operator_trusted",
+      "sources": [
+        {
+          "path": "Boletim de Urna/1 turno/AC/bweb_1t_AC_051020261403.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/1 turno/AL/bweb_1t_AL_051020261403.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/1 turno/AM/bweb_1t_AM_051020261403.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/1 turno/AP/bweb_1t_AP_051020261403.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/1 turno/BA/bweb_1t_BA_051020261403.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/1 turno/CE/bweb_1t_CE_051020261403.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/1 turno/DF/bweb_1t_DF_051020261403.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/1 turno/ES/bweb_1t_ES_051020261403.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/1 turno/GO/bweb_1t_GO_051020261403.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/1 turno/MA/bweb_1t_MA_051020261403.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/1 turno/MG/bweb_1t_MG_051020261403.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/1 turno/MS/bweb_1t_MS_051020261403.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/1 turno/MT/bweb_1t_MT_051020261403.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/1 turno/PA/bweb_1t_PA_051020261403.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/1 turno/PB/bweb_1t_PB_051020261403.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/1 turno/PE/bweb_1t_PE_051020261403.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/1 turno/PI/bweb_1t_PI_051020261403.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/1 turno/PR/bweb_1t_PR_051020261403.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/1 turno/RJ/bweb_1t_RJ_051020261403.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/1 turno/RN/bweb_1t_RN_051020261403.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/1 turno/RO/bweb_1t_RO_051020261403.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/1 turno/RR/bweb_1t_RR_051020261403.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/1 turno/RS/bweb_1t_RS_051020261403.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/1 turno/SC/bweb_1t_SC_051020261403.zip",
+          "status": "verified",
+          "digest_comparison": "match",
+          "reference_trust": "operator_declared",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/1 turno/SE/bweb_1t_SE_051020261403.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/1 turno/SP/bweb_1t_SP_051020261403.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/1 turno/TO/bweb_1t_TO_051020261403.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/1 turno/ZZ/bweb_1t_ZZ_051020261403.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/2 turno/AC/bweb_2t_AC_261020260742.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/2 turno/AL/bweb_2t_AL_261020260742.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/2 turno/AM/bweb_2t_AM_261020260742.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/2 turno/AP/bweb_2t_AP_261020260742.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/2 turno/BA/bweb_2t_BA_261020260742.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/2 turno/CE/bweb_2t_CE_261020260742.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/2 turno/DF/bweb_2t_DF_261020260742.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/2 turno/ES/bweb_2t_ES_261020260742.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/2 turno/GO/bweb_2t_GO_261020260742.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/2 turno/MA/bweb_2t_MA_261020260742.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/2 turno/MG/bweb_2t_MG_261020260742.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/2 turno/MS/bweb_2t_MS_261020260742.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/2 turno/MT/bweb_2t_MT_261020260742.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/2 turno/PA/bweb_2t_PA_261020260742.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/2 turno/PB/bweb_2t_PB_261020260742.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/2 turno/PE/bweb_2t_PE_261020260742.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/2 turno/PI/bweb_2t_PI_261020260742.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/2 turno/PR/bweb_2t_PR_261020260742.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/2 turno/RJ/bweb_2t_RJ_261020260742.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/2 turno/RN/bweb_2t_RN_261020260742.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/2 turno/RO/bweb_2t_RO_261020260742.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/2 turno/RR/bweb_2t_RR_261020260742.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/2 turno/RS/bweb_2t_RS_261020260742.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/2 turno/SC/bweb_2t_SC_261020260742.zip",
+          "status": "verified",
+          "digest_comparison": "match",
+          "reference_trust": "operator_declared",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/2 turno/SE/bweb_2t_SE_261020260742.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/2 turno/SP/bweb_2t_SP_261020260742.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/2 turno/TO/bweb_2t_TO_261020260742.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Boletim de Urna/2 turno/ZZ/bweb_2t_ZZ_261020260742.zip",
+          "status": "unverified",
+          "digest_comparison": "match",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        },
+        {
+          "path": "Votação por Seção/votacao_secao_2026_BR.zip",
+          "status": "unverified",
+          "digest_comparison": "not_compared",
+          "reference_trust": "not_assigned",
+          "origin_authentication": "not_performed"
+        }
+      ],
+      "operator_trusted_matches": 2,
+      "source_count": 57,
+      "origin_authentication": "not_performed",
+      "signature_verification": "not_performed",
+      "trust_basis": "operator_configuration",
+      "evidence": "retained_catalog_no_source_reread",
+      "calculation_evidence": "local_fingerprint_cache_not_current_byte_hash"
+    },
+    "reconciliation": {
+      "ambiguous_locations": 0,
+      "bu_math_errors": 0,
+      "different_rows": 0,
+      "matched_rows": 5731614,
+      "only_bu_rows": 0,
+      "only_section_rows": 0,
+      "status": "complete",
+      "evidence": "retained_report_and_database",
+      "matched_section_rounds": 998411,
+      "observed_section_rounds": 998411,
+      "scope": "presidential_rows_in_selected_inputs",
+      "equipment_identity": "not_asserted"
+    },
+    "local_release": {
+      "status": "eligible",
+      "blockers": []
+    },
+    "public_readiness": {
+      "status": "not_ready",
+      "blockers": [
+        "source_hashes_reused_from_local_cache",
+        "operator_trusted_hashes_incomplete"
+      ],
+      "scope": [
+        {
+          "round": 1,
+          "uf": "AC"
+        },
+        {
+          "round": 1,
+          "uf": "AL"
+        },
+        {
+          "round": 1,
+          "uf": "AM"
+        },
+        {
+          "round": 1,
+          "uf": "AP"
+        },
+        {
+          "round": 1,
+          "uf": "BA"
+        },
+        {
+          "round": 1,
+          "uf": "CE"
+        },
+        {
+          "round": 1,
+          "uf": "DF"
+        },
+        {
+          "round": 1,
+          "uf": "ES"
+        },
+        {
+          "round": 1,
+          "uf": "GO"
+        },
+        {
+          "round": 1,
+          "uf": "MA"
+        },
+        {
+          "round": 1,
+          "uf": "MG"
+        },
+        {
+          "round": 1,
+          "uf": "MS"
+        },
+        {
+          "round": 1,
+          "uf": "MT"
+        },
+        {
+          "round": 1,
+          "uf": "PA"
+        },
+        {
+          "round": 1,
+          "uf": "PB"
+        },
+        {
+          "round": 1,
+          "uf": "PE"
+        },
+        {
+          "round": 1,
+          "uf": "PI"
+        },
+        {
+          "round": 1,
+          "uf": "PR"
+        },
+        {
+          "round": 1,
+          "uf": "RJ"
+        },
+        {
+          "round": 1,
+          "uf": "RN"
+        },
+        {
+          "round": 1,
+          "uf": "RO"
+        },
+        {
+          "round": 1,
+          "uf": "RR"
+        },
+        {
+          "round": 1,
+          "uf": "RS"
+        },
+        {
+          "round": 1,
+          "uf": "SC"
+        },
+        {
+          "round": 1,
+          "uf": "SE"
+        },
+        {
+          "round": 1,
+          "uf": "SP"
+        },
+        {
+          "round": 1,
+          "uf": "TO"
+        },
+        {
+          "round": 1,
+          "uf": "ZZ"
+        },
+        {
+          "round": 2,
+          "uf": "AC"
+        },
+        {
+          "round": 2,
+          "uf": "AL"
+        },
+        {
+          "round": 2,
+          "uf": "AM"
+        },
+        {
+          "round": 2,
+          "uf": "AP"
+        },
+        {
+          "round": 2,
+          "uf": "BA"
+        },
+        {
+          "round": 2,
+          "uf": "CE"
+        },
+        {
+          "round": 2,
+          "uf": "DF"
+        },
+        {
+          "round": 2,
+          "uf": "ES"
+        },
+        {
+          "round": 2,
+          "uf": "GO"
+        },
+        {
+          "round": 2,
+          "uf": "MA"
+        },
+        {
+          "round": 2,
+          "uf": "MG"
+        },
+        {
+          "round": 2,
+          "uf": "MS"
+        },
+        {
+          "round": 2,
+          "uf": "MT"
+        },
+        {
+          "round": 2,
+          "uf": "PA"
+        },
+        {
+          "round": 2,
+          "uf": "PB"
+        },
+        {
+          "round": 2,
+          "uf": "PE"
+        },
+        {
+          "round": 2,
+          "uf": "PI"
+        },
+        {
+          "round": 2,
+          "uf": "PR"
+        },
+        {
+          "round": 2,
+          "uf": "RJ"
+        },
+        {
+          "round": 2,
+          "uf": "RN"
+        },
+        {
+          "round": 2,
+          "uf": "RO"
+        },
+        {
+          "round": 2,
+          "uf": "RR"
+        },
+        {
+          "round": 2,
+          "uf": "RS"
+        },
+        {
+          "round": 2,
+          "uf": "SC"
+        },
+        {
+          "round": 2,
+          "uf": "SE"
+        },
+        {
+          "round": 2,
+          "uf": "SP"
+        },
+        {
+          "round": 2,
+          "uf": "TO"
+        },
+        {
+          "round": 2,
+          "uf": "ZZ"
+        }
+      ],
+      "section_completeness": "not_assessed",
+      "origin_authentication": "not_performed",
+      "meaning": "Critérios técnicos no recorte declarado; não autoriza deploy nem certifica eleição/licença"
+    }
+  },
+  "observed_coverage": [
+    {
+      "election": "6257",
+      "round": 1,
+      "uf": "AC",
+      "sections": 2270,
+      "rows": 16145,
+      "votes": 488330
+    },
+    {
+      "election": "6257",
+      "round": 1,
+      "uf": "AL",
+      "sections": 7101,
+      "rows": 50972,
+      "votes": 1938428
+    },
+    {
+      "election": "6257",
+      "round": 1,
+      "uf": "AM",
+      "sections": 8157,
+      "rows": 58575,
+      "votes": 2234549
+    },
+    {
+      "election": "6257",
+      "round": 1,
+      "uf": "AP",
+      "sections": 1914,
+      "rows": 13996,
+      "votes": 476562
+    },
+    {
+      "election": "6257",
+      "round": 1,
+      "uf": "BA",
+      "sections": 35476,
+      "rows": 251417,
+      "votes": 9053601
+    },
+    {
+      "election": "6257",
+      "round": 1,
+      "uf": "CE",
+      "sections": 23765,
+      "rows": 167164,
+      "votes": 5910471
+    },
+    {
+      "election": "6257",
+      "round": 1,
+      "uf": "DF",
+      "sections": 6969,
+      "rows": 55819,
+      "votes": 1831396
+    },
+    {
+      "election": "6257",
+      "round": 1,
+      "uf": "ES",
+      "sections": 9844,
+      "rows": 75629,
+      "votes": 2352282
+    },
+    {
+      "election": "6257",
+      "round": 1,
+      "uf": "GO",
+      "sections": 15686,
+      "rows": 112157,
+      "votes": 3971587
+    },
+    {
+      "election": "6257",
+      "round": 1,
+      "uf": "MA",
+      "sections": 18093,
+      "rows": 124673,
+      "votes": 4160343
+    },
+    {
+      "election": "6257",
+      "round": 1,
+      "uf": "MG",
+      "sections": 52062,
+      "rows": 415799,
+      "votes": 12637274
+    },
+    {
+      "election": "6257",
+      "round": 1,
+      "uf": "MS",
+      "sections": 7106,
+      "rows": 52380,
+      "votes": 1541220
+    },
+    {
+      "election": "6257",
+      "round": 1,
+      "uf": "MT",
+      "sections": 8287,
+      "rows": 60750,
+      "votes": 2052133
+    },
+    {
+      "election": "6257",
+      "round": 1,
+      "uf": "PA",
+      "sections": 20827,
+      "rows": 143701,
+      "votes": 5066504
+    },
+    {
+      "election": "6257",
+      "round": 1,
+      "uf": "PB",
+      "sections": 10712,
+      "rows": 76265,
+      "votes": 2683988
+    },
+    {
+      "election": "6257",
+      "round": 1,
+      "uf": "PE",
+      "sections": 21418,
+      "rows": 156699,
+      "votes": 5911062
+    },
+    {
+      "election": "6257",
+      "round": 1,
+      "uf": "PI",
+      "sections": 10225,
+      "rows": 69308,
+      "votes": 2240883
+    },
+    {
+      "election": "6257",
+      "round": 1,
+      "uf": "PR",
+      "sections": 27142,
+      "rows": 211052,
+      "votes": 6841457
+    },
+    {
+      "election": "6257",
+      "round": 1,
+      "uf": "RJ",
+      "sections": 37675,
+      "rows": 301535,
+      "votes": 9859802
+    },
+    {
+      "election": "6257",
+      "round": 1,
+      "uf": "RN",
+      "sections": 8115,
+      "rows": 58164,
+      "votes": 2171013
+    },
+    {
+      "election": "6257",
+      "round": 1,
+      "uf": "RO",
+      "sections": 4698,
+      "rows": 33649,
+      "votes": 991080
+    },
+    {
+      "election": "6257",
+      "round": 1,
+      "uf": "RR",
+      "sections": 1519,
+      "rows": 10588,
+      "votes": 332772
+    },
+    {
+      "election": "6257",
+      "round": 1,
+      "uf": "RS",
+      "sections": 27547,
+      "rows": 213540,
+      "votes": 6702903
+    },
+    {
+      "election": "6257",
+      "round": 1,
+      "uf": "SC",
+      "sections": 17326,
+      "rows": 136979,
+      "votes": 4648159
+    },
+    {
+      "election": "6257",
+      "round": 1,
+      "uf": "SE",
+      "sections": 5923,
+      "rows": 43373,
+      "votes": 1439082
+    },
+    {
+      "election": "6257",
+      "round": 1,
+      "uf": "SP",
+      "sections": 103656,
+      "rows": 848063,
+      "votes": 26431992
+    },
+    {
+      "election": "6257",
+      "round": 1,
+      "uf": "TO",
+      "sections": 4384,
+      "rows": 30084,
+      "votes": 965196
+    },
+    {
+      "election": "6257",
+      "round": 1,
+      "uf": "ZZ",
+      "sections": 1309,
+      "rows": 12035,
+      "votes": 341766
+    },
+    {
+      "election": "6258",
+      "round": 2,
+      "uf": "AC",
+      "sections": 2270,
+      "rows": 8697,
+      "votes": 453654
+    },
+    {
+      "election": "6258",
+      "round": 2,
+      "uf": "AL",
+      "sections": 7101,
+      "rows": 27419,
+      "votes": 1951632
+    },
+    {
+      "election": "6258",
+      "round": 2,
+      "uf": "AM",
+      "sections": 8157,
+      "rows": 30991,
+      "votes": 2192059
+    },
+    {
+      "election": "6258",
+      "round": 2,
+      "uf": "AP",
+      "sections": 1914,
+      "rows": 6973,
+      "votes": 429975
+    },
+    {
+      "election": "6258",
+      "round": 2,
+      "uf": "BA",
+      "sections": 35476,
+      "rows": 137040,
+      "votes": 9422047
+    },
+    {
+      "election": "6258",
+      "round": 2,
+      "uf": "CE",
+      "sections": 23765,
+      "rows": 91087,
+      "votes": 6024843
+    },
+    {
+      "election": "6258",
+      "round": 2,
+      "uf": "DF",
+      "sections": 6969,
+      "rows": 27453,
+      "votes": 1868280
+    },
+    {
+      "election": "6258",
+      "round": 2,
+      "uf": "ES",
+      "sections": 9844,
+      "rows": 38829,
+      "votes": 2409214
+    },
+    {
+      "election": "6258",
+      "round": 2,
+      "uf": "GO",
+      "sections": 15686,
+      "rows": 61031,
+      "votes": 4047280
+    },
+    {
+      "election": "6258",
+      "round": 2,
+      "uf": "MA",
+      "sections": 18093,
+      "rows": 66190,
+      "votes": 4127771
+    },
+    {
+      "election": "6258",
+      "round": 2,
+      "uf": "MG",
+      "sections": 52062,
+      "rows": 203235,
+      "votes": 13044203
+    },
+    {
+      "election": "6258",
+      "round": 2,
+      "uf": "MS",
+      "sections": 7106,
+      "rows": 26734,
+      "votes": 1594460
+    },
+    {
+      "election": "6258",
+      "round": 2,
+      "uf": "MT",
+      "sections": 8287,
+      "rows": 30873,
+      "votes": 2085334
+    },
+    {
+      "election": "6258",
+      "round": 2,
+      "uf": "PA",
+      "sections": 20827,
+      "rows": 76003,
+      "votes": 4989573
+    },
+    {
+      "election": "6258",
+      "round": 2,
+      "uf": "PB",
+      "sections": 10712,
+      "rows": 41416,
+      "votes": 2743560
+    },
+    {
+      "election": "6258",
+      "round": 2,
+      "uf": "PE",
+      "sections": 21418,
+      "rows": 83243,
+      "votes": 6126467
+    },
+    {
+      "election": "6258",
+      "round": 2,
+      "uf": "PI",
+      "sections": 10225,
+      "rows": 37819,
+      "votes": 2239830
+    },
+    {
+      "election": "6258",
+      "round": 2,
+      "uf": "PR",
+      "sections": 27142,
+      "rows": 105761,
+      "votes": 7059339
+    },
+    {
+      "election": "6258",
+      "round": 2,
+      "uf": "RJ",
+      "sections": 37675,
+      "rows": 147600,
+      "votes": 10077449
+    },
+    {
+      "election": "6258",
+      "round": 2,
+      "uf": "RN",
+      "sections": 8115,
+      "rows": 31496,
+      "votes": 2232823
+    },
+    {
+      "election": "6258",
+      "round": 2,
+      "uf": "RO",
+      "sections": 4698,
+      "rows": 17265,
+      "votes": 988489
+    },
+    {
+      "election": "6258",
+      "round": 2,
+      "uf": "RR",
+      "sections": 1519,
+      "rows": 5332,
+      "votes": 308597
+    },
+    {
+      "election": "6258",
+      "round": 2,
+      "uf": "RS",
+      "sections": 27547,
+      "rows": 106789,
+      "votes": 6889638
+    },
+    {
+      "election": "6258",
+      "round": 2,
+      "uf": "SC",
+      "sections": 17326,
+      "rows": 67266,
+      "votes": 4762303
+    },
+    {
+      "election": "6258",
+      "round": 2,
+      "uf": "SE",
+      "sections": 5923,
+      "rows": 22732,
+      "votes": 1466659
+    },
+    {
+      "election": "6258",
+      "round": 2,
+      "uf": "SP",
+      "sections": 103656,
+      "rows": 410145,
+      "votes": 27364389
+    },
+    {
+      "election": "6258",
+      "round": 2,
+      "uf": "TO",
+      "sections": 4384,
+      "rows": 16709,
+      "votes": 954763
+    },
+    {
+      "election": "6258",
+      "round": 2,
+      "uf": "ZZ",
+      "sections": 1308,
+      "rows": 4975,
+      "votes": 381443
+    }
+  ],
+  "territory_totals": [
+    {
+      "round": 1,
+      "uf": "AC",
+      "municipalities": 22,
+      "zones": 9,
+      "municipality_zone_pairs": 23,
+      "sections": 2270,
+      "nominal": 469089,
+      "blank": 5579,
+      "null": 13662,
+      "counted": 488330,
+      "eligible_available": 613742,
+      "turnout_available": 488330,
+      "abstention_available": 125412,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 1,
+      "uf": "AL",
+      "municipalities": 102,
+      "zones": 42,
+      "municipality_zone_pairs": 107,
+      "sections": 7101,
+      "nominal": 1818929,
+      "blank": 33712,
+      "null": 85787,
+      "counted": 1938428,
+      "eligible_available": 2442126,
+      "turnout_available": 1938428,
+      "abstention_available": 503698,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 1,
+      "uf": "AM",
+      "municipalities": 62,
+      "zones": 60,
+      "municipality_zone_pairs": 74,
+      "sections": 8157,
+      "nominal": 2170845,
+      "blank": 24402,
+      "null": 39302,
+      "counted": 2234549,
+      "eligible_available": 2798611,
+      "turnout_available": 2234549,
+      "abstention_available": 564062,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 1,
+      "uf": "AP",
+      "municipalities": 16,
+      "zones": 11,
+      "municipality_zone_pairs": 18,
+      "sections": 1914,
+      "nominal": 464875,
+      "blank": 4415,
+      "null": 7272,
+      "counted": 476562,
+      "eligible_available": 576988,
+      "turnout_available": 476562,
+      "abstention_available": 100426,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 1,
+      "uf": "BA",
+      "municipalities": 417,
+      "zones": 199,
+      "municipality_zone_pairs": 450,
+      "sections": 35476,
+      "nominal": 8560542,
+      "blank": 154936,
+      "null": 338123,
+      "counted": 9053601,
+      "eligible_available": 11312752,
+      "turnout_available": 9053601,
+      "abstention_available": 2259151,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 1,
+      "uf": "CE",
+      "municipalities": 184,
+      "zones": 109,
+      "municipality_zone_pairs": 205,
+      "sections": 23765,
+      "nominal": 5617991,
+      "blank": 103295,
+      "null": 189185,
+      "counted": 5910471,
+      "eligible_available": 6996545,
+      "turnout_available": 5910471,
+      "abstention_available": 1086074,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 1,
+      "uf": "DF",
+      "municipalities": 1,
+      "zones": 19,
+      "municipality_zone_pairs": 19,
+      "sections": 6969,
+      "nominal": 1772865,
+      "blank": 25362,
+      "null": 33169,
+      "counted": 1831396,
+      "eligible_available": 2258320,
+      "turnout_available": 1831396,
+      "abstention_available": 426924,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 1,
+      "uf": "ES",
+      "municipalities": 78,
+      "zones": 50,
+      "municipality_zone_pairs": 85,
+      "sections": 9844,
+      "nominal": 2251199,
+      "blank": 43211,
+      "null": 57872,
+      "counted": 2352282,
+      "eligible_available": 2991650,
+      "turnout_available": 2352282,
+      "abstention_available": 639368,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 1,
+      "uf": "GO",
+      "municipalities": 246,
+      "zones": 92,
+      "municipality_zone_pairs": 259,
+      "sections": 15686,
+      "nominal": 3827930,
+      "blank": 45643,
+      "null": 98014,
+      "counted": 3971587,
+      "eligible_available": 5080590,
+      "turnout_available": 3971587,
+      "abstention_available": 1109003,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 1,
+      "uf": "MA",
+      "municipalities": 217,
+      "zones": 105,
+      "municipality_zone_pairs": 223,
+      "sections": 18093,
+      "nominal": 4010784,
+      "blank": 46315,
+      "null": 103244,
+      "counted": 4160343,
+      "eligible_available": 5183115,
+      "turnout_available": 4160343,
+      "abstention_available": 1022772,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 1,
+      "uf": "MG",
+      "municipalities": 853,
+      "zones": 304,
+      "municipality_zone_pairs": 898,
+      "sections": 52062,
+      "nominal": 11976796,
+      "blank": 268302,
+      "null": 392176,
+      "counted": 12637274,
+      "eligible_available": 16372372,
+      "turnout_available": 12637274,
+      "abstention_available": 3735098,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 1,
+      "uf": "MS",
+      "municipalities": 79,
+      "zones": 49,
+      "municipality_zone_pairs": 88,
+      "sections": 7106,
+      "nominal": 1490354,
+      "blank": 21270,
+      "null": 29596,
+      "counted": 1541220,
+      "eligible_available": 2024430,
+      "turnout_available": 1541220,
+      "abstention_available": 483210,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 1,
+      "uf": "MT",
+      "municipalities": 142,
+      "zones": 57,
+      "municipality_zone_pairs": 147,
+      "sections": 8287,
+      "nominal": 1993383,
+      "blank": 20756,
+      "null": 37994,
+      "counted": 2052133,
+      "eligible_available": 2637801,
+      "turnout_available": 2052133,
+      "abstention_available": 585668,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 1,
+      "uf": "PA",
+      "municipalities": 144,
+      "zones": 101,
+      "municipality_zone_pairs": 160,
+      "sections": 20827,
+      "nominal": 4863355,
+      "blank": 54203,
+      "null": 148946,
+      "counted": 5066504,
+      "eligible_available": 6262397,
+      "turnout_available": 5066504,
+      "abstention_available": 1195893,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 1,
+      "uf": "PB",
+      "municipalities": 223,
+      "zones": 68,
+      "municipality_zone_pairs": 230,
+      "sections": 10712,
+      "nominal": 2513837,
+      "blank": 52297,
+      "null": 117854,
+      "counted": 2683988,
+      "eligible_available": 3248531,
+      "turnout_available": 2683988,
+      "abstention_available": 564543,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 1,
+      "uf": "PE",
+      "municipalities": 185,
+      "zones": 122,
+      "municipality_zone_pairs": 209,
+      "sections": 21418,
+      "nominal": 5601155,
+      "blank": 109491,
+      "null": 200416,
+      "counted": 5911062,
+      "eligible_available": 7223450,
+      "turnout_available": 5911062,
+      "abstention_available": 1312388,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 1,
+      "uf": "PI",
+      "municipalities": 224,
+      "zones": 74,
+      "municipality_zone_pairs": 230,
+      "sections": 10225,
+      "nominal": 2146446,
+      "blank": 28329,
+      "null": 66108,
+      "counted": 2240883,
+      "eligible_available": 2704758,
+      "turnout_available": 2240883,
+      "abstention_available": 463875,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 1,
+      "uf": "PR",
+      "municipalities": 399,
+      "zones": 186,
+      "municipality_zone_pairs": 421,
+      "sections": 27142,
+      "nominal": 6585511,
+      "blank": 122499,
+      "null": 133447,
+      "counted": 6841457,
+      "eligible_available": 8613657,
+      "turnout_available": 6841457,
+      "abstention_available": 1772200,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 1,
+      "uf": "RJ",
+      "municipalities": 92,
+      "zones": 165,
+      "municipality_zone_pairs": 183,
+      "sections": 37675,
+      "nominal": 9370087,
+      "blank": 201979,
+      "null": 287736,
+      "counted": 9859802,
+      "eligible_available": 12857648,
+      "turnout_available": 9859802,
+      "abstention_available": 2997846,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 1,
+      "uf": "RN",
+      "municipalities": 167,
+      "zones": 60,
+      "municipality_zone_pairs": 172,
+      "sections": 8115,
+      "nominal": 2071961,
+      "blank": 33172,
+      "null": 65880,
+      "counted": 2171013,
+      "eligible_available": 2659825,
+      "turnout_available": 2171013,
+      "abstention_available": 488812,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 1,
+      "uf": "RO",
+      "municipalities": 52,
+      "zones": 29,
+      "municipality_zone_pairs": 56,
+      "sections": 4698,
+      "nominal": 968125,
+      "blank": 9846,
+      "null": 13109,
+      "counted": 991080,
+      "eligible_available": 1265893,
+      "turnout_available": 991080,
+      "abstention_available": 274813,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 1,
+      "uf": "RR",
+      "municipalities": 15,
+      "zones": 9,
+      "municipality_zone_pairs": 16,
+      "sections": 1519,
+      "nominal": 325559,
+      "blank": 2618,
+      "null": 4595,
+      "counted": 332772,
+      "eligible_available": 401521,
+      "turnout_available": 332772,
+      "abstention_available": 68749,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 1,
+      "uf": "RS",
+      "municipalities": 497,
+      "zones": 165,
+      "municipality_zone_pairs": 522,
+      "sections": 27547,
+      "nominal": 6423299,
+      "blank": 148339,
+      "null": 131265,
+      "counted": 6702903,
+      "eligible_available": 8522545,
+      "turnout_available": 6702903,
+      "abstention_available": 1819642,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 1,
+      "uf": "SC",
+      "municipalities": 295,
+      "zones": 100,
+      "municipality_zone_pairs": 315,
+      "sections": 17326,
+      "nominal": 4501081,
+      "blank": 69007,
+      "null": 78071,
+      "counted": 4648159,
+      "eligible_available": 5734651,
+      "turnout_available": 4648159,
+      "abstention_available": 1086492,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 1,
+      "uf": "SE",
+      "municipalities": 75,
+      "zones": 29,
+      "municipality_zone_pairs": 77,
+      "sections": 5923,
+      "nominal": 1364253,
+      "blank": 24859,
+      "null": 49970,
+      "counted": 1439082,
+      "eligible_available": 1740135,
+      "turnout_available": 1439082,
+      "abstention_available": 301053,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 1,
+      "uf": "SP",
+      "municipalities": 645,
+      "zones": 393,
+      "municipality_zone_pairs": 779,
+      "sections": 103656,
+      "nominal": 24884303,
+      "blank": 632801,
+      "null": 914888,
+      "counted": 26431992,
+      "eligible_available": 34122892,
+      "turnout_available": 26431992,
+      "abstention_available": 7690900,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 1,
+      "uf": "TO",
+      "municipalities": 139,
+      "zones": 33,
+      "municipality_zone_pairs": 140,
+      "sections": 4384,
+      "nominal": 930475,
+      "blank": 8344,
+      "null": 26377,
+      "counted": 965196,
+      "eligible_available": 1182023,
+      "turnout_available": 965196,
+      "abstention_available": 216827,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 1,
+      "uf": "ZZ",
+      "municipalities": 145,
+      "zones": 1,
+      "municipality_zone_pairs": 145,
+      "sections": 1309,
+      "nominal": 331005,
+      "blank": 5816,
+      "null": 4945,
+      "counted": 341766,
+      "eligible_available": 916039,
+      "turnout_available": 341766,
+      "abstention_available": 574273,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 2,
+      "uf": "AC",
+      "municipalities": 22,
+      "zones": 9,
+      "municipality_zone_pairs": 23,
+      "sections": 2270,
+      "nominal": 432228,
+      "blank": 5016,
+      "null": 16410,
+      "counted": 453654,
+      "eligible_available": 613715,
+      "turnout_available": 453654,
+      "abstention_available": 160061,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 2,
+      "uf": "AL",
+      "municipalities": 102,
+      "zones": 42,
+      "municipality_zone_pairs": 107,
+      "sections": 7101,
+      "nominal": 1896761,
+      "blank": 16983,
+      "null": 37888,
+      "counted": 1951632,
+      "eligible_available": 2442081,
+      "turnout_available": 1951632,
+      "abstention_available": 490449,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 2,
+      "uf": "AM",
+      "municipalities": 62,
+      "zones": 60,
+      "municipality_zone_pairs": 74,
+      "sections": 8157,
+      "nominal": 2121028,
+      "blank": 18324,
+      "null": 52707,
+      "counted": 2192059,
+      "eligible_available": 2798661,
+      "turnout_available": 2192059,
+      "abstention_available": 606602,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 2,
+      "uf": "AP",
+      "municipalities": 16,
+      "zones": 11,
+      "municipality_zone_pairs": 18,
+      "sections": 1914,
+      "nominal": 421642,
+      "blank": 3320,
+      "null": 5013,
+      "counted": 429975,
+      "eligible_available": 576910,
+      "turnout_available": 429975,
+      "abstention_available": 146935,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 2,
+      "uf": "BA",
+      "municipalities": 417,
+      "zones": 199,
+      "municipality_zone_pairs": 450,
+      "sections": 35476,
+      "nominal": 9094019,
+      "blank": 92721,
+      "null": 235307,
+      "counted": 9422047,
+      "eligible_available": 11312891,
+      "turnout_available": 9422047,
+      "abstention_available": 1890844,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 2,
+      "uf": "CE",
+      "municipalities": 184,
+      "zones": 109,
+      "municipality_zone_pairs": 205,
+      "sections": 23765,
+      "nominal": 5855602,
+      "blank": 56386,
+      "null": 112855,
+      "counted": 6024843,
+      "eligible_available": 6996521,
+      "turnout_available": 6024843,
+      "abstention_available": 971678,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 2,
+      "uf": "DF",
+      "municipalities": 1,
+      "zones": 19,
+      "municipality_zone_pairs": 19,
+      "sections": 6969,
+      "nominal": 1804766,
+      "blank": 22386,
+      "null": 41128,
+      "counted": 1868280,
+      "eligible_available": 2258995,
+      "turnout_available": 1868280,
+      "abstention_available": 390715,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 2,
+      "uf": "ES",
+      "municipalities": 78,
+      "zones": 50,
+      "municipality_zone_pairs": 85,
+      "sections": 9844,
+      "nominal": 2296469,
+      "blank": 33080,
+      "null": 79665,
+      "counted": 2409214,
+      "eligible_available": 2991515,
+      "turnout_available": 2409214,
+      "abstention_available": 582301,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 2,
+      "uf": "GO",
+      "municipalities": 246,
+      "zones": 92,
+      "municipality_zone_pairs": 259,
+      "sections": 15686,
+      "nominal": 3930889,
+      "blank": 43214,
+      "null": 73177,
+      "counted": 4047280,
+      "eligible_available": 5080385,
+      "turnout_available": 4047280,
+      "abstention_available": 1033105,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 2,
+      "uf": "MA",
+      "municipalities": 217,
+      "zones": 105,
+      "municipality_zone_pairs": 223,
+      "sections": 18093,
+      "nominal": 4038202,
+      "blank": 30855,
+      "null": 58714,
+      "counted": 4127771,
+      "eligible_available": 5183049,
+      "turnout_available": 4127771,
+      "abstention_available": 1055278,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 2,
+      "uf": "MG",
+      "municipalities": 853,
+      "zones": 304,
+      "municipality_zone_pairs": 898,
+      "sections": 52062,
+      "nominal": 12592885,
+      "blank": 164141,
+      "null": 287177,
+      "counted": 13044203,
+      "eligible_available": 16372144,
+      "turnout_available": 13044203,
+      "abstention_available": 3327941,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 2,
+      "uf": "MS",
+      "municipalities": 79,
+      "zones": 49,
+      "municipality_zone_pairs": 88,
+      "sections": 7106,
+      "nominal": 1556865,
+      "blank": 14958,
+      "null": 22637,
+      "counted": 1594460,
+      "eligible_available": 2024437,
+      "turnout_available": 1594460,
+      "abstention_available": 429977,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 2,
+      "uf": "MT",
+      "municipalities": 142,
+      "zones": 57,
+      "municipality_zone_pairs": 147,
+      "sections": 8287,
+      "nominal": 2045266,
+      "blank": 15431,
+      "null": 24637,
+      "counted": 2085334,
+      "eligible_available": 2637879,
+      "turnout_available": 2085334,
+      "abstention_available": 552545,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 2,
+      "uf": "PA",
+      "municipalities": 144,
+      "zones": 101,
+      "municipality_zone_pairs": 160,
+      "sections": 20827,
+      "nominal": 4890389,
+      "blank": 36501,
+      "null": 62683,
+      "counted": 4989573,
+      "eligible_available": 6262063,
+      "turnout_available": 4989573,
+      "abstention_available": 1272490,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 2,
+      "uf": "PB",
+      "municipalities": 223,
+      "zones": 68,
+      "municipality_zone_pairs": 230,
+      "sections": 10712,
+      "nominal": 2659269,
+      "blank": 25943,
+      "null": 58348,
+      "counted": 2743560,
+      "eligible_available": 3248434,
+      "turnout_available": 2743560,
+      "abstention_available": 504874,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 2,
+      "uf": "PE",
+      "municipalities": 185,
+      "zones": 122,
+      "municipality_zone_pairs": 209,
+      "sections": 21418,
+      "nominal": 5950067,
+      "blank": 56758,
+      "null": 119642,
+      "counted": 6126467,
+      "eligible_available": 7223227,
+      "turnout_available": 6126467,
+      "abstention_available": 1096760,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 2,
+      "uf": "PI",
+      "municipalities": 224,
+      "zones": 74,
+      "municipality_zone_pairs": 230,
+      "sections": 10225,
+      "nominal": 2179848,
+      "blank": 16137,
+      "null": 43845,
+      "counted": 2239830,
+      "eligible_available": 2704695,
+      "turnout_available": 2239830,
+      "abstention_available": 464865,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 2,
+      "uf": "PR",
+      "municipalities": 399,
+      "zones": 186,
+      "municipality_zone_pairs": 421,
+      "sections": 27142,
+      "nominal": 6857948,
+      "blank": 82572,
+      "null": 118819,
+      "counted": 7059339,
+      "eligible_available": 8613628,
+      "turnout_available": 7059339,
+      "abstention_available": 1554289,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 2,
+      "uf": "RJ",
+      "municipalities": 92,
+      "zones": 165,
+      "municipality_zone_pairs": 183,
+      "sections": 37675,
+      "nominal": 9734426,
+      "blank": 111682,
+      "null": 231341,
+      "counted": 10077449,
+      "eligible_available": 12857526,
+      "turnout_available": 10077449,
+      "abstention_available": 2780077,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 2,
+      "uf": "RN",
+      "municipalities": 167,
+      "zones": 60,
+      "municipality_zone_pairs": 172,
+      "sections": 8115,
+      "nominal": 2151005,
+      "blank": 19939,
+      "null": 61879,
+      "counted": 2232823,
+      "eligible_available": 2659867,
+      "turnout_available": 2232823,
+      "abstention_available": 427044,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 2,
+      "uf": "RO",
+      "municipalities": 52,
+      "zones": 29,
+      "municipality_zone_pairs": 56,
+      "sections": 4698,
+      "nominal": 968828,
+      "blank": 8361,
+      "null": 11300,
+      "counted": 988489,
+      "eligible_available": 1265926,
+      "turnout_available": 988489,
+      "abstention_available": 277437,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 2,
+      "uf": "RR",
+      "municipalities": 15,
+      "zones": 9,
+      "municipality_zone_pairs": 16,
+      "sections": 1519,
+      "nominal": 303180,
+      "blank": 2176,
+      "null": 3241,
+      "counted": 308597,
+      "eligible_available": 401540,
+      "turnout_available": 308597,
+      "abstention_available": 92943,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 2,
+      "uf": "RS",
+      "municipalities": 497,
+      "zones": 165,
+      "municipality_zone_pairs": 522,
+      "sections": 27547,
+      "nominal": 6698930,
+      "blank": 89463,
+      "null": 101245,
+      "counted": 6889638,
+      "eligible_available": 8522318,
+      "turnout_available": 6889638,
+      "abstention_available": 1632680,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 2,
+      "uf": "SC",
+      "municipalities": 295,
+      "zones": 100,
+      "municipality_zone_pairs": 315,
+      "sections": 17326,
+      "nominal": 4638385,
+      "blank": 48674,
+      "null": 75244,
+      "counted": 4762303,
+      "eligible_available": 5734687,
+      "turnout_available": 4762303,
+      "abstention_available": 972384,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 2,
+      "uf": "SE",
+      "municipalities": 75,
+      "zones": 29,
+      "municipality_zone_pairs": 77,
+      "sections": 5923,
+      "nominal": 1422395,
+      "blank": 13135,
+      "null": 31129,
+      "counted": 1466659,
+      "eligible_available": 1740093,
+      "turnout_available": 1466659,
+      "abstention_available": 273434,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 2,
+      "uf": "SP",
+      "municipalities": 645,
+      "zones": 393,
+      "municipality_zone_pairs": 779,
+      "sections": 103656,
+      "nominal": 26258452,
+      "blank": 389606,
+      "null": 716331,
+      "counted": 27364389,
+      "eligible_available": 34123591,
+      "turnout_available": 27364389,
+      "abstention_available": 6759202,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 2,
+      "uf": "TO",
+      "municipalities": 139,
+      "zones": 33,
+      "municipality_zone_pairs": 140,
+      "sections": 4384,
+      "nominal": 910878,
+      "blank": 8059,
+      "null": 35826,
+      "counted": 954763,
+      "eligible_available": 1182041,
+      "turnout_available": 954763,
+      "abstention_available": 227278,
+      "sections_without_complete_bu_totals": 0
+    },
+    {
+      "round": 2,
+      "uf": "ZZ",
+      "municipalities": 144,
+      "zones": 1,
+      "municipality_zone_pairs": 144,
+      "sections": 1308,
+      "nominal": 371651,
+      "blank": 4675,
+      "null": 5117,
+      "counted": 381443,
+      "eligible_available": 916158,
+      "turnout_available": 381443,
+      "abstention_available": 534715,
+      "sections_without_complete_bu_totals": 0
+    }
+  ],
+  "national_candidates": [
+    {
+      "round": 1,
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 53879538
+    },
+    {
+      "round": 1,
+      "number": "14",
+      "name": "RENAN ANTONIO FERREIRA DOS SANTOS",
+      "kind": "nominal",
+      "votes": 2675887
+    },
+    {
+      "round": 1,
+      "number": "16",
+      "name": "HERTZ DA CONCEICAO DIAS",
+      "kind": "nominal",
+      "votes": 43103
+    },
+    {
+      "round": 1,
+      "number": "21",
+      "name": "EDMILSON SILVA COSTA",
+      "kind": "nominal",
+      "votes": 22693
+    },
+    {
+      "round": 1,
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 56104503
+    },
+    {
+      "round": 1,
+      "number": "27",
+      "name": "CLARIANA ZACARKIM BARAO",
+      "kind": "nominal",
+      "votes": 40043
+    },
+    {
+      "round": 1,
+      "number": "28",
+      "name": "LEONARDO ALVES DE ARAUJO",
+      "kind": "nominal",
+      "votes": 5246
+    },
+    {
+      "round": 1,
+      "number": "29",
+      "name": "RUI COSTA PIMENTA",
+      "kind": "nominal",
+      "votes": 15024
+    },
+    {
+      "round": 1,
+      "number": "30",
+      "name": "ROMEU ZEMA NETO",
+      "kind": "nominal",
+      "votes": 326488
+    },
+    {
+      "round": 1,
+      "number": "35",
+      "name": "WILSON GRASSI JUNIOR",
+      "kind": "nominal",
+      "votes": 16881
+    },
+    {
+      "round": 1,
+      "number": "55",
+      "name": "RONALDO RAMOS CAIADO",
+      "kind": "nominal",
+      "votes": 2605148
+    },
+    {
+      "round": 1,
+      "number": "70",
+      "name": "AUGUSTO JORGE CURY",
+      "kind": "nominal",
+      "votes": 3448569
+    },
+    {
+      "round": 1,
+      "number": "80",
+      "name": "SAMARA MARTINS DA SILVA FEITOSA",
+      "kind": "nominal",
+      "votes": 122911
+    },
+    {
+      "round": 1,
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 2300798
+    },
+    {
+      "round": 1,
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 3669003
+    },
+    {
+      "round": 2,
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 64256232
+    },
+    {
+      "round": 2,
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 59826041
+    },
+    {
+      "round": 2,
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 1430496
+    },
+    {
+      "round": 2,
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 2723305
+    }
+  ],
+  "candidate_totals_by_territory": [
+    {
+      "round": 1,
+      "uf": "AC",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 134770
+    },
+    {
+      "round": 1,
+      "uf": "AC",
+      "number": "14",
+      "name": "RENAN ANTONIO FERREIRA DOS SANTOS",
+      "kind": "nominal",
+      "votes": 7980
+    },
+    {
+      "round": 1,
+      "uf": "AC",
+      "number": "16",
+      "name": "HERTZ DA CONCEICAO DIAS",
+      "kind": "nominal",
+      "votes": 71
+    },
+    {
+      "round": 1,
+      "uf": "AC",
+      "number": "21",
+      "name": "EDMILSON SILVA COSTA",
+      "kind": "nominal",
+      "votes": 140
+    },
+    {
+      "round": 1,
+      "uf": "AC",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 302807
+    },
+    {
+      "round": 1,
+      "uf": "AC",
+      "number": "27",
+      "name": "CLARIANA ZACARKIM BARAO",
+      "kind": "nominal",
+      "votes": 215
+    },
+    {
+      "round": 1,
+      "uf": "AC",
+      "number": "28",
+      "name": "LEONARDO ALVES DE ARAUJO",
+      "kind": "nominal",
+      "votes": 23
+    },
+    {
+      "round": 1,
+      "uf": "AC",
+      "number": "29",
+      "name": "RUI COSTA PIMENTA",
+      "kind": "nominal",
+      "votes": 40
+    },
+    {
+      "round": 1,
+      "uf": "AC",
+      "number": "30",
+      "name": "ROMEU ZEMA NETO",
+      "kind": "nominal",
+      "votes": 573
+    },
+    {
+      "round": 1,
+      "uf": "AC",
+      "number": "35",
+      "name": "WILSON GRASSI JUNIOR",
+      "kind": "nominal",
+      "votes": 39
+    },
+    {
+      "round": 1,
+      "uf": "AC",
+      "number": "55",
+      "name": "RONALDO RAMOS CAIADO",
+      "kind": "nominal",
+      "votes": 8594
+    },
+    {
+      "round": 1,
+      "uf": "AC",
+      "number": "70",
+      "name": "AUGUSTO JORGE CURY",
+      "kind": "nominal",
+      "votes": 13523
+    },
+    {
+      "round": 1,
+      "uf": "AC",
+      "number": "80",
+      "name": "SAMARA MARTINS DA SILVA FEITOSA",
+      "kind": "nominal",
+      "votes": 314
+    },
+    {
+      "round": 1,
+      "uf": "AC",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 5579
+    },
+    {
+      "round": 1,
+      "uf": "AC",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 13662
+    },
+    {
+      "round": 1,
+      "uf": "AL",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 995459
+    },
+    {
+      "round": 1,
+      "uf": "AL",
+      "number": "14",
+      "name": "RENAN ANTONIO FERREIRA DOS SANTOS",
+      "kind": "nominal",
+      "votes": 26851
+    },
+    {
+      "round": 1,
+      "uf": "AL",
+      "number": "16",
+      "name": "HERTZ DA CONCEICAO DIAS",
+      "kind": "nominal",
+      "votes": 431
+    },
+    {
+      "round": 1,
+      "uf": "AL",
+      "number": "21",
+      "name": "EDMILSON SILVA COSTA",
+      "kind": "nominal",
+      "votes": 267
+    },
+    {
+      "round": 1,
+      "uf": "AL",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 735718
+    },
+    {
+      "round": 1,
+      "uf": "AL",
+      "number": "27",
+      "name": "CLARIANA ZACARKIM BARAO",
+      "kind": "nominal",
+      "votes": 636
+    },
+    {
+      "round": 1,
+      "uf": "AL",
+      "number": "28",
+      "name": "LEONARDO ALVES DE ARAUJO",
+      "kind": "nominal",
+      "votes": 73
+    },
+    {
+      "round": 1,
+      "uf": "AL",
+      "number": "29",
+      "name": "RUI COSTA PIMENTA",
+      "kind": "nominal",
+      "votes": 110
+    },
+    {
+      "round": 1,
+      "uf": "AL",
+      "number": "30",
+      "name": "ROMEU ZEMA NETO",
+      "kind": "nominal",
+      "votes": 1168
+    },
+    {
+      "round": 1,
+      "uf": "AL",
+      "number": "35",
+      "name": "WILSON GRASSI JUNIOR",
+      "kind": "nominal",
+      "votes": 246
+    },
+    {
+      "round": 1,
+      "uf": "AL",
+      "number": "55",
+      "name": "RONALDO RAMOS CAIADO",
+      "kind": "nominal",
+      "votes": 14198
+    },
+    {
+      "round": 1,
+      "uf": "AL",
+      "number": "70",
+      "name": "AUGUSTO JORGE CURY",
+      "kind": "nominal",
+      "votes": 42427
+    },
+    {
+      "round": 1,
+      "uf": "AL",
+      "number": "80",
+      "name": "SAMARA MARTINS DA SILVA FEITOSA",
+      "kind": "nominal",
+      "votes": 1345
+    },
+    {
+      "round": 1,
+      "uf": "AL",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 33712
+    },
+    {
+      "round": 1,
+      "uf": "AL",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 85787
+    },
+    {
+      "round": 1,
+      "uf": "AM",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 1046996
+    },
+    {
+      "round": 1,
+      "uf": "AM",
+      "number": "14",
+      "name": "RENAN ANTONIO FERREIRA DOS SANTOS",
+      "kind": "nominal",
+      "votes": 35411
+    },
+    {
+      "round": 1,
+      "uf": "AM",
+      "number": "16",
+      "name": "HERTZ DA CONCEICAO DIAS",
+      "kind": "nominal",
+      "votes": 457
+    },
+    {
+      "round": 1,
+      "uf": "AM",
+      "number": "21",
+      "name": "EDMILSON SILVA COSTA",
+      "kind": "nominal",
+      "votes": 265
+    },
+    {
+      "round": 1,
+      "uf": "AM",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 976764
+    },
+    {
+      "round": 1,
+      "uf": "AM",
+      "number": "27",
+      "name": "CLARIANA ZACARKIM BARAO",
+      "kind": "nominal",
+      "votes": 929
+    },
+    {
+      "round": 1,
+      "uf": "AM",
+      "number": "28",
+      "name": "LEONARDO ALVES DE ARAUJO",
+      "kind": "nominal",
+      "votes": 82
+    },
+    {
+      "round": 1,
+      "uf": "AM",
+      "number": "29",
+      "name": "RUI COSTA PIMENTA",
+      "kind": "nominal",
+      "votes": 161
+    },
+    {
+      "round": 1,
+      "uf": "AM",
+      "number": "30",
+      "name": "ROMEU ZEMA NETO",
+      "kind": "nominal",
+      "votes": 1781
+    },
+    {
+      "round": 1,
+      "uf": "AM",
+      "number": "35",
+      "name": "WILSON GRASSI JUNIOR",
+      "kind": "nominal",
+      "votes": 291
+    },
+    {
+      "round": 1,
+      "uf": "AM",
+      "number": "55",
+      "name": "RONALDO RAMOS CAIADO",
+      "kind": "nominal",
+      "votes": 28310
+    },
+    {
+      "round": 1,
+      "uf": "AM",
+      "number": "70",
+      "name": "AUGUSTO JORGE CURY",
+      "kind": "nominal",
+      "votes": 77531
+    },
+    {
+      "round": 1,
+      "uf": "AM",
+      "number": "80",
+      "name": "SAMARA MARTINS DA SILVA FEITOSA",
+      "kind": "nominal",
+      "votes": 1867
+    },
+    {
+      "round": 1,
+      "uf": "AM",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 24402
+    },
+    {
+      "round": 1,
+      "uf": "AM",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 39302
+    },
+    {
+      "round": 1,
+      "uf": "AP",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 212503
+    },
+    {
+      "round": 1,
+      "uf": "AP",
+      "number": "14",
+      "name": "RENAN ANTONIO FERREIRA DOS SANTOS",
+      "kind": "nominal",
+      "votes": 11342
+    },
+    {
+      "round": 1,
+      "uf": "AP",
+      "number": "16",
+      "name": "HERTZ DA CONCEICAO DIAS",
+      "kind": "nominal",
+      "votes": 132
+    },
+    {
+      "round": 1,
+      "uf": "AP",
+      "number": "21",
+      "name": "EDMILSON SILVA COSTA",
+      "kind": "nominal",
+      "votes": 62
+    },
+    {
+      "round": 1,
+      "uf": "AP",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 212278
+    },
+    {
+      "round": 1,
+      "uf": "AP",
+      "number": "27",
+      "name": "CLARIANA ZACARKIM BARAO",
+      "kind": "nominal",
+      "votes": 229
+    },
+    {
+      "round": 1,
+      "uf": "AP",
+      "number": "28",
+      "name": "LEONARDO ALVES DE ARAUJO",
+      "kind": "nominal",
+      "votes": 17
+    },
+    {
+      "round": 1,
+      "uf": "AP",
+      "number": "29",
+      "name": "RUI COSTA PIMENTA",
+      "kind": "nominal",
+      "votes": 53
+    },
+    {
+      "round": 1,
+      "uf": "AP",
+      "number": "30",
+      "name": "ROMEU ZEMA NETO",
+      "kind": "nominal",
+      "votes": 341
+    },
+    {
+      "round": 1,
+      "uf": "AP",
+      "number": "35",
+      "name": "WILSON GRASSI JUNIOR",
+      "kind": "nominal",
+      "votes": 49
+    },
+    {
+      "round": 1,
+      "uf": "AP",
+      "number": "55",
+      "name": "RONALDO RAMOS CAIADO",
+      "kind": "nominal",
+      "votes": 8304
+    },
+    {
+      "round": 1,
+      "uf": "AP",
+      "number": "70",
+      "name": "AUGUSTO JORGE CURY",
+      "kind": "nominal",
+      "votes": 19057
+    },
+    {
+      "round": 1,
+      "uf": "AP",
+      "number": "80",
+      "name": "SAMARA MARTINS DA SILVA FEITOSA",
+      "kind": "nominal",
+      "votes": 508
+    },
+    {
+      "round": 1,
+      "uf": "AP",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 4415
+    },
+    {
+      "round": 1,
+      "uf": "AP",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 7272
+    },
+    {
+      "round": 1,
+      "uf": "BA",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 5664771
+    },
+    {
+      "round": 1,
+      "uf": "BA",
+      "number": "14",
+      "name": "RENAN ANTONIO FERREIRA DOS SANTOS",
+      "kind": "nominal",
+      "votes": 117518
+    },
+    {
+      "round": 1,
+      "uf": "BA",
+      "number": "16",
+      "name": "HERTZ DA CONCEICAO DIAS",
+      "kind": "nominal",
+      "votes": 1791
+    },
+    {
+      "round": 1,
+      "uf": "BA",
+      "number": "21",
+      "name": "EDMILSON SILVA COSTA",
+      "kind": "nominal",
+      "votes": 1299
+    },
+    {
+      "round": 1,
+      "uf": "BA",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 2442585
+    },
+    {
+      "round": 1,
+      "uf": "BA",
+      "number": "27",
+      "name": "CLARIANA ZACARKIM BARAO",
+      "kind": "nominal",
+      "votes": 1676
+    },
+    {
+      "round": 1,
+      "uf": "BA",
+      "number": "28",
+      "name": "LEONARDO ALVES DE ARAUJO",
+      "kind": "nominal",
+      "votes": 251
+    },
+    {
+      "round": 1,
+      "uf": "BA",
+      "number": "29",
+      "name": "RUI COSTA PIMENTA",
+      "kind": "nominal",
+      "votes": 724
+    },
+    {
+      "round": 1,
+      "uf": "BA",
+      "number": "30",
+      "name": "ROMEU ZEMA NETO",
+      "kind": "nominal",
+      "votes": 6497
+    },
+    {
+      "round": 1,
+      "uf": "BA",
+      "number": "35",
+      "name": "WILSON GRASSI JUNIOR",
+      "kind": "nominal",
+      "votes": 625
+    },
+    {
+      "round": 1,
+      "uf": "BA",
+      "number": "55",
+      "name": "RONALDO RAMOS CAIADO",
+      "kind": "nominal",
+      "votes": 122705
+    },
+    {
+      "round": 1,
+      "uf": "BA",
+      "number": "70",
+      "name": "AUGUSTO JORGE CURY",
+      "kind": "nominal",
+      "votes": 195451
+    },
+    {
+      "round": 1,
+      "uf": "BA",
+      "number": "80",
+      "name": "SAMARA MARTINS DA SILVA FEITOSA",
+      "kind": "nominal",
+      "votes": 4649
+    },
+    {
+      "round": 1,
+      "uf": "BA",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 154936
+    },
+    {
+      "round": 1,
+      "uf": "BA",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 338123
+    },
+    {
+      "round": 1,
+      "uf": "CE",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 3555263
+    },
+    {
+      "round": 1,
+      "uf": "CE",
+      "number": "14",
+      "name": "RENAN ANTONIO FERREIRA DOS SANTOS",
+      "kind": "nominal",
+      "votes": 107587
+    },
+    {
+      "round": 1,
+      "uf": "CE",
+      "number": "16",
+      "name": "HERTZ DA CONCEICAO DIAS",
+      "kind": "nominal",
+      "votes": 1491
+    },
+    {
+      "round": 1,
+      "uf": "CE",
+      "number": "21",
+      "name": "EDMILSON SILVA COSTA",
+      "kind": "nominal",
+      "votes": 783
+    },
+    {
+      "round": 1,
+      "uf": "CE",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 1756850
+    },
+    {
+      "round": 1,
+      "uf": "CE",
+      "number": "27",
+      "name": "CLARIANA ZACARKIM BARAO",
+      "kind": "nominal",
+      "votes": 1071
+    },
+    {
+      "round": 1,
+      "uf": "CE",
+      "number": "28",
+      "name": "LEONARDO ALVES DE ARAUJO",
+      "kind": "nominal",
+      "votes": 177
+    },
+    {
+      "round": 1,
+      "uf": "CE",
+      "number": "29",
+      "name": "RUI COSTA PIMENTA",
+      "kind": "nominal",
+      "votes": 498
+    },
+    {
+      "round": 1,
+      "uf": "CE",
+      "number": "30",
+      "name": "ROMEU ZEMA NETO",
+      "kind": "nominal",
+      "votes": 4310
+    },
+    {
+      "round": 1,
+      "uf": "CE",
+      "number": "35",
+      "name": "WILSON GRASSI JUNIOR",
+      "kind": "nominal",
+      "votes": 481
+    },
+    {
+      "round": 1,
+      "uf": "CE",
+      "number": "55",
+      "name": "RONALDO RAMOS CAIADO",
+      "kind": "nominal",
+      "votes": 45604
+    },
+    {
+      "round": 1,
+      "uf": "CE",
+      "number": "70",
+      "name": "AUGUSTO JORGE CURY",
+      "kind": "nominal",
+      "votes": 140524
+    },
+    {
+      "round": 1,
+      "uf": "CE",
+      "number": "80",
+      "name": "SAMARA MARTINS DA SILVA FEITOSA",
+      "kind": "nominal",
+      "votes": 3352
+    },
+    {
+      "round": 1,
+      "uf": "CE",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 103295
+    },
+    {
+      "round": 1,
+      "uf": "CE",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 189185
+    },
+    {
+      "round": 1,
+      "uf": "DF",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 675627
+    },
+    {
+      "round": 1,
+      "uf": "DF",
+      "number": "14",
+      "name": "RENAN ANTONIO FERREIRA DOS SANTOS",
+      "kind": "nominal",
+      "votes": 46714
+    },
+    {
+      "round": 1,
+      "uf": "DF",
+      "number": "16",
+      "name": "HERTZ DA CONCEICAO DIAS",
+      "kind": "nominal",
+      "votes": 828
+    },
+    {
+      "round": 1,
+      "uf": "DF",
+      "number": "21",
+      "name": "EDMILSON SILVA COSTA",
+      "kind": "nominal",
+      "votes": 334
+    },
+    {
+      "round": 1,
+      "uf": "DF",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 909616
+    },
+    {
+      "round": 1,
+      "uf": "DF",
+      "number": "27",
+      "name": "CLARIANA ZACARKIM BARAO",
+      "kind": "nominal",
+      "votes": 716
+    },
+    {
+      "round": 1,
+      "uf": "DF",
+      "number": "28",
+      "name": "LEONARDO ALVES DE ARAUJO",
+      "kind": "nominal",
+      "votes": 57
+    },
+    {
+      "round": 1,
+      "uf": "DF",
+      "number": "29",
+      "name": "RUI COSTA PIMENTA",
+      "kind": "nominal",
+      "votes": 382
+    },
+    {
+      "round": 1,
+      "uf": "DF",
+      "number": "30",
+      "name": "ROMEU ZEMA NETO",
+      "kind": "nominal",
+      "votes": 4915
+    },
+    {
+      "round": 1,
+      "uf": "DF",
+      "number": "35",
+      "name": "WILSON GRASSI JUNIOR",
+      "kind": "nominal",
+      "votes": 324
+    },
+    {
+      "round": 1,
+      "uf": "DF",
+      "number": "55",
+      "name": "RONALDO RAMOS CAIADO",
+      "kind": "nominal",
+      "votes": 85076
+    },
+    {
+      "round": 1,
+      "uf": "DF",
+      "number": "70",
+      "name": "AUGUSTO JORGE CURY",
+      "kind": "nominal",
+      "votes": 45979
+    },
+    {
+      "round": 1,
+      "uf": "DF",
+      "number": "80",
+      "name": "SAMARA MARTINS DA SILVA FEITOSA",
+      "kind": "nominal",
+      "votes": 2297
+    },
+    {
+      "round": 1,
+      "uf": "DF",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 25362
+    },
+    {
+      "round": 1,
+      "uf": "DF",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 33169
+    },
+    {
+      "round": 1,
+      "uf": "ES",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 850028
+    },
+    {
+      "round": 1,
+      "uf": "ES",
+      "number": "14",
+      "name": "RENAN ANTONIO FERREIRA DOS SANTOS",
+      "kind": "nominal",
+      "votes": 53236
+    },
+    {
+      "round": 1,
+      "uf": "ES",
+      "number": "16",
+      "name": "HERTZ DA CONCEICAO DIAS",
+      "kind": "nominal",
+      "votes": 638
+    },
+    {
+      "round": 1,
+      "uf": "ES",
+      "number": "21",
+      "name": "EDMILSON SILVA COSTA",
+      "kind": "nominal",
+      "votes": 388
+    },
+    {
+      "round": 1,
+      "uf": "ES",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 1233194
+    },
+    {
+      "round": 1,
+      "uf": "ES",
+      "number": "27",
+      "name": "CLARIANA ZACARKIM BARAO",
+      "kind": "nominal",
+      "votes": 974
+    },
+    {
+      "round": 1,
+      "uf": "ES",
+      "number": "28",
+      "name": "LEONARDO ALVES DE ARAUJO",
+      "kind": "nominal",
+      "votes": 121
+    },
+    {
+      "round": 1,
+      "uf": "ES",
+      "number": "29",
+      "name": "RUI COSTA PIMENTA",
+      "kind": "nominal",
+      "votes": 245
+    },
+    {
+      "round": 1,
+      "uf": "ES",
+      "number": "30",
+      "name": "ROMEU ZEMA NETO",
+      "kind": "nominal",
+      "votes": 5873
+    },
+    {
+      "round": 1,
+      "uf": "ES",
+      "number": "35",
+      "name": "WILSON GRASSI JUNIOR",
+      "kind": "nominal",
+      "votes": 311
+    },
+    {
+      "round": 1,
+      "uf": "ES",
+      "number": "55",
+      "name": "RONALDO RAMOS CAIADO",
+      "kind": "nominal",
+      "votes": 39097
+    },
+    {
+      "round": 1,
+      "uf": "ES",
+      "number": "70",
+      "name": "AUGUSTO JORGE CURY",
+      "kind": "nominal",
+      "votes": 65121
+    },
+    {
+      "round": 1,
+      "uf": "ES",
+      "number": "80",
+      "name": "SAMARA MARTINS DA SILVA FEITOSA",
+      "kind": "nominal",
+      "votes": 1973
+    },
+    {
+      "round": 1,
+      "uf": "ES",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 43211
+    },
+    {
+      "round": 1,
+      "uf": "ES",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 57872
+    },
+    {
+      "round": 1,
+      "uf": "GO",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 1188880
+    },
+    {
+      "round": 1,
+      "uf": "GO",
+      "number": "14",
+      "name": "RENAN ANTONIO FERREIRA DOS SANTOS",
+      "kind": "nominal",
+      "votes": 54105
+    },
+    {
+      "round": 1,
+      "uf": "GO",
+      "number": "16",
+      "name": "HERTZ DA CONCEICAO DIAS",
+      "kind": "nominal",
+      "votes": 668
+    },
+    {
+      "round": 1,
+      "uf": "GO",
+      "number": "21",
+      "name": "EDMILSON SILVA COSTA",
+      "kind": "nominal",
+      "votes": 468
+    },
+    {
+      "round": 1,
+      "uf": "GO",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 2051888
+    },
+    {
+      "round": 1,
+      "uf": "GO",
+      "number": "27",
+      "name": "CLARIANA ZACARKIM BARAO",
+      "kind": "nominal",
+      "votes": 559
+    },
+    {
+      "round": 1,
+      "uf": "GO",
+      "number": "28",
+      "name": "LEONARDO ALVES DE ARAUJO",
+      "kind": "nominal",
+      "votes": 107
+    },
+    {
+      "round": 1,
+      "uf": "GO",
+      "number": "29",
+      "name": "RUI COSTA PIMENTA",
+      "kind": "nominal",
+      "votes": 260
+    },
+    {
+      "round": 1,
+      "uf": "GO",
+      "number": "30",
+      "name": "ROMEU ZEMA NETO",
+      "kind": "nominal",
+      "votes": 2672
+    },
+    {
+      "round": 1,
+      "uf": "GO",
+      "number": "35",
+      "name": "WILSON GRASSI JUNIOR",
+      "kind": "nominal",
+      "votes": 346
+    },
+    {
+      "round": 1,
+      "uf": "GO",
+      "number": "55",
+      "name": "RONALDO RAMOS CAIADO",
+      "kind": "nominal",
+      "votes": 472041
+    },
+    {
+      "round": 1,
+      "uf": "GO",
+      "number": "70",
+      "name": "AUGUSTO JORGE CURY",
+      "kind": "nominal",
+      "votes": 53849
+    },
+    {
+      "round": 1,
+      "uf": "GO",
+      "number": "80",
+      "name": "SAMARA MARTINS DA SILVA FEITOSA",
+      "kind": "nominal",
+      "votes": 2087
+    },
+    {
+      "round": 1,
+      "uf": "GO",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 45643
+    },
+    {
+      "round": 1,
+      "uf": "GO",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 98014
+    },
+    {
+      "round": 1,
+      "uf": "MA",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 2566301
+    },
+    {
+      "round": 1,
+      "uf": "MA",
+      "number": "14",
+      "name": "RENAN ANTONIO FERREIRA DOS SANTOS",
+      "kind": "nominal",
+      "votes": 60387
+    },
+    {
+      "round": 1,
+      "uf": "MA",
+      "number": "16",
+      "name": "HERTZ DA CONCEICAO DIAS",
+      "kind": "nominal",
+      "votes": 1459
+    },
+    {
+      "round": 1,
+      "uf": "MA",
+      "number": "21",
+      "name": "EDMILSON SILVA COSTA",
+      "kind": "nominal",
+      "votes": 475
+    },
+    {
+      "round": 1,
+      "uf": "MA",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 1239040
+    },
+    {
+      "round": 1,
+      "uf": "MA",
+      "number": "27",
+      "name": "CLARIANA ZACARKIM BARAO",
+      "kind": "nominal",
+      "votes": 895
+    },
+    {
+      "round": 1,
+      "uf": "MA",
+      "number": "28",
+      "name": "LEONARDO ALVES DE ARAUJO",
+      "kind": "nominal",
+      "votes": 345
+    },
+    {
+      "round": 1,
+      "uf": "MA",
+      "number": "29",
+      "name": "RUI COSTA PIMENTA",
+      "kind": "nominal",
+      "votes": 211
+    },
+    {
+      "round": 1,
+      "uf": "MA",
+      "number": "30",
+      "name": "ROMEU ZEMA NETO",
+      "kind": "nominal",
+      "votes": 4584
+    },
+    {
+      "round": 1,
+      "uf": "MA",
+      "number": "35",
+      "name": "WILSON GRASSI JUNIOR",
+      "kind": "nominal",
+      "votes": 307
+    },
+    {
+      "round": 1,
+      "uf": "MA",
+      "number": "55",
+      "name": "RONALDO RAMOS CAIADO",
+      "kind": "nominal",
+      "votes": 50155
+    },
+    {
+      "round": 1,
+      "uf": "MA",
+      "number": "70",
+      "name": "AUGUSTO JORGE CURY",
+      "kind": "nominal",
+      "votes": 84830
+    },
+    {
+      "round": 1,
+      "uf": "MA",
+      "number": "80",
+      "name": "SAMARA MARTINS DA SILVA FEITOSA",
+      "kind": "nominal",
+      "votes": 1795
+    },
+    {
+      "round": 1,
+      "uf": "MA",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 46315
+    },
+    {
+      "round": 1,
+      "uf": "MA",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 103244
+    },
+    {
+      "round": 1,
+      "uf": "MG",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 5188936
+    },
+    {
+      "round": 1,
+      "uf": "MG",
+      "number": "14",
+      "name": "RENAN ANTONIO FERREIRA DOS SANTOS",
+      "kind": "nominal",
+      "votes": 247209
+    },
+    {
+      "round": 1,
+      "uf": "MG",
+      "number": "16",
+      "name": "HERTZ DA CONCEICAO DIAS",
+      "kind": "nominal",
+      "votes": 4085
+    },
+    {
+      "round": 1,
+      "uf": "MG",
+      "number": "21",
+      "name": "EDMILSON SILVA COSTA",
+      "kind": "nominal",
+      "votes": 2300
+    },
+    {
+      "round": 1,
+      "uf": "MG",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 5777548
+    },
+    {
+      "round": 1,
+      "uf": "MG",
+      "number": "27",
+      "name": "CLARIANA ZACARKIM BARAO",
+      "kind": "nominal",
+      "votes": 3411
+    },
+    {
+      "round": 1,
+      "uf": "MG",
+      "number": "28",
+      "name": "LEONARDO ALVES DE ARAUJO",
+      "kind": "nominal",
+      "votes": 561
+    },
+    {
+      "round": 1,
+      "uf": "MG",
+      "number": "29",
+      "name": "RUI COSTA PIMENTA",
+      "kind": "nominal",
+      "votes": 1421
+    },
+    {
+      "round": 1,
+      "uf": "MG",
+      "number": "30",
+      "name": "ROMEU ZEMA NETO",
+      "kind": "nominal",
+      "votes": 98407
+    },
+    {
+      "round": 1,
+      "uf": "MG",
+      "number": "35",
+      "name": "WILSON GRASSI JUNIOR",
+      "kind": "nominal",
+      "votes": 1732
+    },
+    {
+      "round": 1,
+      "uf": "MG",
+      "number": "55",
+      "name": "RONALDO RAMOS CAIADO",
+      "kind": "nominal",
+      "votes": 230423
+    },
+    {
+      "round": 1,
+      "uf": "MG",
+      "number": "70",
+      "name": "AUGUSTO JORGE CURY",
+      "kind": "nominal",
+      "votes": 409737
+    },
+    {
+      "round": 1,
+      "uf": "MG",
+      "number": "80",
+      "name": "SAMARA MARTINS DA SILVA FEITOSA",
+      "kind": "nominal",
+      "votes": 11026
+    },
+    {
+      "round": 1,
+      "uf": "MG",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 268302
+    },
+    {
+      "round": 1,
+      "uf": "MG",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 392176
+    },
+    {
+      "round": 1,
+      "uf": "MS",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 516855
+    },
+    {
+      "round": 1,
+      "uf": "MS",
+      "number": "14",
+      "name": "RENAN ANTONIO FERREIRA DOS SANTOS",
+      "kind": "nominal",
+      "votes": 31847
+    },
+    {
+      "round": 1,
+      "uf": "MS",
+      "number": "16",
+      "name": "HERTZ DA CONCEICAO DIAS",
+      "kind": "nominal",
+      "votes": 353
+    },
+    {
+      "round": 1,
+      "uf": "MS",
+      "number": "21",
+      "name": "EDMILSON SILVA COSTA",
+      "kind": "nominal",
+      "votes": 332
+    },
+    {
+      "round": 1,
+      "uf": "MS",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 873351
+    },
+    {
+      "round": 1,
+      "uf": "MS",
+      "number": "27",
+      "name": "CLARIANA ZACARKIM BARAO",
+      "kind": "nominal",
+      "votes": 626
+    },
+    {
+      "round": 1,
+      "uf": "MS",
+      "number": "28",
+      "name": "LEONARDO ALVES DE ARAUJO",
+      "kind": "nominal",
+      "votes": 76
+    },
+    {
+      "round": 1,
+      "uf": "MS",
+      "number": "29",
+      "name": "RUI COSTA PIMENTA",
+      "kind": "nominal",
+      "votes": 183
+    },
+    {
+      "round": 1,
+      "uf": "MS",
+      "number": "30",
+      "name": "ROMEU ZEMA NETO",
+      "kind": "nominal",
+      "votes": 2792
+    },
+    {
+      "round": 1,
+      "uf": "MS",
+      "number": "35",
+      "name": "WILSON GRASSI JUNIOR",
+      "kind": "nominal",
+      "votes": 209
+    },
+    {
+      "round": 1,
+      "uf": "MS",
+      "number": "55",
+      "name": "RONALDO RAMOS CAIADO",
+      "kind": "nominal",
+      "votes": 23291
+    },
+    {
+      "round": 1,
+      "uf": "MS",
+      "number": "70",
+      "name": "AUGUSTO JORGE CURY",
+      "kind": "nominal",
+      "votes": 39148
+    },
+    {
+      "round": 1,
+      "uf": "MS",
+      "number": "80",
+      "name": "SAMARA MARTINS DA SILVA FEITOSA",
+      "kind": "nominal",
+      "votes": 1291
+    },
+    {
+      "round": 1,
+      "uf": "MS",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 21270
+    },
+    {
+      "round": 1,
+      "uf": "MS",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 29596
+    },
+    {
+      "round": 1,
+      "uf": "MT",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 581681
+    },
+    {
+      "round": 1,
+      "uf": "MT",
+      "number": "14",
+      "name": "RENAN ANTONIO FERREIRA DOS SANTOS",
+      "kind": "nominal",
+      "votes": 33170
+    },
+    {
+      "round": 1,
+      "uf": "MT",
+      "number": "16",
+      "name": "HERTZ DA CONCEICAO DIAS",
+      "kind": "nominal",
+      "votes": 340
+    },
+    {
+      "round": 1,
+      "uf": "MT",
+      "number": "21",
+      "name": "EDMILSON SILVA COSTA",
+      "kind": "nominal",
+      "votes": 239
+    },
+    {
+      "round": 1,
+      "uf": "MT",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 1298581
+    },
+    {
+      "round": 1,
+      "uf": "MT",
+      "number": "27",
+      "name": "CLARIANA ZACARKIM BARAO",
+      "kind": "nominal",
+      "votes": 1869
+    },
+    {
+      "round": 1,
+      "uf": "MT",
+      "number": "28",
+      "name": "LEONARDO ALVES DE ARAUJO",
+      "kind": "nominal",
+      "votes": 95
+    },
+    {
+      "round": 1,
+      "uf": "MT",
+      "number": "29",
+      "name": "RUI COSTA PIMENTA",
+      "kind": "nominal",
+      "votes": 130
+    },
+    {
+      "round": 1,
+      "uf": "MT",
+      "number": "30",
+      "name": "ROMEU ZEMA NETO",
+      "kind": "nominal",
+      "votes": 2424
+    },
+    {
+      "round": 1,
+      "uf": "MT",
+      "number": "35",
+      "name": "WILSON GRASSI JUNIOR",
+      "kind": "nominal",
+      "votes": 172
+    },
+    {
+      "round": 1,
+      "uf": "MT",
+      "number": "55",
+      "name": "RONALDO RAMOS CAIADO",
+      "kind": "nominal",
+      "votes": 33079
+    },
+    {
+      "round": 1,
+      "uf": "MT",
+      "number": "70",
+      "name": "AUGUSTO JORGE CURY",
+      "kind": "nominal",
+      "votes": 40019
+    },
+    {
+      "round": 1,
+      "uf": "MT",
+      "number": "80",
+      "name": "SAMARA MARTINS DA SILVA FEITOSA",
+      "kind": "nominal",
+      "votes": 1584
+    },
+    {
+      "round": 1,
+      "uf": "MT",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 20756
+    },
+    {
+      "round": 1,
+      "uf": "MT",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 37994
+    },
+    {
+      "round": 1,
+      "uf": "PA",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 2427237
+    },
+    {
+      "round": 1,
+      "uf": "PA",
+      "number": "14",
+      "name": "RENAN ANTONIO FERREIRA DOS SANTOS",
+      "kind": "nominal",
+      "votes": 84165
+    },
+    {
+      "round": 1,
+      "uf": "PA",
+      "number": "16",
+      "name": "HERTZ DA CONCEICAO DIAS",
+      "kind": "nominal",
+      "votes": 1045
+    },
+    {
+      "round": 1,
+      "uf": "PA",
+      "number": "21",
+      "name": "EDMILSON SILVA COSTA",
+      "kind": "nominal",
+      "votes": 674
+    },
+    {
+      "round": 1,
+      "uf": "PA",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 2163957
+    },
+    {
+      "round": 1,
+      "uf": "PA",
+      "number": "27",
+      "name": "CLARIANA ZACARKIM BARAO",
+      "kind": "nominal",
+      "votes": 1293
+    },
+    {
+      "round": 1,
+      "uf": "PA",
+      "number": "28",
+      "name": "LEONARDO ALVES DE ARAUJO",
+      "kind": "nominal",
+      "votes": 183
+    },
+    {
+      "round": 1,
+      "uf": "PA",
+      "number": "29",
+      "name": "RUI COSTA PIMENTA",
+      "kind": "nominal",
+      "votes": 308
+    },
+    {
+      "round": 1,
+      "uf": "PA",
+      "number": "30",
+      "name": "ROMEU ZEMA NETO",
+      "kind": "nominal",
+      "votes": 3064
+    },
+    {
+      "round": 1,
+      "uf": "PA",
+      "number": "35",
+      "name": "WILSON GRASSI JUNIOR",
+      "kind": "nominal",
+      "votes": 442
+    },
+    {
+      "round": 1,
+      "uf": "PA",
+      "number": "55",
+      "name": "RONALDO RAMOS CAIADO",
+      "kind": "nominal",
+      "votes": 51991
+    },
+    {
+      "round": 1,
+      "uf": "PA",
+      "number": "70",
+      "name": "AUGUSTO JORGE CURY",
+      "kind": "nominal",
+      "votes": 125172
+    },
+    {
+      "round": 1,
+      "uf": "PA",
+      "number": "80",
+      "name": "SAMARA MARTINS DA SILVA FEITOSA",
+      "kind": "nominal",
+      "votes": 3824
+    },
+    {
+      "round": 1,
+      "uf": "PA",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 54203
+    },
+    {
+      "round": 1,
+      "uf": "PA",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 148946
+    },
+    {
+      "round": 1,
+      "uf": "PB",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 1541127
+    },
+    {
+      "round": 1,
+      "uf": "PB",
+      "number": "14",
+      "name": "RENAN ANTONIO FERREIRA DOS SANTOS",
+      "kind": "nominal",
+      "votes": 42247
+    },
+    {
+      "round": 1,
+      "uf": "PB",
+      "number": "16",
+      "name": "HERTZ DA CONCEICAO DIAS",
+      "kind": "nominal",
+      "votes": 627
+    },
+    {
+      "round": 1,
+      "uf": "PB",
+      "number": "21",
+      "name": "EDMILSON SILVA COSTA",
+      "kind": "nominal",
+      "votes": 347
+    },
+    {
+      "round": 1,
+      "uf": "PB",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 831377
+    },
+    {
+      "round": 1,
+      "uf": "PB",
+      "number": "27",
+      "name": "CLARIANA ZACARKIM BARAO",
+      "kind": "nominal",
+      "votes": 604
+    },
+    {
+      "round": 1,
+      "uf": "PB",
+      "number": "28",
+      "name": "LEONARDO ALVES DE ARAUJO",
+      "kind": "nominal",
+      "votes": 90
+    },
+    {
+      "round": 1,
+      "uf": "PB",
+      "number": "29",
+      "name": "RUI COSTA PIMENTA",
+      "kind": "nominal",
+      "votes": 274
+    },
+    {
+      "round": 1,
+      "uf": "PB",
+      "number": "30",
+      "name": "ROMEU ZEMA NETO",
+      "kind": "nominal",
+      "votes": 1988
+    },
+    {
+      "round": 1,
+      "uf": "PB",
+      "number": "35",
+      "name": "WILSON GRASSI JUNIOR",
+      "kind": "nominal",
+      "votes": 221
+    },
+    {
+      "round": 1,
+      "uf": "PB",
+      "number": "55",
+      "name": "RONALDO RAMOS CAIADO",
+      "kind": "nominal",
+      "votes": 19511
+    },
+    {
+      "round": 1,
+      "uf": "PB",
+      "number": "70",
+      "name": "AUGUSTO JORGE CURY",
+      "kind": "nominal",
+      "votes": 73831
+    },
+    {
+      "round": 1,
+      "uf": "PB",
+      "number": "80",
+      "name": "SAMARA MARTINS DA SILVA FEITOSA",
+      "kind": "nominal",
+      "votes": 1593
+    },
+    {
+      "round": 1,
+      "uf": "PB",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 52297
+    },
+    {
+      "round": 1,
+      "uf": "PB",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 117854
+    },
+    {
+      "round": 1,
+      "uf": "PE",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 3553971
+    },
+    {
+      "round": 1,
+      "uf": "PE",
+      "number": "14",
+      "name": "RENAN ANTONIO FERREIRA DOS SANTOS",
+      "kind": "nominal",
+      "votes": 85865
+    },
+    {
+      "round": 1,
+      "uf": "PE",
+      "number": "16",
+      "name": "HERTZ DA CONCEICAO DIAS",
+      "kind": "nominal",
+      "votes": 1114
+    },
+    {
+      "round": 1,
+      "uf": "PE",
+      "number": "21",
+      "name": "EDMILSON SILVA COSTA",
+      "kind": "nominal",
+      "votes": 705
+    },
+    {
+      "round": 1,
+      "uf": "PE",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 1738043
+    },
+    {
+      "round": 1,
+      "uf": "PE",
+      "number": "27",
+      "name": "CLARIANA ZACARKIM BARAO",
+      "kind": "nominal",
+      "votes": 869
+    },
+    {
+      "round": 1,
+      "uf": "PE",
+      "number": "28",
+      "name": "LEONARDO ALVES DE ARAUJO",
+      "kind": "nominal",
+      "votes": 138
+    },
+    {
+      "round": 1,
+      "uf": "PE",
+      "number": "29",
+      "name": "RUI COSTA PIMENTA",
+      "kind": "nominal",
+      "votes": 410
+    },
+    {
+      "round": 1,
+      "uf": "PE",
+      "number": "30",
+      "name": "ROMEU ZEMA NETO",
+      "kind": "nominal",
+      "votes": 6060
+    },
+    {
+      "round": 1,
+      "uf": "PE",
+      "number": "35",
+      "name": "WILSON GRASSI JUNIOR",
+      "kind": "nominal",
+      "votes": 457
+    },
+    {
+      "round": 1,
+      "uf": "PE",
+      "number": "55",
+      "name": "RONALDO RAMOS CAIADO",
+      "kind": "nominal",
+      "votes": 73176
+    },
+    {
+      "round": 1,
+      "uf": "PE",
+      "number": "70",
+      "name": "AUGUSTO JORGE CURY",
+      "kind": "nominal",
+      "votes": 137960
+    },
+    {
+      "round": 1,
+      "uf": "PE",
+      "number": "80",
+      "name": "SAMARA MARTINS DA SILVA FEITOSA",
+      "kind": "nominal",
+      "votes": 2387
+    },
+    {
+      "round": 1,
+      "uf": "PE",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 109491
+    },
+    {
+      "round": 1,
+      "uf": "PE",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 200416
+    },
+    {
+      "round": 1,
+      "uf": "PI",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 1523710
+    },
+    {
+      "round": 1,
+      "uf": "PI",
+      "number": "14",
+      "name": "RENAN ANTONIO FERREIRA DOS SANTOS",
+      "kind": "nominal",
+      "votes": 32274
+    },
+    {
+      "round": 1,
+      "uf": "PI",
+      "number": "16",
+      "name": "HERTZ DA CONCEICAO DIAS",
+      "kind": "nominal",
+      "votes": 443
+    },
+    {
+      "round": 1,
+      "uf": "PI",
+      "number": "21",
+      "name": "EDMILSON SILVA COSTA",
+      "kind": "nominal",
+      "votes": 319
+    },
+    {
+      "round": 1,
+      "uf": "PI",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 517028
+    },
+    {
+      "round": 1,
+      "uf": "PI",
+      "number": "27",
+      "name": "CLARIANA ZACARKIM BARAO",
+      "kind": "nominal",
+      "votes": 504
+    },
+    {
+      "round": 1,
+      "uf": "PI",
+      "number": "28",
+      "name": "LEONARDO ALVES DE ARAUJO",
+      "kind": "nominal",
+      "votes": 52
+    },
+    {
+      "round": 1,
+      "uf": "PI",
+      "number": "29",
+      "name": "RUI COSTA PIMENTA",
+      "kind": "nominal",
+      "votes": 146
+    },
+    {
+      "round": 1,
+      "uf": "PI",
+      "number": "30",
+      "name": "ROMEU ZEMA NETO",
+      "kind": "nominal",
+      "votes": 1357
+    },
+    {
+      "round": 1,
+      "uf": "PI",
+      "number": "35",
+      "name": "WILSON GRASSI JUNIOR",
+      "kind": "nominal",
+      "votes": 193
+    },
+    {
+      "round": 1,
+      "uf": "PI",
+      "number": "55",
+      "name": "RONALDO RAMOS CAIADO",
+      "kind": "nominal",
+      "votes": 21629
+    },
+    {
+      "round": 1,
+      "uf": "PI",
+      "number": "70",
+      "name": "AUGUSTO JORGE CURY",
+      "kind": "nominal",
+      "votes": 47692
+    },
+    {
+      "round": 1,
+      "uf": "PI",
+      "number": "80",
+      "name": "SAMARA MARTINS DA SILVA FEITOSA",
+      "kind": "nominal",
+      "votes": 1099
+    },
+    {
+      "round": 1,
+      "uf": "PI",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 28329
+    },
+    {
+      "round": 1,
+      "uf": "PI",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 66108
+    },
+    {
+      "round": 1,
+      "uf": "PR",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 2054597
+    },
+    {
+      "round": 1,
+      "uf": "PR",
+      "number": "14",
+      "name": "RENAN ANTONIO FERREIRA DOS SANTOS",
+      "kind": "nominal",
+      "votes": 177434
+    },
+    {
+      "round": 1,
+      "uf": "PR",
+      "number": "16",
+      "name": "HERTZ DA CONCEICAO DIAS",
+      "kind": "nominal",
+      "votes": 2056
+    },
+    {
+      "round": 1,
+      "uf": "PR",
+      "number": "21",
+      "name": "EDMILSON SILVA COSTA",
+      "kind": "nominal",
+      "votes": 1195
+    },
+    {
+      "round": 1,
+      "uf": "PR",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 3945345
+    },
+    {
+      "round": 1,
+      "uf": "PR",
+      "number": "27",
+      "name": "CLARIANA ZACARKIM BARAO",
+      "kind": "nominal",
+      "votes": 2445
+    },
+    {
+      "round": 1,
+      "uf": "PR",
+      "number": "28",
+      "name": "LEONARDO ALVES DE ARAUJO",
+      "kind": "nominal",
+      "votes": 268
+    },
+    {
+      "round": 1,
+      "uf": "PR",
+      "number": "29",
+      "name": "RUI COSTA PIMENTA",
+      "kind": "nominal",
+      "votes": 917
+    },
+    {
+      "round": 1,
+      "uf": "PR",
+      "number": "30",
+      "name": "ROMEU ZEMA NETO",
+      "kind": "nominal",
+      "votes": 17172
+    },
+    {
+      "round": 1,
+      "uf": "PR",
+      "number": "35",
+      "name": "WILSON GRASSI JUNIOR",
+      "kind": "nominal",
+      "votes": 962
+    },
+    {
+      "round": 1,
+      "uf": "PR",
+      "number": "55",
+      "name": "RONALDO RAMOS CAIADO",
+      "kind": "nominal",
+      "votes": 171294
+    },
+    {
+      "round": 1,
+      "uf": "PR",
+      "number": "70",
+      "name": "AUGUSTO JORGE CURY",
+      "kind": "nominal",
+      "votes": 205095
+    },
+    {
+      "round": 1,
+      "uf": "PR",
+      "number": "80",
+      "name": "SAMARA MARTINS DA SILVA FEITOSA",
+      "kind": "nominal",
+      "votes": 6731
+    },
+    {
+      "round": 1,
+      "uf": "PR",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 122499
+    },
+    {
+      "round": 1,
+      "uf": "PR",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 133447
+    },
+    {
+      "round": 1,
+      "uf": "RJ",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 3693021
+    },
+    {
+      "round": 1,
+      "uf": "RJ",
+      "number": "14",
+      "name": "RENAN ANTONIO FERREIRA DOS SANTOS",
+      "kind": "nominal",
+      "votes": 211843
+    },
+    {
+      "round": 1,
+      "uf": "RJ",
+      "number": "16",
+      "name": "HERTZ DA CONCEICAO DIAS",
+      "kind": "nominal",
+      "votes": 3999
+    },
+    {
+      "round": 1,
+      "uf": "RJ",
+      "number": "21",
+      "name": "EDMILSON SILVA COSTA",
+      "kind": "nominal",
+      "votes": 2854
+    },
+    {
+      "round": 1,
+      "uf": "RJ",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 4966844
+    },
+    {
+      "round": 1,
+      "uf": "RJ",
+      "number": "27",
+      "name": "CLARIANA ZACARKIM BARAO",
+      "kind": "nominal",
+      "votes": 4082
+    },
+    {
+      "round": 1,
+      "uf": "RJ",
+      "number": "28",
+      "name": "LEONARDO ALVES DE ARAUJO",
+      "kind": "nominal",
+      "votes": 387
+    },
+    {
+      "round": 1,
+      "uf": "RJ",
+      "number": "29",
+      "name": "RUI COSTA PIMENTA",
+      "kind": "nominal",
+      "votes": 1793
+    },
+    {
+      "round": 1,
+      "uf": "RJ",
+      "number": "30",
+      "name": "ROMEU ZEMA NETO",
+      "kind": "nominal",
+      "votes": 21907
+    },
+    {
+      "round": 1,
+      "uf": "RJ",
+      "number": "35",
+      "name": "WILSON GRASSI JUNIOR",
+      "kind": "nominal",
+      "votes": 1930
+    },
+    {
+      "round": 1,
+      "uf": "RJ",
+      "number": "55",
+      "name": "RONALDO RAMOS CAIADO",
+      "kind": "nominal",
+      "votes": 199844
+    },
+    {
+      "round": 1,
+      "uf": "RJ",
+      "number": "70",
+      "name": "AUGUSTO JORGE CURY",
+      "kind": "nominal",
+      "votes": 247397
+    },
+    {
+      "round": 1,
+      "uf": "RJ",
+      "number": "80",
+      "name": "SAMARA MARTINS DA SILVA FEITOSA",
+      "kind": "nominal",
+      "votes": 14186
+    },
+    {
+      "round": 1,
+      "uf": "RJ",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 201979
+    },
+    {
+      "round": 1,
+      "uf": "RJ",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 287736
+    },
+    {
+      "round": 1,
+      "uf": "RN",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 1237963
+    },
+    {
+      "round": 1,
+      "uf": "RN",
+      "number": "14",
+      "name": "RENAN ANTONIO FERREIRA DOS SANTOS",
+      "kind": "nominal",
+      "votes": 35261
+    },
+    {
+      "round": 1,
+      "uf": "RN",
+      "number": "16",
+      "name": "HERTZ DA CONCEICAO DIAS",
+      "kind": "nominal",
+      "votes": 572
+    },
+    {
+      "round": 1,
+      "uf": "RN",
+      "number": "21",
+      "name": "EDMILSON SILVA COSTA",
+      "kind": "nominal",
+      "votes": 315
+    },
+    {
+      "round": 1,
+      "uf": "RN",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 720493
+    },
+    {
+      "round": 1,
+      "uf": "RN",
+      "number": "27",
+      "name": "CLARIANA ZACARKIM BARAO",
+      "kind": "nominal",
+      "votes": 405
+    },
+    {
+      "round": 1,
+      "uf": "RN",
+      "number": "28",
+      "name": "LEONARDO ALVES DE ARAUJO",
+      "kind": "nominal",
+      "votes": 63
+    },
+    {
+      "round": 1,
+      "uf": "RN",
+      "number": "29",
+      "name": "RUI COSTA PIMENTA",
+      "kind": "nominal",
+      "votes": 177
+    },
+    {
+      "round": 1,
+      "uf": "RN",
+      "number": "30",
+      "name": "ROMEU ZEMA NETO",
+      "kind": "nominal",
+      "votes": 1525
+    },
+    {
+      "round": 1,
+      "uf": "RN",
+      "number": "35",
+      "name": "WILSON GRASSI JUNIOR",
+      "kind": "nominal",
+      "votes": 185
+    },
+    {
+      "round": 1,
+      "uf": "RN",
+      "number": "55",
+      "name": "RONALDO RAMOS CAIADO",
+      "kind": "nominal",
+      "votes": 16407
+    },
+    {
+      "round": 1,
+      "uf": "RN",
+      "number": "70",
+      "name": "AUGUSTO JORGE CURY",
+      "kind": "nominal",
+      "votes": 57367
+    },
+    {
+      "round": 1,
+      "uf": "RN",
+      "number": "80",
+      "name": "SAMARA MARTINS DA SILVA FEITOSA",
+      "kind": "nominal",
+      "votes": 1228
+    },
+    {
+      "round": 1,
+      "uf": "RN",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 33172
+    },
+    {
+      "round": 1,
+      "uf": "RN",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 65880
+    },
+    {
+      "round": 1,
+      "uf": "RO",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 250667
+    },
+    {
+      "round": 1,
+      "uf": "RO",
+      "number": "14",
+      "name": "RENAN ANTONIO FERREIRA DOS SANTOS",
+      "kind": "nominal",
+      "votes": 19187
+    },
+    {
+      "round": 1,
+      "uf": "RO",
+      "number": "16",
+      "name": "HERTZ DA CONCEICAO DIAS",
+      "kind": "nominal",
+      "votes": 174
+    },
+    {
+      "round": 1,
+      "uf": "RO",
+      "number": "21",
+      "name": "EDMILSON SILVA COSTA",
+      "kind": "nominal",
+      "votes": 160
+    },
+    {
+      "round": 1,
+      "uf": "RO",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 652988
+    },
+    {
+      "round": 1,
+      "uf": "RO",
+      "number": "27",
+      "name": "CLARIANA ZACARKIM BARAO",
+      "kind": "nominal",
+      "votes": 356
+    },
+    {
+      "round": 1,
+      "uf": "RO",
+      "number": "28",
+      "name": "LEONARDO ALVES DE ARAUJO",
+      "kind": "nominal",
+      "votes": 66
+    },
+    {
+      "round": 1,
+      "uf": "RO",
+      "number": "29",
+      "name": "RUI COSTA PIMENTA",
+      "kind": "nominal",
+      "votes": 60
+    },
+    {
+      "round": 1,
+      "uf": "RO",
+      "number": "30",
+      "name": "ROMEU ZEMA NETO",
+      "kind": "nominal",
+      "votes": 1318
+    },
+    {
+      "round": 1,
+      "uf": "RO",
+      "number": "35",
+      "name": "WILSON GRASSI JUNIOR",
+      "kind": "nominal",
+      "votes": 97
+    },
+    {
+      "round": 1,
+      "uf": "RO",
+      "number": "55",
+      "name": "RONALDO RAMOS CAIADO",
+      "kind": "nominal",
+      "votes": 16929
+    },
+    {
+      "round": 1,
+      "uf": "RO",
+      "number": "70",
+      "name": "AUGUSTO JORGE CURY",
+      "kind": "nominal",
+      "votes": 25280
+    },
+    {
+      "round": 1,
+      "uf": "RO",
+      "number": "80",
+      "name": "SAMARA MARTINS DA SILVA FEITOSA",
+      "kind": "nominal",
+      "votes": 843
+    },
+    {
+      "round": 1,
+      "uf": "RO",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 9846
+    },
+    {
+      "round": 1,
+      "uf": "RO",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 13109
+    },
+    {
+      "round": 1,
+      "uf": "RR",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 74420
+    },
+    {
+      "round": 1,
+      "uf": "RR",
+      "number": "14",
+      "name": "RENAN ANTONIO FERREIRA DOS SANTOS",
+      "kind": "nominal",
+      "votes": 6623
+    },
+    {
+      "round": 1,
+      "uf": "RR",
+      "number": "16",
+      "name": "HERTZ DA CONCEICAO DIAS",
+      "kind": "nominal",
+      "votes": 60
+    },
+    {
+      "round": 1,
+      "uf": "RR",
+      "number": "21",
+      "name": "EDMILSON SILVA COSTA",
+      "kind": "nominal",
+      "votes": 42
+    },
+    {
+      "round": 1,
+      "uf": "RR",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 231322
+    },
+    {
+      "round": 1,
+      "uf": "RR",
+      "number": "27",
+      "name": "CLARIANA ZACARKIM BARAO",
+      "kind": "nominal",
+      "votes": 168
+    },
+    {
+      "round": 1,
+      "uf": "RR",
+      "number": "28",
+      "name": "LEONARDO ALVES DE ARAUJO",
+      "kind": "nominal",
+      "votes": 14
+    },
+    {
+      "round": 1,
+      "uf": "RR",
+      "number": "29",
+      "name": "RUI COSTA PIMENTA",
+      "kind": "nominal",
+      "votes": 34
+    },
+    {
+      "round": 1,
+      "uf": "RR",
+      "number": "30",
+      "name": "ROMEU ZEMA NETO",
+      "kind": "nominal",
+      "votes": 337
+    },
+    {
+      "round": 1,
+      "uf": "RR",
+      "number": "35",
+      "name": "WILSON GRASSI JUNIOR",
+      "kind": "nominal",
+      "votes": 41
+    },
+    {
+      "round": 1,
+      "uf": "RR",
+      "number": "55",
+      "name": "RONALDO RAMOS CAIADO",
+      "kind": "nominal",
+      "votes": 3639
+    },
+    {
+      "round": 1,
+      "uf": "RR",
+      "number": "70",
+      "name": "AUGUSTO JORGE CURY",
+      "kind": "nominal",
+      "votes": 8579
+    },
+    {
+      "round": 1,
+      "uf": "RR",
+      "number": "80",
+      "name": "SAMARA MARTINS DA SILVA FEITOSA",
+      "kind": "nominal",
+      "votes": 280
+    },
+    {
+      "round": 1,
+      "uf": "RR",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 2618
+    },
+    {
+      "round": 1,
+      "uf": "RR",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 4595
+    },
+    {
+      "round": 1,
+      "uf": "RS",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 2294759
+    },
+    {
+      "round": 1,
+      "uf": "RS",
+      "number": "14",
+      "name": "RENAN ANTONIO FERREIRA DOS SANTOS",
+      "kind": "nominal",
+      "votes": 167558
+    },
+    {
+      "round": 1,
+      "uf": "RS",
+      "number": "16",
+      "name": "HERTZ DA CONCEICAO DIAS",
+      "kind": "nominal",
+      "votes": 2146
+    },
+    {
+      "round": 1,
+      "uf": "RS",
+      "number": "21",
+      "name": "EDMILSON SILVA COSTA",
+      "kind": "nominal",
+      "votes": 1031
+    },
+    {
+      "round": 1,
+      "uf": "RS",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 3573783
+    },
+    {
+      "round": 1,
+      "uf": "RS",
+      "number": "27",
+      "name": "CLARIANA ZACARKIM BARAO",
+      "kind": "nominal",
+      "votes": 2066
+    },
+    {
+      "round": 1,
+      "uf": "RS",
+      "number": "28",
+      "name": "LEONARDO ALVES DE ARAUJO",
+      "kind": "nominal",
+      "votes": 253
+    },
+    {
+      "round": 1,
+      "uf": "RS",
+      "number": "29",
+      "name": "RUI COSTA PIMENTA",
+      "kind": "nominal",
+      "votes": 1043
+    },
+    {
+      "round": 1,
+      "uf": "RS",
+      "number": "30",
+      "name": "ROMEU ZEMA NETO",
+      "kind": "nominal",
+      "votes": 18988
+    },
+    {
+      "round": 1,
+      "uf": "RS",
+      "number": "35",
+      "name": "WILSON GRASSI JUNIOR",
+      "kind": "nominal",
+      "votes": 923
+    },
+    {
+      "round": 1,
+      "uf": "RS",
+      "number": "55",
+      "name": "RONALDO RAMOS CAIADO",
+      "kind": "nominal",
+      "votes": 158821
+    },
+    {
+      "round": 1,
+      "uf": "RS",
+      "number": "70",
+      "name": "AUGUSTO JORGE CURY",
+      "kind": "nominal",
+      "votes": 195296
+    },
+    {
+      "round": 1,
+      "uf": "RS",
+      "number": "80",
+      "name": "SAMARA MARTINS DA SILVA FEITOSA",
+      "kind": "nominal",
+      "votes": 6632
+    },
+    {
+      "round": 1,
+      "uf": "RS",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 148339
+    },
+    {
+      "round": 1,
+      "uf": "RS",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 131265
+    },
+    {
+      "round": 1,
+      "uf": "SC",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 1127168
+    },
+    {
+      "round": 1,
+      "uf": "SC",
+      "number": "14",
+      "name": "RENAN ANTONIO FERREIRA DOS SANTOS",
+      "kind": "nominal",
+      "votes": 132795
+    },
+    {
+      "round": 1,
+      "uf": "SC",
+      "number": "16",
+      "name": "HERTZ DA CONCEICAO DIAS",
+      "kind": "nominal",
+      "votes": 1503
+    },
+    {
+      "round": 1,
+      "uf": "SC",
+      "number": "21",
+      "name": "EDMILSON SILVA COSTA",
+      "kind": "nominal",
+      "votes": 828
+    },
+    {
+      "round": 1,
+      "uf": "SC",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 3000020
+    },
+    {
+      "round": 1,
+      "uf": "SC",
+      "number": "27",
+      "name": "CLARIANA ZACARKIM BARAO",
+      "kind": "nominal",
+      "votes": 1429
+    },
+    {
+      "round": 1,
+      "uf": "SC",
+      "number": "28",
+      "name": "LEONARDO ALVES DE ARAUJO",
+      "kind": "nominal",
+      "votes": 184
+    },
+    {
+      "round": 1,
+      "uf": "SC",
+      "number": "29",
+      "name": "RUI COSTA PIMENTA",
+      "kind": "nominal",
+      "votes": 643
+    },
+    {
+      "round": 1,
+      "uf": "SC",
+      "number": "30",
+      "name": "ROMEU ZEMA NETO",
+      "kind": "nominal",
+      "votes": 16718
+    },
+    {
+      "round": 1,
+      "uf": "SC",
+      "number": "35",
+      "name": "WILSON GRASSI JUNIOR",
+      "kind": "nominal",
+      "votes": 560
+    },
+    {
+      "round": 1,
+      "uf": "SC",
+      "number": "55",
+      "name": "RONALDO RAMOS CAIADO",
+      "kind": "nominal",
+      "votes": 79911
+    },
+    {
+      "round": 1,
+      "uf": "SC",
+      "number": "70",
+      "name": "AUGUSTO JORGE CURY",
+      "kind": "nominal",
+      "votes": 134273
+    },
+    {
+      "round": 1,
+      "uf": "SC",
+      "number": "80",
+      "name": "SAMARA MARTINS DA SILVA FEITOSA",
+      "kind": "nominal",
+      "votes": 5049
+    },
+    {
+      "round": 1,
+      "uf": "SC",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 69007
+    },
+    {
+      "round": 1,
+      "uf": "SC",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 78071
+    },
+    {
+      "round": 1,
+      "uf": "SE",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 856019
+    },
+    {
+      "round": 1,
+      "uf": "SE",
+      "number": "14",
+      "name": "RENAN ANTONIO FERREIRA DOS SANTOS",
+      "kind": "nominal",
+      "votes": 21405
+    },
+    {
+      "round": 1,
+      "uf": "SE",
+      "number": "16",
+      "name": "HERTZ DA CONCEICAO DIAS",
+      "kind": "nominal",
+      "votes": 331
+    },
+    {
+      "round": 1,
+      "uf": "SE",
+      "number": "21",
+      "name": "EDMILSON SILVA COSTA",
+      "kind": "nominal",
+      "votes": 204
+    },
+    {
+      "round": 1,
+      "uf": "SE",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 417839
+    },
+    {
+      "round": 1,
+      "uf": "SE",
+      "number": "27",
+      "name": "CLARIANA ZACARKIM BARAO",
+      "kind": "nominal",
+      "votes": 457
+    },
+    {
+      "round": 1,
+      "uf": "SE",
+      "number": "28",
+      "name": "LEONARDO ALVES DE ARAUJO",
+      "kind": "nominal",
+      "votes": 57
+    },
+    {
+      "round": 1,
+      "uf": "SE",
+      "number": "29",
+      "name": "RUI COSTA PIMENTA",
+      "kind": "nominal",
+      "votes": 108
+    },
+    {
+      "round": 1,
+      "uf": "SE",
+      "number": "30",
+      "name": "ROMEU ZEMA NETO",
+      "kind": "nominal",
+      "votes": 1158
+    },
+    {
+      "round": 1,
+      "uf": "SE",
+      "number": "35",
+      "name": "WILSON GRASSI JUNIOR",
+      "kind": "nominal",
+      "votes": 138
+    },
+    {
+      "round": 1,
+      "uf": "SE",
+      "number": "55",
+      "name": "RONALDO RAMOS CAIADO",
+      "kind": "nominal",
+      "votes": 26651
+    },
+    {
+      "round": 1,
+      "uf": "SE",
+      "number": "70",
+      "name": "AUGUSTO JORGE CURY",
+      "kind": "nominal",
+      "votes": 38895
+    },
+    {
+      "round": 1,
+      "uf": "SE",
+      "number": "80",
+      "name": "SAMARA MARTINS DA SILVA FEITOSA",
+      "kind": "nominal",
+      "votes": 991
+    },
+    {
+      "round": 1,
+      "uf": "SE",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 24859
+    },
+    {
+      "round": 1,
+      "uf": "SE",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 49970
+    },
+    {
+      "round": 1,
+      "uf": "SP",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 9505413
+    },
+    {
+      "round": 1,
+      "uf": "SP",
+      "number": "14",
+      "name": "RENAN ANTONIO FERREIRA DOS SANTOS",
+      "kind": "nominal",
+      "votes": 804310
+    },
+    {
+      "round": 1,
+      "uf": "SP",
+      "number": "16",
+      "name": "HERTZ DA CONCEICAO DIAS",
+      "kind": "nominal",
+      "votes": 15815
+    },
+    {
+      "round": 1,
+      "uf": "SP",
+      "number": "21",
+      "name": "EDMILSON SILVA COSTA",
+      "kind": "nominal",
+      "votes": 6129
+    },
+    {
+      "round": 1,
+      "uf": "SP",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 12922023
+    },
+    {
+      "round": 1,
+      "uf": "SP",
+      "number": "27",
+      "name": "CLARIANA ZACARKIM BARAO",
+      "kind": "nominal",
+      "votes": 10563
+    },
+    {
+      "round": 1,
+      "uf": "SP",
+      "number": "28",
+      "name": "LEONARDO ALVES DE ARAUJO",
+      "kind": "nominal",
+      "votes": 1355
+    },
+    {
+      "round": 1,
+      "uf": "SP",
+      "number": "29",
+      "name": "RUI COSTA PIMENTA",
+      "kind": "nominal",
+      "votes": 4429
+    },
+    {
+      "round": 1,
+      "uf": "SP",
+      "number": "30",
+      "name": "ROMEU ZEMA NETO",
+      "kind": "nominal",
+      "votes": 94635
+    },
+    {
+      "round": 1,
+      "uf": "SP",
+      "number": "35",
+      "name": "WILSON GRASSI JUNIOR",
+      "kind": "nominal",
+      "votes": 5160
+    },
+    {
+      "round": 1,
+      "uf": "SP",
+      "number": "55",
+      "name": "RONALDO RAMOS CAIADO",
+      "kind": "nominal",
+      "votes": 579571
+    },
+    {
+      "round": 1,
+      "uf": "SP",
+      "number": "70",
+      "name": "AUGUSTO JORGE CURY",
+      "kind": "nominal",
+      "votes": 892368
+    },
+    {
+      "round": 1,
+      "uf": "SP",
+      "number": "80",
+      "name": "SAMARA MARTINS DA SILVA FEITOSA",
+      "kind": "nominal",
+      "votes": 42532
+    },
+    {
+      "round": 1,
+      "uf": "SP",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 632801
+    },
+    {
+      "round": 1,
+      "uf": "SP",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 914888
+    },
+    {
+      "round": 1,
+      "uf": "TO",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 404009
+    },
+    {
+      "round": 1,
+      "uf": "TO",
+      "number": "14",
+      "name": "RENAN ANTONIO FERREIRA DOS SANTOS",
+      "kind": "nominal",
+      "votes": 12983
+    },
+    {
+      "round": 1,
+      "uf": "TO",
+      "number": "16",
+      "name": "HERTZ DA CONCEICAO DIAS",
+      "kind": "nominal",
+      "votes": 101
+    },
+    {
+      "round": 1,
+      "uf": "TO",
+      "number": "21",
+      "name": "EDMILSON SILVA COSTA",
+      "kind": "nominal",
+      "votes": 117
+    },
+    {
+      "round": 1,
+      "uf": "TO",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 469321
+    },
+    {
+      "round": 1,
+      "uf": "TO",
+      "number": "27",
+      "name": "CLARIANA ZACARKIM BARAO",
+      "kind": "nominal",
+      "votes": 171
+    },
+    {
+      "round": 1,
+      "uf": "TO",
+      "number": "28",
+      "name": "LEONARDO ALVES DE ARAUJO",
+      "kind": "nominal",
+      "votes": 28
+    },
+    {
+      "round": 1,
+      "uf": "TO",
+      "number": "29",
+      "name": "RUI COSTA PIMENTA",
+      "kind": "nominal",
+      "votes": 65
+    },
+    {
+      "round": 1,
+      "uf": "TO",
+      "number": "30",
+      "name": "ROMEU ZEMA NETO",
+      "kind": "nominal",
+      "votes": 595
+    },
+    {
+      "round": 1,
+      "uf": "TO",
+      "number": "35",
+      "name": "WILSON GRASSI JUNIOR",
+      "kind": "nominal",
+      "votes": 67
+    },
+    {
+      "round": 1,
+      "uf": "TO",
+      "number": "55",
+      "name": "RONALDO RAMOS CAIADO",
+      "kind": "nominal",
+      "votes": 20189
+    },
+    {
+      "round": 1,
+      "uf": "TO",
+      "number": "70",
+      "name": "AUGUSTO JORGE CURY",
+      "kind": "nominal",
+      "votes": 22434
+    },
+    {
+      "round": 1,
+      "uf": "TO",
+      "number": "80",
+      "name": "SAMARA MARTINS DA SILVA FEITOSA",
+      "kind": "nominal",
+      "votes": 395
+    },
+    {
+      "round": 1,
+      "uf": "TO",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 8344
+    },
+    {
+      "round": 1,
+      "uf": "TO",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 26377
+    },
+    {
+      "round": 1,
+      "uf": "ZZ",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 157387
+    },
+    {
+      "round": 1,
+      "uf": "ZZ",
+      "number": "14",
+      "name": "RENAN ANTONIO FERREIRA DOS SANTOS",
+      "kind": "nominal",
+      "votes": 8580
+    },
+    {
+      "round": 1,
+      "uf": "ZZ",
+      "number": "16",
+      "name": "HERTZ DA CONCEICAO DIAS",
+      "kind": "nominal",
+      "votes": 373
+    },
+    {
+      "round": 1,
+      "uf": "ZZ",
+      "number": "21",
+      "name": "EDMILSON SILVA COSTA",
+      "kind": "nominal",
+      "votes": 421
+    },
+    {
+      "round": 1,
+      "uf": "ZZ",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 143900
+    },
+    {
+      "round": 1,
+      "uf": "ZZ",
+      "number": "27",
+      "name": "CLARIANA ZACARKIM BARAO",
+      "kind": "nominal",
+      "votes": 825
+    },
+    {
+      "round": 1,
+      "uf": "ZZ",
+      "number": "28",
+      "name": "LEONARDO ALVES DE ARAUJO",
+      "kind": "nominal",
+      "votes": 123
+    },
+    {
+      "round": 1,
+      "uf": "ZZ",
+      "number": "29",
+      "name": "RUI COSTA PIMENTA",
+      "kind": "nominal",
+      "votes": 199
+    },
+    {
+      "round": 1,
+      "uf": "ZZ",
+      "number": "30",
+      "name": "ROMEU ZEMA NETO",
+      "kind": "nominal",
+      "votes": 3329
+    },
+    {
+      "round": 1,
+      "uf": "ZZ",
+      "number": "35",
+      "name": "WILSON GRASSI JUNIOR",
+      "kind": "nominal",
+      "votes": 373
+    },
+    {
+      "round": 1,
+      "uf": "ZZ",
+      "number": "55",
+      "name": "RONALDO RAMOS CAIADO",
+      "kind": "nominal",
+      "votes": 4708
+    },
+    {
+      "round": 1,
+      "uf": "ZZ",
+      "number": "70",
+      "name": "AUGUSTO JORGE CURY",
+      "kind": "nominal",
+      "votes": 9734
+    },
+    {
+      "round": 1,
+      "uf": "ZZ",
+      "number": "80",
+      "name": "SAMARA MARTINS DA SILVA FEITOSA",
+      "kind": "nominal",
+      "votes": 1053
+    },
+    {
+      "round": 1,
+      "uf": "ZZ",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 5816
+    },
+    {
+      "round": 1,
+      "uf": "ZZ",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 4945
+    },
+    {
+      "round": 2,
+      "uf": "AC",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 144513
+    },
+    {
+      "round": 2,
+      "uf": "AC",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 287715
+    },
+    {
+      "round": 2,
+      "uf": "AC",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 5016
+    },
+    {
+      "round": 2,
+      "uf": "AC",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 16410
+    },
+    {
+      "round": 2,
+      "uf": "AL",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 1152621
+    },
+    {
+      "round": 2,
+      "uf": "AL",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 744140
+    },
+    {
+      "round": 2,
+      "uf": "AL",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 16983
+    },
+    {
+      "round": 2,
+      "uf": "AL",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 37888
+    },
+    {
+      "round": 2,
+      "uf": "AM",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 1145783
+    },
+    {
+      "round": 2,
+      "uf": "AM",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 975245
+    },
+    {
+      "round": 2,
+      "uf": "AM",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 18324
+    },
+    {
+      "round": 2,
+      "uf": "AM",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 52707
+    },
+    {
+      "round": 2,
+      "uf": "AP",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 222968
+    },
+    {
+      "round": 2,
+      "uf": "AP",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 198674
+    },
+    {
+      "round": 2,
+      "uf": "AP",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 3320
+    },
+    {
+      "round": 2,
+      "uf": "AP",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 5013
+    },
+    {
+      "round": 2,
+      "uf": "BA",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 6485258
+    },
+    {
+      "round": 2,
+      "uf": "BA",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 2608761
+    },
+    {
+      "round": 2,
+      "uf": "BA",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 92721
+    },
+    {
+      "round": 2,
+      "uf": "BA",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 235307
+    },
+    {
+      "round": 2,
+      "uf": "CE",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 4036124
+    },
+    {
+      "round": 2,
+      "uf": "CE",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 1819478
+    },
+    {
+      "round": 2,
+      "uf": "CE",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 56386
+    },
+    {
+      "round": 2,
+      "uf": "CE",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 112855
+    },
+    {
+      "round": 2,
+      "uf": "DF",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 825224
+    },
+    {
+      "round": 2,
+      "uf": "DF",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 979542
+    },
+    {
+      "round": 2,
+      "uf": "DF",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 22386
+    },
+    {
+      "round": 2,
+      "uf": "DF",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 41128
+    },
+    {
+      "round": 2,
+      "uf": "ES",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 1001965
+    },
+    {
+      "round": 2,
+      "uf": "ES",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 1294504
+    },
+    {
+      "round": 2,
+      "uf": "ES",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 33080
+    },
+    {
+      "round": 2,
+      "uf": "ES",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 79665
+    },
+    {
+      "round": 2,
+      "uf": "GO",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 1585555
+    },
+    {
+      "round": 2,
+      "uf": "GO",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 2345334
+    },
+    {
+      "round": 2,
+      "uf": "GO",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 43214
+    },
+    {
+      "round": 2,
+      "uf": "GO",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 73177
+    },
+    {
+      "round": 2,
+      "uf": "MA",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 2808231
+    },
+    {
+      "round": 2,
+      "uf": "MA",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 1229971
+    },
+    {
+      "round": 2,
+      "uf": "MA",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 30855
+    },
+    {
+      "round": 2,
+      "uf": "MA",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 58714
+    },
+    {
+      "round": 2,
+      "uf": "MG",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 6351099
+    },
+    {
+      "round": 2,
+      "uf": "MG",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 6241786
+    },
+    {
+      "round": 2,
+      "uf": "MG",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 164141
+    },
+    {
+      "round": 2,
+      "uf": "MG",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 287177
+    },
+    {
+      "round": 2,
+      "uf": "MS",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 628973
+    },
+    {
+      "round": 2,
+      "uf": "MS",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 927892
+    },
+    {
+      "round": 2,
+      "uf": "MS",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 14958
+    },
+    {
+      "round": 2,
+      "uf": "MS",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 22637
+    },
+    {
+      "round": 2,
+      "uf": "MT",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 694167
+    },
+    {
+      "round": 2,
+      "uf": "MT",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 1351099
+    },
+    {
+      "round": 2,
+      "uf": "MT",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 15431
+    },
+    {
+      "round": 2,
+      "uf": "MT",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 24637
+    },
+    {
+      "round": 2,
+      "uf": "PA",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 2690449
+    },
+    {
+      "round": 2,
+      "uf": "PA",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 2199940
+    },
+    {
+      "round": 2,
+      "uf": "PA",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 36501
+    },
+    {
+      "round": 2,
+      "uf": "PA",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 62683
+    },
+    {
+      "round": 2,
+      "uf": "PB",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 1794059
+    },
+    {
+      "round": 2,
+      "uf": "PB",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 865210
+    },
+    {
+      "round": 2,
+      "uf": "PB",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 25943
+    },
+    {
+      "round": 2,
+      "uf": "PB",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 58348
+    },
+    {
+      "round": 2,
+      "uf": "PE",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 4117513
+    },
+    {
+      "round": 2,
+      "uf": "PE",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 1832554
+    },
+    {
+      "round": 2,
+      "uf": "PE",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 56758
+    },
+    {
+      "round": 2,
+      "uf": "PE",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 119642
+    },
+    {
+      "round": 2,
+      "uf": "PI",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 1653989
+    },
+    {
+      "round": 2,
+      "uf": "PI",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 525859
+    },
+    {
+      "round": 2,
+      "uf": "PI",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 16137
+    },
+    {
+      "round": 2,
+      "uf": "PI",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 43845
+    },
+    {
+      "round": 2,
+      "uf": "PR",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 2566504
+    },
+    {
+      "round": 2,
+      "uf": "PR",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 4291444
+    },
+    {
+      "round": 2,
+      "uf": "PR",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 82572
+    },
+    {
+      "round": 2,
+      "uf": "PR",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 118819
+    },
+    {
+      "round": 2,
+      "uf": "RJ",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 4565393
+    },
+    {
+      "round": 2,
+      "uf": "RJ",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 5169033
+    },
+    {
+      "round": 2,
+      "uf": "RJ",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 111682
+    },
+    {
+      "round": 2,
+      "uf": "RJ",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 231341
+    },
+    {
+      "round": 2,
+      "uf": "RN",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 1413596
+    },
+    {
+      "round": 2,
+      "uf": "RN",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 737409
+    },
+    {
+      "round": 2,
+      "uf": "RN",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 19939
+    },
+    {
+      "round": 2,
+      "uf": "RN",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 61879
+    },
+    {
+      "round": 2,
+      "uf": "RO",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 294446
+    },
+    {
+      "round": 2,
+      "uf": "RO",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 674382
+    },
+    {
+      "round": 2,
+      "uf": "RO",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 8361
+    },
+    {
+      "round": 2,
+      "uf": "RO",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 11300
+    },
+    {
+      "round": 2,
+      "uf": "RR",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 83505
+    },
+    {
+      "round": 2,
+      "uf": "RR",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 219675
+    },
+    {
+      "round": 2,
+      "uf": "RR",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 2176
+    },
+    {
+      "round": 2,
+      "uf": "RR",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 3241
+    },
+    {
+      "round": 2,
+      "uf": "RS",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 2824552
+    },
+    {
+      "round": 2,
+      "uf": "RS",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 3874378
+    },
+    {
+      "round": 2,
+      "uf": "RS",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 89463
+    },
+    {
+      "round": 2,
+      "uf": "RS",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 101245
+    },
+    {
+      "round": 2,
+      "uf": "SC",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 1418314
+    },
+    {
+      "round": 2,
+      "uf": "SC",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 3220071
+    },
+    {
+      "round": 2,
+      "uf": "SC",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 48674
+    },
+    {
+      "round": 2,
+      "uf": "SC",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 75244
+    },
+    {
+      "round": 2,
+      "uf": "SE",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 989041
+    },
+    {
+      "round": 2,
+      "uf": "SE",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 433354
+    },
+    {
+      "round": 2,
+      "uf": "SE",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 13135
+    },
+    {
+      "round": 2,
+      "uf": "SE",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 31129
+    },
+    {
+      "round": 2,
+      "uf": "SP",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 12119274
+    },
+    {
+      "round": 2,
+      "uf": "SP",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 14139178
+    },
+    {
+      "round": 2,
+      "uf": "SP",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 389606
+    },
+    {
+      "round": 2,
+      "uf": "SP",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 716331
+    },
+    {
+      "round": 2,
+      "uf": "TO",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 442962
+    },
+    {
+      "round": 2,
+      "uf": "TO",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 467916
+    },
+    {
+      "round": 2,
+      "uf": "TO",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 8059
+    },
+    {
+      "round": 2,
+      "uf": "TO",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 35826
+    },
+    {
+      "round": 2,
+      "uf": "ZZ",
+      "number": "13",
+      "name": "LUIZ INÁCIO LULA DA SILVA",
+      "kind": "nominal",
+      "votes": 200154
+    },
+    {
+      "round": 2,
+      "uf": "ZZ",
+      "number": "22",
+      "name": "FLAVIO NANTES BOLSONARO",
+      "kind": "nominal",
+      "votes": 171497
+    },
+    {
+      "round": 2,
+      "uf": "ZZ",
+      "number": "95",
+      "name": "VOTO BRANCO",
+      "kind": "blank",
+      "votes": 4675
+    },
+    {
+      "round": 2,
+      "uf": "ZZ",
+      "number": "96",
+      "name": "VOTO NULO",
+      "kind": "null",
+      "votes": 5117
+    }
+  ],
+  "comparison_by_scope": [
+    {
+      "round": 1,
+      "uf": "AC",
+      "comparison": "matched",
+      "sections": 2270,
+      "sections_with_bu_totals": 2270
+    },
+    {
+      "round": 1,
+      "uf": "AL",
+      "comparison": "matched",
+      "sections": 7101,
+      "sections_with_bu_totals": 7101
+    },
+    {
+      "round": 1,
+      "uf": "AM",
+      "comparison": "matched",
+      "sections": 8157,
+      "sections_with_bu_totals": 8157
+    },
+    {
+      "round": 1,
+      "uf": "AP",
+      "comparison": "matched",
+      "sections": 1914,
+      "sections_with_bu_totals": 1914
+    },
+    {
+      "round": 1,
+      "uf": "BA",
+      "comparison": "matched",
+      "sections": 35476,
+      "sections_with_bu_totals": 35476
+    },
+    {
+      "round": 1,
+      "uf": "CE",
+      "comparison": "matched",
+      "sections": 23765,
+      "sections_with_bu_totals": 23765
+    },
+    {
+      "round": 1,
+      "uf": "DF",
+      "comparison": "matched",
+      "sections": 6969,
+      "sections_with_bu_totals": 6969
+    },
+    {
+      "round": 1,
+      "uf": "ES",
+      "comparison": "matched",
+      "sections": 9844,
+      "sections_with_bu_totals": 9844
+    },
+    {
+      "round": 1,
+      "uf": "GO",
+      "comparison": "matched",
+      "sections": 15686,
+      "sections_with_bu_totals": 15686
+    },
+    {
+      "round": 1,
+      "uf": "MA",
+      "comparison": "matched",
+      "sections": 18093,
+      "sections_with_bu_totals": 18093
+    },
+    {
+      "round": 1,
+      "uf": "MG",
+      "comparison": "matched",
+      "sections": 52062,
+      "sections_with_bu_totals": 52062
+    },
+    {
+      "round": 1,
+      "uf": "MS",
+      "comparison": "matched",
+      "sections": 7106,
+      "sections_with_bu_totals": 7106
+    },
+    {
+      "round": 1,
+      "uf": "MT",
+      "comparison": "matched",
+      "sections": 8287,
+      "sections_with_bu_totals": 8287
+    },
+    {
+      "round": 1,
+      "uf": "PA",
+      "comparison": "matched",
+      "sections": 20827,
+      "sections_with_bu_totals": 20827
+    },
+    {
+      "round": 1,
+      "uf": "PB",
+      "comparison": "matched",
+      "sections": 10712,
+      "sections_with_bu_totals": 10712
+    },
+    {
+      "round": 1,
+      "uf": "PE",
+      "comparison": "matched",
+      "sections": 21418,
+      "sections_with_bu_totals": 21418
+    },
+    {
+      "round": 1,
+      "uf": "PI",
+      "comparison": "matched",
+      "sections": 10225,
+      "sections_with_bu_totals": 10225
+    },
+    {
+      "round": 1,
+      "uf": "PR",
+      "comparison": "matched",
+      "sections": 27142,
+      "sections_with_bu_totals": 27142
+    },
+    {
+      "round": 1,
+      "uf": "RJ",
+      "comparison": "matched",
+      "sections": 37675,
+      "sections_with_bu_totals": 37675
+    },
+    {
+      "round": 1,
+      "uf": "RN",
+      "comparison": "matched",
+      "sections": 8115,
+      "sections_with_bu_totals": 8115
+    },
+    {
+      "round": 1,
+      "uf": "RO",
+      "comparison": "matched",
+      "sections": 4698,
+      "sections_with_bu_totals": 4698
+    },
+    {
+      "round": 1,
+      "uf": "RR",
+      "comparison": "matched",
+      "sections": 1519,
+      "sections_with_bu_totals": 1519
+    },
+    {
+      "round": 1,
+      "uf": "RS",
+      "comparison": "matched",
+      "sections": 27547,
+      "sections_with_bu_totals": 27547
+    },
+    {
+      "round": 1,
+      "uf": "SC",
+      "comparison": "matched",
+      "sections": 17326,
+      "sections_with_bu_totals": 17326
+    },
+    {
+      "round": 1,
+      "uf": "SE",
+      "comparison": "matched",
+      "sections": 5923,
+      "sections_with_bu_totals": 5923
+    },
+    {
+      "round": 1,
+      "uf": "SP",
+      "comparison": "matched",
+      "sections": 103656,
+      "sections_with_bu_totals": 103656
+    },
+    {
+      "round": 1,
+      "uf": "TO",
+      "comparison": "matched",
+      "sections": 4384,
+      "sections_with_bu_totals": 4384
+    },
+    {
+      "round": 1,
+      "uf": "ZZ",
+      "comparison": "matched",
+      "sections": 1309,
+      "sections_with_bu_totals": 1309
+    },
+    {
+      "round": 2,
+      "uf": "AC",
+      "comparison": "matched",
+      "sections": 2270,
+      "sections_with_bu_totals": 2270
+    },
+    {
+      "round": 2,
+      "uf": "AL",
+      "comparison": "matched",
+      "sections": 7101,
+      "sections_with_bu_totals": 7101
+    },
+    {
+      "round": 2,
+      "uf": "AM",
+      "comparison": "matched",
+      "sections": 8157,
+      "sections_with_bu_totals": 8157
+    },
+    {
+      "round": 2,
+      "uf": "AP",
+      "comparison": "matched",
+      "sections": 1914,
+      "sections_with_bu_totals": 1914
+    },
+    {
+      "round": 2,
+      "uf": "BA",
+      "comparison": "matched",
+      "sections": 35476,
+      "sections_with_bu_totals": 35476
+    },
+    {
+      "round": 2,
+      "uf": "CE",
+      "comparison": "matched",
+      "sections": 23765,
+      "sections_with_bu_totals": 23765
+    },
+    {
+      "round": 2,
+      "uf": "DF",
+      "comparison": "matched",
+      "sections": 6969,
+      "sections_with_bu_totals": 6969
+    },
+    {
+      "round": 2,
+      "uf": "ES",
+      "comparison": "matched",
+      "sections": 9844,
+      "sections_with_bu_totals": 9844
+    },
+    {
+      "round": 2,
+      "uf": "GO",
+      "comparison": "matched",
+      "sections": 15686,
+      "sections_with_bu_totals": 15686
+    },
+    {
+      "round": 2,
+      "uf": "MA",
+      "comparison": "matched",
+      "sections": 18093,
+      "sections_with_bu_totals": 18093
+    },
+    {
+      "round": 2,
+      "uf": "MG",
+      "comparison": "matched",
+      "sections": 52062,
+      "sections_with_bu_totals": 52062
+    },
+    {
+      "round": 2,
+      "uf": "MS",
+      "comparison": "matched",
+      "sections": 7106,
+      "sections_with_bu_totals": 7106
+    },
+    {
+      "round": 2,
+      "uf": "MT",
+      "comparison": "matched",
+      "sections": 8287,
+      "sections_with_bu_totals": 8287
+    },
+    {
+      "round": 2,
+      "uf": "PA",
+      "comparison": "matched",
+      "sections": 20827,
+      "sections_with_bu_totals": 20827
+    },
+    {
+      "round": 2,
+      "uf": "PB",
+      "comparison": "matched",
+      "sections": 10712,
+      "sections_with_bu_totals": 10712
+    },
+    {
+      "round": 2,
+      "uf": "PE",
+      "comparison": "matched",
+      "sections": 21418,
+      "sections_with_bu_totals": 21418
+    },
+    {
+      "round": 2,
+      "uf": "PI",
+      "comparison": "matched",
+      "sections": 10225,
+      "sections_with_bu_totals": 10225
+    },
+    {
+      "round": 2,
+      "uf": "PR",
+      "comparison": "matched",
+      "sections": 27142,
+      "sections_with_bu_totals": 27142
+    },
+    {
+      "round": 2,
+      "uf": "RJ",
+      "comparison": "matched",
+      "sections": 37675,
+      "sections_with_bu_totals": 37675
+    },
+    {
+      "round": 2,
+      "uf": "RN",
+      "comparison": "matched",
+      "sections": 8115,
+      "sections_with_bu_totals": 8115
+    },
+    {
+      "round": 2,
+      "uf": "RO",
+      "comparison": "matched",
+      "sections": 4698,
+      "sections_with_bu_totals": 4698
+    },
+    {
+      "round": 2,
+      "uf": "RR",
+      "comparison": "matched",
+      "sections": 1519,
+      "sections_with_bu_totals": 1519
+    },
+    {
+      "round": 2,
+      "uf": "RS",
+      "comparison": "matched",
+      "sections": 27547,
+      "sections_with_bu_totals": 27547
+    },
+    {
+      "round": 2,
+      "uf": "SC",
+      "comparison": "matched",
+      "sections": 17326,
+      "sections_with_bu_totals": 17326
+    },
+    {
+      "round": 2,
+      "uf": "SE",
+      "comparison": "matched",
+      "sections": 5923,
+      "sections_with_bu_totals": 5923
+    },
+    {
+      "round": 2,
+      "uf": "SP",
+      "comparison": "matched",
+      "sections": 103656,
+      "sections_with_bu_totals": 103656
+    },
+    {
+      "round": 2,
+      "uf": "TO",
+      "comparison": "matched",
+      "sections": 4384,
+      "sections_with_bu_totals": 4384
+    },
+    {
+      "round": 2,
+      "uf": "ZZ",
+      "comparison": "matched",
+      "sections": 1308,
+      "sections_with_bu_totals": 1308
+    }
+  ],
+  "results_by_source_format": [
+    {
+      "round": 1,
+      "uf": "AC",
+      "source_format": "section",
+      "rows": 16145,
+      "votes": 488330
+    },
+    {
+      "round": 1,
+      "uf": "AL",
+      "source_format": "section",
+      "rows": 50972,
+      "votes": 1938428
+    },
+    {
+      "round": 1,
+      "uf": "AM",
+      "source_format": "section",
+      "rows": 58575,
+      "votes": 2234549
+    },
+    {
+      "round": 1,
+      "uf": "AP",
+      "source_format": "section",
+      "rows": 13996,
+      "votes": 476562
+    },
+    {
+      "round": 1,
+      "uf": "BA",
+      "source_format": "section",
+      "rows": 251417,
+      "votes": 9053601
+    },
+    {
+      "round": 1,
+      "uf": "CE",
+      "source_format": "section",
+      "rows": 167164,
+      "votes": 5910471
+    },
+    {
+      "round": 1,
+      "uf": "DF",
+      "source_format": "section",
+      "rows": 55819,
+      "votes": 1831396
+    },
+    {
+      "round": 1,
+      "uf": "ES",
+      "source_format": "section",
+      "rows": 75629,
+      "votes": 2352282
+    },
+    {
+      "round": 1,
+      "uf": "GO",
+      "source_format": "section",
+      "rows": 112157,
+      "votes": 3971587
+    },
+    {
+      "round": 1,
+      "uf": "MA",
+      "source_format": "section",
+      "rows": 124673,
+      "votes": 4160343
+    },
+    {
+      "round": 1,
+      "uf": "MG",
+      "source_format": "section",
+      "rows": 415799,
+      "votes": 12637274
+    },
+    {
+      "round": 1,
+      "uf": "MS",
+      "source_format": "section",
+      "rows": 52380,
+      "votes": 1541220
+    },
+    {
+      "round": 1,
+      "uf": "MT",
+      "source_format": "section",
+      "rows": 60750,
+      "votes": 2052133
+    },
+    {
+      "round": 1,
+      "uf": "PA",
+      "source_format": "section",
+      "rows": 143701,
+      "votes": 5066504
+    },
+    {
+      "round": 1,
+      "uf": "PB",
+      "source_format": "section",
+      "rows": 76265,
+      "votes": 2683988
+    },
+    {
+      "round": 1,
+      "uf": "PE",
+      "source_format": "section",
+      "rows": 156699,
+      "votes": 5911062
+    },
+    {
+      "round": 1,
+      "uf": "PI",
+      "source_format": "section",
+      "rows": 69308,
+      "votes": 2240883
+    },
+    {
+      "round": 1,
+      "uf": "PR",
+      "source_format": "section",
+      "rows": 211052,
+      "votes": 6841457
+    },
+    {
+      "round": 1,
+      "uf": "RJ",
+      "source_format": "section",
+      "rows": 301535,
+      "votes": 9859802
+    },
+    {
+      "round": 1,
+      "uf": "RN",
+      "source_format": "section",
+      "rows": 58164,
+      "votes": 2171013
+    },
+    {
+      "round": 1,
+      "uf": "RO",
+      "source_format": "section",
+      "rows": 33649,
+      "votes": 991080
+    },
+    {
+      "round": 1,
+      "uf": "RR",
+      "source_format": "section",
+      "rows": 10588,
+      "votes": 332772
+    },
+    {
+      "round": 1,
+      "uf": "RS",
+      "source_format": "section",
+      "rows": 213540,
+      "votes": 6702903
+    },
+    {
+      "round": 1,
+      "uf": "SC",
+      "source_format": "section",
+      "rows": 136979,
+      "votes": 4648159
+    },
+    {
+      "round": 1,
+      "uf": "SE",
+      "source_format": "section",
+      "rows": 43373,
+      "votes": 1439082
+    },
+    {
+      "round": 1,
+      "uf": "SP",
+      "source_format": "section",
+      "rows": 848063,
+      "votes": 26431992
+    },
+    {
+      "round": 1,
+      "uf": "TO",
+      "source_format": "section",
+      "rows": 30084,
+      "votes": 965196
+    },
+    {
+      "round": 1,
+      "uf": "ZZ",
+      "source_format": "section",
+      "rows": 12035,
+      "votes": 341766
+    },
+    {
+      "round": 2,
+      "uf": "AC",
+      "source_format": "section",
+      "rows": 8697,
+      "votes": 453654
+    },
+    {
+      "round": 2,
+      "uf": "AL",
+      "source_format": "section",
+      "rows": 27419,
+      "votes": 1951632
+    },
+    {
+      "round": 2,
+      "uf": "AM",
+      "source_format": "section",
+      "rows": 30991,
+      "votes": 2192059
+    },
+    {
+      "round": 2,
+      "uf": "AP",
+      "source_format": "section",
+      "rows": 6973,
+      "votes": 429975
+    },
+    {
+      "round": 2,
+      "uf": "BA",
+      "source_format": "section",
+      "rows": 137040,
+      "votes": 9422047
+    },
+    {
+      "round": 2,
+      "uf": "CE",
+      "source_format": "section",
+      "rows": 91087,
+      "votes": 6024843
+    },
+    {
+      "round": 2,
+      "uf": "DF",
+      "source_format": "section",
+      "rows": 27453,
+      "votes": 1868280
+    },
+    {
+      "round": 2,
+      "uf": "ES",
+      "source_format": "section",
+      "rows": 38829,
+      "votes": 2409214
+    },
+    {
+      "round": 2,
+      "uf": "GO",
+      "source_format": "section",
+      "rows": 61031,
+      "votes": 4047280
+    },
+    {
+      "round": 2,
+      "uf": "MA",
+      "source_format": "section",
+      "rows": 66190,
+      "votes": 4127771
+    },
+    {
+      "round": 2,
+      "uf": "MG",
+      "source_format": "section",
+      "rows": 203235,
+      "votes": 13044203
+    },
+    {
+      "round": 2,
+      "uf": "MS",
+      "source_format": "section",
+      "rows": 26734,
+      "votes": 1594460
+    },
+    {
+      "round": 2,
+      "uf": "MT",
+      "source_format": "section",
+      "rows": 30873,
+      "votes": 2085334
+    },
+    {
+      "round": 2,
+      "uf": "PA",
+      "source_format": "section",
+      "rows": 76003,
+      "votes": 4989573
+    },
+    {
+      "round": 2,
+      "uf": "PB",
+      "source_format": "section",
+      "rows": 41416,
+      "votes": 2743560
+    },
+    {
+      "round": 2,
+      "uf": "PE",
+      "source_format": "section",
+      "rows": 83243,
+      "votes": 6126467
+    },
+    {
+      "round": 2,
+      "uf": "PI",
+      "source_format": "section",
+      "rows": 37819,
+      "votes": 2239830
+    },
+    {
+      "round": 2,
+      "uf": "PR",
+      "source_format": "section",
+      "rows": 105761,
+      "votes": 7059339
+    },
+    {
+      "round": 2,
+      "uf": "RJ",
+      "source_format": "section",
+      "rows": 147600,
+      "votes": 10077449
+    },
+    {
+      "round": 2,
+      "uf": "RN",
+      "source_format": "section",
+      "rows": 31496,
+      "votes": 2232823
+    },
+    {
+      "round": 2,
+      "uf": "RO",
+      "source_format": "section",
+      "rows": 17265,
+      "votes": 988489
+    },
+    {
+      "round": 2,
+      "uf": "RR",
+      "source_format": "section",
+      "rows": 5332,
+      "votes": 308597
+    },
+    {
+      "round": 2,
+      "uf": "RS",
+      "source_format": "section",
+      "rows": 106789,
+      "votes": 6889638
+    },
+    {
+      "round": 2,
+      "uf": "SC",
+      "source_format": "section",
+      "rows": 67266,
+      "votes": 4762303
+    },
+    {
+      "round": 2,
+      "uf": "SE",
+      "source_format": "section",
+      "rows": 22732,
+      "votes": 1466659
+    },
+    {
+      "round": 2,
+      "uf": "SP",
+      "source_format": "section",
+      "rows": 410145,
+      "votes": 27364389
+    },
+    {
+      "round": 2,
+      "uf": "TO",
+      "source_format": "section",
+      "rows": 16709,
+      "votes": 954763
+    },
+    {
+      "round": 2,
+      "uf": "ZZ",
+      "source_format": "section",
+      "rows": 4975,
+      "votes": 381443
+    }
+  ],
+  "reconciliation": {
+    "ambiguous_locations": 0,
+    "bu_math_errors": 0,
+    "different_rows": 0,
+    "matched_rows": 5731614,
+    "only_bu_rows": 0,
+    "only_section_rows": 0
+  },
+  "source_counts_by_format": {
+    "section": {
+      "rows_read": 5731614,
+      "rows_selected": 5731614,
+      "ignored_other_offices": 0,
+      "quarantined_records": 0,
+      "aggregated_location_contexts": 0,
+      "uncompressed_bytes_read": 1578545088
+    },
+    "bweb": {
+      "rows_read": 69947081,
+      "rows_selected": 5731614,
+      "ignored_other_offices": 64215467,
+      "quarantined_records": 0,
+      "aggregated_location_contexts": 32284,
+      "uncompressed_bytes_read": 32418087578
+    }
+  },
+  "table_counts": {
+    "elections": 2,
+    "sections": 998411,
+    "candidates": 19,
+    "results": 5731614,
+    "section_totals": 998411,
+    "aggregates": 532,
+    "sources": 57
+  },
+  "source_generations": [
+    {
+      "format": "bweb",
+      "date": "05/10/2026",
+      "time": "14:03:43",
+      "election_date": "2026-10-04 00:00:00",
+      "rows": 3800511,
+      "csv_count": 28
+    },
+    {
+      "format": "bweb",
+      "date": "26/10/2026",
+      "time": "07:42:38",
+      "election_date": "2026-10-25 00:00:00",
+      "rows": 1931103,
+      "csv_count": 28
+    },
+    {
+      "format": "section",
+      "date": "26/10/2026",
+      "time": "12:07:25",
+      "election_date": "04/10/2026",
+      "rows": 3800511,
+      "csv_count": 1
+    },
+    {
+      "format": "section",
+      "date": "26/10/2026",
+      "time": "12:07:25",
+      "election_date": "25/10/2026",
+      "rows": 1931103,
+      "csv_count": 1
+    }
+  ],
+  "sentinel_counts": [],
+  "aggregation_indications_by_source": [
+    {
+      "archive": "Boletim de Urna/1 turno/AC/bweb_1t_AC_051020261403.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 1,
+          "uf": "AC"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 129
+    },
+    {
+      "archive": "Boletim de Urna/1 turno/AL/bweb_1t_AL_051020261403.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 1,
+          "uf": "AL"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 132
+    },
+    {
+      "archive": "Boletim de Urna/1 turno/AM/bweb_1t_AM_051020261403.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 1,
+          "uf": "AM"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 378
+    },
+    {
+      "archive": "Boletim de Urna/1 turno/AP/bweb_1t_AP_051020261403.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 1,
+          "uf": "AP"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 52
+    },
+    {
+      "archive": "Boletim de Urna/1 turno/BA/bweb_1t_BA_051020261403.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 1,
+          "uf": "BA"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 2198
+    },
+    {
+      "archive": "Boletim de Urna/1 turno/CE/bweb_1t_CE_051020261403.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 1,
+          "uf": "CE"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 1656
+    },
+    {
+      "archive": "Boletim de Urna/1 turno/DF/bweb_1t_DF_051020261403.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 1,
+          "uf": "DF"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 78
+    },
+    {
+      "archive": "Boletim de Urna/1 turno/ES/bweb_1t_ES_051020261403.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 1,
+          "uf": "ES"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 258
+    },
+    {
+      "archive": "Boletim de Urna/1 turno/GO/bweb_1t_GO_051020261403.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 1,
+          "uf": "GO"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 494
+    },
+    {
+      "archive": "Boletim de Urna/1 turno/MA/bweb_1t_MA_051020261403.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 1,
+          "uf": "MA"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 1487
+    },
+    {
+      "archive": "Boletim de Urna/1 turno/MG/bweb_1t_MG_051020261403.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 1,
+          "uf": "MG"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 1876
+    },
+    {
+      "archive": "Boletim de Urna/1 turno/MS/bweb_1t_MS_051020261403.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 1,
+          "uf": "MS"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 157
+    },
+    {
+      "archive": "Boletim de Urna/1 turno/MT/bweb_1t_MT_051020261403.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 1,
+          "uf": "MT"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 595
+    },
+    {
+      "archive": "Boletim de Urna/1 turno/PA/bweb_1t_PA_051020261403.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 1,
+          "uf": "PA"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 1093
+    },
+    {
+      "archive": "Boletim de Urna/1 turno/PB/bweb_1t_PB_051020261403.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 1,
+          "uf": "PB"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 131
+    },
+    {
+      "archive": "Boletim de Urna/1 turno/PE/bweb_1t_PE_051020261403.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 1,
+          "uf": "PE"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 626
+    },
+    {
+      "archive": "Boletim de Urna/1 turno/PI/bweb_1t_PI_051020261403.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 1,
+          "uf": "PI"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 954
+    },
+    {
+      "archive": "Boletim de Urna/1 turno/PR/bweb_1t_PR_051020261403.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 1,
+          "uf": "PR"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 192
+    },
+    {
+      "archive": "Boletim de Urna/1 turno/RJ/bweb_1t_RJ_051020261403.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 1,
+          "uf": "RJ"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 1007
+    },
+    {
+      "archive": "Boletim de Urna/1 turno/RN/bweb_1t_RN_051020261403.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 1,
+          "uf": "RN"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 205
+    },
+    {
+      "archive": "Boletim de Urna/1 turno/RO/bweb_1t_RO_051020261403.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 1,
+          "uf": "RO"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 221
+    },
+    {
+      "archive": "Boletim de Urna/1 turno/RR/bweb_1t_RR_051020261403.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 1,
+          "uf": "RR"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 104
+    },
+    {
+      "archive": "Boletim de Urna/1 turno/RS/bweb_1t_RS_051020261403.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 1,
+          "uf": "RS"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 187
+    },
+    {
+      "archive": "Boletim de Urna/1 turno/SC/bweb_1t_SC_051020261403.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 1,
+          "uf": "SC"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 226
+    },
+    {
+      "archive": "Boletim de Urna/1 turno/SE/bweb_1t_SE_051020261403.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 1,
+          "uf": "SE"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 143
+    },
+    {
+      "archive": "Boletim de Urna/1 turno/SP/bweb_1t_SP_051020261403.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 1,
+          "uf": "SP"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 244
+    },
+    {
+      "archive": "Boletim de Urna/1 turno/TO/bweb_1t_TO_051020261403.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 1,
+          "uf": "TO"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 103
+    },
+    {
+      "archive": "Boletim de Urna/1 turno/ZZ/bweb_1t_ZZ_051020261403.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 1,
+          "uf": "ZZ"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 1216
+    },
+    {
+      "archive": "Boletim de Urna/2 turno/AC/bweb_2t_AC_261020260742.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 2,
+          "uf": "AC"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 129
+    },
+    {
+      "archive": "Boletim de Urna/2 turno/AL/bweb_2t_AL_261020260742.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 2,
+          "uf": "AL"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 132
+    },
+    {
+      "archive": "Boletim de Urna/2 turno/AM/bweb_2t_AM_261020260742.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 2,
+          "uf": "AM"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 378
+    },
+    {
+      "archive": "Boletim de Urna/2 turno/AP/bweb_2t_AP_261020260742.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 2,
+          "uf": "AP"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 52
+    },
+    {
+      "archive": "Boletim de Urna/2 turno/BA/bweb_2t_BA_261020260742.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 2,
+          "uf": "BA"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 2198
+    },
+    {
+      "archive": "Boletim de Urna/2 turno/CE/bweb_2t_CE_261020260742.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 2,
+          "uf": "CE"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 1656
+    },
+    {
+      "archive": "Boletim de Urna/2 turno/DF/bweb_2t_DF_261020260742.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 2,
+          "uf": "DF"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 78
+    },
+    {
+      "archive": "Boletim de Urna/2 turno/ES/bweb_2t_ES_261020260742.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 2,
+          "uf": "ES"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 258
+    },
+    {
+      "archive": "Boletim de Urna/2 turno/GO/bweb_2t_GO_261020260742.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 2,
+          "uf": "GO"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 494
+    },
+    {
+      "archive": "Boletim de Urna/2 turno/MA/bweb_2t_MA_261020260742.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 2,
+          "uf": "MA"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 1487
+    },
+    {
+      "archive": "Boletim de Urna/2 turno/MG/bweb_2t_MG_261020260742.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 2,
+          "uf": "MG"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 1876
+    },
+    {
+      "archive": "Boletim de Urna/2 turno/MS/bweb_2t_MS_261020260742.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 2,
+          "uf": "MS"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 157
+    },
+    {
+      "archive": "Boletim de Urna/2 turno/MT/bweb_2t_MT_261020260742.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 2,
+          "uf": "MT"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 595
+    },
+    {
+      "archive": "Boletim de Urna/2 turno/PA/bweb_2t_PA_261020260742.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 2,
+          "uf": "PA"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 1093
+    },
+    {
+      "archive": "Boletim de Urna/2 turno/PB/bweb_2t_PB_261020260742.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 2,
+          "uf": "PB"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 131
+    },
+    {
+      "archive": "Boletim de Urna/2 turno/PE/bweb_2t_PE_261020260742.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 2,
+          "uf": "PE"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 626
+    },
+    {
+      "archive": "Boletim de Urna/2 turno/PI/bweb_2t_PI_261020260742.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 2,
+          "uf": "PI"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 954
+    },
+    {
+      "archive": "Boletim de Urna/2 turno/PR/bweb_2t_PR_261020260742.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 2,
+          "uf": "PR"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 192
+    },
+    {
+      "archive": "Boletim de Urna/2 turno/RJ/bweb_2t_RJ_261020260742.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 2,
+          "uf": "RJ"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 1007
+    },
+    {
+      "archive": "Boletim de Urna/2 turno/RN/bweb_2t_RN_261020260742.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 2,
+          "uf": "RN"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 205
+    },
+    {
+      "archive": "Boletim de Urna/2 turno/RO/bweb_2t_RO_261020260742.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 2,
+          "uf": "RO"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 221
+    },
+    {
+      "archive": "Boletim de Urna/2 turno/RR/bweb_2t_RR_261020260742.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 2,
+          "uf": "RR"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 104
+    },
+    {
+      "archive": "Boletim de Urna/2 turno/RS/bweb_2t_RS_261020260742.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 2,
+          "uf": "RS"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 187
+    },
+    {
+      "archive": "Boletim de Urna/2 turno/SC/bweb_2t_SC_261020260742.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 2,
+          "uf": "SC"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 226
+    },
+    {
+      "archive": "Boletim de Urna/2 turno/SE/bweb_2t_SE_261020260742.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 2,
+          "uf": "SE"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 143
+    },
+    {
+      "archive": "Boletim de Urna/2 turno/SP/bweb_2t_SP_261020260742.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 2,
+          "uf": "SP"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 244
+    },
+    {
+      "archive": "Boletim de Urna/2 turno/TO/bweb_2t_TO_261020260742.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 2,
+          "uf": "TO"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 103
+    },
+    {
+      "archive": "Boletim de Urna/2 turno/ZZ/bweb_2t_ZZ_261020260742.zip",
+      "observed_presidential_pairs": [
+        {
+          "round": 2,
+          "uf": "ZZ"
+        }
+      ],
+      "location_contexts_with_aggregation_field": 1216
+    }
+  ],
+  "artifacts": {
+    "divergences-summary.json": {
+      "bytes": 598,
+      "sha256": "f394f4d9cb40708f43e44a2497dbefbcb91be669b7fe537b537df43a0482d9da"
+    },
+    "divergences.jsonl": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "election.sqlite": {
+      "bytes": 935424000,
+      "sha256": "c9eaefb7e02ab50d2922eb843715ea47346e9e60cf8d4f9c4a6f448c3b27fdc4"
+    },
+    "validation.json": {
+      "bytes": 347647,
+      "sha256": "93053bb5a89a0a0904d48ce451069bf05cbfe4b22f7b5fa6a3ace462df4fc5d5"
+    }
+  },
+  "sc_regression_matches": true,
+  "performance": {
+    "checkpoints_reused": 0,
+    "consolidation_seconds": 1211.581,
+    "elapsed_seconds": 4834.033,
+    "memory": {
+      "method": "Windows PeakWorkingSetSize",
+      "peak_bytes": 87543808
+    },
+    "parsing_seconds": 3564.457,
+    "source_csv_uncompressed_bytes_read": 33996632666,
+    "source_read_measurement": "CSV bytes decompressed to EOF (excludes header probes, PDF and ZIP index reads); compressed OS read bytes not measured",
+    "sqlite_bytes": 935424000,
+    "validation_seconds": 38.2
+  },
+  "storage": {
+    "run_id": "2e537ead4adc4e3488ceef0e0148529a",
+    "policy": {
+      "max_work_disk_bytes": 8589934592,
+      "min_free_disk_bytes": 16106127360,
+      "work_directory": ".work",
+      "cleanup_policy": "owned",
+      "retain_checkpoints": false,
+      "retain_failed_diagnostics": true,
+      "detailed_report_bytes": 8388608,
+      "projected_peak_bytes": 7516192768
+    },
+    "free_before_bytes": 443895771136,
+    "minimum_free_bytes": 441016598528,
+    "peak_accounted_bytes": 2879172608,
+    "peak_visible_file_bytes": 2466150529,
+    "growth_safety_margin_bytes": 67108864,
+    "peak_work_bytes": 2466053716,
+    "peak_journal_bytes": 16376128,
+    "remaining_owned_bytes": 936272240,
+    "remaining_work_bytes": 0,
+    "removed_files": 171,
+    "recovered_logical_bytes": 4064248602,
+    "cleanup_refused": [],
+    "accounting_error": null,
+    "sqlite_temporary_files_observed": 328,
+    "sqlite_temporaries_no_longer_present": 328,
+    "measurement": "logical file lengths + conservative volume free-space delta; 100ms sampling and SQL/batch checks; not an OS quota"
+  },
+  "postvalidation_seconds": 48.096,
+  "postvalidation_storage": {
+    "run_id": "274fc0a1b91548ebb46dbf7a216d8c09",
+    "policy": {
+      "max_work_disk_bytes": 8589934592,
+      "min_free_disk_bytes": 16106127360,
+      "work_directory": ".work",
+      "cleanup_policy": "owned",
+      "retain_checkpoints": false,
+      "retain_failed_diagnostics": true,
+      "detailed_report_bytes": 8388608,
+      "projected_peak_bytes": 0
+    },
+    "free_before_bytes": 442270760960,
+    "minimum_free_bytes": 442024497152,
+    "peak_accounted_bytes": 246263808,
+    "peak_visible_file_bytes": 244286030,
+    "growth_safety_margin_bytes": 67108864,
+    "peak_work_bytes": 244284368,
+    "peak_journal_bytes": 0,
+    "remaining_owned_bytes": 1662,
+    "remaining_work_bytes": 0,
+    "removed_files": 0,
+    "recovered_logical_bytes": 0,
+    "cleanup_refused": [],
+    "accounting_error": null,
+    "sqlite_temporary_files_observed": 15,
+    "sqlite_temporaries_no_longer_present": 15,
+    "measurement": "logical file lengths + conservative volume free-space delta; 100ms sampling and SQL/batch checks; not an OS quota"
+  },
+  "limitations": [
+    "Hash não é assinatura digital nem certificação eleitoral",
+    "Cobertura restrita às fontes e filtros; ALL significa abrangências disponíveis",
+    "Categorias sem linha permanecem ausentes, não são convertidas em zero",
+    "Seção, BU e equipamento não têm correspondência universal 1:1",
+    "Correspondência entre fontes refere-se ao recorte tabular comparado",
+    "BUs ambíguos não fornecem totais nem conferência; detalhes em divergences.jsonl",
+    "Licença dos dados deve ser conferida no recurso; MIT refere-se ao código"
+  ]
+}

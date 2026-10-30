@@ -165,3 +165,12 @@ permanecem opções a avaliar com demanda concreta. Não há distribuição/API 
 turnos, seções agregadas, resultados e medições. A implementação acrescenta
 estados separados de integridade, cobertura, confiança e prontidão, descritos
 no guia; uma release local parcial não representa uma base pública completa.
+
+M3.1 acrescenta orçamento de armazenamento e reserva livre, temporários por
+execução, registro de propriedade e retenção explícita. A votação por seção é
+lida uma vez; cada unidade BWEB é consolidada sequencialmente com as partições
+primárias correspondentes. Bancos intermediários são descartados após incorporação,
+sem copiar BUs integrais ao perfil público. Unidades BWEB separadas com cobertura
+UF/turno sobreposta são recusadas explicitamente neste modo; múltiplos contextos
+dentro da unidade continuam registrados como ambíguos. A fonte não é descartada
+silenciosamente. [Guia nacional](NATIONAL_IMPORT.md).

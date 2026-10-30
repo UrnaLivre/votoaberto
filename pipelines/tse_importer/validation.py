@@ -9,7 +9,7 @@ from .domain import ImportFailure
 from .storage import KEY
 
 
-def reconcile(connection: sqlite3.Connection, report_path: Path) -> dict:
+def reconcile(connection: sqlite3.Connection, report_path) -> dict:
     # One context per source/location is required; no equipment/section equivalence inferred.
     connection.executescript(f"""
     CREATE TEMP VIEW bu_single AS SELECT r.* FROM raw r JOIN location_families l USING({KEY})
@@ -28,13 +28,24 @@ def reconcile(connection: sqlite3.Connection, report_path: Path) -> dict:
         "SELECT COUNT(*) FROM location_families WHERE bu_contexts>1"
     ).fetchone()[0]
 
-    def emit(stream, severity, code, data):
-        stream.write(
-            json.dumps({"severity": severity, "code": code, "record": data}, ensure_ascii=False)
-            + "\n"
-        )
+    from contextlib import nullcontext
 
-    with report_path.open("w", encoding="utf8") as report:
+    from .reporting import DivergenceReport
+
+    standalone = isinstance(report_path, Path)
+    rounds = dict(connection.execute("SELECT id,round FROM elections"))
+
+    def emit(stream, severity, code, data):
+        stream.emit(severity, code, data, rounds[data[0]])
+
+    context = (
+        DivergenceReport(
+            report_path, report_path.with_name("divergences-summary.json"), 8 * 1024**2
+        )
+        if standalone
+        else nullcontext(report_path)
+    )
+    with context as report:
         for row in connection.execute(
             f"SELECT {KEY},bu_contexts FROM location_families WHERE bu_contexts>1"
         ):
@@ -85,23 +96,60 @@ def reconcile(connection: sqlite3.Connection, report_path: Path) -> dict:
             " AND ".join(f"s.{key}=b.{key}" for key in KEY.split(",")) + " AND s.votable=b.votable"
         )
         query = f"""SELECT s.election,s.uf,s.municipality,s.zone,s.section,s.votable,s.votes,b.votes,
-          s.source_id,s.line,b.source_id,b.line,s.local,b.local FROM section_rows s
+          s.source_id,s.line,b.source_id,b.line,s.local,b.local,l.bu_contexts,l.has_section FROM section_rows s
+          JOIN location_families l USING({KEY})
           LEFT JOIN bu_single b ON {join}
           UNION ALL
           SELECT b.election,b.uf,b.municipality,b.zone,b.section,b.votable,NULL,b.votes,
-          NULL,NULL,b.source_id,b.line,NULL,b.local FROM bu_single b
+          NULL,NULL,b.source_id,b.line,NULL,b.local,1,l.has_section FROM bu_single b
+          JOIN location_families l USING({KEY})
           LEFT JOIN section_rows s ON {join} WHERE s.votes IS NULL"""
+        bu_scopes = set(
+            connection.execute("SELECT DISTINCT election,uf FROM raw WHERE format='bweb'")
+        )
+        section_scopes = set(
+            connection.execute("SELECT DISTINCT election,uf FROM raw WHERE format='section'")
+        )
+        # No BWEB at all: avoid millions of individual absence rows, even in detail mode.
+        if not bu_scopes:
+            for election, uf, count in connection.execute(
+                "SELECT election,uf,COUNT(*) FROM section_rows GROUP BY election,uf"
+            ):
+                stats["only_section_rows"] += count
+                report.aggregate("bweb_source_absent", uf, rounds[election], count)
+            query = "SELECT NULL WHERE 0"
         for row in connection.execute(query):
             if row[6] is None:
                 stats["only_bu_rows"] += 1
-                emit(report, "not_verifiable", "only_bu", row)
+                code = (
+                    "section_source_absent"
+                    if (row[0], row[1]) not in section_scopes
+                    else "section_section_absent"
+                    if not row[15]
+                    else "section_votable_absent"
+                )
+                emit(report, "not_verifiable", code, row)
             elif row[7] is None:
                 stats["only_section_rows"] += 1
-                # Full nationwide section source naturally has no BU outside supplied SC coverage.
-                emit(report, "not_verifiable", "only_section", row)
+                if (row[0], row[1]) not in bu_scopes:
+                    report.aggregate("bweb_source_absent", row[1], rounds[row[0]], 1)
+                else:
+                    code = (
+                        "ambiguous_bu_row"
+                        if row[14] > 1
+                        else "bweb_section_absent"
+                        if row[14] == 0
+                        else "bweb_votable_absent"
+                    )
+                    emit(report, "not_verifiable", code, row)
             elif row[6] != row[7] or row[12] != row[13]:
                 stats["different_rows"] += 1
-                emit(report, "divergence", "source_difference", row)
+                emit(
+                    report,
+                    "divergence",
+                    "vote_difference" if row[6] != row[7] else "local_difference",
+                    row,
+                )
             else:
                 stats["matched_rows"] += 1
         # Mark only complete row-set equality for an unambiguous section, never global verification.
@@ -115,6 +163,7 @@ def reconcile(connection: sqlite3.Connection, report_path: Path) -> dict:
           AND NOT EXISTS (SELECT 1 FROM bu_single b LEFT JOIN section_rows s ON {join}
             WHERE b.election=sec.election AND b.uf=sec.uf AND b.municipality=sec.municipality
               AND b.zone=sec.zone AND b.section=sec.section AND s.votes IS NULL))""")
+        report.add_stats(stats)
     connection.executescript("DROP VIEW bu_single; DROP VIEW section_rows;")
     return stats
 
@@ -123,6 +172,11 @@ def validate_database(path: Path) -> dict:
     if not path.is_file():
         raise ImportFailure("Banco inexistente")
     with closing(sqlite3.connect(path.resolve().as_uri() + "?mode=ro", uri=True)) as db:
+        from .workspace import ACTIVE_WORK
+
+        if work := ACTIVE_WORK.get():
+            db.set_progress_handler(work.sql_progress, 20000)
+        db.execute("PRAGMA temp_store=FILE")
         if db.execute("PRAGMA user_version").fetchone()[0] != 1:
             raise ImportFailure("Versão de schema não suportada")
         integrity = db.execute("PRAGMA integrity_check").fetchone()[0]
@@ -177,6 +231,36 @@ def validate_database(path: Path) -> dict:
           FROM results r JOIN sections s ON s.id=r.section_id JOIN elections e ON e.id=s.election
           JOIN candidates c ON c.id=r.candidate_id GROUP BY e.round,s.uf,c.id ORDER BY e.round,s.uf,c.number""")
         ]
+        territory_totals = [
+            dict(
+                zip(
+                    (
+                        "round",
+                        "uf",
+                        "municipalities",
+                        "zones",
+                        "municipality_zone_pairs",
+                        "sections",
+                        "nominal",
+                        "blank",
+                        "null",
+                        "counted",
+                        "eligible_available",
+                        "turnout_available",
+                        "abstention_available",
+                        "sections_without_complete_bu_totals",
+                    ),
+                    row,
+                    strict=True,
+                )
+            )
+            for row in db.execute("""SELECT e.round,s.uf,COUNT(DISTINCT s.municipality),
+                COUNT(DISTINCT s.zone),COUNT(DISTINCT s.municipality||':'||s.zone),COUNT(*),SUM(t.nominal),SUM(t.blank),
+                SUM(t.null_votes),SUM(t.counted),SUM(t.eligible),SUM(t.turnout),SUM(t.abstention),
+                SUM(t.eligible IS NULL OR t.turnout IS NULL OR t.abstention IS NULL)
+                FROM sections s JOIN elections e ON e.id=s.election
+                JOIN section_totals t ON t.section_id=s.id GROUP BY e.round,s.uf ORDER BY e.round,s.uf""")
+        ]
         return {
             "assessment_scope": "sqlite_only",
             "structurally_valid": integrity == "ok"
@@ -193,6 +277,7 @@ def validate_database(path: Path) -> dict:
             "result_rows": rows,
             "observed_coverage": coverage,
             "candidate_totals": candidates,
+            "territory_totals": territory_totals,
             "checks": {
                 "sqlite_integrity": {
                     "status": "passed" if integrity == "ok" else "failed",

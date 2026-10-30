@@ -1,6 +1,6 @@
 {
   "input_dir": "../data/raw",
-  "output_dir": "../data/processed/president-2026-national",
+  "output_dir": "../data/processed/national-2026",
   "selection": {
     "election_year": 2026,
     "offices": ["president"],
@@ -13,7 +13,17 @@
     "rounds": [1, 2]
   },
   "data_kind": "official",
-  "require_verified": true,
+  "require_verified": false,
+  "storage": {
+    "max_work_disk_bytes": 8589934592,
+    "min_free_disk_bytes": 16106127360,
+    "work_directory": ".work",
+    "cleanup_policy": "owned",
+    "retain_checkpoints": false,
+    "retain_failed_diagnostics": true,
+    "detailed_report_bytes": 8388608,
+    "projected_peak_bytes": 0
+  },
   "references": {},
   "source_metadata": {}
 }
