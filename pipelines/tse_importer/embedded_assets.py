@@ -3,7 +3,7 @@
 import json
 from pathlib import Path
 
-from .domain import ImportFailure, StoragePolicy
+from .domain import TERRITORIES, ImportFailure, StoragePolicy
 from .embedded_exporter import resolve_release, validate_embedded
 from .workspace import WorkRun, no_links
 
@@ -44,8 +44,9 @@ def install_assets(source, destination):
         created = []
         try:
             if not destination.exists():
-                stage.rename(destination)
-                work.promoted_to(stage, destination)
+                with work.mutex:
+                    stage.rename(destination)
+                    work.promoted_to(stage, destination)
                 work.published = True
             else:
                 # .gitkeep is not owned and is never moved/deleted. The build runs
@@ -85,6 +86,20 @@ def build_metadata(asset_root, nature):
         raise ImportFailure(
             "Build interrompido: natureza/versão incompatível com o modo solicitado"
         )
+    if manifest.get("source_schema_version") != 1 or any(
+        e["year"] != 2026 or e["office"] != "president" for e in manifest["elections"]
+    ):
+        raise ImportFailure("Build interrompido: eleição/schema de origem incompatível com o MVP")
+    if nature == "official-derived":
+        states = json.loads((asset_root / "states.json").read_text(encoding="utf8"))["territories"]
+        if (
+            set(manifest["territories"]) != TERRITORIES
+            or {e["round"] for e in manifest["elections"]} != {1, 2}
+            or any({r["round"] for r in state["rounds"]} != {1, 2} for state in states)
+        ):
+            raise ImportFailure(
+                "Build interrompido: a prévia nacional exige 27 UFs + ZZ nos dois turnos"
+            )
     import hashlib
 
     return {

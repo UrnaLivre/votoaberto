@@ -154,7 +154,7 @@ def validate_embedded(directory, db=None, *, allow_pending=False):
     """Read serialized artifacts, re-sum hierarchy and independently compare SQLite GROUP BYs."""
     directory = Path(directory)
     manifest = json.loads((directory / "manifest.json").read_text(encoding="utf8"))
-    if manifest.get("schema_version") != JSON_SCHEMA:
+    if type(manifest.get("schema_version")) is not int or manifest["schema_version"] != JSON_SCHEMA:
         raise ImportFailure("Schema JSON incompatível")
     if manifest.get("validation") != "passed" and not allow_pending:
         raise ImportFailure("Dataset ainda não validado")
@@ -310,7 +310,7 @@ def validate_embedded(directory, db=None, *, allow_pending=False):
             if by_state[row[1]][row[0]]["candidates"].get(row[0] + ":" + row[2]) != row[3]:
                 raise ImportFailure("Voto estadual JSON/SQLite divergente")
     return {
-        "status": "pending",
+        "status": "passed",
         "differences": [],
         "municipality_counts": municipal_count,
         "municipal_round_records": municipal_rows,
@@ -336,11 +336,27 @@ def export_embedded(source, output, policy=None, progress=lambda message: None):
         with WorkRun(output, policy) as work:
             original = source / "election.sqlite"
             original_identity = fingerprint(original)
+            manifest_identity = fingerprint(source / "manifest.json")
+            origin = json.loads((source / "manifest.json").read_text(encoding="utf8"))
+            if origin.get("data_kind") not in ("official", "synthetic"):
+                raise ImportFailure("Natureza dos dados da release não suportada")
+            if (
+                type(origin.get("schema_version")) is not int
+                or origin["schema_version"] != SCHEMA_VERSION
+            ):
+                raise ImportFailure("Schema SQLite de origem incompatível")
             progress("Validando a release SQLite original em modo somente leitura")
             result = validate_release(source)
+            if fingerprint(source / "manifest.json") != manifest_identity:
+                raise ImportFailure("Manifesto original mudou durante validação")
+            for name, info in origin["artifacts"].items():
+                if (
+                    type(info.get("bytes")) is not int
+                    or (source / name).stat().st_size != info["bytes"]
+                ):
+                    raise ImportFailure("Tamanho de artefato de origem divergente: " + name)
             if result["assessment"]["local_release"]["status"] != "eligible":
                 raise ImportFailure("Release original inelegível")
-            origin = json.loads((source / "manifest.json").read_text(encoding="utf8"))
             db = read_only(original, work)
             try:
                 if db.execute("PRAGMA user_version").fetchone()[0] != SCHEMA_VERSION:
@@ -468,7 +484,7 @@ def export_embedded(source, output, policy=None, progress=lambda message: None):
                     "validation.json",
                     {
                         **envelope,
-                        "status": "passed",
+                        "status": "pending",
                         "method": "municipal JSON versus independent SQLite totals/results, UF direct SQL and hierarchy sums",
                         "differences": [],
                         "municipality_counts": {uf: len(c) for uf, c in sorted(cities.items())},
@@ -519,7 +535,7 @@ def export_embedded(source, output, policy=None, progress=lambda message: None):
                 }
                 _write(work, stage, "manifest.json", manifest)
                 progress("Conferindo JSONs serializados contra a release original")
-                validate_embedded(stage, db, allow_pending=True)
+                validation_summary = validate_embedded(stage, db, allow_pending=True)
                 final_validation = json.loads(
                     (stage / "validation.json").read_text(encoding="utf8")
                 )
@@ -548,14 +564,16 @@ def export_embedded(source, output, policy=None, progress=lambda message: None):
                 ).read_bytes():
                     raise ImportFailure("Versão imutável já existe com conteúdo diferente")
             else:
-                stage.rename(release)
-                work.promoted_to(stage, release)
+                with work.mutex:
+                    stage.rename(release)
+                    work.promoted_to(stage, release)
             try:
                 _publish_pointer(output, dataset_id)
             except BaseException:
                 if work.promoted:
-                    release.rename(stage)
-                    work.demoted_to(release, stage)
+                    with work.mutex:
+                        release.rename(stage)
+                        work.demoted_to(release, stage)
                 raise
             work.published = True
         return {
@@ -565,6 +583,12 @@ def export_embedded(source, output, policy=None, progress=lambda message: None):
             "memory": peak_memory(),
             "storage": json.loads(work.ledger.read_text(encoding="utf8"))["metrics"],
             "dataset_bytes": sum(p.stat().st_size for p in release.rglob("*") if p.is_file()),
+            "validation": validation_summary,
         }
+    except sqlite3.Error:
+        if "work" in locals() and work.failure is not None:
+            work.save("failed", str(work.failure))
+            raise work.failure from None
+        raise
     finally:
         lock.unlink(missing_ok=True)

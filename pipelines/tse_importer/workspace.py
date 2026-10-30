@@ -124,8 +124,13 @@ class WorkRun:
                 continue
             no_links(area)
             for parent, dirs, files in os.walk(area, followlinks=False):
-                for name in dirs:
-                    entry_info(Path(parent) / name)
+                for name in list(dirs):
+                    try:
+                        entry_info(Path(parent) / name)
+                    except FileNotFoundError:
+                        # A directory can disappear between walk enumeration and
+                        # inspection. Existing links/reparse points still fail.
+                        dirs.remove(name)
                 for name in files:
                     path = Path(parent) / name
                     try:

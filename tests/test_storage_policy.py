@@ -67,6 +67,26 @@ def test_next_temporary_would_exceed_budget(tmp_path):
         assert not (work.root / "too-big.tmp").exists()
 
 
+def test_directory_disappearing_between_walk_and_stat_is_not_budget_failure(tmp_path, monkeypatch):
+    with WorkRun(tmp_path, StoragePolicy()) as work:
+        stage = work.root / "staging"
+        stage.mkdir()
+        original = workspace.entry_info
+        removed = False
+
+        def disappearing(path):
+            nonlocal removed
+            if path == stage and not removed:
+                removed = True
+                assert stage.resolve().is_relative_to(work.root.resolve())
+                stage.rmdir()
+            return original(path)
+
+        monkeypatch.setattr(workspace, "entry_info", disappearing)
+        work.check(1)
+        assert removed and work.failure is None
+
+
 def test_unknown_file_and_preexisting_artifacts_never_cleaned(tmp_path):
     previous = tmp_path / "releases" / "previous"
     previous.mkdir(parents=True)

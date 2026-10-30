@@ -76,13 +76,32 @@ def test_end_to_end_and_determinism(release, tmp_path):
     assert first["storage"]["remaining_work_bytes"] == 0
 
 
-@pytest.mark.parametrize("failure", ["manifest", "schema", "hash"])
+def test_standalone_embedded_report_marks_source_not_repeated(release, tmp_path, capsys):
+    from votoaberto_auditor.cli import main
+
+    output = tmp_path / "embedded"
+    exporter.export_embedded(release, output)
+    report = tmp_path / "report.json"
+    assert main(["validate-embedded", "--dataset", str(output), "--json", str(report)]) == 0
+    value = read(report)
+    assert value["sqlite_comparison"] == "not_repeated"
+    assert value["status"] == "passed" and value["differences"] == []
+    assert len(value["territories"]) == 3
+    assert value["national"]["rounds"][0]["totals"]["turnout"] == 600
+    assert value["public_readiness"]["status"] == "not_ready"
+
+
+@pytest.mark.parametrize("failure", ["manifest", "schema", "hash", "size", "nature"])
 def test_invalid_release_never_promoted(release, tmp_path, failure):
     manifest = read(release / "manifest.json")
     if failure == "manifest":
         manifest["artifacts"] = {}
     elif failure == "schema":
         manifest["schema_version"] = 999
+    elif failure == "size":
+        manifest["artifacts"]["election.sqlite"]["bytes"] += 1
+    elif failure == "nature":
+        manifest["data_kind"] = "unknown"
     else:
         manifest["artifacts"]["election.sqlite"]["sha256"] = "0" * 64
     (release / "manifest.json").write_text(json.dumps(manifest), encoding="utf8")
@@ -135,6 +154,20 @@ def test_absent_totals_remain_null(source_set, tmp_path):
     assert df["totals"]["blank"] == 0  # Explicit zero source row, not an absence.
 
 
+def test_sqlite_budget_interruption_keeps_actionable_reason(release, tmp_path, monkeypatch):
+    def interrupted(db, work):
+        work.failure = ImportFailure("Orçamento max_work_disk_bytes excedido")
+        raise sqlite3.OperationalError("interrupted")
+
+    monkeypatch.setattr(exporter, "_municipalities", interrupted)
+    output = tmp_path / "interrupted"
+    with pytest.raises(ImportFailure, match="max_work_disk_bytes"):
+        exporter.export_embedded(release, output)
+    ledger = read(next((output / ".runs").glob("*.json")))
+    assert "max_work_disk_bytes" in ledger["error"]
+    assert not (output / "current.json").exists()
+
+
 def test_install_and_build_preflight(release, tmp_path):
     target = Path(exporter.export_embedded(release, tmp_path / "embedded")["release"])
     assets = tmp_path / "assets"
@@ -144,6 +177,11 @@ def test_install_and_build_preflight(release, tmp_path):
     assert build_metadata(assets, "synthetic")["schema_version"] == 1
     install_assets(target, assets)
     with pytest.raises(ImportFailure, match="natureza"):
+        build_metadata(assets, "official-derived")
+    manifest = read(assets / "manifest.json")
+    manifest["data_nature"] = "official-derived"  # Malformed fictional case, not an official input.
+    (assets / "manifest.json").write_bytes(exporter.canonical(manifest))
+    with pytest.raises(ImportFailure, match="prévia nacional"):
         build_metadata(assets, "official-derived")
     with pytest.raises(ImportFailure, match="ausente"):
         build_metadata(tmp_path / "absent", "official-derived")
@@ -184,7 +222,7 @@ def test_pointer_failure_rolls_back_new_release(release, tmp_path, monkeypatch):
     assert not list((output / "releases").iterdir())
 
 
-@pytest.mark.parametrize("failure", ["schema", "hash", "duplicate", "mixed"])
+@pytest.mark.parametrize("failure", ["schema", "schema_bool", "hash", "duplicate", "mixed"])
 def test_invalid_json_contract(release, tmp_path, failure):
     target = Path(exporter.export_embedded(release, tmp_path / "embedded")["release"])
     manifest = read(target / "manifest.json")
@@ -192,6 +230,8 @@ def test_invalid_json_contract(release, tmp_path, failure):
     data = read(target / name)
     if failure == "schema":
         manifest["schema_version"] = 99
+    elif failure == "schema_bool":
+        manifest["schema_version"] = True
     elif failure == "hash":
         (target / name).write_bytes(b"corrupt")
     else:
