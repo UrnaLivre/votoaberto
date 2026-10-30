@@ -103,6 +103,15 @@ versões diferentes e mistura de versões. Para atualizar, prepare outro diretó
 de build/checkout e instale a nova release revisada; não há exclusão automática
 da versão anterior. `--dry-run` executa o preflight sem compilar.
 
+O wrapper resolve Flutter por `shutil.which` antes de executar o comando. Um nome
+simples usa PATH e, no Windows, PATHEXT para localizar `flutter.bat`; um caminho
+explícito com `--flutter` é resolvido em relação ao diretório de quem invocou a
+CLI, inclusive com espaços. Caminho explícito inválido não recorre a outro SDK
+do PATH. A chamada mantém lista de argumentos e `shell=False`. Ausência do SDK
+é erro de preflight; falha ao iniciar o caminho resolvido é diagnosticada
+separadamente; comando iniciado que retorna falha preserva seu código de saída.
+Detalhes da regressão Windows: [correção do CI](M4_CI_WINDOWS_FIX.md).
+
 O modo real exige os 56 pares de UF/ZZ + turno, presidente/2026, schema suportado,
 hashes e somas válidos. Ausência ou incompatibilidade falha **antes** de executar
 Flutter. O wrapper fixa ID e SHA-256 do manifesto por `dart-define`. O cliente
@@ -155,6 +164,17 @@ Percentuais nominais usam votos válidos; participação usa aptos somente com
 denominador completo e positivo. Comparações não inferem transferência de votos
 entre eleitores. A metodologia mostra versão, fonte e limitações; o banner real
 identifica **prévia local** e verificação de origem limitada, sem banner fictício.
+
+Na comparação dos dois turnos da mesma eleição lógica (ano/cargo), a identidade
+usa o número nominal do catálogo e confere compatibilidade de `source_candidate_id`
+quando presente nos dois lados. Grafia do nome não define identidade; nomes e
+listas originais são preservados. IDs de fonte contraditórios impedem equivalência
+e exibem correspondência não confirmada. Não é uma chave global entre anos/cargos.
+Participante sem registro no recorte continua distinto de candidatura ausente.
+Somas parciais de brancos/nulos são exibidas com o valor disponível e o rótulo
+`registros parciais`, também na comparação; ausência total continua `Indisponível`.
+Variações de totais completos não são calculadas a partir de somas parciais.
+Um zero explicitamente informado permanece zero; nenhuma linha ausente vira zero.
 
 Windows/Android carregam resultados empacotados sem servidor. O teste nativo
 opcional bloqueia HTTP **dentro da aplicação**, sem alterar a rede do computador:
