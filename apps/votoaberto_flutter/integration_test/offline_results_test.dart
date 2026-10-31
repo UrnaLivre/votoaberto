@@ -100,8 +100,20 @@ void main() {
     await tester.pumpAndSettle();
     metrics['world_selection_ms'] = clock.elapsedMicroseconds / 1000;
     expect(find.text('371.651'), findsOneWidget);
-    expect(tester.widget<WorldMap>(find.byType(WorldMap)).active.length, 80);
-    expect(find.textContaining('117 de 145'), findsOneWidget);
+    expect(tester.widget<WorldMap>(find.byType(WorldMap)).active.length, 100);
+    expect(find.textContaining('143 de 145'), findsOneWidget);
+    for (final mode in ['1', '2', 'comparacao']) {
+      router.go('/mundo/NP/localidade/29173?modo=$mode');
+      await tester.pumpAndSettle();
+      expect(
+        tester.widget<Text>(find.byKey(const ValueKey('panel-title'))).data,
+        'KATMANDU',
+      );
+      expect(tester.widget<WorldMap>(find.byType(WorldMap)).selected, 'NP');
+      if (mode == 'comparacao') {
+        expect(find.text('Entre um turno e outro'), findsOneWidget);
+      }
+    }
     clock.reset();
     router.go('/mundo/US?turno=2&visao=summary');
     await tester.pumpAndSettle();

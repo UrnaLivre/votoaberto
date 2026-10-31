@@ -7,15 +7,15 @@ Unmapped localities are retained as a separate residual, never attributed by nam
 import argparse
 import hashlib
 import json
-import re
 from collections import defaultdict
 from pathlib import Path
 
 from .domain import ImportFailure
 from .embedded_exporter import _add, _empty, canonical, resolve_release, validate_embedded
+from .overseas_evidence import REGISTER_STATUS, validate_correspondence
 from .workspace import no_links
 
-RULES_VERSION = "country-1"
+RULES_VERSION = "country-2"
 
 
 def aggregate(rows):
@@ -28,22 +28,9 @@ def aggregate(rows):
     return [result[key] for key in sorted(result)]
 
 
-def country_derivative(localities, correspondence, exterior):
+def country_derivative(localities, correspondence, exterior, evidence_sources=None):
     """Pure transform; every source row belongs to exactly one partition."""
-    mapping = {}
-    for row in correspondence:
-        code = row["tse"]
-        if not isinstance(code, str) or code in mapping:
-            raise ImportFailure("Código TSE duplicado ou inválido na correspondência")
-        iso = row.get("iso")
-        if iso is not None and (
-            not re.fullmatch(r"[A-Z]{2}", iso)
-            or row.get("status") != "verified_section_join"
-            or not row.get("evidence")
-            or not row.get("country")
-        ):
-            raise ImportFailure("País sem associação verificada por identificador")
-        mapping[code] = row
+    mapping = validate_correspondence(correspondence, evidence_sources)
     countries = defaultdict(list)
     missing = []
     seen = set()
@@ -54,9 +41,21 @@ def country_derivative(localities, correspondence, exterior):
         seen.add(code)
         match = mapping.get(code)
         if match and match.get("iso"):
+            if (
+                match["status"] == REGISTER_STATUS
+                and sorted(r["round"] for r in locality["rounds"]) != match["verified_rounds"]
+            ):
+                raise ImportFailure("Correspondência não cobre os turnos da localidade M4")
+            if match["status"] == REGISTER_STATUS and any(
+                sum(e["round"] == r["round"] for e in match["evidence"]) != r["sections"]
+                for r in locality["rounds"]
+            ):
+                raise ImportFailure("Evidência não cobre todas as seções observadas")
             countries[match["iso"]].append(locality)
         else:
             missing.append(locality)
+    if set(mapping) - seen:
+        raise ImportFailure("Correspondência com código fora da base eleitoral")
     # Reconcile the original JSON partitions independently of the crosswalk.
     if aggregate(r for loc in localities for r in loc["rounds"]) != exterior:
         raise ImportFailure("Soma das localidades difere do exterior M4")
@@ -112,23 +111,36 @@ def export_countries(source, correspondence, output):
     correspondence = correspondence.resolve()
     crosswalk_bytes = correspondence.read_bytes()
     crosswalk = json.loads(crosswalk_bytes)
-    if crosswalk.get("schema_version") != 1:
+    if crosswalk.get("schema_version") not in (1, 2):
         raise ImportFailure("Versão da correspondência inválida")
+    if crosswalk["schema_version"] == 1 and crosswalk.get("evidence_sources"):
+        raise ImportFailure("Fontes diretas exigem contrato de correspondência v2")
     manifest = json.loads((source / "manifest.json").read_text(encoding="utf8"))
     if crosswalk["source_dataset_id"] != manifest["dataset_id"]:
         raise ImportFailure("Correspondência pertence a outra versão eleitoral")
     zz = json.loads((source / "municipalities/ZZ.json").read_text(encoding="utf8"))
     states = json.loads((source / "states.json").read_text(encoding="utf8"))
     exterior = next(s["rounds"] for s in states["territories"] if s["code"] == "ZZ")
-    result = country_derivative(zz["municipalities"], crosswalk["localities"], exterior)
+    result = country_derivative(
+        zz["municipalities"], crosswalk["localities"], exterior, crosswalk.get("evidence_sources")
+    )
     identity = {
         "schema_version": 1,
         "rules_version": RULES_VERSION,
+        "rules_sha256": hashlib.sha256(
+            canonical(
+                [
+                    Path(__file__).read_text(encoding="utf8"),
+                    Path(__file__).with_name("overseas_evidence.py").read_text(encoding="utf8"),
+                ]
+            )
+        ).hexdigest(),
         "source_dataset_id": manifest["dataset_id"],
         "source_manifest_sha256": hashlib.sha256(
             (source / "manifest.json").read_bytes()
         ).hexdigest(),
         "correspondence_sha256": hashlib.sha256(crosswalk_bytes).hexdigest(),
+        "public_readiness": manifest["public_readiness"],
     }
     release_id = hashlib.sha256(canonical(identity)).hexdigest()[:24]
     payload = canonical({**identity, "dataset_id": release_id, **result})

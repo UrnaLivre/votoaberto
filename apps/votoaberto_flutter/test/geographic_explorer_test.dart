@@ -17,6 +17,7 @@ import 'package:votoaberto/features/map/presentation/brazil_map.dart';
 import 'package:votoaberto/features/map/presentation/world_map.dart';
 import 'embedded_repository_test.dart'
     show FixtureBundle, PendingMunicipalRepository;
+import 'country_evidence_test.dart' show registerCatalog, registerFixture;
 
 GeographicCatalog fixtureGeography({bool partial = false}) => GeographicCatalog(
   sourceDatasetId:
@@ -116,6 +117,7 @@ Future<void> openGeo(
   String location = '/mundo',
   Size size = const Size(1366, 900),
   bool partial = false,
+  GeographicCatalog? geography,
 }) async {
   final repo = EmbeddedElectionRepository(
     bundle: FixtureBundle(),
@@ -137,7 +139,8 @@ Future<void> openGeo(
       repository: repo,
       election: Election.presidential2026,
       initialLocation: location,
-      geographicLoader: () async => fixtureGeography(partial: partial),
+      geographicLoader: () async =>
+          geography ?? fixtureGeography(partial: partial),
       worldLoader: () async => fixtureWorld(),
       geometryLoader: () async => BrazilGeometry.decode(
         File('assets/geo/br_states.geojson').readAsStringSync(),
@@ -160,6 +163,55 @@ String? title(WidgetTester tester) =>
     tester.widget<Text>(find.byKey(const ValueKey('panel-title'))).data;
 
 void main() {
+  testWidgets(
+    'reviewed register activates countries and retains all three modes and deep links',
+    (tester) async {
+      await openGeo(
+        tester,
+        geography: registerCatalog(),
+        location: '/mundo/PT?modo=1',
+      );
+      expect(title(tester), 'País fictício B');
+      expect(tester.widget<WorldMap>(find.byType(WorldMap)).active, {
+        'US',
+        'PT',
+      });
+      expect(find.textContaining('Sem país confirmado'), findsNothing);
+      router(tester).go('/mundo/US/localidade/00001?modo=2');
+      await tester.pumpAndSettle();
+      expect(title(tester), 'São FICTÍCIO');
+      expect(tester.widget<WorldMap>(find.byType(WorldMap)).active, {'US'});
+      router(tester).go('/mundo/US/localidade/00001?modo=comparacao');
+      await tester.pumpAndSettle();
+      expect(find.text('Entre um turno e outro'), findsOneWidget);
+      await tap(tester, find.byKey(const ValueKey('geographic-back')));
+      expect(title(tester), 'País fictício A');
+      expect(
+        router(tester).routeInformationProvider.value.uri.queryParameters,
+        {'modo': 'comparacao'},
+      );
+    },
+  );
+
+  testWidgets(
+    'register with missing or additional turn stays residual instead of duplicating votes',
+    (tester) async {
+      final data = registerFixture();
+      final row = (data['localities'] as List)[0];
+      row['verified_rounds'] = [1];
+      (row['evidence'] as List).removeLast();
+      await openGeo(
+        tester,
+        geography: registerCatalog(data),
+        location: '/mundo/localidade/00001?modo=2',
+      );
+      expect(title(tester), 'São FICTÍCIO');
+      expect(find.textContaining('Sem país confirmado (1)'), findsOneWidget);
+      expect(tester.widget<WorldMap>(find.byType(WorldMap)).selected, isNull);
+      expect(tester.widget<WorldMap>(find.byType(WorldMap)).active, isEmpty);
+    },
+  );
+
   testWidgets(
     'legacy insights redirects to summary while retaining municipal deep link and round',
     (tester) async {

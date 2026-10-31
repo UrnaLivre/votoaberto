@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/services.dart';
 import 'brazil_geometry.dart';
+import 'country_evidence.dart';
 
 class MunicipalLocation {
   const MunicipalLocation(
@@ -22,11 +23,18 @@ class MunicipalLocation {
 }
 
 class ForeignLocality {
-  const ForeignLocality(this.tse, this.iso, this.country, this.status);
+  const ForeignLocality(
+    this.tse,
+    this.iso,
+    this.country,
+    this.status, {
+    this.sectionsByRound = const {},
+  });
   final String tse;
   final String? iso;
   final String? country;
   final String status;
+  final Map<int, int> sectionsByRound;
 }
 
 class GeographicCatalog {
@@ -46,8 +54,12 @@ class GeographicCatalog {
     final abroad = jsonDecode(overseas) as Map<String, dynamic>;
     if (points['schema_version'] != 1 ||
         points['crs'] != 'EPSG:4326' ||
-        abroad['schema_version'] != 1) {
+        ![1, 2].contains(abroad['schema_version'])) {
       throw const FormatException('Versão geográfica incompatível');
+    }
+    if (abroad['schema_version'] == 1 &&
+        abroad.containsKey('evidence_sources')) {
+      throw const FormatException('Evidência direta exige contrato v2');
     }
     final locations = <String, MunicipalLocation>{};
     for (final raw in points['locations'] as List) {
@@ -76,23 +88,40 @@ class GeographicCatalog {
       );
     }
     final foreign = <String, ForeignLocality>{};
+    final owners = <String, String>{};
+    final sources =
+        abroad['evidence_sources'] as Map<String, dynamic>? ?? const {};
     for (final row
         in (abroad['localities'] as List).cast<Map<String, dynamic>>()) {
       final code = row['tse'] as String;
       final iso = row['iso'] as String?;
       if (foreign.containsKey(code) ||
-          (iso != null &&
-              (!RegExp(r'^[A-Z]{2}$').hasMatch(iso) ||
-                  row['status'] != 'verified_section_join' ||
-                  (row['evidence'] as List).isEmpty ||
-                  row['country'] is! String))) {
+          !RegExp(r'^[0-9]+$').hasMatch(code) ||
+          int.parse(code) == 0) {
         throw const FormatException('Correspondência exterior sem evidência');
+      }
+      final counts = validateCountryEvidence(row, sources);
+      if (iso != null) {
+        for (final e in row['evidence'] as List) {
+          final keys = e is List
+              ? [
+                  for (final turn in [1, 2]) '$turn/${e[1]}/${e[2]}',
+                ]
+              : ['${e['round']}/${e['zone']}/${e['section']}'];
+          for (final key in keys) {
+            if (owners.containsKey(key) && owners[key] != code) {
+              throw const FormatException('Seção com múltiplos proprietários');
+            }
+            owners[key] = code;
+          }
+        }
       }
       foreign[code] = ForeignLocality(
         code,
         iso,
         row['country'] as String?,
         row['status'] as String,
+        sectionsByRound: counts,
       );
     }
     return GeographicCatalog(
@@ -108,7 +137,7 @@ class GeographicAssets {
   GeographicAssets({AssetBundle? bundle}) : bundle = bundle ?? rootBundle;
   final AssetBundle bundle;
   static const manifestHash =
-      'e7e5f78f267c2f29245a3df1ef13172dedffb9a4aee7be3c71316ae117143b6b';
+      'ab4be0d225aa2209c976ec2238c1faa1a4c922d8d2f80ac8f87ba078f5746c47';
   Future<Map<String, dynamic>>? _manifest;
   Future<Map<String, dynamic>> _loadManifest() async {
     final bytes = await bundle.load('assets/geo/manifest.json');

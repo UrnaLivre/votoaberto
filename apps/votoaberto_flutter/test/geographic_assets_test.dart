@@ -43,8 +43,15 @@ void main() {
         catalog.locations.values.where((p) => p.uf == 'DF').single.kind,
         'representative',
       );
-      expect(catalog.foreign.values.where((p) => p.iso != null).length, 117);
+      expect(catalog.foreign.values.where((p) => p.iso != null).length, 143);
+      expect(
+        catalog.foreign.values.map((p) => p.iso).whereType<String>().toSet(),
+        hasLength(100),
+      );
       expect(catalog.foreign['29432']!.iso, isNull);
+      expect(catalog.foreign['30686']!.iso, isNull);
+      expect(catalog.foreign['29173']!.iso, 'NP');
+      expect(catalog.foreign['29173']!.sectionsByRound, {1: 1, 2: 1});
       final catalogMs = clock.elapsedMicroseconds / 1000;
       clock.reset();
       final world = WorldGeometry.decode(await assets.read('world.geojson'));
