@@ -1,5 +1,11 @@
 # Publicação Web do Voto Aberto
 
+> Revisão M6: [proveniência e redistribuição](WEB_DATA_PROVENANCE_REVIEW.md).
+> Foram obtidas 56 referências oficiais novas, sem divergências com os digests
+> retidos. A base continua `not_ready`; a revisão documental não é aprovação
+> humana. O preflight permanece bloqueado e `WEB_DEPLOY_ENABLED` não foi ativada.
+> Consultar a revisão antes de preencher a aprovação vinculada ao manifesto.
+
 ## Estado desta preparação
 
 **Produção bloqueada pelos dados, não liberada por esta branch.** A base local

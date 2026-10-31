@@ -1,0 +1,1368 @@
+{
+  "review_date": "2026-10-31",
+  "assessment_version": 2,
+  "classification": "BLOCKED",
+  "technical_eligibility": false,
+  "approval_candidate": null,
+  "identity_for_future_review": {
+    "dataset_id": "e4e9c9cb5189ab5d4e124bfc",
+    "manifest_sha256": "c4dcddacb8092ff1dfffb35b07b739dbf360232e701e080087f52a4a09e20637",
+    "release_tag": null,
+    "meaning": "unchanged existing preview identity, not an eligible approval candidate"
+  },
+  "national_validation": {
+    "assessment_scope": "release_with_retained_source_evidence",
+    "structurally_valid": true,
+    "result_rows": 5731614,
+    "checks": {
+      "sqlite_integrity": {
+        "status": "passed",
+        "result": "ok"
+      },
+      "referential_integrity": {
+        "status": "passed",
+        "foreign_key_errors": [],
+        "election_link_errors": 0
+      },
+      "mathematics": {
+        "status": "passed",
+        "errors": 0,
+        "sections_with_unavailable_totals": 0,
+        "observed_section_rounds": 998411,
+        "scope": "available_counts_and_derived_sums"
+      },
+      "data_structure": {
+        "status": "passed",
+        "result_rows": 5731614
+      }
+    },
+    "comparison": {
+      "matched": 998411
+    },
+    "assessment": {
+      "sqlite_integrity": {
+        "status": "passed",
+        "result": "ok"
+      },
+      "referential_integrity": {
+        "status": "passed",
+        "foreign_key_errors": [],
+        "election_link_errors": 0
+      },
+      "mathematics": {
+        "status": "passed",
+        "errors": 0,
+        "sections_with_unavailable_totals": 0,
+        "observed_section_rounds": 998411,
+        "scope": "available_counts_and_derived_sums"
+      },
+      "data_structure": {
+        "status": "passed",
+        "result_rows": 5731614
+      },
+      "coverage": {
+        "status": "complete",
+        "scope": "territory_round_presence",
+        "basis": "explicit_requirements",
+        "expected_pairs": [
+          {
+            "round": 1,
+            "uf": "AC"
+          },
+          {
+            "round": 1,
+            "uf": "AL"
+          },
+          {
+            "round": 1,
+            "uf": "AM"
+          },
+          {
+            "round": 1,
+            "uf": "AP"
+          },
+          {
+            "round": 1,
+            "uf": "BA"
+          },
+          {
+            "round": 1,
+            "uf": "CE"
+          },
+          {
+            "round": 1,
+            "uf": "DF"
+          },
+          {
+            "round": 1,
+            "uf": "ES"
+          },
+          {
+            "round": 1,
+            "uf": "GO"
+          },
+          {
+            "round": 1,
+            "uf": "MA"
+          },
+          {
+            "round": 1,
+            "uf": "MG"
+          },
+          {
+            "round": 1,
+            "uf": "MS"
+          },
+          {
+            "round": 1,
+            "uf": "MT"
+          },
+          {
+            "round": 1,
+            "uf": "PA"
+          },
+          {
+            "round": 1,
+            "uf": "PB"
+          },
+          {
+            "round": 1,
+            "uf": "PE"
+          },
+          {
+            "round": 1,
+            "uf": "PI"
+          },
+          {
+            "round": 1,
+            "uf": "PR"
+          },
+          {
+            "round": 1,
+            "uf": "RJ"
+          },
+          {
+            "round": 1,
+            "uf": "RN"
+          },
+          {
+            "round": 1,
+            "uf": "RO"
+          },
+          {
+            "round": 1,
+            "uf": "RR"
+          },
+          {
+            "round": 1,
+            "uf": "RS"
+          },
+          {
+            "round": 1,
+            "uf": "SC"
+          },
+          {
+            "round": 1,
+            "uf": "SE"
+          },
+          {
+            "round": 1,
+            "uf": "SP"
+          },
+          {
+            "round": 1,
+            "uf": "TO"
+          },
+          {
+            "round": 1,
+            "uf": "ZZ"
+          },
+          {
+            "round": 2,
+            "uf": "AC"
+          },
+          {
+            "round": 2,
+            "uf": "AL"
+          },
+          {
+            "round": 2,
+            "uf": "AM"
+          },
+          {
+            "round": 2,
+            "uf": "AP"
+          },
+          {
+            "round": 2,
+            "uf": "BA"
+          },
+          {
+            "round": 2,
+            "uf": "CE"
+          },
+          {
+            "round": 2,
+            "uf": "DF"
+          },
+          {
+            "round": 2,
+            "uf": "ES"
+          },
+          {
+            "round": 2,
+            "uf": "GO"
+          },
+          {
+            "round": 2,
+            "uf": "MA"
+          },
+          {
+            "round": 2,
+            "uf": "MG"
+          },
+          {
+            "round": 2,
+            "uf": "MS"
+          },
+          {
+            "round": 2,
+            "uf": "MT"
+          },
+          {
+            "round": 2,
+            "uf": "PA"
+          },
+          {
+            "round": 2,
+            "uf": "PB"
+          },
+          {
+            "round": 2,
+            "uf": "PE"
+          },
+          {
+            "round": 2,
+            "uf": "PI"
+          },
+          {
+            "round": 2,
+            "uf": "PR"
+          },
+          {
+            "round": 2,
+            "uf": "RJ"
+          },
+          {
+            "round": 2,
+            "uf": "RN"
+          },
+          {
+            "round": 2,
+            "uf": "RO"
+          },
+          {
+            "round": 2,
+            "uf": "RR"
+          },
+          {
+            "round": 2,
+            "uf": "RS"
+          },
+          {
+            "round": 2,
+            "uf": "SC"
+          },
+          {
+            "round": 2,
+            "uf": "SE"
+          },
+          {
+            "round": 2,
+            "uf": "SP"
+          },
+          {
+            "round": 2,
+            "uf": "TO"
+          },
+          {
+            "round": 2,
+            "uf": "ZZ"
+          }
+        ],
+        "observed_pairs": [
+          {
+            "round": 1,
+            "uf": "AC"
+          },
+          {
+            "round": 1,
+            "uf": "AL"
+          },
+          {
+            "round": 1,
+            "uf": "AM"
+          },
+          {
+            "round": 1,
+            "uf": "AP"
+          },
+          {
+            "round": 1,
+            "uf": "BA"
+          },
+          {
+            "round": 1,
+            "uf": "CE"
+          },
+          {
+            "round": 1,
+            "uf": "DF"
+          },
+          {
+            "round": 1,
+            "uf": "ES"
+          },
+          {
+            "round": 1,
+            "uf": "GO"
+          },
+          {
+            "round": 1,
+            "uf": "MA"
+          },
+          {
+            "round": 1,
+            "uf": "MG"
+          },
+          {
+            "round": 1,
+            "uf": "MS"
+          },
+          {
+            "round": 1,
+            "uf": "MT"
+          },
+          {
+            "round": 1,
+            "uf": "PA"
+          },
+          {
+            "round": 1,
+            "uf": "PB"
+          },
+          {
+            "round": 1,
+            "uf": "PE"
+          },
+          {
+            "round": 1,
+            "uf": "PI"
+          },
+          {
+            "round": 1,
+            "uf": "PR"
+          },
+          {
+            "round": 1,
+            "uf": "RJ"
+          },
+          {
+            "round": 1,
+            "uf": "RN"
+          },
+          {
+            "round": 1,
+            "uf": "RO"
+          },
+          {
+            "round": 1,
+            "uf": "RR"
+          },
+          {
+            "round": 1,
+            "uf": "RS"
+          },
+          {
+            "round": 1,
+            "uf": "SC"
+          },
+          {
+            "round": 1,
+            "uf": "SE"
+          },
+          {
+            "round": 1,
+            "uf": "SP"
+          },
+          {
+            "round": 1,
+            "uf": "TO"
+          },
+          {
+            "round": 1,
+            "uf": "ZZ"
+          },
+          {
+            "round": 2,
+            "uf": "AC"
+          },
+          {
+            "round": 2,
+            "uf": "AL"
+          },
+          {
+            "round": 2,
+            "uf": "AM"
+          },
+          {
+            "round": 2,
+            "uf": "AP"
+          },
+          {
+            "round": 2,
+            "uf": "BA"
+          },
+          {
+            "round": 2,
+            "uf": "CE"
+          },
+          {
+            "round": 2,
+            "uf": "DF"
+          },
+          {
+            "round": 2,
+            "uf": "ES"
+          },
+          {
+            "round": 2,
+            "uf": "GO"
+          },
+          {
+            "round": 2,
+            "uf": "MA"
+          },
+          {
+            "round": 2,
+            "uf": "MG"
+          },
+          {
+            "round": 2,
+            "uf": "MS"
+          },
+          {
+            "round": 2,
+            "uf": "MT"
+          },
+          {
+            "round": 2,
+            "uf": "PA"
+          },
+          {
+            "round": 2,
+            "uf": "PB"
+          },
+          {
+            "round": 2,
+            "uf": "PE"
+          },
+          {
+            "round": 2,
+            "uf": "PI"
+          },
+          {
+            "round": 2,
+            "uf": "PR"
+          },
+          {
+            "round": 2,
+            "uf": "RJ"
+          },
+          {
+            "round": 2,
+            "uf": "RN"
+          },
+          {
+            "round": 2,
+            "uf": "RO"
+          },
+          {
+            "round": 2,
+            "uf": "RR"
+          },
+          {
+            "round": 2,
+            "uf": "RS"
+          },
+          {
+            "round": 2,
+            "uf": "SC"
+          },
+          {
+            "round": 2,
+            "uf": "SE"
+          },
+          {
+            "round": 2,
+            "uf": "SP"
+          },
+          {
+            "round": 2,
+            "uf": "TO"
+          },
+          {
+            "round": 2,
+            "uf": "ZZ"
+          }
+        ],
+        "missing_pairs": [],
+        "missing_selected_rounds": [],
+        "additional_observed_pairs": [],
+        "national_presence": {
+          "rounds": [
+            1,
+            2
+          ],
+          "status": "complete"
+        },
+        "section_completeness": {
+          "status": "not_assessed",
+          "reason": "Sem inventário exaustivo independente das seções esperadas"
+        }
+      },
+      "source_hashes": {
+        "status": "partially_matched_operator_trusted",
+        "sources": [
+          {
+            "path": "Boletim de Urna/1 turno/AC/bweb_1t_AC_051020261403.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/1 turno/AL/bweb_1t_AL_051020261403.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/1 turno/AM/bweb_1t_AM_051020261403.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/1 turno/AP/bweb_1t_AP_051020261403.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/1 turno/BA/bweb_1t_BA_051020261403.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/1 turno/CE/bweb_1t_CE_051020261403.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/1 turno/DF/bweb_1t_DF_051020261403.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/1 turno/ES/bweb_1t_ES_051020261403.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/1 turno/GO/bweb_1t_GO_051020261403.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/1 turno/MA/bweb_1t_MA_051020261403.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/1 turno/MG/bweb_1t_MG_051020261403.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/1 turno/MS/bweb_1t_MS_051020261403.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/1 turno/MT/bweb_1t_MT_051020261403.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/1 turno/PA/bweb_1t_PA_051020261403.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/1 turno/PB/bweb_1t_PB_051020261403.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/1 turno/PE/bweb_1t_PE_051020261403.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/1 turno/PI/bweb_1t_PI_051020261403.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/1 turno/PR/bweb_1t_PR_051020261403.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/1 turno/RJ/bweb_1t_RJ_051020261403.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/1 turno/RN/bweb_1t_RN_051020261403.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/1 turno/RO/bweb_1t_RO_051020261403.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/1 turno/RR/bweb_1t_RR_051020261403.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/1 turno/RS/bweb_1t_RS_051020261403.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/1 turno/SC/bweb_1t_SC_051020261403.zip",
+            "status": "verified",
+            "digest_comparison": "match",
+            "reference_trust": "operator_declared",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/1 turno/SE/bweb_1t_SE_051020261403.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/1 turno/SP/bweb_1t_SP_051020261403.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/1 turno/TO/bweb_1t_TO_051020261403.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/1 turno/ZZ/bweb_1t_ZZ_051020261403.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/2 turno/AC/bweb_2t_AC_261020260742.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/2 turno/AL/bweb_2t_AL_261020260742.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/2 turno/AM/bweb_2t_AM_261020260742.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/2 turno/AP/bweb_2t_AP_261020260742.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/2 turno/BA/bweb_2t_BA_261020260742.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/2 turno/CE/bweb_2t_CE_261020260742.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/2 turno/DF/bweb_2t_DF_261020260742.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/2 turno/ES/bweb_2t_ES_261020260742.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/2 turno/GO/bweb_2t_GO_261020260742.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/2 turno/MA/bweb_2t_MA_261020260742.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/2 turno/MG/bweb_2t_MG_261020260742.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/2 turno/MS/bweb_2t_MS_261020260742.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/2 turno/MT/bweb_2t_MT_261020260742.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/2 turno/PA/bweb_2t_PA_261020260742.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/2 turno/PB/bweb_2t_PB_261020260742.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/2 turno/PE/bweb_2t_PE_261020260742.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/2 turno/PI/bweb_2t_PI_261020260742.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/2 turno/PR/bweb_2t_PR_261020260742.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/2 turno/RJ/bweb_2t_RJ_261020260742.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/2 turno/RN/bweb_2t_RN_261020260742.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/2 turno/RO/bweb_2t_RO_261020260742.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/2 turno/RR/bweb_2t_RR_261020260742.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/2 turno/RS/bweb_2t_RS_261020260742.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/2 turno/SC/bweb_2t_SC_261020260742.zip",
+            "status": "verified",
+            "digest_comparison": "match",
+            "reference_trust": "operator_declared",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/2 turno/SE/bweb_2t_SE_261020260742.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/2 turno/SP/bweb_2t_SP_261020260742.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/2 turno/TO/bweb_2t_TO_261020260742.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Boletim de Urna/2 turno/ZZ/bweb_2t_ZZ_261020260742.zip",
+            "status": "unverified",
+            "digest_comparison": "match",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          },
+          {
+            "path": "Votação por Seção/votacao_secao_2026_BR.zip",
+            "status": "unverified",
+            "digest_comparison": "not_compared",
+            "reference_trust": "not_assigned",
+            "origin_authentication": "not_performed"
+          }
+        ],
+        "operator_trusted_matches": 2,
+        "source_count": 57,
+        "origin_authentication": "not_performed",
+        "signature_verification": "not_performed",
+        "trust_basis": "operator_configuration",
+        "evidence": "retained_catalog_no_source_reread",
+        "calculation_evidence": "local_fingerprint_cache_not_current_byte_hash"
+      },
+      "reconciliation": {
+        "ambiguous_locations": 0,
+        "bu_math_errors": 0,
+        "different_rows": 0,
+        "matched_rows": 5731614,
+        "only_bu_rows": 0,
+        "only_section_rows": 0,
+        "status": "complete",
+        "evidence": "retained_report_and_database",
+        "matched_section_rounds": 998411,
+        "observed_section_rounds": 998411,
+        "scope": "presidential_rows_in_selected_inputs",
+        "equipment_identity": "not_asserted"
+      },
+      "local_release": {
+        "status": "eligible",
+        "blockers": []
+      },
+      "public_readiness": {
+        "status": "not_ready",
+        "blockers": [
+          "source_hashes_reused_from_local_cache",
+          "operator_trusted_hashes_incomplete"
+        ],
+        "scope": [
+          {
+            "round": 1,
+            "uf": "AC"
+          },
+          {
+            "round": 1,
+            "uf": "AL"
+          },
+          {
+            "round": 1,
+            "uf": "AM"
+          },
+          {
+            "round": 1,
+            "uf": "AP"
+          },
+          {
+            "round": 1,
+            "uf": "BA"
+          },
+          {
+            "round": 1,
+            "uf": "CE"
+          },
+          {
+            "round": 1,
+            "uf": "DF"
+          },
+          {
+            "round": 1,
+            "uf": "ES"
+          },
+          {
+            "round": 1,
+            "uf": "GO"
+          },
+          {
+            "round": 1,
+            "uf": "MA"
+          },
+          {
+            "round": 1,
+            "uf": "MG"
+          },
+          {
+            "round": 1,
+            "uf": "MS"
+          },
+          {
+            "round": 1,
+            "uf": "MT"
+          },
+          {
+            "round": 1,
+            "uf": "PA"
+          },
+          {
+            "round": 1,
+            "uf": "PB"
+          },
+          {
+            "round": 1,
+            "uf": "PE"
+          },
+          {
+            "round": 1,
+            "uf": "PI"
+          },
+          {
+            "round": 1,
+            "uf": "PR"
+          },
+          {
+            "round": 1,
+            "uf": "RJ"
+          },
+          {
+            "round": 1,
+            "uf": "RN"
+          },
+          {
+            "round": 1,
+            "uf": "RO"
+          },
+          {
+            "round": 1,
+            "uf": "RR"
+          },
+          {
+            "round": 1,
+            "uf": "RS"
+          },
+          {
+            "round": 1,
+            "uf": "SC"
+          },
+          {
+            "round": 1,
+            "uf": "SE"
+          },
+          {
+            "round": 1,
+            "uf": "SP"
+          },
+          {
+            "round": 1,
+            "uf": "TO"
+          },
+          {
+            "round": 1,
+            "uf": "ZZ"
+          },
+          {
+            "round": 2,
+            "uf": "AC"
+          },
+          {
+            "round": 2,
+            "uf": "AL"
+          },
+          {
+            "round": 2,
+            "uf": "AM"
+          },
+          {
+            "round": 2,
+            "uf": "AP"
+          },
+          {
+            "round": 2,
+            "uf": "BA"
+          },
+          {
+            "round": 2,
+            "uf": "CE"
+          },
+          {
+            "round": 2,
+            "uf": "DF"
+          },
+          {
+            "round": 2,
+            "uf": "ES"
+          },
+          {
+            "round": 2,
+            "uf": "GO"
+          },
+          {
+            "round": 2,
+            "uf": "MA"
+          },
+          {
+            "round": 2,
+            "uf": "MG"
+          },
+          {
+            "round": 2,
+            "uf": "MS"
+          },
+          {
+            "round": 2,
+            "uf": "MT"
+          },
+          {
+            "round": 2,
+            "uf": "PA"
+          },
+          {
+            "round": 2,
+            "uf": "PB"
+          },
+          {
+            "round": 2,
+            "uf": "PE"
+          },
+          {
+            "round": 2,
+            "uf": "PI"
+          },
+          {
+            "round": 2,
+            "uf": "PR"
+          },
+          {
+            "round": 2,
+            "uf": "RJ"
+          },
+          {
+            "round": 2,
+            "uf": "RN"
+          },
+          {
+            "round": 2,
+            "uf": "RO"
+          },
+          {
+            "round": 2,
+            "uf": "RR"
+          },
+          {
+            "round": 2,
+            "uf": "RS"
+          },
+          {
+            "round": 2,
+            "uf": "SC"
+          },
+          {
+            "round": 2,
+            "uf": "SE"
+          },
+          {
+            "round": 2,
+            "uf": "SP"
+          },
+          {
+            "round": 2,
+            "uf": "TO"
+          },
+          {
+            "round": 2,
+            "uf": "ZZ"
+          }
+        ],
+        "section_completeness": "not_assessed",
+        "origin_authentication": "not_performed",
+        "meaning": "Critérios técnicos no recorte declarado; não autoriza deploy nem certifica eleição/licença"
+      }
+    },
+    "m6_elapsed_seconds": 36.723
+  },
+  "embedded_validation": {
+    "status": "passed",
+    "differences": [],
+    "municipality_counts": {
+      "AC": 22,
+      "AL": 102,
+      "AM": 62,
+      "AP": 16,
+      "BA": 417,
+      "CE": 184,
+      "DF": 1,
+      "ES": 78,
+      "GO": 246,
+      "MA": 217,
+      "MG": 853,
+      "MS": 79,
+      "MT": 142,
+      "PA": 144,
+      "PB": 223,
+      "PE": 185,
+      "PI": 224,
+      "PR": 399,
+      "RJ": 92,
+      "RN": 167,
+      "RO": 52,
+      "RR": 15,
+      "RS": 497,
+      "SC": 295,
+      "SE": 75,
+      "SP": 645,
+      "TO": 139,
+      "ZZ": 145
+    },
+    "municipal_round_records": 11431,
+    "sqlite_comparison": "passed",
+    "m6_elapsed_seconds": 21.521
+  },
+  "web_audit": {
+    "dataset_id": "e4e9c9cb5189ab5d4e124bfc",
+    "manifest_sha256": "c4dcddacb8092ff1dfffb35b07b739dbf360232e701e080087f52a4a09e20637",
+    "bytes": 4475495,
+    "file_count": 82,
+    "total_bytes": 49065783,
+    "cloudflare_free_limits": {
+      "files": 20000,
+      "individual_bytes": 26214400,
+      "passed": true
+    },
+    "production_approved": false
+  },
+  "production_preflight": [
+    {
+      "command": [
+        "python",
+        "apps/votoaberto_flutter/tool/web_release.py",
+        "preflight",
+        "--source",
+        "apps/votoaberto_flutter/assets/data/real"
+      ],
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "Release bloqueada: Publica��o bloqueada pela avalia��o dos dados: {\"blockers\": [\"source_hashes_reused_from_local_cache\", \"operator_trusted_hashes_incomplete\"], \"meaning\": \"Crit�rios t�cnicos no recorte declarado; n�o autoriza deploy nem certifica elei��o/licen�a\", \"origin_authentication\": \"not_performed\", \"scope\": [{\"round\": 1, \"uf\": \"AC\"}, {\"round\": 1, \"uf\": \"AL\"}, {\"round\": 1, \"uf\": \"AM\"}, {\"round\": 1, \"uf\": \"AP\"}, {\"round\": 1, \"uf\": \"BA\"}, {\"round\": 1, \"uf\": \"CE\"}, {\"round\": 1, \"uf\": \"DF\"}, {\"round\": 1, \"uf\": \"ES\"}, {\"round\": 1, \"uf\": \"GO\"}, {\"round\": 1, \"uf\": \"MA\"}, {\"round\": 1, \"uf\": \"MG\"}, {\"round\": 1, \"uf\": \"MS\"}, {\"round\": 1, \"uf\": \"MT\"}, {\"round\": 1, \"uf\": \"PA\"}, {\"round\": 1, \"uf\": \"PB\"}, {\"round\": 1, \"uf\": \"PE\"}, {\"round\": 1, \"uf\": \"PI\"}, {\"round\": 1, \"uf\": \"PR\"}, {\"round\": 1, \"uf\": \"RJ\"}, {\"round\": 1, \"uf\": \"RN\"}, {\"round\": 1, \"uf\": \"RO\"}, {\"round\": 1, \"uf\": \"RR\"}, {\"round\": 1, \"uf\": \"RS\"}, {\"round\": 1, \"uf\": \"SC\"}, {\"round\": 1, \"uf\": \"SE\"}, {\"round\": 1, \"uf\": \"SP\"}, {\"round\": 1, \"uf\": \"TO\"}, {\"round\": 1, \"uf\": \"ZZ\"}, {\"round\": 2, \"uf\": \"AC\"}, {\"round\": 2, \"uf\": \"AL\"}, {\"round\": 2, \"uf\": \"AM\"}, {\"round\": 2, \"uf\": \"AP\"}, {\"round\": 2, \"uf\": \"BA\"}, {\"round\": 2, \"uf\": \"CE\"}, {\"round\": 2, \"uf\": \"DF\"}, {\"round\": 2, \"uf\": \"ES\"}, {\"round\": 2, \"uf\": \"GO\"}, {\"round\": 2, \"uf\": \"MA\"}, {\"round\": 2, \"uf\": \"MG\"}, {\"round\": 2, \"uf\": \"MS\"}, {\"round\": 2, \"uf\": \"MT\"}, {\"round\": 2, \"uf\": \"PA\"}, {\"round\": 2, \"uf\": \"PB\"}, {\"round\": 2, \"uf\": \"PE\"}, {\"round\": 2, \"uf\": \"PI\"}, {\"round\": 2, \"uf\": \"PR\"}, {\"round\": 2, \"uf\": \"RJ\"}, {\"round\": 2, \"uf\": \"RN\"}, {\"round\": 2, \"uf\": \"RO\"}, {\"round\": 2, \"uf\": \"RR\"}, {\"round\": 2, \"uf\": \"RS\"}, {\"round\": 2, \"uf\": \"SC\"}, {\"round\": 2, \"uf\": \"SE\"}, {\"round\": 2, \"uf\": \"SP\"}, {\"round\": 2, \"uf\": \"TO\"}, {\"round\": 2, \"uf\": \"ZZ\"}], \"section_completeness\": \"not_assessed\", \"status\": \"not_ready\"}\n",
+      "expected": "blocked, exit 2"
+    }
+  ],
+  "remote_observations": [
+    {
+      "consulted_at": "2026-10-31T21:17:16.229274+00:00",
+      "command": [
+        "gh",
+        "run",
+        "list",
+        "--repo",
+        "UrnaLivre/votoaberto",
+        "--branch",
+        "feat/web-production-cloudflare",
+        "--limit",
+        "4",
+        "--json",
+        "databaseId,headSha,workflowName,status,conclusion,url,event"
+      ],
+      "exit_code": 0,
+      "result": [
+        {
+          "conclusion": "success",
+          "databaseId": 41240990196,
+          "event": "push",
+          "headSha": "c591e43af29c43d96f6dac16669f0e073f9628dc",
+          "status": "completed",
+          "url": "https://github.com/UrnaLivre/votoaberto/actions/runs/41240990196",
+          "workflowName": "Flutter"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 41240990152,
+          "event": "push",
+          "headSha": "c591e43af29c43d96f6dac16669f0e073f9628dc",
+          "status": "completed",
+          "url": "https://github.com/UrnaLivre/votoaberto/actions/runs/41240990152",
+          "workflowName": "Data Engine"
+        }
+      ],
+      "stderr": ""
+    },
+    {
+      "consulted_at": "2026-10-31T21:17:16.632138+00:00",
+      "command": [
+        "gh",
+        "variable",
+        "list",
+        "--repo",
+        "UrnaLivre/votoaberto",
+        "--json",
+        "name,value"
+      ],
+      "exit_code": 0,
+      "result": [],
+      "stderr": ""
+    },
+    {
+      "consulted_at": "2026-10-31T21:17:17.077151+00:00",
+      "command": [
+        "gh",
+        "api",
+        "repos/UrnaLivre/votoaberto/environments",
+        "--jq",
+        ".environments | map({name: .name})"
+      ],
+      "exit_code": 0,
+      "result": [],
+      "stderr": ""
+    }
+  ],
+  "validation_commands": [
+    "validate_release(Path(national_release))",
+    "validate_embedded(Path(real_assets), sqlite3.connect(national_db_uri + \"?mode=ro\", uri=True))",
+    "python apps/votoaberto_flutter/tool/web_release.py audit --mode real --report .local/m6/web-audit.json",
+    "python apps/votoaberto_flutter/tool/web_release.py preflight --source apps/votoaberto_flutter/assets/data/real"
+  ],
+  "tests": {
+    "command": ".venv/Scripts/python.exe -m pytest -q tests/test_provenance_review.py tests/test_assessment.py tests/test_storage_policy.py tests/test_web_release.py tests/test_embedded_exporter.py tests/test_embedded_build.py --basetemp=.local/m6/pytest-targeted",
+    "passed": 124,
+    "skipped": 1,
+    "failed": 0,
+    "seconds": 68.73,
+    "limitation": "opt-in original-ZIP official integration skipped; no national reimport"
+  },
+  "ruff": {
+    "checked_files": 40,
+    "lint": "passed",
+    "format": "passed"
+  },
+  "no_flutter_rebuild_reason": "electoral assets, app metadata and application sources unchanged; existing build audited",
+  "deployment_changes": false,
+  "data_approval_changed": false,
+  "evidence_consistency": {
+    "status": "passed",
+    "checks": "57 retained source records match national manifest; 56 HTTP checksum bodies match stored body SHA256 and retained ZIP SHA512; all proposed references trusted=false; 79 before/after file hashes identical"
+  },
+  "git_preparation": {
+    "branch": "feat/web-production-cloudflare",
+    "initial_head": "c591e43af29c43d96f6dac16669f0e073f9628dc",
+    "collector_commit": "db29481",
+    "push_performed": false,
+    "merge_tag_release_deploy_performed": false
+  }
+}

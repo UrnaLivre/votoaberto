@@ -1,5 +1,12 @@
 # Preparação da primeira publicação Web — relatório de entrega
 
+> Atualização M6 (31/10/2026): [revisão de proveniência](WEB_DATA_PROVENANCE_REVIEW.md)
+> obteve novamente 56 checksums oficiais BWEB, todos coincidentes com digests
+> retidos. A fonte nacional continua sem referência independente encontrada;
+> confiança humana e cache permanecem pendentes. Dados, manifestos e aprovação
+> não foram alterados. A classificação continua **BLOCKED**. O texto abaixo
+> preserva o relatório histórico da preparação Web.
+
 Data: 31/10/2026. Branch `feat/web-production-cloudflare`, criada de
 `origin/main` atualizado em `b8fb6f7` (merge do PR #8, incluindo M5.3).
 Working tree inicialmente limpa. Nenhuma branch anterior foi sobrescrita ou excluída.

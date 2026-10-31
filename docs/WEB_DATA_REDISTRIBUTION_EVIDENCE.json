@@ -1,0 +1,300 @@
+{
+  "review_date": "2026-10-31",
+  "nature": "documentary proposal; not operator or legal approval",
+  "catalogs": [
+    {
+      "package": "codigos-oficiais-de-uf-e-municipios-segundo-o-tse-e-o-ibge",
+      "request": {
+        "requested_url": "https://dadosabertos.tse.jus.br/api/3/action/package_show?id=codigos-oficiais-de-uf-e-municipios-segundo-o-tse-e-o-ibge",
+        "tls_verification": "platform_default_trust_store",
+        "attempts": [
+          {
+            "started_at": "2026-10-31T21:11:41.510638+00:00",
+            "http_status": 200,
+            "final_url": "https://dadosabertos.tse.jus.br/api/3/action/package_show?id=codigos-oficiais-de-uf-e-municipios-segundo-o-tse-e-o-ibge",
+            "headers": {
+              "Date": "Sat, 31 Oct 2026 21:11:41 GMT",
+              "Content-Type": "application/json;charset=utf-8",
+              "Content-Length": "3375"
+            },
+            "finished_at": "2026-10-31T21:11:41.688633+00:00"
+          }
+        ],
+        "started_at": "2026-10-31T21:11:41.510638+00:00",
+        "http_status": 200,
+        "final_url": "https://dadosabertos.tse.jus.br/api/3/action/package_show?id=codigos-oficiais-de-uf-e-municipios-segundo-o-tse-e-o-ibge",
+        "headers": {
+          "Date": "Sat, 31 Oct 2026 21:11:41 GMT",
+          "Content-Type": "application/json;charset=utf-8",
+          "Content-Length": "3375"
+        },
+        "finished_at": "2026-10-31T21:11:41.688633+00:00",
+        "body_bytes": 3375,
+        "body_sha256": "1a7d8cb2a6fb3c7157f4e2da184e117609d938f67c0da6f68cd6b48625f9ffda"
+      },
+      "catalog_url": "https://dadosabertos.tse.jus.br/dataset/codigos-oficiais-de-uf-e-municipios-segundo-o-tse-e-o-ibge",
+      "title": "Códigos oficiais de UF e municípios segundo o TSE e o IBGE",
+      "organization": "TSE/SMG",
+      "license_id": "cc-by",
+      "license_title": "Creative Commons Attribution",
+      "license_url": "http://www.opendefinition.org/licenses/cc-by",
+      "metadata_modified": "2025-06-24T18:08:19.929672",
+      "resource_count": 1,
+      "selected_resources": [
+        {
+          "cache_last_updated": null,
+          "cache_url": null,
+          "created": "2025-06-24T18:07:38.450458",
+          "datastore_active": false,
+          "description": "O arquivo apresenta os códigos oficiais das Unidades Federativas (UF) e dos municípios, conforme definidos pela Justiça Eleitoral (TSE) e pelo Instituto Brasileiro de Geografia e Estatística (IBGE)",
+          "format": "CSV",
+          "hash": "",
+          "id": "c6c767d7-f341-4256-8dff-010683a9c796",
+          "last_modified": null,
+          "metadata_modified": "2025-06-24T18:07:38.590296",
+          "mimetype": "application/zip",
+          "mimetype_inner": null,
+          "name": "Códigos oficiais de UF e municípios segundo o TSE e o IBGE",
+          "package_id": "004279f1-81fd-4926-a8f9-3dd76ab9a5b8",
+          "position": 0,
+          "resource_type": null,
+          "size": null,
+          "state": "active",
+          "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/municipio_tse_ibge/municipio_tse_ibge.zip",
+          "url_type": null
+        }
+      ]
+    },
+    {
+      "package": "eleitorado-2026",
+      "request": {
+        "requested_url": "https://dadosabertos.tse.jus.br/api/3/action/package_show?id=eleitorado-2026",
+        "tls_verification": "platform_default_trust_store",
+        "attempts": [
+          {
+            "started_at": "2026-10-31T21:11:41.688633+00:00",
+            "http_status": 200,
+            "final_url": "https://dadosabertos.tse.jus.br/api/3/action/package_show?id=eleitorado-2026",
+            "headers": {
+              "Date": "Sat, 31 Oct 2026 21:11:41 GMT",
+              "Content-Type": "application/json;charset=utf-8",
+              "Content-Length": "26051"
+            },
+            "finished_at": "2026-10-31T21:11:41.788307+00:00"
+          }
+        ],
+        "started_at": "2026-10-31T21:11:41.688633+00:00",
+        "http_status": 200,
+        "final_url": "https://dadosabertos.tse.jus.br/api/3/action/package_show?id=eleitorado-2026",
+        "headers": {
+          "Date": "Sat, 31 Oct 2026 21:11:41 GMT",
+          "Content-Type": "application/json;charset=utf-8",
+          "Content-Length": "26051"
+        },
+        "finished_at": "2026-10-31T21:11:41.788307+00:00",
+        "body_bytes": 26051,
+        "body_sha256": "00272551f695a7949b869c7e41bccfc03cd7de9d1a4b4f4d070a43287498ad13"
+      },
+      "catalog_url": "https://dadosabertos.tse.jus.br/dataset/eleitorado-2026",
+      "title": "Eleitorado - 2026",
+      "organization": "TSE/AGEL",
+      "license_id": "cc-by",
+      "license_title": "Creative Commons Attribution",
+      "license_url": "http://www.opendefinition.org/licenses/cc-by",
+      "metadata_modified": "2026-09-11T17:51:11.985865",
+      "resource_count": 33,
+      "selected_resources": [
+        {
+          "cache_last_updated": null,
+          "cache_url": null,
+          "created": "2026-07-20T12:24:35.313587",
+          "datastore_active": false,
+          "description": "Todas as UFs",
+          "format": "CSV",
+          "hash": "",
+          "id": "300626b4-2b24-4d2e-b4fc-46b569cfffe5",
+          "last_modified": null,
+          "metadata_modified": "2026-07-20T12:25:08.896963",
+          "mimetype": "application/zip",
+          "mimetype_inner": null,
+          "name": "Eleitorado por local de votação - 2026",
+          "package_id": "b7ff5e07-8660-4c4d-a64b-ebf626e33f27",
+          "position": 2,
+          "resource_type": null,
+          "size": null,
+          "state": "active",
+          "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/eleitorado_locais_votacao/eleitorado_local_votacao_2026.zip",
+          "url_type": null
+        }
+      ]
+    }
+  ],
+  "requests": [
+    {
+      "url": "https://www.ibge.gov.br/acesso-informacao/dados-abertos.html",
+      "consulted_at": "2026-10-31T21:11:46.571793+00:00",
+      "status": 403,
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "url": "https://www.ibge.gov.br/np_download/novoportal/documentos_institucionais/Plano_de_Dados_Abertos_IBGE_2024_2025.pdf",
+      "consulted_at": "2026-10-31T21:11:47.413072+00:00",
+      "status": 200,
+      "final_url": "https://www.ibge.gov.br/np_download/novoportal/documentos_institucionais/Plano_de_Dados_Abertos_IBGE_2024_2025.pdf",
+      "headers": {
+        "Date": "Sat, 31 Oct 2026 21:11:47 GMT",
+        "Content-Type": "application/pdf",
+        "Transfer-Encoding": "chunked",
+        "Connection": "close",
+        "Last-Modified": "Thu, 28 Mar 2024 18:54:23 GMT",
+        "cf-cache-status": "EXPIRED",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
+        "Cache-Control": "max-age=3600",
+        "Expires": "Sat, 31 Oct 2026 22:11:47 GMT",
+        "Vary": "Accept-Encoding,Origin",
+        "ETag": "W/\"efde2-614bd0d3ca452-gzip\"",
+        "Access-Control-Allow-Headers": "x-requested-with, Content-Type, origin, authorization, accept, client-security-token",
+        "Server": "cloudflare",
+        "CF-RAY": "a535a77a7eae0cad-NVT"
+      },
+      "bytes": 982498,
+      "body_sha256": "9c56d0c952a326d9489e2e829fa12795570ae8fb65d34633268f03b22b599e02"
+    },
+    {
+      "url": "https://www.ibge.gov.br/acesso-informacao/politica-de-privacidade.html",
+      "consulted_at": "2026-10-31T21:11:48.359623+00:00",
+      "status": 403,
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "url": "https://www.naturalearthdata.com/about/terms-of-use/",
+      "consulted_at": "2026-10-31T21:11:48.443406+00:00",
+      "status": 200,
+      "final_url": "https://www.naturalearthdata.com/about/terms-of-use/",
+      "headers": {
+        "Date": "Sat, 31 Oct 2026 21:11:49 GMT",
+        "Server": "Apache",
+        "Vary": "Accept-Encoding,Cookie",
+        "Cache-Control": "max-age=3, must-revalidate",
+        "Upgrade": "h2,h2c",
+        "Connection": "Upgrade, close",
+        "Content-Length": "38013",
+        "Last-Modified": "Sat, 31 Oct 2026 21:10:14 GMT",
+        "host-header": "c2hhcmVkLmJsdWVob3N0LmNvbQ==",
+        "X-Endurance-Cache-Level": "2",
+        "X-nginx-cache": "WordPress",
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "bytes": 38013,
+      "body_sha256": "13171ca06252b5b9a549a055e766ab7d147af5ce2b42a1e59b3f5a4d8f45fe69"
+    },
+    {
+      "url": "https://opendefinition.org/licenses/cc-by/",
+      "consulted_at": "2026-10-31T21:11:49.512896+00:00",
+      "status": 200,
+      "final_url": "https://opendefinition.org/licenses/cc-by/",
+      "headers": {
+        "Date": "Sat, 31 Oct 2026 21:11:49 GMT",
+        "Content-Type": "text/html; charset=utf-8",
+        "Transfer-Encoding": "chunked",
+        "Connection": "close",
+        "Server": "cloudflare",
+        "last-modified": "Tue, 29 Sep 2026 18:02:47 GMT",
+        "access-control-allow-origin": "*",
+        "Nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "expires": "Sat, 31 Oct 2026 21:21:49 GMT",
+        "Cache-Control": "max-age=600",
+        "Report-To": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=lDH%2FZbYwc%2FN%2FKADFyZvOyBTQ505qEqwuo5OBUuvWkPR3vxVLGYoodye79k5g5HcPqXZjRjTfplEamLEJhi1blBX18AGbk4D2xcdkEMStA2%2FeUKFqJQvnB%2Bq9Pga5n0oABkmtu54dJlLB4MBHckLdByA%3D\"}]}",
+        "x-proxy-cache": "MISS",
+        "x-github-request-id": "9314:7099E:1F6374:23A6A8:6AE65995",
+        "x-github-edge-region": "brazilsouth",
+        "Server-Timing": "cfCacheStatus;desc=\"DYNAMIC\"",
+        "Age": "0",
+        "via": "1.1 varnish",
+        "x-served-by": "cache-cwb-sbct2070034-CWB",
+        "x-cache": "MISS",
+        "x-cache-hits": "0",
+        "x-timer": "S1793481110.835246,VS0,VE151",
+        "vary": "Accept-Encoding",
+        "x-fastly-request-id": "6d4fab617809306b248e7f079db434c2ac100cac",
+        "cf-cache-status": "DYNAMIC",
+        "CF-RAY": "a535a7883e38f8f1-NVT",
+        "alt-svc": "h3=\":443\"; ma=86400"
+      },
+      "bytes": 28666,
+      "body_sha256": "dbbac8be9d70e0eab97e825ff5201f3c9ee8341c754f43a97e7d84d9d47cac81"
+    },
+    {
+      "url": "https://creativecommons.org/licenses/by/4.0/deed.pt-br",
+      "consulted_at": "2026-10-31T21:11:50.040642+00:00",
+      "status": 200,
+      "final_url": "https://creativecommons.org/licenses/by/4.0/deed.pt-br",
+      "headers": {
+        "Date": "Sat, 31 Oct 2026 21:11:50 GMT",
+        "Content-Type": "text/html",
+        "Transfer-Encoding": "chunked",
+        "Connection": "close",
+        "Server": "cloudflare",
+        "Last-Modified": "Thu, 01 Oct 2026 17:09:56 GMT",
+        "cf-cache-status": "EXPIRED",
+        "Content-Language": "pt-br",
+        "Vary": "Accept-Encoding",
+        "Access-Control-Allow-Origin": "*",
+        "CF-RAY": "a535a78a5d011719-NVT"
+      },
+      "bytes": 32422,
+      "body_sha256": "2618be974e49958e72df28822946ec82d13c27c19fd85881c60f27f085a28ddf"
+    },
+    {
+      "url": "https://www.tre-df.jus.br/comunicacao/noticias/arquivos/edital-carga_e_lacracao_das_urnas_eletronicas__df_e_zz____2026",
+      "consulted_at": "2026-10-31T21:11:50.627159+00:00",
+      "status": 403,
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "url": "https://geoftp.ibge.gov.br/organizacao_do_territorio/estrutura_territorial/localidades/Localidades_do_Brasil/2022/",
+      "consulted_at": "2026-10-31T21:11:50.995095+00:00",
+      "status": 200,
+      "final_url": "https://geoftp.ibge.gov.br/organizacao_do_territorio/estrutura_territorial/localidades/Localidades_do_Brasil/2022/",
+      "headers": {
+        "Date": "Sat, 31 Oct 2026 21:11:51 GMT",
+        "Server": "Apache/2.4.37 (centos) OpenSSL/1.1.1k",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET",
+        "Content-Type": "text/html;charset=ISO-8859-1",
+        "Connection": "close",
+        "Transfer-Encoding": "chunked"
+      },
+      "bytes": 20641,
+      "body_sha256": "08daa7eba7b7b5fc12d54078b4004dc5bcaea055013d03b2c46949659f148281"
+    },
+    {
+      "url": "https://servicodados.ibge.gov.br/api/docs/malhas?versao=3",
+      "consulted_at": "2026-10-31T21:11:51.234647+00:00",
+      "status": 200,
+      "final_url": "https://servicodados.ibge.gov.br/api/docs/malhas?versao=3",
+      "headers": {
+        "Date": "Sat, 31 Oct 2026 21:11:51 GMT",
+        "Content-Type": "text/html; charset=utf-8",
+        "Cache-Control": "max-age=2592000",
+        "Content-Encoding": "gzip",
+        "Expires": "Mon, 30 Nov 2026 21:11:51 GMT",
+        "Vary": "Accept-Encoding",
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+        "Access-Control-Allow-Origin": "*",
+        "Connection": "close",
+        "Transfer-Encoding": "chunked"
+      },
+      "bytes": 156640,
+      "body_sha256": "c1138cfe0d253450cae0635527b15ad1b9ca6d08dec1855fc09f52a91ca6a362"
+    },
+    {
+      "url": "https://www.ibge.gov.br/geociencias/organizacao-do-territorio/estrutura-territorial/2977-np-localidades/27385-localidades.html",
+      "consulted_at": "2026-10-31T21:16:26.452462+00:00",
+      "status": 403,
+      "error": "HTTP Error 403: Forbidden"
+    }
+  ]
+}
