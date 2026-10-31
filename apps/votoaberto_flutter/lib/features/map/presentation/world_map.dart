@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../domain/brazil_geometry.dart';
 import '../domain/world_geometry.dart';
+import 'map_controls.dart';
 
 class WorldMap extends StatefulWidget {
   const WorldMap({
@@ -30,7 +31,7 @@ class _WorldMapState extends State<WorldMap>
   late Rect _from = widget.geometry.viewFor(widget.selected);
   late Rect _to = _from;
   String? _hovered;
-  String? _keyboard;
+  late String? _keyboard = widget.selected ?? _choices.firstOrNull?.iso;
   bool _focused = false;
   Rect get _view =>
       Rect.lerp(_from, _to, Curves.easeInOutCubic.transform(_animation.value))!;
@@ -74,6 +75,7 @@ class _WorldMapState extends State<WorldMap>
       widget.onReset();
     } else if (key == LogicalKeyboardKey.enter ||
         key == LogicalKeyboardKey.space) {
+      setState(() => _hovered = null);
       final next = widget.active.contains(_keyboard)
           ? _keyboard
           : choices.firstOrNull?.iso;
@@ -91,9 +93,14 @@ class _WorldMapState extends State<WorldMap>
                 key == LogicalKeyboardKey.arrowUp
             ? -1
             : 1;
-        setState(
-          () => _keyboard = choices[(index + delta) % choices.length].iso,
-        );
+        setState(() {
+          _hovered = null;
+          _keyboard =
+              choices[(index < 0
+                      ? (delta < 0 ? choices.length - 1 : 0)
+                      : (index + delta) % choices.length)]
+                  .iso;
+        });
       }
     } else {
       return KeyEventResult.ignored;
@@ -104,29 +111,39 @@ class _WorldMapState extends State<WorldMap>
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
+    final interaction = _hovered ?? (_focused ? _keyboard : null);
     final name = widget.geometry.countries
-        .where((c) => c.iso == (_focused ? _keyboard : _hovered))
+        .where((c) => c.iso == interaction)
         .firstOrNull
         ?.name;
     return Focus(
       onKeyEvent: _key,
-      onFocusChange: (value) => setState(() => _focused = value),
+      onFocusChange: (value) => setState(() {
+        _focused = value;
+        if (value) _hovered = null;
+      }),
       child: AnimatedBuilder(
         animation: _animation,
         builder: (context, _) => LayoutBuilder(
           builder: (context, constraints) {
             final viewport = MapViewport(_view, constraints.biggest);
-            String? hit(Offset p) => widget.geometry.hitTest(
-              viewport.toWorld(p),
-              widget.active,
-              tolerance: 7 / viewport.scale,
-            );
+            String? hit(Offset p) {
+              final point = viewport.toWorld(p);
+              if (!WorldGeometry.longitudeWindow(_view).contains(point)) {
+                return null;
+              }
+              return widget.geometry.hitTest(
+                point,
+                widget.active,
+                tolerance: 7 / viewport.scale,
+              );
+            }
+
             return DecoratedBox(
               decoration: BoxDecoration(
-                color: colors.surfaceContainerLow,
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(
-                  color: _focused ? colors.primary : colors.outlineVariant,
+                  color: _focused ? colors.primary : Colors.transparent,
                   width: 2,
                 ),
               ),
@@ -161,36 +178,29 @@ class _WorldMapState extends State<WorldMap>
                                 colors: colors,
                                 active: widget.active,
                                 selected: widget.selected,
-                                focused: _focused ? _keyboard : _hovered,
+                                focused: interaction,
                               ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                    Positioned(
-                      top: 12,
-                      left: 16,
-                      right: 16,
-                      child: IgnorePointer(
-                        child: Text(
-                          name ?? 'Países coloridos têm votação neste turno',
-                        ),
-                      ),
-                    ),
+                    MapCaption(name ?? 'Selecione um país'),
                     Positioned(
                       bottom: 12,
                       left: 12,
-                      child: FilledButton.tonalIcon(
-                        key: const ValueKey('world-map-reset'),
+                      child: MapResetButton(
+                        visible: _to != WorldGeometry.bounds,
+                        buttonKey: const ValueKey('world-map-reset'),
                         onPressed: widget.onReset,
-                        icon: const Icon(Icons.public),
-                        label: const Text('Mundo'),
                       ),
                     ),
                     Positioned(
-                      bottom: 18,
-                      right: 12,
+                      bottom:
+                          constraints.maxWidth < 440 && widget.selected != null
+                          ? 72
+                          : 18,
+                      right: 16,
                       child: IgnorePointer(
                         child: Text(
                           'Natural Earth',
@@ -224,6 +234,29 @@ class WorldMapPainter extends CustomPainter {
   final Set<String> active;
   final String? selected;
   final String? focused;
+
+  /// Large regions first, small islands last, matching small-first hit testing.
+  List<CountryGeometry> get baseOrder => [...geometry.countries]
+    ..sort(
+      (a, b) => (b.bounds.width * b.bounds.height).compareTo(
+        a.bounds.width * a.bounds.height,
+      ),
+    );
+
+  /// Interaction outlines are a separate final pass, with hover/focus on top.
+  List<CountryGeometry> get highlights => [
+    for (final iso in {selected, focused})
+      if (active.contains(iso))
+        ...geometry.countries.where((c) => c.iso == iso),
+  ];
+
+  Color fillFor(CountryGeometry country) {
+    if (!active.contains(country.iso)) return colors.outlineVariant;
+    if (country.iso == selected) return colors.primary;
+    if (country.iso == focused) return colors.primaryContainer;
+    return mapRegionFill(colors, geometry.countries.indexOf(country));
+  }
+
   @override
   void paint(Canvas canvas, Size size) {
     canvas.save();
@@ -231,35 +264,53 @@ class WorldMapPainter extends CustomPainter {
     final origin = viewport.toScreen(Offset.zero);
     canvas.translate(origin.dx, origin.dy);
     canvas.scale(viewport.scale);
-    for (final country in geometry.countries) {
-      final enabled = active.contains(country.iso);
-      for (final shift in [-360.0, 0.0, 360.0]) {
-        final delta = Offset(shift, 0);
-        if (!country.bounds.shift(delta).overlaps(viewport.world)) continue;
+    // A single longitude window also clips letterboxing. Periodic copies only
+    // supply the two halves of seam-crossing countries; no repeated world.
+    final window = WorldGeometry.longitudeWindow(viewport.world);
+    canvas.clipRect(window);
+    final visible = Rect.fromPoints(
+      viewport.toWorld(Offset.zero),
+      viewport.toWorld(size.bottomRight(Offset.zero)),
+    ).intersect(window);
+    void draw(CountryGeometry country, {bool highlight = false}) {
+      for (final delta in WorldGeometry.copiesIn(country, visible)) {
         final path = country.path.shift(delta);
-        final fill = enabled
-            ? country.iso == selected
-                  ? colors.primary
-                  : colors.tertiary
-            : colors.outlineVariant;
-        canvas.drawPath(path, Paint()..color = fill);
+        if (!highlight) {
+          canvas.drawPath(path, Paint()..color = fillFor(country));
+        }
         canvas.drawPath(
           path,
           Paint()
-            ..color = country.iso == focused ? colors.onSurface : colors.surface
+            ..color = highlight ? colors.onSurface : colors.surface
             ..style = PaintingStyle.stroke
-            ..strokeWidth =
-                (country.iso == focused ? 2.4 : .7) / viewport.scale,
+            ..strokeWidth = (highlight ? 2.4 : .7) / viewport.scale,
         );
-        // Keep small islands/countries discoverable at the global scale.
-        if (enabled && country.bounds.longestSide * viewport.scale < 8) {
+        if (active.contains(country.iso) &&
+            country.bounds.longestSide * viewport.scale < 8) {
           canvas.drawCircle(
             country.anchor + delta,
             3.5 / viewport.scale,
-            Paint()..color = fill,
+            Paint()..color = fillFor(country),
           );
+          if (highlight) {
+            canvas.drawCircle(
+              country.anchor + delta,
+              3.5 / viewport.scale,
+              Paint()
+                ..color = colors.onSurface
+                ..style = PaintingStyle.stroke
+                ..strokeWidth = 2.4 / viewport.scale,
+            );
+          }
         }
       }
+    }
+
+    for (final country in baseOrder) {
+      draw(country);
+    }
+    for (final country in highlights) {
+      draw(country, highlight: true);
     }
     canvas.restore();
   }

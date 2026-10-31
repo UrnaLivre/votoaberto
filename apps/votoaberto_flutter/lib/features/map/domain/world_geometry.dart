@@ -14,7 +14,22 @@ class CountryGeometry {
 class WorldGeometry {
   WorldGeometry(this.countries);
   final List<CountryGeometry> countries;
-  static const bounds = Rect.fromLTRB(-180, -85, 180, 90);
+  static const bounds = Rect.fromLTRB(-180, -90, 180, 90);
+
+  /// One continuous longitude period around the camera, never lateral repeats.
+  static Rect longitudeWindow(Rect camera) =>
+      Rect.fromLTWH(camera.center.dx - 180, -90, 360, 180);
+
+  static Iterable<Offset> copiesIn(
+    CountryGeometry country,
+    Rect visible,
+  ) sync* {
+    for (final shift in [-360.0, 0.0, 360.0]) {
+      final delta = Offset(shift, 0);
+      if (country.bounds.shift(delta).overlaps(visible)) yield delta;
+    }
+  }
+
   static Offset project(double lon, double lat) => Offset(lon, -lat);
 
   factory WorldGeometry.decode(String source) {
@@ -70,7 +85,7 @@ class WorldGeometry {
         }
       }
       // Put the cut in the largest empty longitude interval. Multipart countries
-      // crossing ±180 then fit in one continuous camera; render periodic copies.
+      // crossing ±180 then fit in one continuous camera; clip rendering to one period.
       final center = cut + (360 - largestGap) / 2;
       final shift = (center / 360).round() * 360;
       Offset point(dynamic pair) {
