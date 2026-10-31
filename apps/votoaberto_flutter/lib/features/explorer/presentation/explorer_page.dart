@@ -15,6 +15,8 @@ import '../../map/presentation/world_map.dart';
 import 'explorer_controller.dart';
 import 'municipality_search.dart';
 import 'result_charts.dart';
+import 'round_summary.dart';
+import 'overseas_special_cases_dialog.dart';
 import 'state_search.dart';
 
 String explorerLocation(
@@ -47,6 +49,26 @@ class ExplorerPage extends StatefulWidget {
 }
 
 class _ExplorerPageState extends State<ExplorerPage> {
+  final _specialCasesFocus = FocusNode(debugLabel: 'Casos especiais');
+
+  Future<void> _showSpecialCases() async {
+    final cases = c.specialCases;
+    if (cases.isEmpty) return;
+    await showDialog<void>(
+      context: context,
+      traversalEdgeBehavior: TraversalEdgeBehavior.closedLoop,
+      animationStyle: MediaQuery.disableAnimationsOf(context)
+          ? AnimationStyle.noAnimation
+          : null,
+      builder: (_) => OverseasSpecialCasesDialog(controller: c, cases: cases),
+    );
+    if (mounted &&
+        _specialCasesFocus.context != null &&
+        _specialCasesFocus.canRequestFocus) {
+      _specialCasesFocus.requestFocus();
+    }
+  }
+
   BrazilGeometry? _geometry;
   bool _geometryError = false;
   WorldGeometry? _world;
@@ -77,6 +99,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
   @override
   void dispose() {
     c.removeListener(_geographicChange);
+    _specialCasesFocus.dispose();
     super.dispose();
   }
 
@@ -684,43 +707,15 @@ class _ExplorerPageState extends State<ExplorerPage> {
           c.municipalityCode == null &&
           c.unmappedLocalities.isNotEmpty);
 
-  Widget _summary(BuildContext context, RoundResult result) {
-    final t = result.totals;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Participação em números',
-          style: Theme.of(context).textTheme.titleLarge,
-        ),
-        const SizedBox(height: 20),
-        Text(
-          percent(_percentages ? t.turnoutRate : null),
-          key: const ValueKey('turnout-rate'),
-          style: Theme.of(context).textTheme.displaySmall?.copyWith(
-            color: Theme.of(context).colorScheme.primary,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        Text(
-          'de comparecimento · ${_available(t, 'turnout', t.turnout)} eleitores',
-        ),
-        const SizedBox(height: 22),
-        _metric(
-          context,
-          'Eleitores aptos',
-          _available(t, 'eligible', t.eligible),
-        ),
-        _metric(
-          context,
-          'Abstenção',
-          '${_available(t, 'abstention', t.abstention)} · ${percent(_percentages ? t.abstentionRate : null)}',
-        ),
-        _metric(context, 'Votos contabilizados', count(t.counted)),
-        if (!c.abroad &&
+  Widget _summary(BuildContext context, RoundResult result) => RoundSummary(
+    result: result,
+    synthetic: c.synthetic,
+    percentages: _percentages,
+    afterCounted:
+        !c.abroad &&
             c.territoryCode == null &&
-            c.dataset?.domestic?.rounds[c.mode.round] != null)
-          ExpansionTile(
+            c.dataset?.domestic?.rounds[c.mode.round] != null
+        ? ExpansionTile(
             tilePadding: EdgeInsets.zero,
             title: const Text('Brasil doméstico · 27 UFs'),
             children: [
@@ -734,61 +729,9 @@ class _ExplorerPageState extends State<ExplorerPage> {
                 ),
               ),
             ],
-          ),
-        _metric(context, 'Votos válidos', count(t.valid)),
-        _metric(
-          context,
-          'Votos brancos',
-          '${count(t.blank)}${t.blank != null && !t.complete('blank') ? ' · registros parciais' : ''}',
-        ),
-        _metric(
-          context,
-          'Votos nulos',
-          '${count(t.invalid)}${t.invalid != null && !t.complete('null') ? ' · registros parciais' : ''}',
-        ),
-        const Divider(),
-        Text(
-          'Distribuição dos votos válidos',
-          style: Theme.of(context).textTheme.titleMedium,
-        ),
-        const SizedBox(height: 4),
-        Text(
-          c.synthetic
-              ? 'Candidatos fictícios · % dos votos válidos'
-              : _percentages
-              ? 'Candidatos · % dos votos válidos'
-              : 'Candidatos · contagens associadas; percentuais indisponíveis',
-          style: const TextStyle(fontSize: 12),
-        ),
-        const SizedBox(height: 20),
-        DistributionChart(
-          result: result,
-          synthetic: c.synthetic,
-          percentages: _percentages,
-        ),
-        for (final candidate in result.unreportedCandidates)
-          Text(
-            '${candidate.number} · ${candidate.name}: sem registro de votos neste recorte.',
-          ),
-      ],
-    );
-  }
-
-  Widget _metric(BuildContext context, String label, String value) => Padding(
-    padding: const EdgeInsets.symmetric(vertical: 7),
-    child: Wrap(
-      alignment: WrapAlignment.spaceBetween,
-      spacing: 16,
-      runSpacing: 4,
-      children: [
-        Text(label),
-        Text(value, style: const TextStyle(fontWeight: FontWeight.w600)),
-      ],
-    ),
+          )
+        : null,
   );
-
-  String _available(VoteTotals totals, String key, int? value) =>
-      '${count(value)}${value != null && !totals.complete(key) ? ' · parcial' : ''}';
 
   Widget _worldNavigation(BuildContext context) => Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -827,6 +770,16 @@ class _ExplorerPageState extends State<ExplorerPage> {
             ),
         ],
       ),
+      if (c.countryCode == null &&
+          c.municipalityCode == null &&
+          c.specialCases.isNotEmpty)
+        OutlinedButton.icon(
+          key: const ValueKey('special-cases-open'),
+          focusNode: _specialCasesFocus,
+          onPressed: _showSpecialCases,
+          icon: const Icon(Icons.info_outline, size: 18),
+          label: Text('Casos especiais (${c.specialCases.length})'),
+        ),
       if (c.municipalStatus == LoadStatus.loading)
         const StatusMessage(
           message: 'Abrindo localidades eleitorais…',
@@ -846,10 +799,6 @@ class _ExplorerPageState extends State<ExplorerPage> {
           Text(
             '${c.activeCountries.length} países ou territórios com votação ${c.mode == ResultMode.comparison ? 'em pelo menos um dos turnos' : 'neste turno'}.',
           ),
-          if (c.unmappedLocalities.isNotEmpty)
-            Text(
-              'Cobertura por país parcial: ${c.municipalities.length - c.unmappedLocalities.length} de ${c.municipalities.length} localidades com país confirmado. O total exterior abaixo inclui todas as localidades.',
-            ),
           const SizedBox(height: 12),
           DropdownButtonFormField<String>(
             key: ValueKey('country-selector-${c.mode.name}'),
@@ -909,11 +858,13 @@ class _ExplorerPageState extends State<ExplorerPage> {
               ),
             ),
           ),
-        if (c.countryCode == null && c.unmappedLocalities.isNotEmpty)
+        if (c.countryCode == null && c.otherUnmappedLocalities.isNotEmpty)
           ExpansionTile(
-            title: Text('Sem país confirmado (${c.unmappedLocalities.length})'),
+            title: Text(
+              'Outras localidades sem país confirmado (${c.otherUnmappedLocalities.length})',
+            ),
             children: [
-              for (final loc in c.unmappedLocalities)
+              for (final loc in c.otherUnmappedLocalities)
                 ListTile(
                   title: Text(loc.municipality.name),
                   subtitle: Text(

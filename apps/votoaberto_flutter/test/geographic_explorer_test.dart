@@ -206,7 +206,10 @@ void main() {
         location: '/mundo/localidade/00001?modo=2',
       );
       expect(title(tester), 'São FICTÍCIO');
-      expect(find.textContaining('Sem país confirmado (1)'), findsOneWidget);
+      expect(
+        find.text('Outras localidades sem país confirmado (1)'),
+        findsOneWidget,
+      );
       expect(tester.widget<WorldMap>(find.byType(WorldMap)).selected, isNull);
       expect(tester.widget<WorldMap>(find.byType(WorldMap)).active, isEmpty);
     },
@@ -369,7 +372,10 @@ void main() {
       router(tester).go('/mundo/localidade/00002');
       await tester.pumpAndSettle();
       expect(title(tester), 'Vila FICTÍCIA');
-      expect(find.textContaining('Sem país confirmado (1)'), findsOneWidget);
+      expect(
+        find.text('Outras localidades sem país confirmado (1)'),
+        findsOneWidget,
+      );
     },
   );
 
