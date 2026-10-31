@@ -1,5 +1,33 @@
 # Coleta incremental de referências oficiais
 
+## Reavaliação M6.1, sem importação
+
+`rehash_local.py` lê cada ZIP uma vez para os dois algoritmos e escreve um relatório
+novo, sem rede/extração. `prepare_release.py` valida o banco existente, vincula as
+evidências, aplica a [política](../../docs/DATA_PROVENANCE_POLICY.md), compara os
+JSONs ao SQLite e cria somente uma nova release de metadados em outra saída.
+
+```powershell
+python tools/provenance/rehash_local.py --manifest data/processed/national-2026/releases/6305f74561d4687a23bd3054/manifest.json --references docs/WEB_DATA_SOURCE_EVIDENCE.json --report docs/WEB_DATA_CURRENT_HASHES.json
+python tools/provenance/prepare_release.py --national data/processed/national-2026/releases/6305f74561d4687a23bd3054 --embedded data/processed/embedded-presidential-2026/releases/e4e9c9cb5189ab5d4e124bfc --references docs/WEB_DATA_SOURCE_EVIDENCE.json --hashes docs/WEB_DATA_CURRENT_HASHES.json --testimony docs/WEB_DATA_ACQUISITION_TESTIMONY.json --output data/processed/embedded-public-2026
+```
+
+Esses destinos já existem após M6.1; não sobrescrevê-los nem repetir o hash dos
+ZIPs para apenas rever o candidato. Conferir o candidato existente com
+`validate_embedded`/`web_release.py preflight`. Uma nova execução deve usar destinos
+novos para preservar evidências. A instalação de metadados é explícita pelo
+`--install-to` ou API `install_metadata`: confere que todos os artefatos eleitorais
+instalados são idênticos e só substitui manifesto/adiciona o dossiê. Preserva
+`.gitkeep`, rejeita mistura e restaura metadados em falha, sem sobrescrever edição
+concorrente detectada. Não instala uma aprovação.
+
+O dossiê é autocontido: bytes dos manifestos/relatório de origem, fotografia M6,
+testemunho, recálculo e validação. Contém inventário técnico e caminhos históricos,
+sem ZIPs, SQLite ou dump de registros por seção. A revisão humana deve considerar
+esse conteúdo exato, cujo hash é vinculado à aprovação.
+
+## Coletor de metadados M6
+
 ```powershell
 python tools/provenance/review_sources.py --manifest data/processed/national-2026/releases/6305f74561d4687a23bd3054/manifest.json --report .local/m6/new-source-review.json --http-cache .local/m6/http
 ```

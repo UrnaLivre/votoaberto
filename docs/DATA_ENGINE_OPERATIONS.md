@@ -1,5 +1,12 @@
 # Operação do Data Engine e VotoAberto Auditor — M2 / M3.1
 
+> M6.1: a [política de proveniência documentada](DATA_PROVENANCE_POLICY.md) e os
+> [comandos de reavaliação](../tools/provenance/README.md) criam uma release
+> exclusivamente de metadados sem reimportar. `validate` conserva sua semântica
+> histórica e não regrava avaliações. O novo candidato é validado por
+> `validate_embedded`, incluindo seu dossiê; publicação ainda exige aprovação
+> explícita vinculada conforme [decisão proposta](WEB_DATA_APPROVAL_DECISION.md).
+
 Biblioteca Python 3.11+ e CLI Windows/Linux, independentes do Flutter. Runtime
 sem dependências externas: `csv`, `zipfile`, `hashlib` e SQLite. O mock M1 permanece
 intacto. Decisão: [ADR 0003](adr/0003-public-data-and-auditor.md). Evidências:

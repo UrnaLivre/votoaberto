@@ -1,5 +1,15 @@
 # Fontes, licenciamento e proveniência dos dados
 
+## Atualização M6.1
+
+A [política versionada de proveniência documentada](DATA_PROVENANCE_POLICY.md)
+define a via técnica para derivados presidenciais de fontes oficiais sem checksum
+publicado. Exige hashes locais atuais, linhagem, catálogo, aquisição documentada,
+âncoras com SHA-512 oficial e reconciliação completa. A aprovação humana permanece
+separada. O avaliador e as releases históricas conservam seus estados anteriores;
+novas avaliações recebem identidade própria de metadados. O restante deste
+documento preserva o contexto histórico das etapas anteriores.
+
 ## Fontes primárias
 
 - [Portal de Dados Abertos do TSE](https://dadosabertos.tse.jus.br/)
