@@ -1,0 +1,1894 @@
+{
+  "schema_version": 1,
+  "branch": "feat/m5-geographic-explorer",
+  "baseline_main": "a97d6e7",
+  "geography_manifest_sha256": "e7e5f78f267c2f29245a3df1ef13172dedffb9a4aee7be3c71316ae117143b6b",
+  "geography_assets": {
+    "municipal_locations.json": {
+      "bytes": 331831,
+      "sha256": "b71dc3461ac3292fff3ea997978889e96304ac5be882fb435b7c3bcddaebd011"
+    },
+    "overseas_correspondence.json": {
+      "bytes": 56691,
+      "sha256": "3b9924c27d4ae691d16f5e8f80d75363445bc5abac29e5621578a395dd404d5f"
+    },
+    "world.geojson": {
+      "bytes": 697008,
+      "sha256": "2bf9d5b50da3b76ca389f10fd96537affb82113375dfa26e0caff6741fe82103"
+    }
+  },
+  "geography_manifest_bytes": 1839,
+  "geography_total_bytes": 1087369,
+  "municipal_audit": {
+    "observed_identifiers": 5571,
+    "confirmed_points": 5571,
+    "missing": [],
+    "by_uf": {
+      "AC": 22,
+      "AL": 102,
+      "AM": 62,
+      "AP": 16,
+      "BA": 417,
+      "CE": 184,
+      "DF": 1,
+      "ES": 78,
+      "GO": 246,
+      "MA": 217,
+      "MG": 853,
+      "MS": 79,
+      "MT": 142,
+      "PA": 144,
+      "PB": 223,
+      "PE": 185,
+      "PI": 224,
+      "PR": 399,
+      "RJ": 92,
+      "RN": 167,
+      "RO": 52,
+      "RR": 15,
+      "RS": 497,
+      "SC": 295,
+      "SE": 75,
+      "SP": 645,
+      "TO": 139
+    },
+    "transformation": {
+      "accuracy_m": 1.0,
+      "operation": "axis order change (2D) + SIRGAS 2000 to WGS 84 (1) + axis order change (2D)"
+    }
+  },
+  "overseas_audit": {
+    "observed_localities": 145,
+    "mapped": 117,
+    "unmapped": [
+      {
+        "candidate_countries": [],
+        "country": null,
+        "evidence": [],
+        "evidence_columns": [
+          "iso",
+          "zone",
+          "section",
+          "page"
+        ],
+        "iso": null,
+        "name": "KATMANDU",
+        "origin": "tre_carga",
+        "status": "no_verified_section_join",
+        "tse": "29173"
+      },
+      {
+        "candidate_countries": [],
+        "country": null,
+        "evidence": [],
+        "evidence_columns": [
+          "iso",
+          "zone",
+          "section",
+          "page"
+        ],
+        "iso": null,
+        "name": "ABIDJÃ",
+        "origin": "tre_carga",
+        "status": "no_verified_section_join",
+        "tse": "29254"
+      },
+      {
+        "candidate_countries": [],
+        "country": null,
+        "evidence": [],
+        "evidence_columns": [
+          "iso",
+          "zone",
+          "section",
+          "page"
+        ],
+        "iso": null,
+        "name": "ACCRA",
+        "origin": "tre_carga",
+        "status": "no_verified_section_join",
+        "tse": "29270"
+      },
+      {
+        "candidate_countries": [],
+        "country": null,
+        "evidence": [],
+        "evidence_columns": [
+          "iso",
+          "zone",
+          "section",
+          "page"
+        ],
+        "iso": null,
+        "name": "ANCARA",
+        "origin": "tre_carga",
+        "status": "no_verified_section_join",
+        "tse": "29297"
+      },
+      {
+        "candidate_countries": [],
+        "country": null,
+        "evidence": [],
+        "evidence_columns": [
+          "iso",
+          "zone",
+          "section",
+          "page"
+        ],
+        "iso": null,
+        "name": "ARGEL",
+        "origin": "tre_carga",
+        "status": "no_verified_section_join",
+        "tse": "29300"
+      },
+      {
+        "candidate_countries": [],
+        "country": null,
+        "evidence": [],
+        "evidence_columns": [
+          "iso",
+          "zone",
+          "section",
+          "page"
+        ],
+        "iso": null,
+        "name": "BISSAU",
+        "origin": "tre_carga",
+        "status": "no_verified_section_join",
+        "tse": "29394"
+      },
+      {
+        "candidate_countries": [
+          "BE",
+          "LU"
+        ],
+        "country": null,
+        "evidence": [
+          [
+            "BE",
+            "1",
+            "1935",
+            4
+          ],
+          [
+            "BE",
+            "1",
+            "1936",
+            4
+          ],
+          [
+            "BE",
+            "1",
+            "1937",
+            4
+          ],
+          [
+            "BE",
+            "1",
+            "1938",
+            4
+          ],
+          [
+            "BE",
+            "1",
+            "1939",
+            4
+          ],
+          [
+            "BE",
+            "1",
+            "1940",
+            4
+          ],
+          [
+            "BE",
+            "1",
+            "3097",
+            4
+          ],
+          [
+            "BE",
+            "1",
+            "3212",
+            4
+          ],
+          [
+            "BE",
+            "1",
+            "3293",
+            4
+          ],
+          [
+            "BE",
+            "1",
+            "3356",
+            4
+          ],
+          [
+            "BE",
+            "1",
+            "3455",
+            4
+          ],
+          [
+            "BE",
+            "1",
+            "3681",
+            4
+          ],
+          [
+            "LU",
+            "1",
+            "1946",
+            22
+          ],
+          [
+            "LU",
+            "1",
+            "1947",
+            22
+          ]
+        ],
+        "evidence_columns": [
+          "iso",
+          "zone",
+          "section",
+          "page"
+        ],
+        "iso": null,
+        "name": "BRUXELAS",
+        "origin": "tre_carga",
+        "status": "conflicting_section_countries",
+        "tse": "29432"
+      },
+      {
+        "candidate_countries": [],
+        "country": null,
+        "evidence": [],
+        "evidence_columns": [
+          "iso",
+          "zone",
+          "section",
+          "page"
+        ],
+        "iso": null,
+        "name": "CONCEPCIÓN",
+        "origin": "tre_carga",
+        "status": "no_verified_section_join",
+        "tse": "29580"
+      },
+      {
+        "candidate_countries": [],
+        "country": null,
+        "evidence": [],
+        "evidence_columns": [
+          "iso",
+          "zone",
+          "section",
+          "page"
+        ],
+        "iso": null,
+        "name": "DÍLI",
+        "origin": "tre_carga",
+        "status": "no_verified_section_join",
+        "tse": "29645"
+      },
+      {
+        "candidate_countries": [],
+        "country": null,
+        "evidence": [],
+        "evidence_columns": [
+          "iso",
+          "zone",
+          "section",
+          "page"
+        ],
+        "iso": null,
+        "name": "HANÓI",
+        "origin": "tre_carga",
+        "status": "no_verified_section_join",
+        "tse": "29750"
+      },
+      {
+        "candidate_countries": [],
+        "country": null,
+        "evidence": [],
+        "evidence_columns": [
+          "iso",
+          "zone",
+          "section",
+          "page"
+        ],
+        "iso": null,
+        "name": "HAVANA",
+        "origin": "tre_carga",
+        "status": "no_verified_section_join",
+        "tse": "29777"
+      },
+      {
+        "candidate_countries": [],
+        "country": null,
+        "evidence": [],
+        "evidence_columns": [
+          "iso",
+          "zone",
+          "section",
+          "page"
+        ],
+        "iso": null,
+        "name": "KIEV",
+        "origin": "tre_carga",
+        "status": "no_verified_section_join",
+        "tse": "29858"
+      },
+      {
+        "candidate_countries": [],
+        "country": null,
+        "evidence": [],
+        "evidence_columns": [
+          "iso",
+          "zone",
+          "section",
+          "page"
+        ],
+        "iso": null,
+        "name": "LAGOS",
+        "origin": "tre_carga",
+        "status": "no_verified_section_join",
+        "tse": "29912"
+      },
+      {
+        "candidate_countries": [],
+        "country": null,
+        "evidence": [],
+        "evidence_columns": [
+          "iso",
+          "zone",
+          "section",
+          "page"
+        ],
+        "iso": null,
+        "name": "MUMBAI",
+        "origin": "tre_carga",
+        "status": "no_verified_section_join",
+        "tse": "30171"
+      },
+      {
+        "candidate_countries": [],
+        "country": null,
+        "evidence": [],
+        "evidence_columns": [
+          "iso",
+          "zone",
+          "section",
+          "page"
+        ],
+        "iso": null,
+        "name": "PASO LOS LIBRES",
+        "origin": "tre_carga",
+        "status": "no_verified_section_join",
+        "tse": "30295"
+      },
+      {
+        "candidate_countries": [],
+        "country": null,
+        "evidence": [],
+        "evidence_columns": [
+          "iso",
+          "zone",
+          "section",
+          "page"
+        ],
+        "iso": null,
+        "name": "PORT OF SPAIN",
+        "origin": "tre_carga",
+        "status": "no_verified_section_join",
+        "tse": "30325"
+      },
+      {
+        "candidate_countries": [],
+        "country": null,
+        "evidence": [],
+        "evidence_columns": [
+          "iso",
+          "zone",
+          "section",
+          "page"
+        ],
+        "iso": null,
+        "name": "PORTO PRÍNCIPE",
+        "origin": "tre_carga",
+        "status": "no_verified_section_join",
+        "tse": "30333"
+      },
+      {
+        "candidate_countries": [],
+        "country": null,
+        "evidence": [],
+        "evidence_columns": [
+          "iso",
+          "zone",
+          "section",
+          "page"
+        ],
+        "iso": null,
+        "name": "RIO BRANCO",
+        "origin": "tre_carga",
+        "status": "no_verified_section_join",
+        "tse": "30430"
+      },
+      {
+        "candidate_countries": [],
+        "country": null,
+        "evidence": [],
+        "evidence_columns": [
+          "iso",
+          "zone",
+          "section",
+          "page"
+        ],
+        "iso": null,
+        "name": "SÓFIA",
+        "origin": "tre_carga",
+        "status": "no_verified_section_join",
+        "tse": "30546"
+      },
+      {
+        "candidate_countries": [],
+        "country": null,
+        "evidence": [],
+        "evidence_columns": [
+          "iso",
+          "zone",
+          "section",
+          "page"
+        ],
+        "iso": null,
+        "name": "TEERÃ",
+        "origin": "tre_carga",
+        "status": "no_verified_section_join",
+        "tse": "30597"
+      },
+      {
+        "candidate_countries": [],
+        "country": null,
+        "evidence": [],
+        "evidence_columns": [
+          "iso",
+          "zone",
+          "section",
+          "page"
+        ],
+        "iso": null,
+        "name": "TRÍPOLI",
+        "origin": "tre_carga",
+        "status": "no_verified_section_join",
+        "tse": "30686"
+      },
+      {
+        "candidate_countries": [],
+        "country": null,
+        "evidence": [],
+        "evidence_columns": [
+          "iso",
+          "zone",
+          "section",
+          "page"
+        ],
+        "iso": null,
+        "name": "TUNIS",
+        "origin": "tre_carga",
+        "status": "no_verified_section_join",
+        "tse": "30708"
+      },
+      {
+        "candidate_countries": [],
+        "country": null,
+        "evidence": [],
+        "evidence_columns": [
+          "iso",
+          "zone",
+          "section",
+          "page"
+        ],
+        "iso": null,
+        "name": "WINDHOEK",
+        "origin": "tre_carga",
+        "status": "no_verified_section_join",
+        "tse": "30821"
+      },
+      {
+        "candidate_countries": [],
+        "country": null,
+        "evidence": [],
+        "evidence_columns": [
+          "iso",
+          "zone",
+          "section",
+          "page"
+        ],
+        "iso": null,
+        "name": "DAR ES SALAAM",
+        "origin": "tre_carga",
+        "status": "no_verified_section_join",
+        "tse": "38962"
+      },
+      {
+        "candidate_countries": [],
+        "country": null,
+        "evidence": [],
+        "evidence_columns": [
+          "iso",
+          "zone",
+          "section",
+          "page"
+        ],
+        "iso": null,
+        "name": "MASCATE",
+        "origin": "tre_carga",
+        "status": "no_verified_section_join",
+        "tse": "39102"
+      },
+      {
+        "candidate_countries": [],
+        "country": null,
+        "evidence": [],
+        "evidence_columns": [
+          "iso",
+          "zone",
+          "section",
+          "page"
+        ],
+        "iso": null,
+        "name": "PUERTO IGUAZÚ",
+        "origin": "tre_carga",
+        "status": "no_verified_section_join",
+        "tse": "99155"
+      },
+      {
+        "candidate_countries": [],
+        "country": null,
+        "evidence": [],
+        "evidence_columns": [
+          "iso",
+          "zone",
+          "section",
+          "page"
+        ],
+        "iso": null,
+        "name": "NASSAU",
+        "origin": "tre_carga",
+        "status": "no_verified_section_join",
+        "tse": "99180"
+      },
+      {
+        "candidate_countries": [],
+        "country": null,
+        "evidence": [],
+        "evidence_columns": [
+          "iso",
+          "zone",
+          "section",
+          "page"
+        ],
+        "iso": null,
+        "name": "BAREIN",
+        "origin": "tre_carga",
+        "status": "no_verified_section_join",
+        "tse": "99473"
+      }
+    ],
+    "countries_with_observed_votes": 80,
+    "country_localities": [
+      {
+        "iso": "AE",
+        "name": "Emirados Árabes Unidos",
+        "localities": [
+          "29262"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "AO",
+        "name": "Angola",
+        "localities": [
+          "29998"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "AR",
+        "name": "Argentina",
+        "localities": [
+          "29467",
+          "29602",
+          "39004"
+        ],
+        "locality_count_by_round": {
+          "1": 3,
+          "2": 3
+        }
+      },
+      {
+        "iso": "AT",
+        "name": "Áustria",
+        "localities": [
+          "30767"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "AU",
+        "name": "Austrália",
+        "localities": [
+          "29491",
+          "30562"
+        ],
+        "locality_count_by_round": {
+          "1": 2,
+          "2": 2
+        }
+      },
+      {
+        "iso": "BO",
+        "name": "Bolívia",
+        "localities": [
+          "29572",
+          "29904",
+          "30473"
+        ],
+        "locality_count_by_round": {
+          "1": 3,
+          "2": 3
+        }
+      },
+      {
+        "iso": "CA",
+        "name": "Canadá",
+        "localities": [
+          "30155",
+          "30252",
+          "30635",
+          "39063"
+        ],
+        "locality_count_by_round": {
+          "1": 4,
+          "2": 4
+        }
+      },
+      {
+        "iso": "CH",
+        "name": "Suíça",
+        "localities": [
+          "29700",
+          "30864"
+        ],
+        "locality_count_by_round": {
+          "1": 2,
+          "2": 2
+        }
+      },
+      {
+        "iso": "CL",
+        "name": "Chile",
+        "localities": [
+          "30481"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "CN",
+        "name": "China",
+        "localities": [
+          "30317",
+          "30651",
+          "30848"
+        ],
+        "locality_count_by_round": {
+          "1": 3,
+          "2": 3
+        }
+      },
+      {
+        "iso": "CO",
+        "name": "Colômbia",
+        "localities": [
+          "29408"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "CR",
+        "name": "Costa Rica",
+        "localities": [
+          "30511"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "CV",
+        "name": "Cabo Verde",
+        "localities": [
+          "30368"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "CY",
+        "name": "Chipre",
+        "localities": [
+          "39322"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "CZ",
+        "name": "Chéquia",
+        "localities": [
+          "30350"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "DE",
+        "name": "Alemanha",
+        "localities": [
+          "29386",
+          "29696",
+          "30180"
+        ],
+        "locality_count_by_round": {
+          "1": 3,
+          "2": 3
+        }
+      },
+      {
+        "iso": "DK",
+        "name": "Dinamarca",
+        "localities": [
+          "29599"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "DO",
+        "name": "República Dominicana",
+        "localities": [
+          "30490"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "EC",
+        "name": "Equador",
+        "localities": [
+          "30392"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "EE",
+        "name": "Estónia",
+        "localities": [
+          "99317"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "EG",
+        "name": "Egito",
+        "localities": [
+          "29483"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "ES",
+        "name": "Espanha",
+        "localities": [
+          "29351",
+          "30066"
+        ],
+        "locality_count_by_round": {
+          "1": 2,
+          "2": 2
+        }
+      },
+      {
+        "iso": "FI",
+        "name": "Finlândia",
+        "localities": [
+          "29785"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "FR",
+        "name": "França",
+        "localities": [
+          "30287",
+          "99511"
+        ],
+        "locality_count_by_round": {
+          "1": 2,
+          "2": 2
+        }
+      },
+      {
+        "iso": "GB",
+        "name": "Reino Unido",
+        "localities": [
+          "29971",
+          "99503"
+        ],
+        "locality_count_by_round": {
+          "1": 2,
+          "2": 2
+        }
+      },
+      {
+        "iso": "GF",
+        "name": "Guiana Francesa",
+        "localities": [
+          "29475"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "GR",
+        "name": "Grécia",
+        "localities": [
+          "29335"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "GT",
+        "name": "Guatemala",
+        "localities": [
+          "98000"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "GY",
+        "name": "Guiana",
+        "localities": [
+          "29718"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "HK",
+        "name": "Hong Kong",
+        "localities": [
+          "29793"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "HN",
+        "name": "Honduras",
+        "localities": [
+          "30600"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "HR",
+        "name": "Croácia",
+        "localities": [
+          "39020"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "HU",
+        "name": "Hungria",
+        "localities": [
+          "29459"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "ID",
+        "name": "Indonésia",
+        "localities": [
+          "29840"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "IE",
+        "name": "República da Irlanda",
+        "localities": [
+          "29661"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "IL",
+        "name": "Israel",
+        "localities": [
+          "30619"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "IN",
+        "name": "Índia",
+        "localities": [
+          "30210"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "IT",
+        "name": "Itália",
+        "localities": [
+          "30120",
+          "30449"
+        ],
+        "locality_count_by_round": {
+          "1": 2,
+          "2": 2
+        }
+      },
+      {
+        "iso": "JM",
+        "name": "Jamaica",
+        "localities": [
+          "99430"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "JO",
+        "name": "Jordânia",
+        "localities": [
+          "29289"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "JP",
+        "name": "Japão",
+        "localities": [
+          "29742",
+          "30198",
+          "30627"
+        ],
+        "locality_count_by_round": {
+          "1": 3,
+          "2": 3
+        }
+      },
+      {
+        "iso": "KE",
+        "name": "Quénia",
+        "localities": [
+          "30201"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "KR",
+        "name": "Coreia do Sul",
+        "localities": [
+          "30538"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "KW",
+        "name": "Kuwait",
+        "localities": [
+          "29882"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "LB",
+        "name": "Líbano",
+        "localities": [
+          "29360"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "MA",
+        "name": "Marrocos",
+        "localities": [
+          "30406"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "MX",
+        "name": "México",
+        "localities": [
+          "30104"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "MY",
+        "name": "Malásia",
+        "localities": [
+          "29890"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "MZ",
+        "name": "Moçambique",
+        "localities": [
+          "30090"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "NI",
+        "name": "Nicarágua",
+        "localities": [
+          "30074"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "NL",
+        "name": "Países Baixos",
+        "localities": [
+          "30457"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "NO",
+        "name": "Noruega",
+        "localities": [
+          "30244"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "NZ",
+        "name": "Nova Zelândia",
+        "localities": [
+          "30805"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "PA",
+        "name": "Panamá",
+        "localities": [
+          "30260"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "PE",
+        "name": "Peru",
+        "localities": [
+          "29947"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "PH",
+        "name": "Filipinas",
+        "localities": [
+          "30082"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "PL",
+        "name": "Polónia",
+        "localities": [
+          "30740"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "PS",
+        "name": "Palestina",
+        "localities": [
+          "30414"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "PT",
+        "name": "Portugal",
+        "localities": [
+          "29955",
+          "30341",
+          "30961"
+        ],
+        "locality_count_by_round": {
+          "1": 3,
+          "2": 3
+        }
+      },
+      {
+        "iso": "PY",
+        "name": "Paraguai",
+        "localities": [
+          "29327",
+          "29556",
+          "29670",
+          "30309",
+          "30465"
+        ],
+        "locality_count_by_round": {
+          "1": 5,
+          "2": 5
+        }
+      },
+      {
+        "iso": "QA",
+        "name": "Catar",
+        "localities": [
+          "29653"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "RO",
+        "name": "Roménia",
+        "localities": [
+          "29440"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "RS",
+        "name": "Sérvia",
+        "localities": [
+          "29378"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "RU",
+        "name": "Rússia",
+        "localities": [
+          "30163"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "SA",
+        "name": "Arábia Saudita",
+        "localities": [
+          "30422"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "SE",
+        "name": "Suécia",
+        "localities": [
+          "29688"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "SG",
+        "name": "Singapura",
+        "localities": [
+          "29548"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "SI",
+        "name": "Eslovénia",
+        "localities": [
+          "39160"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "SK",
+        "name": "Eslováquia",
+        "localities": [
+          "39209"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "SN",
+        "name": "Senegal",
+        "localities": [
+          "29610"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "SR",
+        "name": "Suriname",
+        "localities": [
+          "30279"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "SV",
+        "name": "El Salvador",
+        "localities": [
+          "30520"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "SY",
+        "name": "Síria",
+        "localities": [
+          "29637"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "TH",
+        "name": "Tailândia",
+        "localities": [
+          "29343"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "TR",
+        "name": "Turquia",
+        "localities": [
+          "39306"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "TW",
+        "name": "Taiwan",
+        "localities": [
+          "30570"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "US",
+        "name": "Estados Unidos",
+        "localities": [
+          "29416",
+          "29513",
+          "29807",
+          "29980",
+          "30112",
+          "30228",
+          "30503",
+          "30783",
+          "30902",
+          "39080",
+          "99490"
+        ],
+        "locality_count_by_round": {
+          "1": 11,
+          "2": 11
+        }
+      },
+      {
+        "iso": "UY",
+        "name": "Uruguai",
+        "localities": [
+          "29319",
+          "30147"
+        ],
+        "locality_count_by_round": {
+          "1": 2,
+          "2": 2
+        }
+      },
+      {
+        "iso": "VE",
+        "name": "Venezuela",
+        "localities": [
+          "29505"
+        ],
+        "locality_count_by_round": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "iso": "ZA",
+        "name": "África do Sul",
+        "localities": [
+          "29530",
+          "30376"
+        ],
+        "locality_count_by_round": {
+          "1": 2,
+          "2": 2
+        }
+      }
+    ],
+    "planned_primary_sections": 1282,
+    "observed_unique_sections": 1309,
+    "shared_sections": 1281,
+    "observed_not_in_plan": 28,
+    "planned_not_observed": [
+      "936"
+    ]
+  },
+  "country_export": {
+    "release_id": "f3116546104b1248b29011ba",
+    "manifest_sha256": "b601e60e5b2abd18858f4b5cf5876fdf1dd355d4a2e41ff0e4c7c35df7b0eae8",
+    "countries_sha256": "a2ff3b8f2d6ad31b21cb92a80c9334b7f01e288d8d4876a0e889865587d06f9d",
+    "coverage": "partial",
+    "reconciliation": {
+      "countries_plus_unmapped_equals_exterior": true,
+      "country_sum_equals_full_exterior": false,
+      "country_sum_equals_mapped_localities": true,
+      "exterior_rounds": [
+        {
+          "available_sections": {
+            "abstention": 1309,
+            "blank": 1192,
+            "counted": 1309,
+            "eligible": 1309,
+            "null": 1180,
+            "turnout": 1309,
+            "valid": 1309
+          },
+          "candidates": {
+            "6257:13": 157387,
+            "6257:14": 8580,
+            "6257:16": 373,
+            "6257:21": 421,
+            "6257:22": 143900,
+            "6257:27": 825,
+            "6257:28": 123,
+            "6257:29": 199,
+            "6257:30": 3329,
+            "6257:35": 373,
+            "6257:55": 4708,
+            "6257:70": 9734,
+            "6257:80": 1053
+          },
+          "election": "6257",
+          "round": 1,
+          "sections": 1309,
+          "totals": {
+            "abstention": 574273,
+            "blank": 5816,
+            "counted": 341766,
+            "eligible": 916039,
+            "null": 4945,
+            "turnout": 341766,
+            "valid": 331005
+          }
+        },
+        {
+          "available_sections": {
+            "abstention": 1308,
+            "blank": 1165,
+            "counted": 1308,
+            "eligible": 1308,
+            "null": 1194,
+            "turnout": 1308,
+            "valid": 1308
+          },
+          "candidates": {
+            "6258:13": 200154,
+            "6258:22": 171497
+          },
+          "election": "6258",
+          "round": 2,
+          "sections": 1308,
+          "totals": {
+            "abstention": 534715,
+            "blank": 4675,
+            "counted": 381443,
+            "eligible": 916158,
+            "null": 5117,
+            "turnout": 381443,
+            "valid": 371651
+          }
+        }
+      ],
+      "mapped_rounds": [
+        {
+          "available_sections": {
+            "abstention": 1268,
+            "blank": 1172,
+            "counted": 1268,
+            "eligible": 1268,
+            "null": 1162,
+            "turnout": 1268,
+            "valid": 1268
+          },
+          "candidates": {
+            "6257:13": 154529,
+            "6257:14": 8448,
+            "6257:16": 365,
+            "6257:21": 417,
+            "6257:22": 141656,
+            "6257:27": 812,
+            "6257:28": 123,
+            "6257:29": 194,
+            "6257:30": 3267,
+            "6257:35": 367,
+            "6257:55": 4601,
+            "6257:70": 9523,
+            "6257:80": 1040
+          },
+          "election": "6257",
+          "round": 1,
+          "sections": 1268,
+          "totals": {
+            "abstention": 568266,
+            "blank": 5745,
+            "counted": 335971,
+            "eligible": 904237,
+            "null": 4884,
+            "turnout": 335971,
+            "valid": 325342
+          }
+        },
+        {
+          "available_sections": {
+            "abstention": 1268,
+            "blank": 1144,
+            "counted": 1268,
+            "eligible": 1268,
+            "null": 1172,
+            "turnout": 1268,
+            "valid": 1268
+          },
+          "candidates": {
+            "6258:13": 196705,
+            "6258:22": 169023
+          },
+          "election": "6258",
+          "round": 2,
+          "sections": 1268,
+          "totals": {
+            "abstention": 529000,
+            "blank": 4612,
+            "counted": 375383,
+            "eligible": 904383,
+            "null": 5043,
+            "turnout": 375383,
+            "valid": 365728
+          }
+        }
+      ],
+      "status": "passed",
+      "unmapped_rounds": [
+        {
+          "available_sections": {
+            "abstention": 41,
+            "blank": 20,
+            "counted": 41,
+            "eligible": 41,
+            "null": 18,
+            "turnout": 41,
+            "valid": 41
+          },
+          "candidates": {
+            "6257:13": 2858,
+            "6257:14": 132,
+            "6257:16": 8,
+            "6257:21": 4,
+            "6257:22": 2244,
+            "6257:27": 13,
+            "6257:29": 5,
+            "6257:30": 62,
+            "6257:35": 6,
+            "6257:55": 107,
+            "6257:70": 211,
+            "6257:80": 13
+          },
+          "election": "6257",
+          "round": 1,
+          "sections": 41,
+          "totals": {
+            "abstention": 6007,
+            "blank": 71,
+            "counted": 5795,
+            "eligible": 11802,
+            "null": 61,
+            "turnout": 5795,
+            "valid": 5663
+          }
+        },
+        {
+          "available_sections": {
+            "abstention": 40,
+            "blank": 21,
+            "counted": 40,
+            "eligible": 40,
+            "null": 22,
+            "turnout": 40,
+            "valid": 40
+          },
+          "candidates": {
+            "6258:13": 3449,
+            "6258:22": 2474
+          },
+          "election": "6258",
+          "round": 2,
+          "sections": 40,
+          "totals": {
+            "abstention": 5715,
+            "blank": 63,
+            "counted": 6060,
+            "eligible": 11775,
+            "null": 74,
+            "turnout": 6060,
+            "valid": 5923
+          }
+        }
+      ]
+    }
+  },
+  "supplemental_sources": {
+    "tse-crosswalk.zip": {
+      "bytes": 139058,
+      "sha256": "b87931468a67b948c37605eac59372a2711462f6670731c659515d25a29f2ef0"
+    },
+    "tre-electronic.zip": {
+      "bytes": 18577,
+      "sha256": "984e8c6a357838d5e97c876927a7ccd4560670316890668aee1c3d43acae32ec"
+    },
+    "tre-manual.zip": {
+      "bytes": 9291,
+      "sha256": "d0f122a2fa5d33c2382e608ed7d4574a0a171f4b63b21c5534b606c08fad578b"
+    },
+    "tre-dispensadas.zip": {
+      "bytes": 13488,
+      "sha256": "316ffed65e8507404a021ae3396f51296f532d5b0dc4f355d1beeede45178163"
+    }
+  },
+  "commits": {
+    "geography": "4ef6018",
+    "explorer": "65f9f50"
+  },
+  "builds": {
+    "web": {
+      "bytes": 48976505,
+      "electoral_json_count": 32,
+      "electoral_bytes": 4475495,
+      "geo_bytes": 1087369,
+      "hashes_match": true,
+      "synthetic_electoral_assets": false
+    },
+    "windows": {
+      "bytes": 35207714,
+      "electoral_json_count": 32,
+      "electoral_bytes": 4475495,
+      "geo_bytes": 1087369,
+      "hashes_match": true,
+      "synthetic_electoral_assets": false
+    },
+    "apk": {
+      "bytes": 155955809,
+      "sha256": "e2a37d72f3741c9bbeff1b905f459d71f3e223b8e4ed0c3baf0bec6d2ceaa625",
+      "electoral_json_count": 32,
+      "electoral_bytes": 4475495,
+      "electoral_compressed_bytes": 1042490,
+      "geo_bytes": 1087369,
+      "geo_compressed_bytes": 421239,
+      "hashes_match": true,
+      "synthetic_electoral_assets": false
+    }
+  },
+  "build_seconds": {
+    "web_release": 106.5,
+    "windows_release": 92.5,
+    "apk_debug": 132.0,
+    "native_smoke_build": 56.1
+  },
+  "native_qa": {
+    "first_national_frame_ms": 1334.194,
+    "round_change_ms": 491.409,
+    "state_selection_ms": 962.202,
+    "municipal_search_ms": 399.457,
+    "municipal_selection_ms": 586.796,
+    "world_selection_ms": 440.796,
+    "country_selection_ms": 734.045,
+    "application_http_attempts": 0
+  },
+  "export_performance": {
+    "release_id": "f3116546104b1248b29011ba",
+    "seconds": 1.1044181999750435,
+    "peak_python_allocation_bytes": 19274785,
+    "retained_derivative_bytes": 67654,
+    "coverage": "partial",
+    "mapped_localities": 117
+  },
+  "tests": {
+    "ruff": "passed",
+    "dart_format": "passed",
+    "flutter_analyze": "no_issues",
+    "pytest": {
+      "passed": 146,
+      "skipped_official_opt_in": 2,
+      "seconds": 381.32
+    },
+    "flutter": {
+      "passed": 83,
+      "skipped_real_opt_in": 7,
+      "seconds": 21
+    },
+    "native_windows": {
+      "passed": 1,
+      "http_attempts": 0
+    },
+    "browser_viewports": [
+      [
+        1366,
+        768
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        768,
+        1024
+      ]
+    ]
+  },
+  "preservation": {
+    "installed_file_count": 134,
+    "installed_bytes": 2338608706,
+    "all_installed_bytes_identities_unchanged": true,
+    "original_and_backup_tse_files": 113,
+    "original_and_backup_tse_bytes": 5463547311,
+    "all_original_sha256_match_previous_inventory": true,
+    "sqlite_bytes": 935424000,
+    "sqlite_sha256": "c9eaefb7e02ab50d2922eb843715ea47346e9e60cf8d4f9c4a6f448c3b27fdc4",
+    "m4_package_bytes": 4475495,
+    "m4_manifest_sha256": "c4dcddacb8092ff1dfffb35b07b739dbf360232e701e080087f52a4a09e20637",
+    "receipts": {
+      "preservation-before.json": "d5d741706be509306f00ca86fa61f1b34d99d3c25b864691b4c5b2f9738e05cb",
+      "preservation-after.json": "b227b755d87ca76ead8339cf5c70c1bcf05c6de8b1b3a12b9cdf26e143a41ad5",
+      "originals-sha256-check.json": "7d05a77434311f2a83376426994b1683bec047d54a52fecebd435644ae76f6d5"
+    }
+  },
+  "geographic_package_load_diagnostic": {
+    "catalog_ms": 83.827,
+    "world_decode_ms": 71.149,
+    "mode": "Flutter test VM, filesystem AssetBundle; single observation"
+  },
+  "screenshots": {
+    "qa-desktop-country-results.png": {
+      "bytes": 84501,
+      "sha256": "f13dec515acd6363b0f02e21a058e9e32586ba4d32decde2057c7dd464c02c07"
+    },
+    "qa-desktop-country.png": {
+      "bytes": 85364,
+      "sha256": "94619c94b95c5fb0c237a3ffc4aa661675c874b659046cce4355fa7f22e9a118"
+    },
+    "qa-mobile-noronha.png": {
+      "bytes": 32840,
+      "sha256": "f23ae7f5201c3bcf1ac9d8cd9c75df0800a04c4861afc864a73535f1a0c2fbec"
+    },
+    "qa-mobile-world-dark.png": {
+      "bytes": 34318,
+      "sha256": "1ee9134abd3520dc517753240718149e71db6088278cff1d8aec083ab37b2aff"
+    },
+    "qa-tablet-df-dark.png": {
+      "bytes": 39202,
+      "sha256": "19214e351760a2518244fcff186b268cb4a861bb07acf5532c6a8cced02fe11c"
+    }
+  },
+  "qa_server_stopped": true
+}

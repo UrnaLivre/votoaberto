@@ -53,7 +53,8 @@ Map<ElectionRound, RoundResult> aggregateLocalities(
     ]) {
       available[key] = rows.fold(
         0,
-        (sum, r) => sum +
+        (sum, r) =>
+            sum +
             (r.totals.availableSections.isEmpty
                 ? r.totals.sections
                 : r.totals.availableSections[key] ?? 0),
