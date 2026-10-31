@@ -1,0 +1,19 @@
+{
+  "dataset_id": "e4e9c9cb5189ab5d4e124bfc",
+  "metadata_release_id": "cf1a3b405d96fb5dd676f025",
+  "manifest_sha256": "c1dd2ae876eecfd685d67bb5f53bb7efd223c8db5772a76a83b773b0da2a54e3",
+  "release_tag": "web-data-2026-v1",
+  "provenance_approval": {
+    "approved": true,
+    "policy_id": "tse-presidential-documented-provenance-1",
+    "review_sha256": "2b1fadbd610cbe5bbb3be6084519f80a25fc8fd40c8b853c87b27f0652a07a53",
+    "reviewed_by": "pedromartinscs (operador Urna Livre)",
+    "reviewed_on": "2026-10-31"
+  },
+  "redistribution_review": {
+    "approved": true,
+    "source_terms_url": "https://dadosabertos.tse.jus.br/dataset/resultados-2026",
+    "reviewed_by": "pedromartinscs (operador Urna Livre)",
+    "reviewed_on": "2026-10-31"
+  }
+}

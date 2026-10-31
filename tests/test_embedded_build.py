@@ -44,11 +44,15 @@ def test_only_selected_assets_and_restore_after_build(
     install_assets(embedded, app / "assets/data/synthetic")
     original = b"flutter:\r\n  assets:\r\n    # BEGIN EMBEDDED ASSETS\r\n    - assets/data/real/\r\n    # END EMBEDDED ASSETS\r\n"
     (app / "pubspec.yaml").write_bytes(original)
+    stale = app / "build/web/assets/assets/data/real/leftover.json"
+    stale.parent.mkdir(parents=True)
+    stale.write_text("previous build only", encoding="utf8")
     monkeypatch.setattr(module, "APP", app)
     resolved = tmp_path / "Flutter SDK with spaces" / "flutter.bat"
     monkeypatch.setattr(module.shutil, "which", lambda name: str(resolved))
 
     def build(command, cwd, env, shell):
+        assert not stale.exists(), "A Web build must not leak another mode's assets"
         selected = (app / "pubspec.yaml").read_text(encoding="utf8")
         assert "assets/data/synthetic/municipalities/" in selected
         assert "assets/data/real/" not in selected

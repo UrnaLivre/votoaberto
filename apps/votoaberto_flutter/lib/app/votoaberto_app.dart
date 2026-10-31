@@ -1,7 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 import '../core/widgets.dart';
+import '../core/institutional_link.dart';
 import '../features/elections/domain/election.dart';
 import '../features/elections/domain/election_repository.dart';
 import '../features/elections/domain/geography.dart';
@@ -132,6 +134,7 @@ class _VotoAbertoAppState extends State<VotoAbertoApp> {
   );
 
   Widget _unavailable(BuildContext context) => Scaffold(
+    bottomNavigationBar: kIsWeb ? const InstitutionalLink() : null,
     body: SafeArea(
       child: Column(
         children: [

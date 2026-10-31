@@ -1,9 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../app/strings.dart';
 import '../../../core/formatters.dart';
+import '../../../core/institutional_link.dart';
 import '../../../core/widgets.dart';
 import '../../elections/domain/election.dart';
 import '../../elections/domain/geography.dart';
@@ -204,6 +206,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
         if (!didPop) _back();
       },
       child: Scaffold(
+        bottomNavigationBar: kIsWeb ? const InstitutionalLink() : null,
         body: SafeArea(
           child: Column(
             children: [

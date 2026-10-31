@@ -159,12 +159,27 @@ def validate_embedded(directory, db=None, *, allow_pending=False):
     if manifest.get("validation") != "passed" and not allow_pending:
         raise ImportFailure("Dataset ainda não validado")
     dataset_id = manifest["dataset_id"]
+    assessment = manifest.get("source_assessment", {})
+    new_policy = (
+        assessment.get("source_hashes", {}).get("status")
+        == "current_local_integrity_and_available_official_references_matched"
+    )
+    if (
+        "metadata_release_id" in manifest
+        or "provenance_review" in manifest
+        or "provenance" in assessment
+        or new_policy
+    ):
+        if "metadata_release_id" not in manifest or "provenance_review" not in manifest:
+            raise ImportFailure("Proveniência: release de metadados sem dossiê/identidade completa")
     uf_codes = manifest["territories"]
     if not uf_codes or uf_codes != sorted(set(uf_codes)) or not set(uf_codes) <= TERRITORIES:
         raise ImportFailure("Abrangências JSON inválidas")
     expected = {"national.json", "states.json", "validation.json"} | {
         f"municipalities/{uf}.json" for uf in uf_codes
     }
+    if "provenance_review" in manifest:
+        expected.add("provenance.json")
     if set(manifest["artifacts"]) != expected:
         raise ImportFailure("Lista de artefatos incompleta")
     for name, info in manifest["artifacts"].items():
@@ -174,6 +189,10 @@ def validate_embedded(directory, db=None, *, allow_pending=False):
             or (directory / name).stat().st_size != info["bytes"]
         ):
             raise ImportFailure("Hash/tamanho JSON divergente: " + name)
+    if "provenance_review" in manifest:
+        from .provenance import validate_metadata_release
+
+        validate_metadata_release(directory, manifest)
 
     def load(name):
         data = json.loads((directory / name).read_text(encoding="utf8"))

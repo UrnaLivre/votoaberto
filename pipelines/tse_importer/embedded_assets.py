@@ -102,7 +102,7 @@ def build_metadata(asset_root, nature):
             )
     import hashlib
 
-    return {
+    result = {
         "dataset_id": manifest["dataset_id"],
         "manifest_sha256": hashlib.sha256((asset_root / "manifest.json").read_bytes()).hexdigest(),
         "public_readiness": manifest["public_readiness"],
@@ -111,3 +111,6 @@ def build_metadata(asset_root, nature):
         ),
         "schema_version": manifest["schema_version"],
     }
+    if "metadata_release_id" in manifest:
+        result["metadata_release_id"] = manifest["metadata_release_id"]
+    return result

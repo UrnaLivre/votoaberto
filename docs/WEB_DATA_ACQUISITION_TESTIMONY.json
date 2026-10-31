@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "recorded_on": "2026-10-31",
+  "declared_by": "operador, mensagem do usuário na missão M6.1",
+  "statement": "O operador confirma que os arquivos originais foram obtidos diretamente dos recursos oficiais do TSE.",
+  "basis": "operator_testimony_from_user_message",
+  "origin_release_id": "6305f74561d4687a23bd3054",
+  "origin_manifest_sha256": "cb7f7757501913f319605b65c58d1d00784cd319228db05223e85b0d27b338fa",
+  "source_count": 57,
+  "scope": "todos os ZIPs originais da release nacional identificada",
+  "rr_catalog_anomaly_observed_at_download": true,
+  "is_digital_signature": false,
+  "is_independent_cryptographic_proof": false,
+  "is_publication_approval": false,
+  "is_redistribution_approval": false,
+  "limitation": "Testemunho retrospectivo do operador; não substitui um transcript contemporâneo de download HTTPS nem autenticação criptográfica independente."
+}

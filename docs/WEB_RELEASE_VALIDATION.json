@@ -1,0 +1,176 @@
+{
+  "date": "2026-10-31",
+  "branch": "feat/web-production-cloudflare",
+  "base_commit": "b8fb6f7",
+  "classification": "BLOCKED",
+  "data_unchanged": true,
+  "preserved_source_files": 74,
+  "dataset_id": "e4e9c9cb5189ab5d4e124bfc",
+  "manifest_sha256": "c4dcddacb8092ff1dfffb35b07b739dbf360232e701e080087f52a4a09e20637",
+  "declared_elections": [
+    {
+      "year": 2026,
+      "round": 1,
+      "office": "president"
+    },
+    {
+      "year": 2026,
+      "round": 2,
+      "office": "president"
+    }
+  ],
+  "public_readiness": "not_ready",
+  "data_blockers": [
+    "source_hashes_reused_from_local_cache",
+    "operator_trusted_hashes_incomplete"
+  ],
+  "redistribution_approval": false,
+  "real_data_files": 32,
+  "real_data_bytes": 4475495,
+  "web_artifact": {
+    "file_count": 82,
+    "total_bytes": 49065783,
+    "largest_files": [
+      {
+        "path": "canvaskit/canvaskit.wasm",
+        "bytes": 7284602
+      },
+      {
+        "path": "canvaskit/chromium/canvaskit.wasm",
+        "bytes": 5428806
+      },
+      {
+        "path": "canvaskit/skwasm_heavy.wasm",
+        "bytes": 5216217
+      },
+      {
+        "path": "canvaskit/webparagraph/canvaskit.wasm",
+        "bytes": 3729129
+      },
+      {
+        "path": "canvaskit/skwasm.wasm",
+        "bytes": 3593715
+      },
+      {
+        "path": "canvaskit/wimp.wasm",
+        "bytes": 3581677
+      },
+      {
+        "path": "main.dart.js",
+        "bytes": 3269288
+      },
+      {
+        "path": "canvaskit/wimp.js.symbols",
+        "bytes": 1813030
+      },
+      {
+        "path": "canvaskit/skwasm_heavy.js.symbols",
+        "bytes": 1672152
+      },
+      {
+        "path": "canvaskit/skwasm.js.symbols",
+        "bytes": 1540006
+      }
+    ],
+    "duplicate_groups": [
+      [
+        "icons/Icon-192.png",
+        "icons/Icon-maskable-192.png"
+      ],
+      [
+        "icons/Icon-512.png",
+        "icons/Icon-maskable-512.png"
+      ],
+      [
+        "assets/assets/fonts/roboto-regular.ttf",
+        "assets/fonts/fallback/Roboto-Regular.ttf"
+      ]
+    ],
+    "cloudflare_free_limits": {
+      "files": 20000,
+      "individual_bytes": 26214400,
+      "passed": true
+    },
+    "wrangler_scan_entries": 99,
+    "directories": 17
+  },
+  "flutter": {
+    "version": "3.47.8",
+    "dart": "3.13.7",
+    "format_passed": true,
+    "analyze_issues": 0,
+    "tests_passed": 155,
+    "tests_skipped": 7,
+    "real_smoke_passed": 7,
+    "web_release_passed": true,
+    "web_final_rebuild_seconds": 13.1
+  },
+  "python": {
+    "full_passed": 181,
+    "full_skipped": 2,
+    "final_release_gate_tests_passed": 15,
+    "note": "Full suite: 181 passed/2 skipped before adding the roundtrip test; final 37 wrapper and gate tests passed after the packaging fix.",
+    "final_wrapper_and_gate_tests_passed": 37
+  },
+  "browser_real": {
+    "node": "22.23.4",
+    "passed": 8,
+    "failed": 0,
+    "viewports": [
+      [
+        1366,
+        900
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        844,
+        390
+      ],
+      [
+        800,
+        600
+      ]
+    ],
+    "legacy_worker_cleanup": true,
+    "visual_viewport_zoom": 2,
+    "native_browser_zoom": "pending manual check"
+  },
+  "android": {
+    "apk_bytes": 155990073,
+    "apk_sha256": "2566ad57c68380a005f1c602ae6dbd1f4bba07442442fd3b9dca71e59b390b93",
+    "verified_jsons": 37,
+    "synthetic_files": 0
+  },
+  "wrangler": "4.156.0",
+  "actionlint": "1.7.12",
+  "remote_deploy": false,
+  "dns_modified": false,
+  "push": false,
+  "pending": [
+    "Independent source verification and redistribution review",
+    "Approved data bundle for clean CI",
+    "Authenticated production deploy and rollback",
+    "Cloudflare Git integration inspection",
+    "DNS/SSL checks",
+    "Safari/Firefox, screen reader and native browser zoom checks"
+  ],
+  "browser_fixture": {
+    "passed": 7,
+    "skipped": 1,
+    "failed": 0,
+    "reason_for_skip": "Overseas special-case assertions require the real dataset."
+  },
+  "reproducibility": {
+    "compared_files": 82,
+    "identical_rebuild": true,
+    "changed_files": []
+  },
+  "wrangler_dry_run_passed": true,
+  "implementation_commits": [
+    "7621f15",
+    "0f673cf"
+  ]
+}

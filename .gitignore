@@ -45,6 +45,10 @@ dist/
 .pub/
 build/
 coverage/
+node_modules/
+.wrangler/
+playwright-report/
+test-results/
 **/flutter_*.png
 **/linked_*.ds
 **/generated_plugin_registrant.dart

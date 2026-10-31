@@ -1,5 +1,9 @@
 # VotoAberto
 
+Preparação Web/Cloudflare: [guia de publicação](docs/WEB_DEPLOYMENT.md) e
+[relatório de validação](docs/WEB_RELEASE_REPORT.md). A infraestrutura exige dados
+e redistribuição aprovados; a base local atual permanece `not_ready` e não foi publicada.
+
 **Explore, compare e confira os resultados eleitorais brasileiros.**
 
 [English summary](#english-summary) · [Visão do projeto](docs/VISION.md) · [Arquitetura proposta](docs/ARCHITECTURE.md) · [Arquitetura de dados](docs/DATA_ARCHITECTURE.md) · [Dados e proveniência](docs/DATA_POLICY.md) · [Roadmap](docs/ROADMAP.md) · [Como contribuir](CONTRIBUTING.md)

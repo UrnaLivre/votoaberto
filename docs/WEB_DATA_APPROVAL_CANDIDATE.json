@@ -1,0 +1,39 @@
+{
+  "classification": "READY_FOR_DATA_APPROVAL",
+  "technical_eligibility": true,
+  "operator_approval_recorded": false,
+  "prepared_at": "2026-10-31T21:58:10.187842+00:00",
+  "approval_payload": {
+    "dataset_id": "e4e9c9cb5189ab5d4e124bfc",
+    "metadata_release_id": "cf1a3b405d96fb5dd676f025",
+    "manifest_sha256": "c1dd2ae876eecfd685d67bb5f53bb7efd223c8db5772a76a83b773b0da2a54e3",
+    "release_tag": "web-data-2026-v1",
+    "provenance_approval": {
+      "approved": false,
+      "policy_id": "tse-presidential-documented-provenance-1",
+      "review_sha256": "2b1fadbd610cbe5bbb3be6084519f80a25fc8fd40c8b853c87b27f0652a07a53",
+      "reviewed_by": "",
+      "reviewed_on": ""
+    },
+    "redistribution_review": {
+      "approved": false,
+      "source_terms_url": "https://dadosabertos.tse.jus.br/dataset/resultados-2026",
+      "reviewed_by": "",
+      "reviewed_on": ""
+    }
+  },
+  "source_release_id": "6305f74561d4687a23bd3054",
+  "origin_embedded_manifest_sha256": "c4dcddacb8092ff1dfffb35b07b739dbf360232e701e080087f52a4a09e20637",
+  "candidate_path": "data/processed/embedded-public-2026/releases/cf1a3b405d96fb5dd676f025",
+  "json_file_count": 33,
+  "total_json_bytes": 5699127,
+  "pending_decisions": [
+    "56 official BWEB references",
+    "documented provenance policy for checksumless section source",
+    "confidence in explicit operator acquisition testimony",
+    "scope and methodological limitations",
+    "redistribution and attribution TSE/IBGE/Natural Earth/TRE-DF"
+  ],
+  "release_tag_status": "proposal only; no tag created",
+  "review_document": "docs/WEB_DATA_APPROVAL_DECISION.md"
+}
