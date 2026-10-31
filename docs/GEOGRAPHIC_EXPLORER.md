@@ -1,5 +1,15 @@
 # Explorador geográfico M5
 
+Atualização M5.2 (31/10/2026): **143/145 localidades, 100 países/territórios**,
+pacote `geography-2026-2`, correspondência v2. O cadastro TSE de locais de votação
+de 2026 confirma 26 associações adicionais por código/zona/seção/local/turno,
+com literais de país revisados individualmente. Bruxelas e Trípoli permanecem
+no residual. Fontes, critérios, conflitos e reprodução em
+[M5.2 — investigação ZZ](M5_2_ZZ_COUNTRY_INVESTIGATION.md) e
+[vetores de reconciliação](M5_2_VALIDATION_SUMMARY.json).
+As contagens e a descrição do edital nas seções históricas abaixo documentam
+o ponto de partida M5; os JSONs eleitorais M4 e a cartografia foram preservados.
+
 O app continua offline, sem API/backend, tiles, SQLite embarcado ou pacote novo de
 mapas. Resumo e Comparar usam os mesmos componentes em Brasil, UF, município,
 Mundo, país/território e localidade eleitoral. O total Brasil continua incluindo
@@ -96,7 +106,7 @@ Há 1.309 seções distintas observadas na união dos turnos, 1.281 compartilhad
 intercambiáveis: o edital trata de planejamento/carga eletrônica do primeiro
 turno, enquanto o M4 contém registros efetivamente observados, inclusive manuais.
 
-Resultado conservador: **117/145 localidades associadas a 80 países/territórios**.
+Resultado histórico M5: **117/145 localidades associadas a 80 países/territórios**.
 Há 27 sem junção verificável e uma contraditória: código `29432`, BRUXELAS.
 Seções 1935–1940, 3097, 3212, 3293, 3356, 3455 e 3681 apontam para BE na página 4;
 1946 e 1947 apontam para LU na página 22, embora pertençam ao mesmo código nos
@@ -147,18 +157,28 @@ candidatos. Países sem segundo turno não ganham uma linha artificial. Não sã
 exportados percentuais. A UI suprime percentuais de países enquanto existirem
 lacunas globais de correspondência e também respeita campos eleitorais parciais.
 
+O contrato v2 acrescenta `verified_official_section_register`, com fonte oficial,
+hash do ZIP e do CSV, versão e referência de registro para cada turno observado.
+O cliente e o exportador recusam país por nome, evidências conflitantes,
+identificadores repetidos e cobertura de seções/turnos incompatível. `NM_BAIRRO`
+não é um código de país: somente literais revisados e corroborados podem ser
+usados. As evidências originais `verified_section_join` continuam compatíveis.
+O exportador atual usa regras `country-2`, fixa o hash das regras e propaga
+integralmente `public_readiness` do M4. O derivado histórico `country-1` permanece
+intacto em seu diretório original.
+
 ```powershell
 $env:PYTHONPATH = 'pipelines'
 python -m tse_importer.country_exporter `
   --source apps/votoaberto_flutter/assets/data/real `
   --correspondence apps/votoaberto_flutter/assets/geo/overseas_correspondence.json `
-  --output .local/m5/country-export
+  --output .local/m5_2/country-export-repro
 ```
 
 Isso cria um derivado separado `releases/<id>/countries.json` + manifesto. O ID
 depende da versão M4, hash do manifesto, hash da correspondência e regras
-`country-1`. Repetir entradas reproduz bytes; divergência numa versão existente
-é recusada. Não altera release, instalador ou ponteiro M4. A reconciliação exige
+`country-2` e hash das regras. Repetir entradas reproduz bytes; divergência numa
+versão existente é recusada. Não altera release, instalador ou ponteiro M4. A reconciliação exige
 igualdade integral de candidatos, categorias, seções e disponibilidade:
 países = localidades mapeadas; países + residual não mapeado = exterior M4.
 Uma partição parcial nunca é rotulada como total completo.
