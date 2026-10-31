@@ -1,0 +1,544 @@
+{
+  "schema_version": 1,
+  "source": {
+    "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/eleitorado_locais_votacao/eleitorado_local_votacao_2026.zip",
+    "catalog_url": "https://dadosabertos.tse.jus.br/dataset/eleitorado-2026/resource/300626b4-2b24-4d2e-b4fc-46b569cfffe5",
+    "sha256": "771ecfe5086b65c38943df9f694831dc5b94e0addd563517cd139fbd97642981",
+    "member": "eleitorado_local_votacao_2026_ZZ.csv",
+    "member_sha256": "9871aeca7234d11b15c2159aa93f06e2c6b736965d24ee7633c2658183decb34",
+    "version": "25/10/2026 15:27:44",
+    "last_modified": "2026-10-25T18:32:19Z",
+    "consulted_at": "2026-10-31",
+    "election_year": 2026,
+    "license": "Creative Commons Attribution (TSE catalog; version unspecified)",
+    "identification": "CD_MUNICIPIO + NR_ZONA + NR_SECAO + NR_TURNO + NR_LOCAL_VOTACAO, matched to read-only SQLite; manually reviewed country literals",
+    "reviewed_country_literals": {
+      "BE": [
+        "BÉLGICA"
+      ],
+      "LU": [
+        "LUXEMBURGO"
+      ],
+      "LY": [
+        "LÍBIA"
+      ],
+      "NP": [
+        "NEPAL"
+      ],
+      "CI": [
+        "COSTA DO MARFIM"
+      ],
+      "GH": [
+        "GANA"
+      ],
+      "TR": [
+        "TURQUIA"
+      ],
+      "DZ": [
+        "ARGÉLIA"
+      ],
+      "GW": [
+        "GUINÉ BISSAU"
+      ],
+      "PY": [
+        "PARAGUAI"
+      ],
+      "TL": [
+        "TIMOR LESTE"
+      ],
+      "VN": [
+        "VIETNAM"
+      ],
+      "CU": [
+        "CUBA"
+      ],
+      "UA": [
+        "UCRÂNIA"
+      ],
+      "NG": [
+        "NIGÉRIA"
+      ],
+      "IN": [
+        "INDIA"
+      ],
+      "AR": [
+        "ARGENTINA"
+      ],
+      "TT": [
+        "TRINIDAD TOBAGO"
+      ],
+      "HT": [
+        "HAITI"
+      ],
+      "UY": [
+        "URUGUAI"
+      ],
+      "BG": [
+        "BULGÁRIA"
+      ],
+      "IR": [
+        "IRÃ"
+      ],
+      "TN": [
+        "TUNÍSIA"
+      ],
+      "NA": [
+        "NAMÍBIA"
+      ],
+      "TZ": [
+        "TANZÂNIA"
+      ],
+      "OM": [
+        "OMÃ"
+      ],
+      "BS": [
+        "BAHAMAS"
+      ],
+      "BH": [
+        "BAHRAIN"
+      ]
+    },
+    "limitation": "Register of electoral locations, not proof of physical attendance, residence, or a replacement for results; NM_BAIRRO is not a standardized country field."
+  },
+  "corroborating_manual_source": {
+    "url": "https://www.tre-df.jus.br/eleicoes/arquivos-eleicoes-2026/secoes_eleitorais___exterior___votacao_manual/@@download/file",
+    "sha256": "d0f122a2fa5d33c2382e608ed7d4574a0a171f4b63b21c5534b606c08fad578b",
+    "member": "Secoes_Eleitorais___Exterior___Votacao_Manual.xlsx",
+    "sheet": "Votação Manual",
+    "limitation": "Names/countries/counts only: never sufficient alone for identity matching."
+  },
+  "decisions": [
+    {
+      "tse": "29173",
+      "name": "KATMANDU",
+      "status": "verified",
+      "iso": "NP",
+      "country": "Nepal",
+      "country_field": "DS_ENDERECO",
+      "country_literal": "NEPAL",
+      "reviewed_fields": {
+        "NM_LOCAL_VOTACAO": "EMBAIXADA DO BRASIL EM KATMANDU",
+        "DS_ENDERECO": "CHUNDEVI MARG, HOUSE NO. 155, MAHARAJGUNJ, KATMANDU, NEPAL",
+        "NM_BAIRRO": "KATMANDU"
+      },
+      "manual_sheet_row": 27,
+      "rationale": "Identidade exata de código TSE, zona, seção, local e turno; literal de país revisado no cadastro, corroborado pela planilha manual. NM_BAIRRO não é interpretado genericamente como país."
+    },
+    {
+      "tse": "29254",
+      "name": "ABIDJÃ",
+      "status": "verified",
+      "iso": "CI",
+      "country": "Costa do Marfim",
+      "country_field": "NM_BAIRRO",
+      "country_literal": "COSTA DO MARFIM",
+      "reviewed_fields": {
+        "NM_LOCAL_VOTACAO": "CHANCELARIA DA EMBAIXADA DO BRASIL EM ABIDJÃ",
+        "DS_ENDERECO": "COCODY AMBASSADE VAL DOYEN II, 6 RUE SERPENTE",
+        "NM_BAIRRO": "COSTA DO MARFIM"
+      },
+      "manual_sheet_row": 5,
+      "rationale": "Identidade exata de código TSE, zona, seção, local e turno; literal de país revisado no cadastro, corroborado pela planilha manual. NM_BAIRRO não é interpretado genericamente como país."
+    },
+    {
+      "tse": "29270",
+      "name": "ACCRA",
+      "status": "verified",
+      "iso": "GH",
+      "country": "Gana",
+      "country_field": "NM_BAIRRO",
+      "country_literal": "GANA",
+      "reviewed_fields": {
+        "NM_LOCAL_VOTACAO": "EMBAIXADA DO BRASIL EM ACRA",
+        "DS_ENDERECO": "TEMPLESI LANE 1, AIRPORT RESIDENTIAL AREA, ACRA, GANA",
+        "NM_BAIRRO": "GANA"
+      },
+      "manual_sheet_row": 23,
+      "rationale": "Identidade exata de código TSE, zona, seção, local e turno; literal de país revisado no cadastro, corroborado pela planilha manual. NM_BAIRRO não é interpretado genericamente como país."
+    },
+    {
+      "tse": "29297",
+      "name": "ANCARA",
+      "status": "verified",
+      "iso": "TR",
+      "country": "Turquia",
+      "country_field": "NM_BAIRRO",
+      "country_literal": "TURQUIA",
+      "reviewed_fields": {
+        "NM_LOCAL_VOTACAO": "EMBAIXADA DO BRASIL EM ANCARA",
+        "DS_ENDERECO": "RESID GALIP CAD NO 69/A - GOP -  06700 - ANKARA - TÜRKIYE",
+        "NM_BAIRRO": "TURQUIA"
+      },
+      "manual_sheet_row": 12,
+      "rationale": "Identidade exata de código TSE, zona, seção, local e turno; literal de país revisado no cadastro, corroborado pela planilha manual. NM_BAIRRO não é interpretado genericamente como país."
+    },
+    {
+      "tse": "29300",
+      "name": "ARGEL",
+      "status": "verified",
+      "iso": "DZ",
+      "country": "Argélia",
+      "country_field": "NM_BAIRRO",
+      "country_literal": "ARGÉLIA",
+      "reviewed_fields": {
+        "NM_LOCAL_VOTACAO": "EMBAIXADA DO BRASIL EM ARGEL",
+        "DS_ENDERECO": "55, BIS CHEMIN CHEIKH BACHIR EL IBRAHIMI, EL BIAR, ARGEL, ARGÉLIA",
+        "NM_BAIRRO": "ARGÉLIA"
+      },
+      "manual_sheet_row": 20,
+      "rationale": "Identidade exata de código TSE, zona, seção, local e turno; literal de país revisado no cadastro, corroborado pela planilha manual. NM_BAIRRO não é interpretado genericamente como país."
+    },
+    {
+      "tse": "29394",
+      "name": "BISSAU",
+      "status": "verified",
+      "iso": "GW",
+      "country": "Guiné-Bissau",
+      "country_field": "NM_BAIRRO",
+      "country_literal": "GUINÉ BISSAU",
+      "reviewed_fields": {
+        "NM_LOCAL_VOTACAO": "EMBAIXADA DO BRASIL EM BISSAU",
+        "DS_ENDERECO": "RUA SÃO TOMÉ, S.N., CP 29",
+        "NM_BAIRRO": "GUINÉ BISSAU"
+      },
+      "manual_sheet_row": 7,
+      "rationale": "Identidade exata de código TSE, zona, seção, local e turno; literal de país revisado no cadastro, corroborado pela planilha manual. NM_BAIRRO não é interpretado genericamente como país."
+    },
+    {
+      "tse": "29432",
+      "name": "BRUXELAS",
+      "status": "conflicting",
+      "iso": null,
+      "rationale": "Seções principais nos dois países BE/LU; agregado M4 não pode ser repartido.",
+      "manual_sheet_row": null
+    },
+    {
+      "tse": "29580",
+      "name": "CONCEPCIÓN",
+      "status": "verified",
+      "iso": "PY",
+      "country": "Paraguai",
+      "country_field": "NM_BAIRRO",
+      "country_literal": "PARAGUAI",
+      "reviewed_fields": {
+        "NM_LOCAL_VOTACAO": "VICE-CONSULADO DO BRASIL EM EM CONCEPCIÓN",
+        "DS_ENDERECO": "AV PRES. FRANCO,972",
+        "NM_BAIRRO": "PARAGUAI"
+      },
+      "manual_sheet_row": 11,
+      "rationale": "Identidade exata de código TSE, zona, seção, local e turno; literal de país revisado no cadastro, corroborado pela planilha manual. NM_BAIRRO não é interpretado genericamente como país."
+    },
+    {
+      "tse": "29645",
+      "name": "DÍLI",
+      "status": "verified",
+      "iso": "TL",
+      "country": "Timor-Leste",
+      "country_field": "NM_BAIRRO",
+      "country_literal": "TIMOR LESTE",
+      "reviewed_fields": {
+        "NM_LOCAL_VOTACAO": "EMBAIXADA DO BRASIL EM DÍLI",
+        "DS_ENDERECO": "RUA KARKETU MOTA-AIN N. 7,  BAIRRO FAROL, 157, TIMOR-LESTE",
+        "NM_BAIRRO": "TIMOR LESTE"
+      },
+      "manual_sheet_row": 6,
+      "rationale": "Identidade exata de código TSE, zona, seção, local e turno; literal de país revisado no cadastro, corroborado pela planilha manual. NM_BAIRRO não é interpretado genericamente como país."
+    },
+    {
+      "tse": "29750",
+      "name": "HANÓI",
+      "status": "verified",
+      "iso": "VN",
+      "country": "Vietname",
+      "country_field": "NM_BAIRRO",
+      "country_literal": "VIETNAM",
+      "reviewed_fields": {
+        "NM_LOCAL_VOTACAO": "EMBAIXADA DO BRASIL EM HANÓI",
+        "DS_ENDERECO": "44B LY THUONG KIET, HCO BUILDING, 4TH FLOOR, SUITE 4-01, HANOI, VIETNA",
+        "NM_BAIRRO": "VIETNAM"
+      },
+      "manual_sheet_row": 10,
+      "rationale": "Identidade exata de código TSE, zona, seção, local e turno; literal de país revisado no cadastro, corroborado pela planilha manual. NM_BAIRRO não é interpretado genericamente como país."
+    },
+    {
+      "tse": "29777",
+      "name": "HAVANA",
+      "status": "verified",
+      "iso": "CU",
+      "country": "Cuba",
+      "country_field": "NM_BAIRRO",
+      "country_literal": "CUBA",
+      "reviewed_fields": {
+        "NM_LOCAL_VOTACAO": "EMBAIXADA DO BRASIL EM HAVANA",
+        "DS_ENDERECO": "AV. 43, NR. 1418, ENTRE 14 E 18 - ALTURAS DE MIRAMAR, MUNICÍPIO PLAYA",
+        "NM_BAIRRO": "CUBA"
+      },
+      "manual_sheet_row": 4,
+      "rationale": "Identidade exata de código TSE, zona, seção, local e turno; literal de país revisado no cadastro, corroborado pela planilha manual. NM_BAIRRO não é interpretado genericamente como país."
+    },
+    {
+      "tse": "29858",
+      "name": "KIEV",
+      "status": "verified",
+      "iso": "UA",
+      "country": "Ucrânia",
+      "country_field": "NM_BAIRRO",
+      "country_literal": "UCRÂNIA",
+      "reviewed_fields": {
+        "NM_LOCAL_VOTACAO": "EMBAIXADA DO BRASIL EM KIEV",
+        "DS_ENDERECO": "RUA ANDRIIVSKYI UZVIZ, 7-A",
+        "NM_BAIRRO": "UCRÂNIA"
+      },
+      "manual_sheet_row": 16,
+      "rationale": "Identidade exata de código TSE, zona, seção, local e turno; literal de país revisado no cadastro, corroborado pela planilha manual. NM_BAIRRO não é interpretado genericamente como país."
+    },
+    {
+      "tse": "29912",
+      "name": "LAGOS",
+      "status": "verified",
+      "iso": "NG",
+      "country": "Nigéria",
+      "country_field": "NM_BAIRRO",
+      "country_literal": "NIGÉRIA",
+      "reviewed_fields": {
+        "NM_LOCAL_VOTACAO": "CONSULADO-GERAL DO BRASIL EM LAGOS",
+        "DS_ENDERECO": "257 KOFO ABAYOMI, VICTORIA ISLAND, LAGOS STATE, NIGÉRIA",
+        "NM_BAIRRO": "NIGÉRIA"
+      },
+      "manual_sheet_row": 9,
+      "rationale": "Identidade exata de código TSE, zona, seção, local e turno; literal de país revisado no cadastro, corroborado pela planilha manual. NM_BAIRRO não é interpretado genericamente como país."
+    },
+    {
+      "tse": "30171",
+      "name": "MUMBAI",
+      "status": "verified",
+      "iso": "IN",
+      "country": "Índia",
+      "country_field": "NM_BAIRRO",
+      "country_literal": "INDIA",
+      "reviewed_fields": {
+        "NM_LOCAL_VOTACAO": "CONSULADO-GERAL DO BRASIL EM MUMBAI, ÍNDIA",
+        "DS_ENDERECO": "12TH FL BAKHTAWAR UNIT 12B RAMNATH GOENKA MARG NARIMAN POINT MARASHTRA",
+        "NM_BAIRRO": "INDIA"
+      },
+      "manual_sheet_row": 19,
+      "rationale": "Identidade exata de código TSE, zona, seção, local e turno; literal de país revisado no cadastro, corroborado pela planilha manual. NM_BAIRRO não é interpretado genericamente como país."
+    },
+    {
+      "tse": "30295",
+      "name": "PASO LOS LIBRES",
+      "status": "verified",
+      "iso": "AR",
+      "country": "Argentina",
+      "country_field": "NM_BAIRRO",
+      "country_literal": "ARGENTINA",
+      "reviewed_fields": {
+        "NM_LOCAL_VOTACAO": "CONSULADO DO BRASIL EM PASO DE LOS LIBRES",
+        "DS_ENDERECO": "MITRE 894, PASO DE LOS LIBRES, CORRIENTES, ARGENTINA",
+        "NM_BAIRRO": "ARGENTINA"
+      },
+      "manual_sheet_row": 24,
+      "rationale": "Identidade exata de código TSE, zona, seção, local e turno; literal de país revisado no cadastro, corroborado pela planilha manual. NM_BAIRRO não é interpretado genericamente como país."
+    },
+    {
+      "tse": "30325",
+      "name": "PORT OF SPAIN",
+      "status": "verified",
+      "iso": "TT",
+      "country": "Trinidad e Tobago",
+      "country_field": "NM_BAIRRO",
+      "country_literal": "TRINIDAD TOBAGO",
+      "reviewed_fields": {
+        "NM_LOCAL_VOTACAO": "EMBAIXADA DO BRASIL EM PORT OF SPAIN",
+        "DS_ENDERECO": "18 SWEET BRIAR ROAD - SAINT CLAIR - PORT OF SPAIN - TRINIDAD TOBAGO",
+        "NM_BAIRRO": "TRINIDAD TOBAGO"
+      },
+      "manual_sheet_row": 8,
+      "rationale": "Identidade exata de código TSE, zona, seção, local e turno; literal de país revisado no cadastro, corroborado pela planilha manual. NM_BAIRRO não é interpretado genericamente como país."
+    },
+    {
+      "tse": "30333",
+      "name": "PORTO PRÍNCIPE",
+      "status": "verified",
+      "iso": "HT",
+      "country": "Haiti",
+      "country_field": "NM_BAIRRO",
+      "country_literal": "HAITI",
+      "reviewed_fields": {
+        "NM_LOCAL_VOTACAO": "INSTITUTO GUIMARÃES ROSEA (IGR) - CENTRE CULTUREL BRÉSIL-HAITI",
+        "DS_ENDERECO": "168, RUE DARGUIN, PÉTION-VILLE",
+        "NM_BAIRRO": "HAITI"
+      },
+      "manual_sheet_row": 26,
+      "rationale": "Identidade exata de código TSE, zona, seção, local e turno; literal de país revisado no cadastro, corroborado pela planilha manual. NM_BAIRRO não é interpretado genericamente como país."
+    },
+    {
+      "tse": "30430",
+      "name": "RIO BRANCO",
+      "status": "verified",
+      "iso": "UY",
+      "country": "Uruguai",
+      "country_field": "NM_BAIRRO",
+      "country_literal": "URUGUAI",
+      "reviewed_fields": {
+        "NM_LOCAL_VOTACAO": "VICE-CONSULADO DO BRASIL EM RIO BRANCO",
+        "DS_ENDERECO": "CALLE JOSÉ H. URIARTE, N 895",
+        "NM_BAIRRO": "URUGUAI"
+      },
+      "manual_sheet_row": 18,
+      "rationale": "Identidade exata de código TSE, zona, seção, local e turno; literal de país revisado no cadastro, corroborado pela planilha manual. NM_BAIRRO não é interpretado genericamente como país."
+    },
+    {
+      "tse": "30546",
+      "name": "SÓFIA",
+      "status": "verified",
+      "iso": "BG",
+      "country": "Bulgária",
+      "country_field": "NM_BAIRRO",
+      "country_literal": "BULGÁRIA",
+      "reviewed_fields": {
+        "NM_LOCAL_VOTACAO": "EMBAIXADA DO BRASIL EM SÓFIA",
+        "DS_ENDERECO": "RUA VELIKO TARNOVO 5, SÓFIA 1504, BULGÁRIA",
+        "NM_BAIRRO": "BULGÁRIA"
+      },
+      "manual_sheet_row": 2,
+      "rationale": "Identidade exata de código TSE, zona, seção, local e turno; literal de país revisado no cadastro, corroborado pela planilha manual. NM_BAIRRO não é interpretado genericamente como país."
+    },
+    {
+      "tse": "30597",
+      "name": "TEERÃ",
+      "status": "verified",
+      "iso": "IR",
+      "country": "Irão",
+      "country_field": "NM_BAIRRO",
+      "country_literal": "IRÃ",
+      "reviewed_fields": {
+        "NM_LOCAL_VOTACAO": "EMBAIXADA DO BRASIL EM TEERÃ",
+        "DS_ENDERECO": "22 PARZIN BAGHDADI ST., VALIE ASR AVE. 1987943851 - TEERÃ - IRÃ",
+        "NM_BAIRRO": "IRÃ"
+      },
+      "manual_sheet_row": 22,
+      "rationale": "Identidade exata de código TSE, zona, seção, local e turno; literal de país revisado no cadastro, corroborado pela planilha manual. NM_BAIRRO não é interpretado genericamente como país."
+    },
+    {
+      "tse": "30686",
+      "name": "TRÍPOLI",
+      "status": "conflicting",
+      "iso": null,
+      "rationale": "NM_BAIRRO=LÍBIA e endereço físico na TUNÍSIA; ausência no segundo turno M4. Não resolver por jurisdição consular.",
+      "manual_sheet_row": 29
+    },
+    {
+      "tse": "30708",
+      "name": "TUNIS",
+      "status": "verified",
+      "iso": "TN",
+      "country": "Tunísia",
+      "country_field": "NM_BAIRRO",
+      "country_literal": "TUNÍSIA",
+      "reviewed_fields": {
+        "NM_LOCAL_VOTACAO": "EMBAIXADA DO BRASIL EM TÚNIS",
+        "DS_ENDERECO": "RUE DU LAC LÉMAN, LES BERGES DU LAC, TÚNIS 1053, TUNÍSIA",
+        "NM_BAIRRO": "TUNÍSIA"
+      },
+      "manual_sheet_row": 21,
+      "rationale": "Identidade exata de código TSE, zona, seção, local e turno; literal de país revisado no cadastro, corroborado pela planilha manual. NM_BAIRRO não é interpretado genericamente como país."
+    },
+    {
+      "tse": "30821",
+      "name": "WINDHOEK",
+      "status": "verified",
+      "iso": "NA",
+      "country": "Namíbia",
+      "country_field": "NM_BAIRRO",
+      "country_literal": "NAMÍBIA",
+      "reviewed_fields": {
+        "NM_LOCAL_VOTACAO": "EMBAIXADA DO BRASIL EM WINDHOEK",
+        "DS_ENDERECO": "52 SIMEON LINEEKELA SHIXUNGILENI STREET",
+        "NM_BAIRRO": "NAMÍBIA"
+      },
+      "manual_sheet_row": 25,
+      "rationale": "Identidade exata de código TSE, zona, seção, local e turno; literal de país revisado no cadastro, corroborado pela planilha manual. NM_BAIRRO não é interpretado genericamente como país."
+    },
+    {
+      "tse": "38962",
+      "name": "DAR ES SALAAM",
+      "status": "verified",
+      "iso": "TZ",
+      "country": "Tanzânia",
+      "country_field": "NM_BAIRRO",
+      "country_literal": "TANZÂNIA",
+      "reviewed_fields": {
+        "NM_LOCAL_VOTACAO": "EMBAIXADA DO BRASIL EM DAR ES SALAAM",
+        "DS_ENDERECO": "PLOT N. 274, HAILE SELASSIE ROAD, R-SQUARE BUILDING, GROUND FLOOR",
+        "NM_BAIRRO": "TANZÂNIA"
+      },
+      "manual_sheet_row": 28,
+      "rationale": "Identidade exata de código TSE, zona, seção, local e turno; literal de país revisado no cadastro, corroborado pela planilha manual. NM_BAIRRO não é interpretado genericamente como país."
+    },
+    {
+      "tse": "39102",
+      "name": "MASCATE",
+      "status": "verified",
+      "iso": "OM",
+      "country": "Omã",
+      "country_field": "NM_BAIRRO",
+      "country_literal": "OMÃ",
+      "reviewed_fields": {
+        "NM_LOCAL_VOTACAO": "EMBAIXADA DO BRASIL EM MASCATE",
+        "DS_ENDERECO": "WAY 3021,VILLA 1788, AL SAROUJ, MASCATE,OMA",
+        "NM_BAIRRO": "OMÃ"
+      },
+      "manual_sheet_row": 3,
+      "rationale": "Identidade exata de código TSE, zona, seção, local e turno; literal de país revisado no cadastro, corroborado pela planilha manual. NM_BAIRRO não é interpretado genericamente como país."
+    },
+    {
+      "tse": "99155",
+      "name": "PUERTO IGUAZÚ",
+      "status": "verified",
+      "iso": "AR",
+      "country": "Argentina",
+      "country_field": "DS_ENDERECO",
+      "country_literal": "ARGENTINA",
+      "reviewed_fields": {
+        "NM_LOCAL_VOTACAO": "CONSULADO-GERAL DO BRASIL EM PUERTO IGUAZÚ",
+        "DS_ENDERECO": "AVENIDA CÓRDOBA, 278, CENTRO, PUERTO IGUAZÚ, N3370CP, ARGENTINA",
+        "NM_BAIRRO": "CENTRO"
+      },
+      "manual_sheet_row": 17,
+      "rationale": "Identidade exata de código TSE, zona, seção, local e turno; literal de país revisado no cadastro, corroborado pela planilha manual. NM_BAIRRO não é interpretado genericamente como país."
+    },
+    {
+      "tse": "99180",
+      "name": "NASSAU",
+      "status": "verified",
+      "iso": "BS",
+      "country": "Bahamas",
+      "country_field": "DS_ENDERECO",
+      "country_literal": "BAHAMAS",
+      "reviewed_fields": {
+        "NM_LOCAL_VOTACAO": "EMBAIXADA DO BRASIL EM NASSAU",
+        "DS_ENDERECO": "ONE MONTAGUE PLACE, 9, EAST BAY STREET, NASSAU, BAHAMAS.",
+        "NM_BAIRRO": "CENTRO"
+      },
+      "manual_sheet_row": 14,
+      "rationale": "Identidade exata de código TSE, zona, seção, local e turno; literal de país revisado no cadastro, corroborado pela planilha manual. NM_BAIRRO não é interpretado genericamente como país."
+    },
+    {
+      "tse": "99473",
+      "name": "BAREIN",
+      "status": "verified",
+      "iso": "BH",
+      "country": "Bahrein",
+      "country_field": "DS_ENDERECO",
+      "country_literal": "BAHRAIN",
+      "reviewed_fields": {
+        "NM_LOCAL_VOTACAO": "AQUA VISTA BAHRAIN",
+        "DS_ENDERECO": "BUILDING 2685, ROAD 4650, BLOCK 346, AL SEEF, KINGDOM OF BAHRAIN",
+        "NM_BAIRRO": "CENTRO"
+      },
+      "manual_sheet_row": 15,
+      "rationale": "Identidade exata de código TSE, zona, seção, local e turno; literal de país revisado no cadastro, corroborado pela planilha manual. NM_BAIRRO não é interpretado genericamente como país."
+    }
+  ]
+}

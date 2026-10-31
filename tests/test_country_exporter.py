@@ -65,6 +65,7 @@ def test_missing_fields_and_partial_sections_survive_aggregation():
     rows[0]["rounds"][0]["totals"]["blank"] = None
     rows[0]["rounds"][0]["available_sections"]["blank"] = 0
     mapping[1]["iso"], mapping[1]["country"] = "US", mapping[0]["country"]
+    mapping[1]["evidence"][0][0] = "US"
     exterior = aggregate(r for loc in rows for r in loc["rounds"])
     result = country_derivative(rows, mapping, exterior)
     turn = result["countries"][0]["rounds"][0]
@@ -104,6 +105,11 @@ def test_export_is_deterministic_separate_and_refuses_overwrite(tmp_path):
     assert {str(path): path.read_bytes() for path in source.rglob("*.json")} == before
     release = Path(first["path"])
     manifest = json.loads((release / "manifest.json").read_text(encoding="utf8"))
+    assert (
+        manifest["public_readiness"]
+        == json.loads((source / "manifest.json").read_text(encoding="utf8"))["public_readiness"]
+    )
+    assert len(manifest["rules_sha256"]) == 64
     assert (
         manifest["artifacts"]["countries.json"]["sha256"]
         == hashlib.sha256((release / "countries.json").read_bytes()).hexdigest()

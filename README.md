@@ -209,9 +209,15 @@ The source code is MIT-licensed; third-party datasets, maps and trademarks retai
 
 ## M5 — Explorador geográfico Brasil e Mundo
 
+M5.2 amplia a associação do exterior para **143/145 localidades e 100 países/territórios**,
+com 26 novas correspondências documentais, sem alterar resultados ou cartografia.
+[Investigação individual, fontes e pendências](docs/M5_2_ZZ_COUNTRY_INVESTIGATION.md)
+e [reconciliação exata dos dois turnos](docs/M5_2_VALIDATION_SUMMARY.json).
+
 Resumo/Comparar, marcadores para 5.571 identificadores municipais e mapa mundial offline.
-A correspondência exterior confirma 117 de 145 localidades em 80 países/territórios;
-28 permanecem sem país, com acesso aos resultados preservado e totais reconciliados.
+Bruxelas e Trípoli permanecem sem atribuição integral a um país, com acesso aos
+resultados preservado e totais reconciliados. Os relatórios M5 abaixo registram
+o estado histórico anterior às 26 novas associações M5.2.
 
 - [Relatório de entrega e pendências M5](docs/M5_COMPLETION_REPORT.md)
 - [Fontes, arquitetura, licenças e reprodução](docs/GEOGRAPHIC_EXPLORER.md)

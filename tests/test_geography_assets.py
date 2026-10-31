@@ -9,7 +9,7 @@ GEO = ROOT / "apps/votoaberto_flutter/assets/geo"
 def test_independent_geographic_assets_have_exact_hashes_and_version():
     raw = (GEO / "manifest.json").read_bytes()
     manifest = json.loads(raw)
-    assert manifest["version"] == "geography-2026-1"
+    assert manifest["version"] == "geography-2026-2"
     dart = (
         ROOT / "apps/votoaberto_flutter/lib/features/map/domain/geographic_catalog.dart"
     ).read_text(encoding="utf8")
@@ -40,17 +40,37 @@ def test_foreign_evidence_has_no_silent_country_for_ambiguous_sections():
     rows = data["localities"]
     assert len(rows) == 145
     assert len({r["tse"] for r in rows}) == 145
-    assert sum(r["iso"] is not None for r in rows) == 117
+    assert data["schema_version"] == 2
+    assert sum(r["iso"] is not None for r in rows) == 143
+    assert len({r["iso"] for r in rows if r["iso"]}) == 100
+    from tse_importer.overseas_evidence import validate_correspondence
+
+    validate_correspondence(rows, data["evidence_sources"])
     for row in rows:
         if row["iso"]:
-            assert row["status"] == "verified_section_join"
             assert row["evidence"]
-            assert {e[0] for e in row["evidence"]} == {row["iso"]}
+            assert row["status"] in {"verified_section_join", "verified_official_section_register"}
         else:
             assert row["country"] is None
     ambiguous = [r for r in rows if r["status"] == "conflicting_section_countries"]
     assert len(ambiguous) == 1
     assert set(ambiguous[0]["candidate_countries"]) == {"BE", "LU"}
+    assert {r["tse"] for r in rows if not r["iso"]} == {"29432", "30686"}
+    legacy = [r for r in rows if r["status"] == "verified_section_join"]
+    assert len(legacy) == 117
+    raw = json.dumps(legacy, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()
+    assert (
+        hashlib.sha256(raw).hexdigest()
+        == "722352ad52031de5bd6839f795954633478a9364206bb80244d628df473fffbb"
+    )
+    assert (
+        hashlib.sha256((GEO / "municipal_locations.json").read_bytes()).hexdigest()
+        == "b71dc3461ac3292fff3ea997978889e96304ac5be882fb435b7c3bcddaebd011"
+    )
+    assert (
+        hashlib.sha256((GEO / "world.geojson").read_bytes()).hexdigest()
+        == "2bf9d5b50da3b76ca389f10fd96537affb82113375dfa26e0caff6741fe82103"
+    )
 
 
 def test_app_runtime_has_no_new_network_transport_or_tile_service():

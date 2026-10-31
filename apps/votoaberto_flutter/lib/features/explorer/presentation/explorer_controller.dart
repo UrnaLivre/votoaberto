@@ -36,7 +36,14 @@ class ExplorerController extends ChangeNotifier {
       (abroad &&
               municipalityCode != null &&
               geography?.sourceDatasetId == dataset?.provenance.version
-          ? geography?.foreign[municipalityCode]?.iso
+          ? countries
+                .where(
+                  (c) => c.localities.any(
+                    (loc) => loc.municipality.code == municipalityCode,
+                  ),
+                )
+                .firstOrNull
+                ?.iso
           : null);
   Set<String> get activeCountries => countries
       .where(
@@ -193,7 +200,15 @@ class ExplorerController extends ChangeNotifier {
     final grouped = <String, List<MunicipalitySummary>>{};
     final missing = <MunicipalitySummary>[];
     for (final loc in municipalities) {
-      final iso = catalog.foreign[loc.municipality.code]?.iso;
+      final match = catalog.foreign[loc.municipality.code];
+      final counts = match?.sectionsByRound ?? const <int, int>{};
+      final compatible =
+          counts.isEmpty ||
+          (counts.length == loc.rounds.length &&
+              loc.rounds.entries.every(
+                (r) => counts[r.key.index + 1] == r.value.totals.sections,
+              ));
+      final iso = compatible ? match?.iso : null;
       if (iso == null) {
         missing.add(loc);
       } else {
