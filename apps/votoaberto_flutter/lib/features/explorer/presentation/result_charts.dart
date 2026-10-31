@@ -15,9 +15,11 @@ class DistributionChart extends StatelessWidget {
     super.key,
     required this.result,
     this.synthetic = true,
+    this.percentages = true,
   });
   final RoundResult result;
   final bool synthetic;
+  final bool percentages;
   @override
   Widget build(BuildContext context) => Column(
     children: [
@@ -27,14 +29,16 @@ class DistributionChart extends StatelessWidget {
   );
 
   Widget _candidate(BuildContext context, CandidateResult candidate, int i) {
-    final share = candidate.shareOfValid(result.totals.valid);
+    final share = percentages && result.totals.complete('valid')
+        ? candidate.shareOfValid(result.totals.valid)
+        : null;
     final colorIndex =
         (int.tryParse(candidate.candidate.number ?? '') ?? i) %
         _candidateColors.length;
     return Semantics(
       label:
           '${candidate.candidate.name}, ${count(candidate.votes)} votos${synthetic ? ' fictícios' : ''}, '
-          '${percent(share)} dos válidos',
+          '${share == null ? 'Percentual indisponível' : '${percent(share)} dos válidos'}',
       child: ExcludeSemantics(
         child: Padding(
           padding: const EdgeInsets.only(bottom: 18),
@@ -57,24 +61,25 @@ class DistributionChart extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    percent(share),
+                    share == null ? '—' : percent(share),
                     style: const TextStyle(fontWeight: FontWeight.w700),
                   ),
                 ],
               ),
               const SizedBox(height: 8),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(3),
-                child: LinearProgressIndicator(
-                  value: share ?? 0,
-                  minHeight: 7,
-                  color: _candidateColors[colorIndex],
-                  backgroundColor: Theme.of(
-                    context,
-                  ).colorScheme.surfaceContainerHighest,
-                  stopIndicatorRadius: 0,
+              if (share != null)
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(3),
+                  child: LinearProgressIndicator(
+                    value: share,
+                    minHeight: 7,
+                    color: _candidateColors[colorIndex],
+                    backgroundColor: Theme.of(
+                      context,
+                    ).colorScheme.surfaceContainerHighest,
+                    stopIndicatorRadius: 0,
+                  ),
                 ),
-              ),
               const SizedBox(height: 5),
               Align(
                 alignment: Alignment.centerRight,
@@ -97,10 +102,12 @@ class ComparisonChart extends StatelessWidget {
     required this.first,
     required this.second,
     this.synthetic = true,
+    this.percentages = true,
   });
   final RoundResult first;
   final RoundResult second;
   final bool synthetic;
+  final bool percentages;
 
   @override
   Widget build(BuildContext context) {
@@ -164,20 +171,23 @@ class ComparisonChart extends StatelessWidget {
                   )
                   .votes,
             ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 18),
-              child: Text(
-                'Dos válidos: ${percent(candidate.shareOfValid(first.totals.valid))} → '
-                '${percent(second.candidates.firstWhere((c) => c.candidate.sameCandidateAs(candidate.candidate)).shareOfValid(second.totals.valid))}',
-                style: Theme.of(context).textTheme.labelMedium,
+            if (percentages &&
+                first.totals.complete('valid') &&
+                second.totals.complete('valid'))
+              Padding(
+                padding: const EdgeInsets.only(bottom: 18),
+                child: Text(
+                  'Dos válidos: ${percent(candidate.shareOfValid(first.totals.valid))} → '
+                  '${percent(second.candidates.firstWhere((c) => c.candidate.sameCandidateAs(candidate.candidate)).shareOfValid(second.totals.valid))}',
+                  style: Theme.of(context).textTheme.labelMedium,
+                ),
               ),
-            ),
           ] else
             Padding(
               padding: const EdgeInsets.only(bottom: 16),
               child: Text(
                 '${candidate.candidate.name}: ${count(candidate.votes)} votos no 1º turno '
-                '(${percent(candidate.shareOfValid(first.totals.valid))} dos válidos). '
+                '${percentages && first.totals.complete('valid') ? '(${percent(candidate.shareOfValid(first.totals.valid))} dos válidos). ' : ''}'
                 '${_participationStatus(candidate.candidate, second, '2º turno')}',
               ),
             ),
@@ -239,12 +249,13 @@ class ComparisonChart extends StatelessWidget {
       );
     }
     final change = VoteChange(a, b);
+    final relative = percentages ? ' · ${signedPercent(change.relative)}' : '';
     final maxValue = math.max(a, b);
     final colors = Theme.of(context).colorScheme;
     return Semantics(
       label:
           '$label: primeiro turno ${count(a)}, segundo turno ${count(b)}. '
-          'Variação ${signedCount(change.absolute)}, ${signedPercent(change.relative)}.${synthetic ? ' Dados fictícios.' : ''}',
+          'Variação ${signedCount(change.absolute)}$relative.${synthetic ? ' Dados fictícios.' : ''}',
       child: ExcludeSemantics(
         child: Padding(
           padding: const EdgeInsets.only(bottom: 18),
@@ -258,7 +269,7 @@ class ComparisonChart extends StatelessWidget {
               _bar(context, '2º', b, maxValue, colors.tertiary),
               const SizedBox(height: 7),
               Text(
-                '${signedCount(change.absolute)} · ${signedPercent(change.relative)}',
+                '${signedCount(change.absolute)}$relative',
                 style: Theme.of(context).textTheme.labelMedium,
               ),
             ],

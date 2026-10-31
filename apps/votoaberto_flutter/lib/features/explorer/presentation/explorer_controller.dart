@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import '../../elections/domain/election.dart';
+import '../../elections/domain/country.dart';
 import '../../elections/domain/election_repository.dart';
 import '../../elections/domain/geography.dart';
+import '../../map/domain/geographic_catalog.dart';
 
-enum ExplorerView { summary, comparison, insights }
+enum ExplorerView { summary, comparison }
 
 enum LoadStatus { loading, ready, error }
 
@@ -20,6 +22,27 @@ class ExplorerController extends ChangeNotifier {
   int _request = 0;
   bool _disposed = false;
   bool abroad = false;
+  String? countryCode;
+  GeographicCatalog? geography;
+  bool geographyError = false;
+  int _geographicRequest = 0;
+  List<CountrySummary> countries = const [];
+  List<MunicipalitySummary> unmappedLocalities = const [];
+  CountrySummary? get country =>
+      countries.where((c) => c.iso == countryCode).firstOrNull;
+  String? get mapCountryCode =>
+      countryCode ??
+      (abroad &&
+              municipalityCode != null &&
+              geography?.sourceDatasetId == dataset?.provenance.version
+          ? geography?.foreign[municipalityCode]?.iso
+          : null);
+  Set<String> get activeCountries => countries
+      .where((c) => (c.rounds[round]?.totals.counted ?? 0) > 0)
+      .map((c) => c.iso)
+      .toSet();
+  List<MunicipalitySummary> get visibleMunicipalities =>
+      countryCode == null ? municipalities : country?.localities ?? const [];
   String? municipalityCode;
   List<MunicipalitySummary> municipalities = const [];
   LoadStatus municipalStatus = LoadStatus.ready;
@@ -27,7 +50,7 @@ class ExplorerController extends ChangeNotifier {
   String? _loadedTerritory;
   String? get territoryCode => abroad ? 'ZZ' : selected?.code;
   bool get municipalSupported => repository is MunicipalElectionRepository;
-  MunicipalitySummary? get municipality => municipalities
+  MunicipalitySummary? get municipality => visibleMunicipalities
       .where((s) => s.municipality.code == municipalityCode)
       .firstOrNull;
   bool get synthetic =>
@@ -46,6 +69,7 @@ class ExplorerController extends ChangeNotifier {
       }
       dataset = next;
       status = LoadStatus.ready;
+      _aggregateCountries();
       if (territoryCode != null) await loadMunicipalities();
     } catch (_) {
       if (_disposed || request != _request) return;
@@ -63,23 +87,30 @@ class ExplorerController extends ChangeNotifier {
     bool notify = true,
     bool overseas = false,
     String? municipality,
+    String? country,
   }) {
+    if (overseas) state = null;
+    if (!overseas) country = null;
     if (selected == state &&
         round == nextRound &&
         view == nextView &&
         abroad == overseas &&
+        countryCode == country &&
         municipalityCode == municipality) {
       return;
     }
     final territoryChanged = selected != state || abroad != overseas;
     selected = state;
     abroad = overseas;
+    countryCode = country;
     municipalityCode = municipality;
     round = nextRound;
     view = nextView;
     if (territoryChanged) {
       _municipalRequest++;
       municipalities = const [];
+      countries = const [];
+      unmappedLocalities = const [];
       _loadedTerritory = null;
       municipalStatus = territoryCode == null
           ? LoadStatus.ready
@@ -107,11 +138,14 @@ class ExplorerController extends ChangeNotifier {
         return;
       }
       municipalities = next;
+      _aggregateCountries();
       _loadedTerritory = uf;
       municipalStatus = LoadStatus.ready;
     } catch (_) {
       if (_disposed || request != _municipalRequest) return;
       municipalities = const [];
+      countries = const [];
+      unmappedLocalities = const [];
       municipalStatus = LoadStatus.error;
     }
     notifyListeners();
@@ -120,8 +154,62 @@ class ExplorerController extends ChangeNotifier {
   Map<ElectionRound, RoundResult>? get results => municipalityCode != null
       ? municipality?.rounds
       : abroad
-      ? dataset?.overseas?.rounds
+      ? countryCode != null
+            ? country?.rounds
+            : dataset?.overseas?.rounds
       : dataset?.results(selected);
+
+  Future<void> loadGeography(
+    Future<GeographicCatalog> Function() loader,
+  ) async {
+    final request = ++_geographicRequest;
+    geographyError = false;
+    try {
+      final value = await loader();
+      if (_disposed || request != _geographicRequest) return;
+      geography = value;
+      _aggregateCountries();
+    } catch (_) {
+      if (_disposed || request != _geographicRequest) return;
+      geographyError = true;
+      geography = null;
+      countries = const [];
+    }
+    if (!_disposed && request == _geographicRequest) notifyListeners();
+  }
+
+  void _aggregateCountries() {
+    countries = const [];
+    unmappedLocalities = const [];
+    if (!abroad || municipalities.isEmpty) return;
+    final catalog = geography;
+    if (catalog == null ||
+        catalog.sourceDatasetId != dataset?.provenance.version) {
+      unmappedLocalities = municipalities;
+      return;
+    }
+    final grouped = <String, List<MunicipalitySummary>>{};
+    final missing = <MunicipalitySummary>[];
+    for (final loc in municipalities) {
+      final iso = catalog.foreign[loc.municipality.code]?.iso;
+      if (iso == null) {
+        missing.add(loc);
+      } else {
+        (grouped[iso] ??= []).add(loc);
+      }
+    }
+    countries = [
+      for (final e in grouped.entries)
+        CountrySummary(
+          e.key,
+          catalog.foreign[e.value.first.municipality.code]!.country!,
+          List.unmodifiable(e.value),
+          aggregateLocalities(e.value),
+        ),
+    ]..sort((a, b) => a.name.compareTo(b.name));
+    unmappedLocalities = List.unmodifiable(missing);
+  }
+
   void toggleTheme() {
     theme = theme == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark;
     notifyListeners();

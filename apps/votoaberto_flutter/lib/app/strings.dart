@@ -20,11 +20,20 @@ Fonte dos números: gerador sintético VotoAberto, mock-v1. A visão Brasil soma
 
 Comparecimento = válidos + brancos + nulos. Abstenção = aptos − comparecimento. Taxas de comparecimento e abstenção dividem por aptos; percentuais dos candidatos dividem por votos válidos. Brancos e nulos são contagens. Variação relativa = (2º − 1º) / 1º; com base zero, não é definida. Um candidato ausente do 2º turno não é tratado como tendo perdido todos os votos.
 
-O ranking ordena a taxa de comparecimento do turno selecionado, dividindo comparecimento por aptos; empates são resolvidos por sigla. Filtro: 27 UFs, presidente, 2026, mock-v1. Trata-se de uma demonstração de cálculo, sem conclusão sobre eleitores reais.
-
 Cartografia: IBGE, API de Malhas Geográficas v3, qualidade intermediária, recorte por UF. Malha simplificada, sem precisão para medição ou limites eleitorais. Uso com citação da fonte; condições e SHA-256 em docs/CARTOGRAPHY.md. O mapa não representa votos, zonas ou equipamentos.
 
 VotoAberto é software independente do ecossistema UrnaLivre. Não é mantido, homologado ou endossado pelo TSE. Uma seção, um boletim e um equipamento físico são entidades distintas.
 
 $interpretation''';
+  static const geographicMethodology =
+      'Geografia: municípios associados por UF e identificadores TSE/IBGE da correspondência oficial gerada em 25/10/2026. '
+      'Pontos do IBGE, Localidades do Brasil (Censo 2022, publicação de 2025), convertidos de SIRGAS2000 para WGS84. '
+      'O marcador representa sede municipal ou ponto representativo, sem indicar urna ou local de votação.\n\n'
+      'Mundo mostra somente a votação brasileira no exterior, já incluída no total Brasil. '
+      'Países e territórios são associados por chaves de seção do edital de carga TRE-DF de setembro de 2026, conferidas com os registros observados. '
+      'Associações ausentes ou contraditórias ficam sem país confirmado e mantêm seus resultados. '
+      'Agregações parciais são identificadas; percentuais de país ficam indisponíveis enquanto houver lacunas de correspondência.\n\n'
+      'Mapa mundial: Natural Earth 5.1.1, unidades cartográficas 1:50m simplificadas. Dados em domínio público. '
+      'Fronteiras de apresentação não expressam reconhecimento oficial de disputas territoriais. '
+      'Créditos: IBGE, TSE, TRE-DF e colaboradores Natural Earth. Fontes, versões, transformações e hashes em docs/GEOGRAPHIC_EXPLORER.md.';
 }

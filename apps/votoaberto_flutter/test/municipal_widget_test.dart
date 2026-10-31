@@ -113,9 +113,9 @@ void main() {
     tester,
   ) async {
     await openMunicipal(tester, location: '/uf/ZZ/municipio/00002?turno=2');
-    expect(find.text('VISÃO MUNICIPAL · ZZ'), findsOneWidget);
+    expect(find.text('LOCALIDADE ELEITORAL'), findsOneWidget);
     expect(
-      find.text('Município ou turno não disponível neste conjunto.'),
+      find.text('Localidade eleitoral ou turno não disponível neste conjunto.'),
       findsOneWidget,
     );
     await tapVisible(tester, find.byKey(const ValueKey('round-1')));
@@ -134,7 +134,7 @@ void main() {
         findsOneWidget,
       );
       await tapVisible(tester, find.byKey(const ValueKey('select-ZZ')));
-      expect(find.text('VOTAÇÃO NO EXTERIOR · ZZ'), findsOneWidget);
+      expect(find.text('VOTAÇÃO NO EXTERIOR'), findsOneWidget);
       await tester.tap(find.byTooltip(AppStrings.methodology));
       await tester.pumpAndSettle();
       expect(

@@ -8,7 +8,10 @@ import '../../../core/widgets.dart';
 import '../../elections/domain/election.dart';
 import '../../elections/domain/geography.dart';
 import '../../map/domain/brazil_geometry.dart';
+import '../../map/domain/world_geometry.dart';
+import '../../map/domain/geographic_catalog.dart';
 import '../../map/presentation/brazil_map.dart';
+import '../../map/presentation/world_map.dart';
 import 'explorer_controller.dart';
 import 'municipality_search.dart';
 import 'result_charts.dart';
@@ -20,10 +23,13 @@ String explorerLocation(
   ExplorerView view, {
   bool abroad = false,
   String? municipality,
+  String? country,
 }) => Uri(
-  path: state == null && !abroad
+  path: abroad
+      ? '/mundo${country == null ? '' : '/$country'}${municipality == null ? '' : '/localidade/$municipality'}'
+      : state == null
       ? '/'
-      : '/uf/${abroad ? 'ZZ' : state!.code}${municipality == null ? '' : '/municipio/$municipality'}',
+      : '/uf/${state.code}${municipality == null ? '' : '/municipio/$municipality'}',
   queryParameters: {
     'turno': round == ElectionRound.first ? '1' : '2',
     'visao': view.name,
@@ -35,9 +41,11 @@ class ExplorerPage extends StatefulWidget {
     super.key,
     required this.controller,
     this.geometryLoader,
+    this.worldLoader,
   });
   final ExplorerController controller;
   final Future<BrazilGeometry> Function()? geometryLoader;
+  final Future<WorldGeometry> Function()? worldLoader;
   @override
   State<ExplorerPage> createState() => _ExplorerPageState();
 }
@@ -45,10 +53,43 @@ class ExplorerPage extends StatefulWidget {
 class _ExplorerPageState extends State<ExplorerPage> {
   BrazilGeometry? _geometry;
   bool _geometryError = false;
+  WorldGeometry? _world;
+  bool _worldError = false;
+  bool _worldLoading = false;
+  void _geographicChange() {
+    if (c.abroad && _world == null && !_worldError && !_worldLoading) {
+      _loadWorld();
+    }
+  }
+
+  Future<void> _loadWorld() async {
+    _worldLoading = true;
+    _worldError = false;
+    try {
+      final world =
+          await (widget.worldLoader?.call() ??
+              GeographicAssets()
+                  .read('world.geojson')
+                  .then(WorldGeometry.decode));
+      if (mounted) setState(() => _world = world);
+    } catch (_) {
+      if (mounted) setState(() => _worldError = true);
+    }
+    _worldLoading = false;
+  }
+
+  @override
+  void dispose() {
+    c.removeListener(_geographicChange);
+    super.dispose();
+  }
+
   @override
   void initState() {
     super.initState();
     _loadMap();
+    c.addListener(_geographicChange);
+    _geographicChange();
   }
 
   Future<void> _loadMap() async {
@@ -74,18 +115,40 @@ class _ExplorerPageState extends State<ExplorerPage> {
     String? municipality,
     bool clearMunicipality = false,
     bool abroad = false,
+    String? country,
+    bool worldReset = false,
   }) {
+    final world = !reset && state == null && (abroad || c.abroad);
     context.go(
       explorerLocation(
-        reset ? null : state ?? c.selected,
+        reset || world ? null : state ?? c.selected,
         round ?? c.round,
         view ?? c.view,
-        abroad: !reset && (abroad || (state == null && c.abroad)),
-        municipality: reset || clearMunicipality || state != null || abroad
+        abroad: world,
+        country: world
+            ? (worldReset || abroad ? null : country ?? c.countryCode)
+            : null,
+        municipality:
+            reset ||
+                clearMunicipality ||
+                state != null ||
+                abroad ||
+                worldReset ||
+                country != null
             ? null
             : municipality ?? c.municipalityCode,
       ),
     );
+  }
+
+  void _back() {
+    if (c.municipalityCode != null) {
+      _navigate(clearMunicipality: true, country: c.mapCountryCode);
+    } else if (c.countryCode != null) {
+      _navigate(worldReset: true);
+    } else {
+      _navigate(reset: true);
+    }
   }
 
   void _chooseState() {
@@ -118,13 +181,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
     builder: (context, _) => PopScope(
       canPop: c.territoryCode == null,
       onPopInvokedWithResult: (didPop, result) {
-        if (!didPop && c.territoryCode != null) {
-          if (c.municipalityCode != null) {
-            _navigate(clearMunicipality: true);
-          } else {
-            _navigate(reset: true);
-          }
-        }
+        if (!didPop && c.territoryCode != null) _back();
       },
       child: Scaffold(
         body: SafeArea(
@@ -222,57 +279,84 @@ class _ExplorerPageState extends State<ExplorerPage> {
 
   Widget _header(BuildContext context) => Padding(
     padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
-    child: Row(
+    child: Column(
       children: [
-        Container(
-          width: 36,
-          height: 36,
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.primary,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Icon(
-            Icons.how_to_vote_outlined,
-            size: 21,
-            color: Theme.of(context).colorScheme.onPrimary,
-          ),
-        ),
-        const SizedBox(width: 10),
-        const Expanded(
-          child: Text(
-            AppStrings.title,
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w800,
-              letterSpacing: -.6,
+        Row(
+          children: [
+            Container(
+              width: 36,
+              height: 36,
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.primary,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Icon(
+                Icons.how_to_vote_outlined,
+                size: 21,
+                color: Theme.of(context).colorScheme.onPrimary,
+              ),
             ),
-          ),
+            const SizedBox(width: 10),
+            const Expanded(
+              child: Text(
+                AppStrings.title,
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w800,
+                  letterSpacing: -.6,
+                ),
+              ),
+            ),
+            if (MediaQuery.sizeOf(context).width > 650)
+              Text(
+                'DADOS ABERTOS · CIDADANIA',
+                style: Theme.of(context).textTheme.labelSmall,
+              ),
+            const SizedBox(width: 10),
+            IconButton(
+              key: const ValueKey('theme-toggle'),
+              tooltip: c.theme == ThemeMode.dark
+                  ? 'Usar tema claro'
+                  : 'Usar tema escuro',
+              onPressed: c.toggleTheme,
+              icon: Icon(
+                c.theme == ThemeMode.dark
+                    ? Icons.light_mode_outlined
+                    : Icons.dark_mode_outlined,
+              ),
+            ),
+            IconButton(
+              tooltip: AppStrings.methodology,
+              onPressed: c.dataset == null
+                  ? null
+                  : () => showMethodology(
+                      context,
+                      provenance: c.dataset?.provenance,
+                    ),
+              icon: const Icon(Icons.info_outline),
+            ),
+          ],
         ),
-        if (MediaQuery.sizeOf(context).width > 650)
-          Text(
-            'DADOS ABERTOS · CIDADANIA',
-            style: Theme.of(context).textTheme.labelSmall,
+        const SizedBox(height: 8),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: SegmentedButton<bool>(
+            segments: const [
+              ButtonSegment(
+                value: false,
+                label: Text('Brasil'),
+                icon: Icon(Icons.flag_outlined),
+              ),
+              ButtonSegment(
+                value: true,
+                label: Text('Mundo'),
+                icon: Icon(Icons.public),
+              ),
+            ],
+            selected: {c.abroad},
+            onSelectionChanged: (value) =>
+                value.first ? _navigate(abroad: true) : _navigate(reset: true),
           ),
-        const SizedBox(width: 10),
-        IconButton(
-          key: const ValueKey('theme-toggle'),
-          tooltip: c.theme == ThemeMode.dark
-              ? 'Usar tema claro'
-              : 'Usar tema escuro',
-          onPressed: c.toggleTheme,
-          icon: Icon(
-            c.theme == ThemeMode.dark
-                ? Icons.light_mode_outlined
-                : Icons.dark_mode_outlined,
-          ),
-        ),
-        IconButton(
-          tooltip: AppStrings.methodology,
-          onPressed: c.dataset == null
-              ? null
-              : () =>
-                    showMethodology(context, provenance: c.dataset?.provenance),
-          icon: const Icon(Icons.info_outline),
         ),
       ],
     ),
@@ -289,18 +373,34 @@ class _ExplorerPageState extends State<ExplorerPage> {
             onPressed: () => _navigate(reset: true),
             child: const Text('Brasil'),
           ),
-          if (c.territoryCode != null) ...[
+          if (c.abroad) ...[
             const Icon(Icons.chevron_right, size: 16),
-            Text(
-              c.territoryCode!,
-              style: const TextStyle(fontWeight: FontWeight.w700),
+            TextButton(
+              onPressed: () => _navigate(worldReset: true),
+              child: const Text('Mundo'),
             ),
-            const SizedBox(width: 12),
-            if (c.municipalityCode != null)
+            if (c.mapCountryCode != null) ...[
+              const Icon(Icons.chevron_right, size: 16),
               TextButton(
-                onPressed: () => _navigate(clearMunicipality: true),
-                child: const Text('Voltar à abrangência'),
+                onPressed: () => _navigate(
+                  country: c.mapCountryCode,
+                  clearMunicipality: true,
+                ),
+                child: Text(
+                  c.countries
+                          .where((v) => v.iso == c.mapCountryCode)
+                          .firstOrNull
+                          ?.name ??
+                      c.mapCountryCode!,
+                ),
               ),
+            ],
+          ] else if (c.selected != null) ...[
+            const Icon(Icons.chevron_right, size: 16),
+            TextButton(
+              onPressed: () => _navigate(clearMunicipality: true),
+              child: Text(c.selected!.code),
+            ),
           ],
         ],
       ),
@@ -308,24 +408,57 @@ class _ExplorerPageState extends State<ExplorerPage> {
       Text(
         c.municipality?.municipality.name ??
             (c.abroad
-                ? 'Exterior'
+                ? c.country?.name ??
+                      (c.countryCode != null ? 'País indisponível' : 'Mundo')
                 : c.selected?.name ?? 'O Brasil, em perspectiva.'),
         key: const ValueKey('map-title'),
         style: Theme.of(context).textTheme.headlineLarge,
       ),
       const SizedBox(height: 8),
       Text(
-        c.synthetic
+        c.abroad
+            ? 'Votação brasileira no exterior. Selecione um país com dados ou uma localidade eleitoral.'
+            : c.synthetic
             ? 'Explore os dois turnos e compare resultados demonstrativos.'
-            : c.abroad
-            ? 'Localidades eleitorais no exterior, sem distribuição no mapa.'
             : 'Resultados presidenciais por UF e município. Selecione no mapa ou use a busca.',
         style: Theme.of(context).textTheme.bodyMedium,
       ),
+      if (!c.abroad &&
+          c.municipalityCode != null &&
+          c.municipalStatus == LoadStatus.ready)
+        Text(
+          c.geography?.municipal(c.territoryCode, c.municipalityCode) == null
+              ? 'Localização não confirmada neste mapa. A consulta eleitoral foi preservada.'
+              : 'Marcador: sede municipal ou ponto representativo. Não indica urna ou local de votação.',
+          style: Theme.of(context).textTheme.labelSmall,
+        ),
     ],
   );
 
   Widget _map(BuildContext context) {
+    if (c.abroad) {
+      _geographicChange();
+      if (_worldError) {
+        return StatusMessage(
+          message: 'Não foi possível abrir o mapa mundial local.',
+          onRetry: _loadWorld,
+        );
+      }
+      if (_world == null) {
+        return const StatusMessage(
+          message: 'Abrindo mapa mundial local…',
+          loading: true,
+        );
+      }
+      return WorldMap(
+        geometry: _world!,
+        active: c.activeCountries,
+        selected: c.mapCountryCode,
+        onSelect: (iso) => _navigate(country: iso),
+        onReset: () => _navigate(worldReset: true),
+      );
+    }
+
     if (_geometryError) {
       return StatusMessage(
         message: 'Não foi possível abrir a malha do IBGE.',
@@ -341,6 +474,10 @@ class _ExplorerPageState extends State<ExplorerPage> {
     return BrazilMap(
       geometry: _geometry!,
       selected: c.selected,
+      location: c.municipality == null
+          ? null
+          : c.geography?.municipal(c.territoryCode, c.municipalityCode),
+      locationName: c.municipality?.municipality.name,
       onSelect: (state) => _navigate(state: state),
       onReset: () => _navigate(reset: true),
     );
@@ -357,12 +494,14 @@ class _ExplorerPageState extends State<ExplorerPage> {
       return StatusMessage(message: AppStrings.loadError, onRetry: c.load);
     }
     final rounds = c.results;
-    final national = c.territoryCode == null;
+    final national = !c.abroad && c.selected == null;
     final municipal = c.municipalityCode != null;
     final title = municipal
-        ? c.municipality?.municipality.name ?? 'Município indisponível'
+        ? c.municipality?.municipality.name ??
+              (c.abroad ? 'Localidade indisponível' : 'Município indisponível')
         : c.abroad
-        ? 'Exterior'
+        ? c.country?.name ??
+              (c.countryCode == null ? 'Mundo' : 'País indisponível')
         : national
         ? 'Brasil'
         : c.selected!.name;
@@ -373,9 +512,13 @@ class _ExplorerPageState extends State<ExplorerPage> {
           national
               ? 'EXPLORAÇÃO NACIONAL'
               : municipal
-              ? 'VISÃO MUNICIPAL · ${c.territoryCode}'
+              ? c.abroad
+                    ? 'LOCALIDADE ELEITORAL'
+                    : 'VISÃO MUNICIPAL · ${c.territoryCode}'
               : c.abroad
-              ? 'VOTAÇÃO NO EXTERIOR · ZZ'
+              ? c.countryCode == null
+                    ? 'VOTAÇÃO NO EXTERIOR'
+                    : 'PAÍS · VOTAÇÃO BRASILEIRA'
               : 'VISÃO ESTADUAL · ${c.selected!.code}',
           style: Theme.of(context).textTheme.labelSmall?.copyWith(
             color: Theme.of(context).colorScheme.primary,
@@ -396,18 +539,18 @@ class _ExplorerPageState extends State<ExplorerPage> {
           Text(
             c.synthetic
                 ? 'Comece por uma UF ou compare os turnos. Todos os números desta versão são fictícios.'
-                : 'Brasil inclui os votos no exterior (ZZ). Selecione uma UF para consultar seus municípios.',
+                : 'Brasil inclui os votos no exterior. Selecione uma UF para consultar seus municípios.',
           ),
           if (c.dataset?.overseas != null)
             TextButton.icon(
               key: const ValueKey('select-ZZ'),
               onPressed: () => _navigate(abroad: true),
               icon: const Icon(Icons.public),
-              label: const Text('Consultar exterior (ZZ)'),
+              label: const Text('Consultar votação no exterior'),
             ),
           const SizedBox(height: 20),
           StateSearch(onSelect: (state) => _navigate(state: state)),
-        ] else ...[
+        ] else if (!c.abroad) ...[
           Wrap(
             spacing: 8,
             children: [
@@ -425,7 +568,8 @@ class _ExplorerPageState extends State<ExplorerPage> {
             ],
           ),
         ],
-        if (!national && c.municipalSupported) ...[
+        if (c.abroad) _worldNavigation(context),
+        if (!national && !c.abroad && c.municipalSupported) ...[
           const SizedBox(height: 12),
           if (c.municipalStatus == LoadStatus.loading)
             const StatusMessage(message: 'Abrindo localidades…', loading: true)
@@ -471,7 +615,6 @@ class _ExplorerPageState extends State<ExplorerPage> {
             for (final entry in const [
               (ExplorerView.summary, 'Resumo'),
               (ExplorerView.comparison, 'Comparar'),
-              (ExplorerView.insights, 'Explorar os Dados'),
             ])
               TextButton(
                 key: ValueKey('view-${entry.$1.name}'),
@@ -491,7 +634,9 @@ class _ExplorerPageState extends State<ExplorerPage> {
             message: municipal && c.municipalStatus == LoadStatus.loading
                 ? 'Abrindo município…'
                 : municipal
-                ? 'Município ou turno não disponível neste conjunto.'
+                ? c.abroad
+                      ? 'Localidade eleitoral ou turno não disponível neste conjunto.'
+                      : 'Município ou turno não disponível neste conjunto.'
                 : AppStrings.empty,
           )
         else if (c.view == ExplorerView.summary)
@@ -514,11 +659,11 @@ class _ExplorerPageState extends State<ExplorerPage> {
               first: rounds[ElectionRound.first]!,
               second: rounds[ElectionRound.second]!,
               synthetic: c.synthetic,
+              percentages: _percentages,
             ),
             const Text(AppStrings.interpretation),
           ] else
             const StatusMessage(message: 'A comparação requer os dois turnos.'),
-        if (c.view == ExplorerView.insights) _insights(context),
         const Divider(),
         TextButton.icon(
           onPressed: () =>
@@ -531,13 +676,23 @@ class _ExplorerPageState extends State<ExplorerPage> {
         const SizedBox(height: 16),
         Text(
           c.synthetic
-              ? 'Fonte: gerador sintético · ${c.dataset!.provenance.version}\n${national || c.view == ExplorerView.insights ? (c.dataset!.overseas == null ? '27 UFs · exterior não incluído' : '27 UFs + exterior fictício') : c.territoryCode} · ${c.round.index + 1}º turno'
+              ? 'Fonte: gerador sintético · ${c.dataset!.provenance.version}\n${national
+                    ? (c.dataset!.overseas == null ? '27 UFs · exterior não incluído' : '27 UFs + exterior fictício')
+                    : c.abroad
+                    ? 'Votação no exterior'
+                    : c.territoryCode} · ${c.round.index + 1}º turno'
               : 'Fonte: dados abertos do TSE · processamento independente pelo VotoAberto\nPrévia local · ${c.round.index + 1}º turno',
           style: Theme.of(context).textTheme.labelSmall,
         ),
       ],
     );
   }
+
+  bool get _percentages =>
+      !(c.abroad &&
+          c.countryCode != null &&
+          c.municipalityCode == null &&
+          c.unmappedLocalities.isNotEmpty);
 
   Widget _summary(BuildContext context, RoundResult result) {
     final t = result.totals;
@@ -550,7 +705,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
         ),
         const SizedBox(height: 20),
         Text(
-          percent(t.turnoutRate),
+          percent(_percentages ? t.turnoutRate : null),
           key: const ValueKey('turnout-rate'),
           style: Theme.of(context).textTheme.displaySmall?.copyWith(
             color: Theme.of(context).colorScheme.primary,
@@ -569,10 +724,11 @@ class _ExplorerPageState extends State<ExplorerPage> {
         _metric(
           context,
           'Abstenção',
-          '${_available(t, 'abstention', t.abstention)} · ${percent(t.abstentionRate)}',
+          '${_available(t, 'abstention', t.abstention)} · ${percent(_percentages ? t.abstentionRate : null)}',
         ),
         _metric(context, 'Votos contabilizados', count(t.counted)),
-        if (c.territoryCode == null &&
+        if (!c.abroad &&
+            c.territoryCode == null &&
             c.dataset?.domestic?.rounds[c.round] != null)
           ExpansionTile(
             tilePadding: EdgeInsets.zero,
@@ -584,7 +740,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
                   '${count(c.dataset!.domestic!.rounds[c.round]!.totals.counted)} votos contabilizados',
                 ),
                 subtitle: const Text(
-                  'Recorte sem votação no exterior. O resultado Brasil acima inclui ZZ.',
+                  'Recorte sem votação no exterior. O resultado Brasil acima inclui o exterior.',
                 ),
               ),
             ],
@@ -609,11 +765,17 @@ class _ExplorerPageState extends State<ExplorerPage> {
         Text(
           c.synthetic
               ? 'Candidatos fictícios · % dos votos válidos'
-              : 'Candidatos · % dos votos válidos',
+              : _percentages
+              ? 'Candidatos · % dos votos válidos'
+              : 'Candidatos · contagens associadas; percentuais indisponíveis',
           style: const TextStyle(fontSize: 12),
         ),
         const SizedBox(height: 20),
-        DistributionChart(result: result, synthetic: c.synthetic),
+        DistributionChart(
+          result: result,
+          synthetic: c.synthetic,
+          percentages: _percentages,
+        ),
         for (final candidate in result.unreportedCandidates)
           Text(
             '${candidate.number} · ${candidate.name}: sem registro de votos neste recorte.',
@@ -638,57 +800,155 @@ class _ExplorerPageState extends State<ExplorerPage> {
   String _available(VoteTotals totals, String key, int? value) =>
       '${count(value)}${value != null && !totals.complete(key) ? ' · parcial' : ''}';
 
-  Widget _insights(BuildContext context) {
-    final ranking =
-        c.dataset!.states
-            .where((s) => s.rounds[c.round]?.totals.turnoutRate != null)
-            .toList()
-          ..sort((a, b) {
-            final rate = b.rounds[c.round]!.totals.turnoutRate!.compareTo(
-              a.rounds[c.round]!.totals.turnoutRate!,
-            );
-            return rate == 0 ? a.state.code.compareTo(b.state.code) : rate;
-          });
-    if (ranking.isEmpty) return const StatusMessage(message: AppStrings.empty);
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Explorar os Dados',
-          style: Theme.of(context).textTheme.titleLarge,
+  Widget _worldNavigation(BuildContext context) => Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      if (c.municipalityCode != null &&
+          c.mapCountryCode == null &&
+          c.municipalStatus == LoadStatus.ready)
+        const Text(
+          'País desta localidade eleitoral ainda não confirmado. Os resultados continuam disponíveis.',
         ),
-        const SizedBox(height: 10),
-        Text(
-          'Maiores taxas de comparecimento${c.synthetic ? ' fictício' : ''} · ${c.round.index + 1}º turno',
-        ),
-        const SizedBox(height: 16),
-        for (var i = 0; i < ranking.length; i++)
-          ListTile(
-            contentPadding: EdgeInsets.zero,
-            leading: Text(
-              '${i + 1}'.padLeft(2, '0'),
-              style: Theme.of(context).textTheme.labelLarge,
+      Wrap(
+        spacing: 8,
+        children: [
+          TextButton.icon(
+            key: const ValueKey('geographic-back'),
+            onPressed: _back,
+            icon: const Icon(Icons.west),
+            label: Text(
+              c.municipalityCode != null
+                  ? c.mapCountryCode == null
+                        ? 'Voltar ao Mundo'
+                        : 'Voltar ao país'
+                  : c.countryCode != null
+                  ? 'Voltar ao Mundo'
+                  : 'Voltar ao Brasil',
             ),
-            title: Text(ranking[i].state.name),
-            subtitle: Text(ranking[i].state.code),
-            trailing: Text(
-              percent(ranking[i].rounds[c.round]!.totals.turnoutRate),
-            ),
-            onTap: () =>
-                _navigate(state: ranking[i].state, view: ExplorerView.summary),
           ),
-        const SizedBox(height: 16),
-        Text(
-          c.synthetic
-              ? 'Como ler: comparecimento ÷ eleitores aptos. Ordenação decrescente; empates por sigla. Este ranking usa somente o mock-v1 das 27 UFs, sem exterior. Não descreve a eleição real nem explica comportamentos individuais.'
-              : 'Comparecimento ÷ aptos, somente com totais completos. Ordenação decrescente; empates por sigla. Abrangências domésticas observadas; ZZ não integra este ranking. Não explica comportamentos individuais.',
-        ),
+          if (c.countryCode != null || c.municipalityCode != null)
+            TextButton(
+              onPressed: () => _navigate(worldReset: true),
+              child: const Text('Todos os países'),
+            ),
+        ],
+      ),
+      if (c.municipalStatus == LoadStatus.loading)
+        const StatusMessage(
+          message: 'Abrindo localidades eleitorais…',
+          loading: true,
+        )
+      else if (c.municipalStatus == LoadStatus.error)
+        StatusMessage(
+          message: 'Não foi possível abrir as localidades eleitorais.',
+          onRetry: c.loadMunicipalities,
+        )
+      else ...[
+        if (c.geographyError)
+          const Text(
+            'Correspondência geográfica indisponível. Consulte as localidades eleitorais abaixo.',
+          ),
+        if (c.countryCode == null) ...[
+          Text(
+            '${c.activeCountries.length} países ou territórios com votação neste turno.',
+          ),
+          if (c.unmappedLocalities.isNotEmpty)
+            Text(
+              'Cobertura por país parcial: ${c.municipalities.length - c.unmappedLocalities.length} de ${c.municipalities.length} localidades com país confirmado. O total exterior abaixo inclui todas as localidades.',
+            ),
+          const SizedBox(height: 12),
+          DropdownButtonFormField<String>(
+            key: ValueKey('country-selector-${c.round.name}'),
+            initialValue: null,
+            isExpanded: true,
+            decoration: const InputDecoration(
+              labelText: 'País com votação neste turno',
+            ),
+            items: [
+              for (final country in c.countries.where(
+                (country) => c.activeCountries.contains(country.iso),
+              ))
+                DropdownMenuItem(
+                  value: country.iso,
+                  child: Text(country.name, overflow: TextOverflow.ellipsis),
+                ),
+            ],
+            onChanged: (iso) {
+              if (iso != null) _navigate(country: iso);
+            },
+          ),
+          const SizedBox(height: 12),
+        ] else if (c.country != null) ...[
+          Text(
+            '${c.country!.localities.length} localidades eleitorais associadas ao país.',
+          ),
+          if (c.unmappedLocalities.isNotEmpty)
+            const Text(
+              'Agregação parcial: há localidades do exterior sem país confirmado. Este país reúne somente as associações verificadas.',
+            ),
+          if (!c.activeCountries.contains(c.countryCode))
+            const Text(
+              'Sem votação registrada para este país no turno selecionado.',
+            ),
+        ],
+        if (c.visibleMunicipalities.isNotEmpty)
+          MunicipalitySearch(
+            key: ValueKey(
+              'world-localities-${c.countryCode}-${c.municipalityCode}',
+            ),
+            municipalities: c.visibleMunicipalities,
+            abroad: true,
+            onSelect: (code) => context.go(
+              explorerLocation(
+                null,
+                c.round,
+                c.view,
+                abroad: true,
+                country: c.countries
+                    .where(
+                      (country) => country.localities.any(
+                        (loc) => loc.municipality.code == code,
+                      ),
+                    )
+                    .firstOrNull
+                    ?.iso,
+                municipality: code,
+              ),
+            ),
+          ),
+        if (c.countryCode == null && c.unmappedLocalities.isNotEmpty)
+          ExpansionTile(
+            title: Text('Sem país confirmado (${c.unmappedLocalities.length})'),
+            children: [
+              for (final loc in c.unmappedLocalities)
+                ListTile(
+                  title: Text(loc.municipality.name),
+                  subtitle: Text(
+                    'Localidade eleitoral · código TSE ${loc.municipality.code}',
+                  ),
+                  onTap: () => context.go(
+                    explorerLocation(
+                      null,
+                      c.round,
+                      c.view,
+                      abroad: true,
+                      municipality: loc.municipality.code,
+                    ),
+                  ),
+                ),
+            ],
+          ),
       ],
-    );
-  }
+      const SizedBox(height: 12),
+      const Text(
+        'Cores indicam presença de dados neste turno. Cinza: sem registros associados. Fronteiras cartográficas não representam reconhecimento oficial de disputas territoriais.',
+        style: TextStyle(fontSize: 12),
+      ),
+    ],
+  );
 
   Widget _footer(BuildContext context) => Text(
-    'VotoAberto 0.4.0 · ${AppStrings.independence}',
+    'VotoAberto 0.5.0 · ${AppStrings.independence}',
     style: Theme.of(context).textTheme.labelSmall,
   );
 }
