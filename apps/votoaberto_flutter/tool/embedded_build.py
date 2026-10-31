@@ -10,9 +10,22 @@ from contextlib import contextmanager
 from pathlib import Path
 
 APP = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(APP / "tool"))
 sys.path.insert(0, str(APP.parents[1] / "pipelines"))
 from tse_importer.domain import ImportFailure  # noqa: E402
 from tse_importer.embedded_assets import build_metadata, install_assets  # noqa: E402
+from tse_importer.workspace import no_links  # noqa: E402
+
+
+def clean_web_output():
+    """Discard only generated Web output: Flutter otherwise retains other modes' assets."""
+    output = APP / "build/web"
+    no_links(output)
+    expected = APP.resolve() / "build/web"
+    if output.resolve() != expected or not output.resolve().is_relative_to(APP.resolve()):
+        raise ImportFailure("Diretório Web fora da área de build; limpeza recusada")
+    if output.exists():
+        shutil.rmtree(output)
 
 
 def resolve_flutter(requested):
@@ -87,11 +100,26 @@ def main(argv=None):
     )
     parser.add_argument("--flutter", default="flutter")
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument(
+        "--production",
+        action="store_true",
+        help="Exige dados e redistribuição aprovados para publicação Web",
+    )
     parser.add_argument("--device", default="windows", help="Dispositivo do smoke nativo opcional")
     args, extra = parser.parse_known_args(argv)
     try:
+        if args.production:
+            if args.command != "web" or args.mode != "real":
+                raise ImportFailure("Produção exige build Web com --mode real")
+            from web_release import require_approved
+
+            require_approved(args.source or APP / "assets/data/real")
         if args.command == "native-test" and args.mode != "real":
             raise ImportFailure("O smoke nativo real exige --mode real")
+        if args.command == "web" and any(
+            value in {"--output", "-o"} or value.startswith(("--output=", "-o=")) for value in extra
+        ):
+            raise ImportFailure("O wrapper Web publica exclusivamente build/web; não use --output")
         flags = ["--dart-define=VOTOABERTO_DATA=" + args.mode]
         if args.mode != "demo":
             assets = APP / "assets/data" / ("real" if args.mode == "real" else "synthetic")
@@ -127,8 +155,8 @@ def main(argv=None):
             ]
         if args.command == "web":
             # This SDK still defaults to its deprecated offline-first worker.
-            # Opt out explicitly until a cache/update policy is tested separately.
-            command += ["--no-web-resources-cdn", "--pwa-strategy=none"]
+            # HTTP revalidation and legacy-worker retirement are tested in the Web release.
+            command += ["--no-web-resources-cdn", "--pwa-strategy=none", "--base-href", "/"]
         command += flags + [value for value in extra if value != "--"]
         print(json.dumps({"command": command, "cwd": str(APP)}, ensure_ascii=False), flush=True)
         if args.dry_run:
@@ -140,6 +168,8 @@ def main(argv=None):
             "CI": "true",
         }
         with selected_assets(args.mode):
+            if args.command == "web":
+                clean_web_output()
             try:
                 code = subprocess.call(command, cwd=APP, env=environment, shell=False)
             except OSError as error:
@@ -148,6 +178,10 @@ def main(argv=None):
                 ) from error
         if code:
             print(f"Comando Flutter falhou (código {code}): {flutter}", file=sys.stderr)
+        elif args.command == "web" and args.mode != "demo" and (APP / "build/web").is_dir():
+            from web_release import write_build_info
+
+            write_build_info(APP, args.mode)
         return code
     except (OSError, ValueError, KeyError, TypeError, ImportFailure) as error:
         print("Erro: " + str(error), file=sys.stderr)

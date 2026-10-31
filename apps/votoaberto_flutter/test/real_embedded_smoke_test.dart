@@ -144,7 +144,9 @@ void main() {
       }
       for (final round in ElectionRound.values) {
         final roundClock = Stopwatch()..start();
-        final chip = find.byKey(ValueKey('round-${round.index + 1}'));
+        final chip = find.byKey(
+          ValueKey(round == ElectionRound.first ? 'mode-first' : 'mode-second'),
+        );
         await tester.ensureVisible(chip);
         await tester.tap(chip);
         await tester.pumpAndSettle();

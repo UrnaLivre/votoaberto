@@ -1,0 +1,78 @@
+name: Deploy Web
+
+on:
+  workflow_call:
+    secrets:
+      CLOUDFLARE_API_TOKEN:
+        required: true
+      CLOUDFLARE_ACCOUNT_ID:
+        required: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: votoaberto-web-production
+  cancel-in-progress: false
+
+jobs:
+  production:
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment: web-production
+    defaults:
+      run:
+        working-directory: apps/votoaberto_flutter
+    env:
+      WRANGLER_SEND_METRICS: 'false'
+      FLUTTER_SUPPRESS_ANALYTICS: 'true'
+      DART_SUPPRESS_ANALYTICS: 'true'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: apps/votoaberto_flutter/.node-version
+          cache: npm
+          cache-dependency-path: apps/votoaberto_flutter/package-lock.json
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.47.8'
+          channel: stable
+          cache: true
+      - name: Download reviewed dataset from this repository only
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          tag=$(python -c "import json; print(json.load(open('web-data-approval.json'))['release_tag'])")
+          test -n "$tag" || { echo 'Dataset release not approved; see docs/WEB_DEPLOYMENT.md'; exit 1; }
+          gh release download "$tag" --pattern votoaberto-web-data.zip --dir ../../.local/web-data
+          python tool/web_release.py unpack --archive ../../.local/web-data/votoaberto-web-data.zip --destination ../../.local/web-data/verified
+      - run: flutter pub get --enforce-lockfile
+      - run: python tool/embedded_build.py web --mode real --production --source ../../.local/web-data/verified
+      - run: python tool/web_release.py audit --mode real --production --report ../../.local/web-artifact-audit.json
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:browser
+      - run: npm run deploy:check
+      - uses: actions/upload-artifact@v4
+        with:
+          name: votoaberto-web-production-${{ github.sha }}
+          path: |
+            apps/votoaberto_flutter/build/web
+            .local/web-artifact-audit.json
+          if-no-files-found: error
+          retention-days: 30
+      - name: Publish reviewed production artifact
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          test -n "$CLOUDFLARE_API_TOKEN" && test -n "$CLOUDFLARE_ACCOUNT_ID"
+          npm run deploy
