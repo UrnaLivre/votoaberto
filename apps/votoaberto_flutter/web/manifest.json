@@ -1,11 +1,13 @@
 {
-    "name": "VotoAberto",
-    "short_name": "VotoAberto",
-    "start_url": ".",
+    "name": "Voto Aberto — Urna Livre",
+    "short_name": "Voto Aberto",
+    "start_url": "/",
+    "scope": "/",
+    "lang": "pt-BR",
     "display": "standalone",
     "background_color": "#fafbf9",
     "theme_color": "#006962",
-    "description": "Consultas presidenciais locais. Origem e limitações identificadas no aplicativo. Uma iniciativa UrnaLivre.",
+    "description": "Resultados presidenciais por Brasil, UF, município e exterior, com origem e limitações identificadas. Uma iniciativa Urna Livre.",
     "orientation": "any",
     "prefer_related_applications": false,
     "icons": [
