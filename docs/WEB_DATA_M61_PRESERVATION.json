@@ -1,0 +1,202 @@
+{
+  "checked_at": "2026-10-31T21:49:20.654034+00:00",
+  "electoral_and_validation_artifacts": [
+    {
+      "path": "municipalities/AC.json",
+      "bytes": 17393,
+      "sha256": "d51d78ac17611c475c55a1205ffe4216f454d4cc38311f4aec435b43d5be02b2",
+      "byte_identical": true
+    },
+    {
+      "path": "municipalities/AL.json",
+      "bytes": 79740,
+      "sha256": "3b2934596632e32fa18d8dd03a9f7386825a52f2ff8bb5dd1d433c3403bb6fd5",
+      "byte_identical": true
+    },
+    {
+      "path": "municipalities/AM.json",
+      "bytes": 48259,
+      "sha256": "fcb3587c96aad8b2f73d3c456818135a50da808beeaad2ba1d162a877c4b414b",
+      "byte_identical": true
+    },
+    {
+      "path": "municipalities/AP.json",
+      "bytes": 12611,
+      "sha256": "27d81d66a7856e2d5e20b01ef8e15fbb4557f73758ddbc999c2b7c527eb5b88e",
+      "byte_identical": true
+    },
+    {
+      "path": "municipalities/BA.json",
+      "bytes": 326921,
+      "sha256": "73e17aa0544e3ced6c445bb3e9f265f42d2efb00db6a45540d840d29ae93f501",
+      "byte_identical": true
+    },
+    {
+      "path": "municipalities/CE.json",
+      "bytes": 145890,
+      "sha256": "213302100c5a3324a051e6c52eb865de858c8510961b9682c26566c705b9999f",
+      "byte_identical": true
+    },
+    {
+      "path": "municipalities/DF.json",
+      "bytes": 996,
+      "sha256": "d5a3ee8273d861231b8ebb8b3490cb54cd13af04d287655ee556d9f023564e6e",
+      "byte_identical": true
+    },
+    {
+      "path": "municipalities/ES.json",
+      "bytes": 62530,
+      "sha256": "fb1c632f96800245419066d1ce313da859112612f947cf25ffcd0917ea16c854",
+      "byte_identical": true
+    },
+    {
+      "path": "municipalities/GO.json",
+      "bytes": 186990,
+      "sha256": "4cb62ef09ce016779be4efaef9b447ece1c2f50bf0c4ec621464cac59a7598f8",
+      "byte_identical": true
+    },
+    {
+      "path": "municipalities/MA.json",
+      "bytes": 169812,
+      "sha256": "a81d3b4bc8225e019567899f94db206195aeb303770f3eafdd2605fda30d4148",
+      "byte_identical": true
+    },
+    {
+      "path": "municipalities/MG.json",
+      "bytes": 659492,
+      "sha256": "b38467f040991c9a9df5d4ba32f662fe39847a62e27653fd39d478ca8a631968",
+      "byte_identical": true
+    },
+    {
+      "path": "municipalities/MS.json",
+      "bytes": 61518,
+      "sha256": "e97f39516d069ceafc3e25126b55ad9259ccb659f1642472b943ac3b50cc570d",
+      "byte_identical": true
+    },
+    {
+      "path": "municipalities/MT.json",
+      "bytes": 108750,
+      "sha256": "376f402d7ff613507a15b4925817583b9bb269f48df163e83430789cf94fe13d",
+      "byte_identical": true
+    },
+    {
+      "path": "municipalities/PA.json",
+      "bytes": 114912,
+      "sha256": "c5d54695f09810d4255a3a4ad71837a987a6d47825af62d99406ecafc44356aa",
+      "byte_identical": true
+    },
+    {
+      "path": "municipalities/PB.json",
+      "bytes": 170041,
+      "sha256": "0ba455b404a0d2d8e5e7130e3e68236ffd837668b656d3e1c5082fe958a7e623",
+      "byte_identical": true
+    },
+    {
+      "path": "municipalities/PE.json",
+      "bytes": 146030,
+      "sha256": "bbdacd883aae40a22bad7ed01943d54dba754e074ac1f46267189467eb129c73",
+      "byte_identical": true
+    },
+    {
+      "path": "municipalities/PI.json",
+      "bytes": 170071,
+      "sha256": "61f8a46bb6391293e1c7a396e38fe15031936b548aac0e5260da32f37c6db9a9",
+      "byte_identical": true
+    },
+    {
+      "path": "municipalities/PR.json",
+      "bytes": 307072,
+      "sha256": "6c6579bda13788589d89089d3b56e506a76b322ad8761f891ee6405ec28c71ef",
+      "byte_identical": true
+    },
+    {
+      "path": "municipalities/RJ.json",
+      "bytes": 76342,
+      "sha256": "a6f3989df4d6e4a095e8cd2e75e821afc976d63dfdba4a557d974ada4a20d77a",
+      "byte_identical": true
+    },
+    {
+      "path": "municipalities/RN.json",
+      "bytes": 127500,
+      "sha256": "fbd0136d270bb86dbb36737d85cb461b1691c9f3f597444845db867e9aacb87f",
+      "byte_identical": true
+    },
+    {
+      "path": "municipalities/RO.json",
+      "bytes": 40667,
+      "sha256": "5e54ac075daa9988a805b572366f1d74665900042ca7abbd0796e565e600cdf9",
+      "byte_identical": true
+    },
+    {
+      "path": "municipalities/RR.json",
+      "bytes": 11658,
+      "sha256": "2d2687aa6f1e1b1a883c3b561b5099758ae9727f6ae23834c39814280816643b",
+      "byte_identical": true
+    },
+    {
+      "path": "municipalities/RS.json",
+      "bytes": 377891,
+      "sha256": "5eefb01b0dc56aecdf891b3aefd2f4c6af6539d6fcb460b46f33f05d1975f80a",
+      "byte_identical": true
+    },
+    {
+      "path": "municipalities/SC.json",
+      "bytes": 226900,
+      "sha256": "20d61711c07f54b08b6bb4e9508fc0a1bce6084c6fa1046e939707a1501d6f93",
+      "byte_identical": true
+    },
+    {
+      "path": "municipalities/SE.json",
+      "bytes": 58645,
+      "sha256": "381b67d1aef7afaf0ad73910d47f1fdd8b2479a1a3050b6f673e65ba2165605f",
+      "byte_identical": true
+    },
+    {
+      "path": "municipalities/SP.json",
+      "bytes": 506260,
+      "sha256": "6a184b71bf0c8999eeba147b1528debcb0831eb0249c275b12448d4c2515388c",
+      "byte_identical": true
+    },
+    {
+      "path": "municipalities/TO.json",
+      "bytes": 102975,
+      "sha256": "17bb780b5479fd4554fe008115fa0e0af043293a3fee59527a7d64eea7783a5b",
+      "byte_identical": true
+    },
+    {
+      "path": "municipalities/ZZ.json",
+      "bytes": 103887,
+      "sha256": "dd63fff8bd188d021679487df3b8e238ae0f945598a1a8977f7cfeacdab32ccd",
+      "byte_identical": true
+    },
+    {
+      "path": "national.json",
+      "bytes": 2013,
+      "sha256": "40bcbb8da58b42bfb65dcc643570513eab13896b07ab4c1483e528c4d6504a27",
+      "byte_identical": true
+    },
+    {
+      "path": "states.json",
+      "bytes": 25189,
+      "sha256": "71779e08aa1e1d4ac8afd2c735895bb06613f06d3a370a1f9ae3d31c7317aa8a",
+      "byte_identical": true
+    },
+    {
+      "path": "validation.json",
+      "bytes": 564,
+      "sha256": "863c430ba02d97dc713cb16ad8e718c22dc315de87b827a18b3e0e3f8f9206d2",
+      "byte_identical": true
+    }
+  ],
+  "original_artifacts_preserved": 31,
+  "protected_historical_and_geographic_files_checked": 45,
+  "protected_changes": [],
+  "manifest_change": {
+    "previous_sha256": "c4dcddacb8092ff1dfffb35b07b739dbf360232e701e080087f52a4a09e20637",
+    "new_sha256": "c1dd2ae876eecfd685d67bb5f53bb7efd223c8db5772a76a83b773b0da2a54e3",
+    "meaning": "metadata-only release; all electoral/validation artifact bytes identical"
+  },
+  "new_file": "provenance.json",
+  "dataset_id": "e4e9c9cb5189ab5d4e124bfc",
+  "metadata_release_id": "cf1a3b405d96fb5dd676f025"
+}

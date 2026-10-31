@@ -1,5 +1,13 @@
 # Publicação Web do Voto Aberto
 
+> Estado M6.1: [candidato tecnicamente elegível](WEB_DATA_PROVENANCE_FINALIZATION.md),
+> **READY_FOR_DATA_APPROVAL**. Os dados mantêm o ID eleitoral; a nova release de
+> metadados é `cf1a3b405d96fb5dd676f025`, com manifesto/dossiê próprios.
+> [Decisão proposta e hashes exatos](WEB_DATA_APPROVAL_DECISION.md).
+> `web-data-approval.json` já contém os valores propostos, mas ambas as aprovações
+> continuam `false`. Primeiro registrar a decisão humana; depois preflight/bundle.
+> `WEB_DEPLOY_ENABLED` não foi ativada. As notas M6 abaixo são históricas.
+
 > Revisão M6: [proveniência e redistribuição](WEB_DATA_PROVENANCE_REVIEW.md).
 > Foram obtidas 56 referências oficiais novas, sem divergências com os digests
 > retidos. A base continua `not_ready`; a revisão documental não é aprovação

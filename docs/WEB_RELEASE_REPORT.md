@@ -1,5 +1,11 @@
 # Preparação da primeira publicação Web — relatório de entrega
 
+> M6.1: **READY_FOR_DATA_APPROVAL**. [Finalização técnica](WEB_DATA_PROVENANCE_FINALIZATION.md)
+> concluiu hashes atuais, política e reavaliação em release de metadados própria,
+> mantendo os resultados. O [candidato](WEB_DATA_APPROVAL_DECISION.md) aguarda
+> aprovação formal; preflight/deploy continuam protegidos. As notas M6 e o texto
+> abaixo são históricos, não o estado técnico do candidato M6.1.
+
 > Atualização M6 (31/10/2026): [revisão de proveniência](WEB_DATA_PROVENANCE_REVIEW.md)
 > obteve novamente 56 checksums oficiais BWEB, todos coincidentes com digests
 > retidos. A fonte nacional continua sem referência independente encontrada;

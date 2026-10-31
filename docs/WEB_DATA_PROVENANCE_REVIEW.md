@@ -1,5 +1,10 @@
 # M6 — Proveniência da primeira base pública
 
+> Fotografia histórica. A [M6.1](WEB_DATA_PROVENANCE_FINALIZATION.md) recalculou
+> os 57 ZIPs, implementou a política documentada e preparou outra release de
+> metadados tecnicamente elegível. Este relatório e suas evidências continuam
+> preservados; seu `BLOCKED` descreve o estado anterior.
+
 Consulta/execução: **31/10/2026**; horários das evidências em UTC.
 Repositório `UrnaLivre/votoaberto`, branch `feat/web-production-cloudflare`.
 Conclusão: **BLOCKED**. A proveniência ganhou evidência oficial nova, mas a

@@ -1,0 +1,2292 @@
+{
+  "reviewed_at": "2026-10-31T21:58:10.192856+00:00",
+  "classification": "READY_FOR_DATA_APPROVAL",
+  "dataset_id": "e4e9c9cb5189ab5d4e124bfc",
+  "metadata_release_id": "cf1a3b405d96fb5dd676f025",
+  "manifest_sha256": "c1dd2ae876eecfd685d67bb5f53bb7efd223c8db5772a76a83b773b0da2a54e3",
+  "provenance_sha256": "2b1fadbd610cbe5bbb3be6084519f80a25fc8fd40c8b853c87b27f0652a07a53",
+  "current_hashes": {
+    "sources": 57,
+    "passed": 57,
+    "bytes_read": 5463538463,
+    "official_reference_matches": 56,
+    "without_official_reference": 1,
+    "failures": 0,
+    "zip_downloads": 0,
+    "zip_extractions": 0
+  },
+  "assessment": {
+    "coverage": {
+      "additional_observed_pairs": [],
+      "basis": "explicit_requirements",
+      "expected_pairs": [
+        {
+          "round": 1,
+          "uf": "AC"
+        },
+        {
+          "round": 1,
+          "uf": "AL"
+        },
+        {
+          "round": 1,
+          "uf": "AM"
+        },
+        {
+          "round": 1,
+          "uf": "AP"
+        },
+        {
+          "round": 1,
+          "uf": "BA"
+        },
+        {
+          "round": 1,
+          "uf": "CE"
+        },
+        {
+          "round": 1,
+          "uf": "DF"
+        },
+        {
+          "round": 1,
+          "uf": "ES"
+        },
+        {
+          "round": 1,
+          "uf": "GO"
+        },
+        {
+          "round": 1,
+          "uf": "MA"
+        },
+        {
+          "round": 1,
+          "uf": "MG"
+        },
+        {
+          "round": 1,
+          "uf": "MS"
+        },
+        {
+          "round": 1,
+          "uf": "MT"
+        },
+        {
+          "round": 1,
+          "uf": "PA"
+        },
+        {
+          "round": 1,
+          "uf": "PB"
+        },
+        {
+          "round": 1,
+          "uf": "PE"
+        },
+        {
+          "round": 1,
+          "uf": "PI"
+        },
+        {
+          "round": 1,
+          "uf": "PR"
+        },
+        {
+          "round": 1,
+          "uf": "RJ"
+        },
+        {
+          "round": 1,
+          "uf": "RN"
+        },
+        {
+          "round": 1,
+          "uf": "RO"
+        },
+        {
+          "round": 1,
+          "uf": "RR"
+        },
+        {
+          "round": 1,
+          "uf": "RS"
+        },
+        {
+          "round": 1,
+          "uf": "SC"
+        },
+        {
+          "round": 1,
+          "uf": "SE"
+        },
+        {
+          "round": 1,
+          "uf": "SP"
+        },
+        {
+          "round": 1,
+          "uf": "TO"
+        },
+        {
+          "round": 1,
+          "uf": "ZZ"
+        },
+        {
+          "round": 2,
+          "uf": "AC"
+        },
+        {
+          "round": 2,
+          "uf": "AL"
+        },
+        {
+          "round": 2,
+          "uf": "AM"
+        },
+        {
+          "round": 2,
+          "uf": "AP"
+        },
+        {
+          "round": 2,
+          "uf": "BA"
+        },
+        {
+          "round": 2,
+          "uf": "CE"
+        },
+        {
+          "round": 2,
+          "uf": "DF"
+        },
+        {
+          "round": 2,
+          "uf": "ES"
+        },
+        {
+          "round": 2,
+          "uf": "GO"
+        },
+        {
+          "round": 2,
+          "uf": "MA"
+        },
+        {
+          "round": 2,
+          "uf": "MG"
+        },
+        {
+          "round": 2,
+          "uf": "MS"
+        },
+        {
+          "round": 2,
+          "uf": "MT"
+        },
+        {
+          "round": 2,
+          "uf": "PA"
+        },
+        {
+          "round": 2,
+          "uf": "PB"
+        },
+        {
+          "round": 2,
+          "uf": "PE"
+        },
+        {
+          "round": 2,
+          "uf": "PI"
+        },
+        {
+          "round": 2,
+          "uf": "PR"
+        },
+        {
+          "round": 2,
+          "uf": "RJ"
+        },
+        {
+          "round": 2,
+          "uf": "RN"
+        },
+        {
+          "round": 2,
+          "uf": "RO"
+        },
+        {
+          "round": 2,
+          "uf": "RR"
+        },
+        {
+          "round": 2,
+          "uf": "RS"
+        },
+        {
+          "round": 2,
+          "uf": "SC"
+        },
+        {
+          "round": 2,
+          "uf": "SE"
+        },
+        {
+          "round": 2,
+          "uf": "SP"
+        },
+        {
+          "round": 2,
+          "uf": "TO"
+        },
+        {
+          "round": 2,
+          "uf": "ZZ"
+        }
+      ],
+      "missing_pairs": [],
+      "missing_selected_rounds": [],
+      "national_presence": {
+        "rounds": [
+          1,
+          2
+        ],
+        "status": "complete"
+      },
+      "observed_pairs": [
+        {
+          "round": 1,
+          "uf": "AC"
+        },
+        {
+          "round": 1,
+          "uf": "AL"
+        },
+        {
+          "round": 1,
+          "uf": "AM"
+        },
+        {
+          "round": 1,
+          "uf": "AP"
+        },
+        {
+          "round": 1,
+          "uf": "BA"
+        },
+        {
+          "round": 1,
+          "uf": "CE"
+        },
+        {
+          "round": 1,
+          "uf": "DF"
+        },
+        {
+          "round": 1,
+          "uf": "ES"
+        },
+        {
+          "round": 1,
+          "uf": "GO"
+        },
+        {
+          "round": 1,
+          "uf": "MA"
+        },
+        {
+          "round": 1,
+          "uf": "MG"
+        },
+        {
+          "round": 1,
+          "uf": "MS"
+        },
+        {
+          "round": 1,
+          "uf": "MT"
+        },
+        {
+          "round": 1,
+          "uf": "PA"
+        },
+        {
+          "round": 1,
+          "uf": "PB"
+        },
+        {
+          "round": 1,
+          "uf": "PE"
+        },
+        {
+          "round": 1,
+          "uf": "PI"
+        },
+        {
+          "round": 1,
+          "uf": "PR"
+        },
+        {
+          "round": 1,
+          "uf": "RJ"
+        },
+        {
+          "round": 1,
+          "uf": "RN"
+        },
+        {
+          "round": 1,
+          "uf": "RO"
+        },
+        {
+          "round": 1,
+          "uf": "RR"
+        },
+        {
+          "round": 1,
+          "uf": "RS"
+        },
+        {
+          "round": 1,
+          "uf": "SC"
+        },
+        {
+          "round": 1,
+          "uf": "SE"
+        },
+        {
+          "round": 1,
+          "uf": "SP"
+        },
+        {
+          "round": 1,
+          "uf": "TO"
+        },
+        {
+          "round": 1,
+          "uf": "ZZ"
+        },
+        {
+          "round": 2,
+          "uf": "AC"
+        },
+        {
+          "round": 2,
+          "uf": "AL"
+        },
+        {
+          "round": 2,
+          "uf": "AM"
+        },
+        {
+          "round": 2,
+          "uf": "AP"
+        },
+        {
+          "round": 2,
+          "uf": "BA"
+        },
+        {
+          "round": 2,
+          "uf": "CE"
+        },
+        {
+          "round": 2,
+          "uf": "DF"
+        },
+        {
+          "round": 2,
+          "uf": "ES"
+        },
+        {
+          "round": 2,
+          "uf": "GO"
+        },
+        {
+          "round": 2,
+          "uf": "MA"
+        },
+        {
+          "round": 2,
+          "uf": "MG"
+        },
+        {
+          "round": 2,
+          "uf": "MS"
+        },
+        {
+          "round": 2,
+          "uf": "MT"
+        },
+        {
+          "round": 2,
+          "uf": "PA"
+        },
+        {
+          "round": 2,
+          "uf": "PB"
+        },
+        {
+          "round": 2,
+          "uf": "PE"
+        },
+        {
+          "round": 2,
+          "uf": "PI"
+        },
+        {
+          "round": 2,
+          "uf": "PR"
+        },
+        {
+          "round": 2,
+          "uf": "RJ"
+        },
+        {
+          "round": 2,
+          "uf": "RN"
+        },
+        {
+          "round": 2,
+          "uf": "RO"
+        },
+        {
+          "round": 2,
+          "uf": "RR"
+        },
+        {
+          "round": 2,
+          "uf": "RS"
+        },
+        {
+          "round": 2,
+          "uf": "SC"
+        },
+        {
+          "round": 2,
+          "uf": "SE"
+        },
+        {
+          "round": 2,
+          "uf": "SP"
+        },
+        {
+          "round": 2,
+          "uf": "TO"
+        },
+        {
+          "round": 2,
+          "uf": "ZZ"
+        }
+      ],
+      "scope": "territory_round_presence",
+      "section_completeness": {
+        "reason": "Sem inventário exaustivo independente das seções esperadas",
+        "status": "not_assessed"
+      },
+      "status": "complete"
+    },
+    "data_structure": {
+      "result_rows": 5731614,
+      "status": "passed"
+    },
+    "local_release": {
+      "blockers": [],
+      "status": "eligible"
+    },
+    "mathematics": {
+      "errors": 0,
+      "observed_section_rounds": 998411,
+      "scope": "available_counts_and_derived_sums",
+      "sections_with_unavailable_totals": 0,
+      "status": "passed"
+    },
+    "provenance": {
+      "operator_policy_approval": "pending",
+      "policy_id": "tse-presidential-documented-provenance-1",
+      "status": "documented_for_declared_scope"
+    },
+    "public_readiness": {
+      "blockers": [],
+      "meaning": "Elegibilidade técnica de derivados presidenciais; aprovação humana de política, referências e redistribuição ainda obrigatória",
+      "origin_authentication": "not_performed",
+      "scope": [
+        {
+          "round": 1,
+          "uf": "AC"
+        },
+        {
+          "round": 1,
+          "uf": "AL"
+        },
+        {
+          "round": 1,
+          "uf": "AM"
+        },
+        {
+          "round": 1,
+          "uf": "AP"
+        },
+        {
+          "round": 1,
+          "uf": "BA"
+        },
+        {
+          "round": 1,
+          "uf": "CE"
+        },
+        {
+          "round": 1,
+          "uf": "DF"
+        },
+        {
+          "round": 1,
+          "uf": "ES"
+        },
+        {
+          "round": 1,
+          "uf": "GO"
+        },
+        {
+          "round": 1,
+          "uf": "MA"
+        },
+        {
+          "round": 1,
+          "uf": "MG"
+        },
+        {
+          "round": 1,
+          "uf": "MS"
+        },
+        {
+          "round": 1,
+          "uf": "MT"
+        },
+        {
+          "round": 1,
+          "uf": "PA"
+        },
+        {
+          "round": 1,
+          "uf": "PB"
+        },
+        {
+          "round": 1,
+          "uf": "PE"
+        },
+        {
+          "round": 1,
+          "uf": "PI"
+        },
+        {
+          "round": 1,
+          "uf": "PR"
+        },
+        {
+          "round": 1,
+          "uf": "RJ"
+        },
+        {
+          "round": 1,
+          "uf": "RN"
+        },
+        {
+          "round": 1,
+          "uf": "RO"
+        },
+        {
+          "round": 1,
+          "uf": "RR"
+        },
+        {
+          "round": 1,
+          "uf": "RS"
+        },
+        {
+          "round": 1,
+          "uf": "SC"
+        },
+        {
+          "round": 1,
+          "uf": "SE"
+        },
+        {
+          "round": 1,
+          "uf": "SP"
+        },
+        {
+          "round": 1,
+          "uf": "TO"
+        },
+        {
+          "round": 1,
+          "uf": "ZZ"
+        },
+        {
+          "round": 2,
+          "uf": "AC"
+        },
+        {
+          "round": 2,
+          "uf": "AL"
+        },
+        {
+          "round": 2,
+          "uf": "AM"
+        },
+        {
+          "round": 2,
+          "uf": "AP"
+        },
+        {
+          "round": 2,
+          "uf": "BA"
+        },
+        {
+          "round": 2,
+          "uf": "CE"
+        },
+        {
+          "round": 2,
+          "uf": "DF"
+        },
+        {
+          "round": 2,
+          "uf": "ES"
+        },
+        {
+          "round": 2,
+          "uf": "GO"
+        },
+        {
+          "round": 2,
+          "uf": "MA"
+        },
+        {
+          "round": 2,
+          "uf": "MG"
+        },
+        {
+          "round": 2,
+          "uf": "MS"
+        },
+        {
+          "round": 2,
+          "uf": "MT"
+        },
+        {
+          "round": 2,
+          "uf": "PA"
+        },
+        {
+          "round": 2,
+          "uf": "PB"
+        },
+        {
+          "round": 2,
+          "uf": "PE"
+        },
+        {
+          "round": 2,
+          "uf": "PI"
+        },
+        {
+          "round": 2,
+          "uf": "PR"
+        },
+        {
+          "round": 2,
+          "uf": "RJ"
+        },
+        {
+          "round": 2,
+          "uf": "RN"
+        },
+        {
+          "round": 2,
+          "uf": "RO"
+        },
+        {
+          "round": 2,
+          "uf": "RR"
+        },
+        {
+          "round": 2,
+          "uf": "RS"
+        },
+        {
+          "round": 2,
+          "uf": "SC"
+        },
+        {
+          "round": 2,
+          "uf": "SE"
+        },
+        {
+          "round": 2,
+          "uf": "SP"
+        },
+        {
+          "round": 2,
+          "uf": "TO"
+        },
+        {
+          "round": 2,
+          "uf": "ZZ"
+        }
+      ],
+      "section_completeness": "not_assessed",
+      "status": "ready_for_declared_scope"
+    },
+    "reconciliation": {
+      "ambiguous_locations": 0,
+      "bu_math_errors": 0,
+      "different_rows": 0,
+      "equipment_identity": "not_asserted",
+      "evidence": "retained_report_bound_to_current_database_and_current_source_bytes",
+      "matched_rows": 5731614,
+      "matched_section_rounds": 998411,
+      "observed_section_rounds": 998411,
+      "only_bu_rows": 0,
+      "only_section_rows": 0,
+      "scope": "presidential_rows_in_selected_inputs",
+      "status": "complete"
+    },
+    "referential_integrity": {
+      "election_link_errors": 0,
+      "foreign_key_errors": [],
+      "status": "passed"
+    },
+    "source_hashes": {
+      "current_local_matches": 57,
+      "official_reference_matches": 56,
+      "origin_authentication": "not_performed",
+      "signature_verification": "not_performed",
+      "source_count": 57,
+      "sources": [
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/1 turno/AC/bweb_1t_AC_051020261403.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/1 turno/AL/bweb_1t_AL_051020261403.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/1 turno/AM/bweb_1t_AM_051020261403.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/1 turno/AP/bweb_1t_AP_051020261403.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/1 turno/BA/bweb_1t_BA_051020261403.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/1 turno/CE/bweb_1t_CE_051020261403.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/1 turno/DF/bweb_1t_DF_051020261403.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/1 turno/ES/bweb_1t_ES_051020261403.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/1 turno/GO/bweb_1t_GO_051020261403.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/1 turno/MA/bweb_1t_MA_051020261403.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/1 turno/MG/bweb_1t_MG_051020261403.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/1 turno/MS/bweb_1t_MS_051020261403.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/1 turno/MT/bweb_1t_MT_051020261403.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/1 turno/PA/bweb_1t_PA_051020261403.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/1 turno/PB/bweb_1t_PB_051020261403.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/1 turno/PE/bweb_1t_PE_051020261403.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/1 turno/PI/bweb_1t_PI_051020261403.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/1 turno/PR/bweb_1t_PR_051020261403.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/1 turno/RJ/bweb_1t_RJ_051020261403.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/1 turno/RN/bweb_1t_RN_051020261403.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/1 turno/RO/bweb_1t_RO_051020261403.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/1 turno/RR/bweb_1t_RR_051020261403.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/1 turno/RS/bweb_1t_RS_051020261403.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/1 turno/SC/bweb_1t_SC_051020261403.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/1 turno/SE/bweb_1t_SE_051020261403.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/1 turno/SP/bweb_1t_SP_051020261403.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/1 turno/TO/bweb_1t_TO_051020261403.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/1 turno/ZZ/bweb_1t_ZZ_051020261403.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/2 turno/AC/bweb_2t_AC_261020260742.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/2 turno/AL/bweb_2t_AL_261020260742.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/2 turno/AM/bweb_2t_AM_261020260742.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/2 turno/AP/bweb_2t_AP_261020260742.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/2 turno/BA/bweb_2t_BA_261020260742.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/2 turno/CE/bweb_2t_CE_261020260742.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/2 turno/DF/bweb_2t_DF_261020260742.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/2 turno/ES/bweb_2t_ES_261020260742.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/2 turno/GO/bweb_2t_GO_261020260742.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/2 turno/MA/bweb_2t_MA_261020260742.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/2 turno/MG/bweb_2t_MG_261020260742.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/2 turno/MS/bweb_2t_MS_261020260742.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/2 turno/MT/bweb_2t_MT_261020260742.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/2 turno/PA/bweb_2t_PA_261020260742.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/2 turno/PB/bweb_2t_PB_261020260742.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/2 turno/PE/bweb_2t_PE_261020260742.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/2 turno/PI/bweb_2t_PI_261020260742.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/2 turno/PR/bweb_2t_PR_261020260742.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/2 turno/RJ/bweb_2t_RJ_261020260742.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/2 turno/RN/bweb_2t_RN_261020260742.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/2 turno/RO/bweb_2t_RO_261020260742.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/2 turno/RR/bweb_2t_RR_261020260742.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/2 turno/RS/bweb_2t_RS_261020260742.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/2 turno/SC/bweb_2t_SC_261020260742.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/2 turno/SE/bweb_2t_SE_261020260742.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/2 turno/SP/bweb_2t_SP_261020260742.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/2 turno/TO/bweb_2t_TO_261020260742.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "current_sha512_matches_recorded_official_reference",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Boletim de Urna/2 turno/ZZ/bweb_2t_ZZ_261020260742.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        },
+        {
+          "content_reconciliation": "complete_for_declared_presidential_scope",
+          "external_reference_integrity": "not_published_at_checked_endpoints",
+          "local_byte_integrity": "current_sha256_sha512_match_historical",
+          "operator_reference_approval": "pending",
+          "path": "Votação por Seção/votacao_secao_2026_BR.zip",
+          "provenance": "official_catalog_and_operator_acquisition_testimony",
+          "signature_verification": "not_performed"
+        }
+      ],
+      "status": "current_local_integrity_and_available_official_references_matched",
+      "without_published_reference": 1
+    },
+    "sqlite_integrity": {
+      "result": "ok",
+      "status": "passed"
+    }
+  },
+  "current_database_validation": {
+    "assessment_scope": "release_with_retained_source_evidence",
+    "checks": {
+      "data_structure": {
+        "result_rows": 5731614,
+        "status": "passed"
+      },
+      "mathematics": {
+        "errors": 0,
+        "observed_section_rounds": 998411,
+        "scope": "available_counts_and_derived_sums",
+        "sections_with_unavailable_totals": 0,
+        "status": "passed"
+      },
+      "referential_integrity": {
+        "election_link_errors": 0,
+        "foreign_key_errors": [],
+        "status": "passed"
+      },
+      "sqlite_integrity": {
+        "result": "ok",
+        "status": "passed"
+      }
+    },
+    "comparison": {
+      "matched": 998411
+    },
+    "observed_coverage": [
+      {
+        "election": "6257",
+        "round": 1,
+        "rows": 16145,
+        "sections": 2270,
+        "uf": "AC",
+        "votes": 488330
+      },
+      {
+        "election": "6257",
+        "round": 1,
+        "rows": 50972,
+        "sections": 7101,
+        "uf": "AL",
+        "votes": 1938428
+      },
+      {
+        "election": "6257",
+        "round": 1,
+        "rows": 58575,
+        "sections": 8157,
+        "uf": "AM",
+        "votes": 2234549
+      },
+      {
+        "election": "6257",
+        "round": 1,
+        "rows": 13996,
+        "sections": 1914,
+        "uf": "AP",
+        "votes": 476562
+      },
+      {
+        "election": "6257",
+        "round": 1,
+        "rows": 251417,
+        "sections": 35476,
+        "uf": "BA",
+        "votes": 9053601
+      },
+      {
+        "election": "6257",
+        "round": 1,
+        "rows": 167164,
+        "sections": 23765,
+        "uf": "CE",
+        "votes": 5910471
+      },
+      {
+        "election": "6257",
+        "round": 1,
+        "rows": 55819,
+        "sections": 6969,
+        "uf": "DF",
+        "votes": 1831396
+      },
+      {
+        "election": "6257",
+        "round": 1,
+        "rows": 75629,
+        "sections": 9844,
+        "uf": "ES",
+        "votes": 2352282
+      },
+      {
+        "election": "6257",
+        "round": 1,
+        "rows": 112157,
+        "sections": 15686,
+        "uf": "GO",
+        "votes": 3971587
+      },
+      {
+        "election": "6257",
+        "round": 1,
+        "rows": 124673,
+        "sections": 18093,
+        "uf": "MA",
+        "votes": 4160343
+      },
+      {
+        "election": "6257",
+        "round": 1,
+        "rows": 415799,
+        "sections": 52062,
+        "uf": "MG",
+        "votes": 12637274
+      },
+      {
+        "election": "6257",
+        "round": 1,
+        "rows": 52380,
+        "sections": 7106,
+        "uf": "MS",
+        "votes": 1541220
+      },
+      {
+        "election": "6257",
+        "round": 1,
+        "rows": 60750,
+        "sections": 8287,
+        "uf": "MT",
+        "votes": 2052133
+      },
+      {
+        "election": "6257",
+        "round": 1,
+        "rows": 143701,
+        "sections": 20827,
+        "uf": "PA",
+        "votes": 5066504
+      },
+      {
+        "election": "6257",
+        "round": 1,
+        "rows": 76265,
+        "sections": 10712,
+        "uf": "PB",
+        "votes": 2683988
+      },
+      {
+        "election": "6257",
+        "round": 1,
+        "rows": 156699,
+        "sections": 21418,
+        "uf": "PE",
+        "votes": 5911062
+      },
+      {
+        "election": "6257",
+        "round": 1,
+        "rows": 69308,
+        "sections": 10225,
+        "uf": "PI",
+        "votes": 2240883
+      },
+      {
+        "election": "6257",
+        "round": 1,
+        "rows": 211052,
+        "sections": 27142,
+        "uf": "PR",
+        "votes": 6841457
+      },
+      {
+        "election": "6257",
+        "round": 1,
+        "rows": 301535,
+        "sections": 37675,
+        "uf": "RJ",
+        "votes": 9859802
+      },
+      {
+        "election": "6257",
+        "round": 1,
+        "rows": 58164,
+        "sections": 8115,
+        "uf": "RN",
+        "votes": 2171013
+      },
+      {
+        "election": "6257",
+        "round": 1,
+        "rows": 33649,
+        "sections": 4698,
+        "uf": "RO",
+        "votes": 991080
+      },
+      {
+        "election": "6257",
+        "round": 1,
+        "rows": 10588,
+        "sections": 1519,
+        "uf": "RR",
+        "votes": 332772
+      },
+      {
+        "election": "6257",
+        "round": 1,
+        "rows": 213540,
+        "sections": 27547,
+        "uf": "RS",
+        "votes": 6702903
+      },
+      {
+        "election": "6257",
+        "round": 1,
+        "rows": 136979,
+        "sections": 17326,
+        "uf": "SC",
+        "votes": 4648159
+      },
+      {
+        "election": "6257",
+        "round": 1,
+        "rows": 43373,
+        "sections": 5923,
+        "uf": "SE",
+        "votes": 1439082
+      },
+      {
+        "election": "6257",
+        "round": 1,
+        "rows": 848063,
+        "sections": 103656,
+        "uf": "SP",
+        "votes": 26431992
+      },
+      {
+        "election": "6257",
+        "round": 1,
+        "rows": 30084,
+        "sections": 4384,
+        "uf": "TO",
+        "votes": 965196
+      },
+      {
+        "election": "6257",
+        "round": 1,
+        "rows": 12035,
+        "sections": 1309,
+        "uf": "ZZ",
+        "votes": 341766
+      },
+      {
+        "election": "6258",
+        "round": 2,
+        "rows": 8697,
+        "sections": 2270,
+        "uf": "AC",
+        "votes": 453654
+      },
+      {
+        "election": "6258",
+        "round": 2,
+        "rows": 27419,
+        "sections": 7101,
+        "uf": "AL",
+        "votes": 1951632
+      },
+      {
+        "election": "6258",
+        "round": 2,
+        "rows": 30991,
+        "sections": 8157,
+        "uf": "AM",
+        "votes": 2192059
+      },
+      {
+        "election": "6258",
+        "round": 2,
+        "rows": 6973,
+        "sections": 1914,
+        "uf": "AP",
+        "votes": 429975
+      },
+      {
+        "election": "6258",
+        "round": 2,
+        "rows": 137040,
+        "sections": 35476,
+        "uf": "BA",
+        "votes": 9422047
+      },
+      {
+        "election": "6258",
+        "round": 2,
+        "rows": 91087,
+        "sections": 23765,
+        "uf": "CE",
+        "votes": 6024843
+      },
+      {
+        "election": "6258",
+        "round": 2,
+        "rows": 27453,
+        "sections": 6969,
+        "uf": "DF",
+        "votes": 1868280
+      },
+      {
+        "election": "6258",
+        "round": 2,
+        "rows": 38829,
+        "sections": 9844,
+        "uf": "ES",
+        "votes": 2409214
+      },
+      {
+        "election": "6258",
+        "round": 2,
+        "rows": 61031,
+        "sections": 15686,
+        "uf": "GO",
+        "votes": 4047280
+      },
+      {
+        "election": "6258",
+        "round": 2,
+        "rows": 66190,
+        "sections": 18093,
+        "uf": "MA",
+        "votes": 4127771
+      },
+      {
+        "election": "6258",
+        "round": 2,
+        "rows": 203235,
+        "sections": 52062,
+        "uf": "MG",
+        "votes": 13044203
+      },
+      {
+        "election": "6258",
+        "round": 2,
+        "rows": 26734,
+        "sections": 7106,
+        "uf": "MS",
+        "votes": 1594460
+      },
+      {
+        "election": "6258",
+        "round": 2,
+        "rows": 30873,
+        "sections": 8287,
+        "uf": "MT",
+        "votes": 2085334
+      },
+      {
+        "election": "6258",
+        "round": 2,
+        "rows": 76003,
+        "sections": 20827,
+        "uf": "PA",
+        "votes": 4989573
+      },
+      {
+        "election": "6258",
+        "round": 2,
+        "rows": 41416,
+        "sections": 10712,
+        "uf": "PB",
+        "votes": 2743560
+      },
+      {
+        "election": "6258",
+        "round": 2,
+        "rows": 83243,
+        "sections": 21418,
+        "uf": "PE",
+        "votes": 6126467
+      },
+      {
+        "election": "6258",
+        "round": 2,
+        "rows": 37819,
+        "sections": 10225,
+        "uf": "PI",
+        "votes": 2239830
+      },
+      {
+        "election": "6258",
+        "round": 2,
+        "rows": 105761,
+        "sections": 27142,
+        "uf": "PR",
+        "votes": 7059339
+      },
+      {
+        "election": "6258",
+        "round": 2,
+        "rows": 147600,
+        "sections": 37675,
+        "uf": "RJ",
+        "votes": 10077449
+      },
+      {
+        "election": "6258",
+        "round": 2,
+        "rows": 31496,
+        "sections": 8115,
+        "uf": "RN",
+        "votes": 2232823
+      },
+      {
+        "election": "6258",
+        "round": 2,
+        "rows": 17265,
+        "sections": 4698,
+        "uf": "RO",
+        "votes": 988489
+      },
+      {
+        "election": "6258",
+        "round": 2,
+        "rows": 5332,
+        "sections": 1519,
+        "uf": "RR",
+        "votes": 308597
+      },
+      {
+        "election": "6258",
+        "round": 2,
+        "rows": 106789,
+        "sections": 27547,
+        "uf": "RS",
+        "votes": 6889638
+      },
+      {
+        "election": "6258",
+        "round": 2,
+        "rows": 67266,
+        "sections": 17326,
+        "uf": "SC",
+        "votes": 4762303
+      },
+      {
+        "election": "6258",
+        "round": 2,
+        "rows": 22732,
+        "sections": 5923,
+        "uf": "SE",
+        "votes": 1466659
+      },
+      {
+        "election": "6258",
+        "round": 2,
+        "rows": 410145,
+        "sections": 103656,
+        "uf": "SP",
+        "votes": 27364389
+      },
+      {
+        "election": "6258",
+        "round": 2,
+        "rows": 16709,
+        "sections": 4384,
+        "uf": "TO",
+        "votes": 954763
+      },
+      {
+        "election": "6258",
+        "round": 2,
+        "rows": 4975,
+        "sections": 1308,
+        "uf": "ZZ",
+        "votes": 381443
+      }
+    ],
+    "result_rows": 5731614,
+    "sqlite_sha256": "c9eaefb7e02ab50d2922eb843715ea47346e9e60cf8d4f9c4a6f448c3b27fdc4",
+    "structurally_valid": true
+  },
+  "checks": {
+    "original_national_release_unchanged": true,
+    "original_embedded_release_unchanged": true,
+    "prior_31_embedded_artifacts_byte_identical": true,
+    "sqlite_rebuilt": false,
+    "national_import_repeated": false,
+    "zip_downloads": 0,
+    "zip_extractions": 0
+  },
+  "python_full_suite": {
+    "passed": 235,
+    "skipped": 2,
+    "failed": 0,
+    "seconds": 376.25,
+    "command": ".venv/Scripts/python.exe -m pytest -q --basetemp=.local/m61/pytest-all"
+  },
+  "python_final_targeted": {
+    "passed": 55,
+    "failed": 0,
+    "seconds": 12.45,
+    "command": ".venv/Scripts/python.exe -m pytest -q tests/test_metadata_install.py tests/test_documented_provenance.py tests/test_web_release.py --basetemp=.local/m61/pytest-metadata-gate-final",
+    "note": "Includes five installation and three dossier-removal regressions added after full-suite collection; all current policy/gate tests rerun."
+  },
+  "flutter_real_smoke": {
+    "passed": 7,
+    "failed": 0,
+    "expected_readiness": "ready_for_declared_scope",
+    "command": ".local/flutter/bin/flutter.bat test test/real_embedded_smoke_test.dart --no-pub --dart-define=RUN_REAL_EMBEDDED=true --dart-define=EXPECTED_REAL_READINESS=ready_for_declared_scope"
+  },
+  "browser": {
+    "passed": 8,
+    "failed": 0,
+    "seconds": 54.8,
+    "command": "npm run test:browser -- --max-failures=1",
+    "browser": "local Chrome Chromium"
+  },
+  "web_build": {
+    "status": "passed",
+    "sdk": "Flutter 3.47.8",
+    "production": false,
+    "command": "python apps/votoaberto_flutter/tool/embedded_build.py web --mode real --flutter .local/flutter/bin/flutter.bat --no-pub --no-wasm-dry-run"
+  },
+  "web_audit": {
+    "data_mode": "real",
+    "dataset_id": "e4e9c9cb5189ab5d4e124bfc",
+    "manifest_sha256": "c1dd2ae876eecfd685d67bb5f53bb7efd223c8db5772a76a83b773b0da2a54e3",
+    "public_readiness": {
+      "blockers": [],
+      "meaning": "Elegibilidade técnica de derivados presidenciais; aprovação humana de política, referências e redistribuição ainda obrigatória",
+      "origin_authentication": "not_performed",
+      "scope": [
+        {
+          "round": 1,
+          "uf": "AC"
+        },
+        {
+          "round": 1,
+          "uf": "AL"
+        },
+        {
+          "round": 1,
+          "uf": "AM"
+        },
+        {
+          "round": 1,
+          "uf": "AP"
+        },
+        {
+          "round": 1,
+          "uf": "BA"
+        },
+        {
+          "round": 1,
+          "uf": "CE"
+        },
+        {
+          "round": 1,
+          "uf": "DF"
+        },
+        {
+          "round": 1,
+          "uf": "ES"
+        },
+        {
+          "round": 1,
+          "uf": "GO"
+        },
+        {
+          "round": 1,
+          "uf": "MA"
+        },
+        {
+          "round": 1,
+          "uf": "MG"
+        },
+        {
+          "round": 1,
+          "uf": "MS"
+        },
+        {
+          "round": 1,
+          "uf": "MT"
+        },
+        {
+          "round": 1,
+          "uf": "PA"
+        },
+        {
+          "round": 1,
+          "uf": "PB"
+        },
+        {
+          "round": 1,
+          "uf": "PE"
+        },
+        {
+          "round": 1,
+          "uf": "PI"
+        },
+        {
+          "round": 1,
+          "uf": "PR"
+        },
+        {
+          "round": 1,
+          "uf": "RJ"
+        },
+        {
+          "round": 1,
+          "uf": "RN"
+        },
+        {
+          "round": 1,
+          "uf": "RO"
+        },
+        {
+          "round": 1,
+          "uf": "RR"
+        },
+        {
+          "round": 1,
+          "uf": "RS"
+        },
+        {
+          "round": 1,
+          "uf": "SC"
+        },
+        {
+          "round": 1,
+          "uf": "SE"
+        },
+        {
+          "round": 1,
+          "uf": "SP"
+        },
+        {
+          "round": 1,
+          "uf": "TO"
+        },
+        {
+          "round": 1,
+          "uf": "ZZ"
+        },
+        {
+          "round": 2,
+          "uf": "AC"
+        },
+        {
+          "round": 2,
+          "uf": "AL"
+        },
+        {
+          "round": 2,
+          "uf": "AM"
+        },
+        {
+          "round": 2,
+          "uf": "AP"
+        },
+        {
+          "round": 2,
+          "uf": "BA"
+        },
+        {
+          "round": 2,
+          "uf": "CE"
+        },
+        {
+          "round": 2,
+          "uf": "DF"
+        },
+        {
+          "round": 2,
+          "uf": "ES"
+        },
+        {
+          "round": 2,
+          "uf": "GO"
+        },
+        {
+          "round": 2,
+          "uf": "MA"
+        },
+        {
+          "round": 2,
+          "uf": "MG"
+        },
+        {
+          "round": 2,
+          "uf": "MS"
+        },
+        {
+          "round": 2,
+          "uf": "MT"
+        },
+        {
+          "round": 2,
+          "uf": "PA"
+        },
+        {
+          "round": 2,
+          "uf": "PB"
+        },
+        {
+          "round": 2,
+          "uf": "PE"
+        },
+        {
+          "round": 2,
+          "uf": "PI"
+        },
+        {
+          "round": 2,
+          "uf": "PR"
+        },
+        {
+          "round": 2,
+          "uf": "RJ"
+        },
+        {
+          "round": 2,
+          "uf": "RN"
+        },
+        {
+          "round": 2,
+          "uf": "RO"
+        },
+        {
+          "round": 2,
+          "uf": "RR"
+        },
+        {
+          "round": 2,
+          "uf": "RS"
+        },
+        {
+          "round": 2,
+          "uf": "SC"
+        },
+        {
+          "round": 2,
+          "uf": "SE"
+        },
+        {
+          "round": 2,
+          "uf": "SP"
+        },
+        {
+          "round": 2,
+          "uf": "TO"
+        },
+        {
+          "round": 2,
+          "uf": "ZZ"
+        }
+      ],
+      "section_completeness": "not_assessed",
+      "status": "ready_for_declared_scope"
+    },
+    "bytes": 5699127,
+    "schema_version": 1,
+    "metadata_release_id": "cf1a3b405d96fb5dd676f025",
+    "elections": [
+      {
+        "year": 2026,
+        "round": 1,
+        "office": "president"
+      },
+      {
+        "year": 2026,
+        "round": 2,
+        "office": "president"
+      }
+    ],
+    "municipalities": 5716,
+    "file_count": 83,
+    "total_bytes": 50289607,
+    "largest_files": [
+      {
+        "path": "canvaskit/canvaskit.wasm",
+        "bytes": 7284602
+      },
+      {
+        "path": "canvaskit/chromium/canvaskit.wasm",
+        "bytes": 5428806
+      },
+      {
+        "path": "canvaskit/skwasm_heavy.wasm",
+        "bytes": 5216217
+      },
+      {
+        "path": "canvaskit/webparagraph/canvaskit.wasm",
+        "bytes": 3729129
+      },
+      {
+        "path": "canvaskit/skwasm.wasm",
+        "bytes": 3593715
+      },
+      {
+        "path": "canvaskit/wimp.wasm",
+        "bytes": 3581677
+      },
+      {
+        "path": "main.dart.js",
+        "bytes": 3269288
+      },
+      {
+        "path": "canvaskit/wimp.js.symbols",
+        "bytes": 1813030
+      },
+      {
+        "path": "canvaskit/skwasm_heavy.js.symbols",
+        "bytes": 1672152
+      },
+      {
+        "path": "canvaskit/skwasm.js.symbols",
+        "bytes": 1540006
+      }
+    ],
+    "data_files": [
+      {
+        "path": "manifest.json",
+        "bytes": 40308
+      },
+      {
+        "path": "municipalities/AC.json",
+        "bytes": 17393
+      },
+      {
+        "path": "municipalities/AL.json",
+        "bytes": 79740
+      },
+      {
+        "path": "municipalities/AM.json",
+        "bytes": 48259
+      },
+      {
+        "path": "municipalities/AP.json",
+        "bytes": 12611
+      },
+      {
+        "path": "municipalities/BA.json",
+        "bytes": 326921
+      },
+      {
+        "path": "municipalities/CE.json",
+        "bytes": 145890
+      },
+      {
+        "path": "municipalities/DF.json",
+        "bytes": 996
+      },
+      {
+        "path": "municipalities/ES.json",
+        "bytes": 62530
+      },
+      {
+        "path": "municipalities/GO.json",
+        "bytes": 186990
+      },
+      {
+        "path": "municipalities/MA.json",
+        "bytes": 169812
+      },
+      {
+        "path": "municipalities/MG.json",
+        "bytes": 659492
+      },
+      {
+        "path": "municipalities/MS.json",
+        "bytes": 61518
+      },
+      {
+        "path": "municipalities/MT.json",
+        "bytes": 108750
+      },
+      {
+        "path": "municipalities/PA.json",
+        "bytes": 114912
+      },
+      {
+        "path": "municipalities/PB.json",
+        "bytes": 170041
+      },
+      {
+        "path": "municipalities/PE.json",
+        "bytes": 146030
+      },
+      {
+        "path": "municipalities/PI.json",
+        "bytes": 170071
+      },
+      {
+        "path": "municipalities/PR.json",
+        "bytes": 307072
+      },
+      {
+        "path": "municipalities/RJ.json",
+        "bytes": 76342
+      },
+      {
+        "path": "municipalities/RN.json",
+        "bytes": 127500
+      },
+      {
+        "path": "municipalities/RO.json",
+        "bytes": 40667
+      },
+      {
+        "path": "municipalities/RR.json",
+        "bytes": 11658
+      },
+      {
+        "path": "municipalities/RS.json",
+        "bytes": 377891
+      },
+      {
+        "path": "municipalities/SC.json",
+        "bytes": 226900
+      },
+      {
+        "path": "municipalities/SE.json",
+        "bytes": 58645
+      },
+      {
+        "path": "municipalities/SP.json",
+        "bytes": 506260
+      },
+      {
+        "path": "municipalities/TO.json",
+        "bytes": 102975
+      },
+      {
+        "path": "municipalities/ZZ.json",
+        "bytes": 103887
+      },
+      {
+        "path": "national.json",
+        "bytes": 2013
+      },
+      {
+        "path": "provenance.json",
+        "bytes": 1209300
+      },
+      {
+        "path": "states.json",
+        "bytes": 25189
+      },
+      {
+        "path": "validation.json",
+        "bytes": 564
+      }
+    ],
+    "duplicate_groups": [
+      [
+        "icons/Icon-192.png",
+        "icons/Icon-maskable-192.png"
+      ],
+      [
+        "icons/Icon-512.png",
+        "icons/Icon-maskable-512.png"
+      ],
+      [
+        "assets/assets/fonts/roboto-regular.ttf",
+        "assets/fonts/fallback/Roboto-Regular.ttf"
+      ]
+    ],
+    "cloudflare_free_limits": {
+      "files": 20000,
+      "individual_bytes": 26214400,
+      "passed": true
+    },
+    "production_approved": false
+  },
+  "production_preflight": {
+    "command": "python apps/votoaberto_flutter/tool/web_release.py preflight --source apps/votoaberto_flutter/assets/data/real",
+    "exit_code": 2,
+    "stderr": "Release bloqueada: Publicação bloqueada: aprovação explícita de proveniência/política ausente ou divergente",
+    "expected": "technical readiness satisfied; explicit provenance approval pending"
+  },
+  "ruff": {
+    "files": 45,
+    "lint": "passed",
+    "format": "passed"
+  },
+  "limitations": [
+    "No independent file signature verified",
+    "Section completeness not assessed without exhaustive independent inventory",
+    "Retained import reconciliation bound to current identical source bytes and existing database; ZIP members not reread",
+    "Operator testimony is retrospective; no invented download transcript",
+    "All production approvals remain false; no deployment enabled"
+  ],
+  "git": {
+    "branch": "feat/web-production-cloudflare",
+    "initial_head": "a983642",
+    "implementation_commit": "418e1cb",
+    "approval_gate_commit": "ba65a91",
+    "push_performed": false,
+    "tag_release_merge_deploy_performed": false
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "consulted_on": "2026-10-31",
+  "purpose": "documentary basis proposed for operator review; not formal legal approval",
+  "requests": [
+    {
+      "url": "https://www2.camara.leg.br/legin/fed/decret/2016/decreto-8777-11-maio-2016-783082-normaatualizada-pe.html",
+      "consulted_at": "2026-10-31T21:48:56.486577+00:00",
+      "http_status": 200,
+      "final_url": "https://www2.camara.leg.br/legin/fed/decret/2016/decreto-8777-11-maio-2016-783082-normaatualizada-pe.html",
+      "bytes": 49656,
+      "body_sha256": "b14936abe6db5e6fcb2deac5688fb3013e5f7d045739de3c4708d98cb74f1561"
+    },
+    {
+      "url": "https://www2.camara.leg.br/legin/fed/lei/1998/lei-9610-19-fevereiro-1998-365399-normaatualizada-pl.html",
+      "consulted_at": "2026-10-31T21:48:57.003977+00:00",
+      "http_status": 200,
+      "final_url": "https://www2.camara.leg.br/legin/fed/lei/1998/lei-9610-19-fevereiro-1998-365399-normaatualizada-pl.html",
+      "bytes": 162721,
+      "body_sha256": "8c5ce400de169f6578ebc579eaed3a497fe89205b8f4c4b81c3ae20a45a9eb69"
+    }
+  ]
+}
