@@ -19,8 +19,7 @@ import 'state_search.dart';
 
 String explorerLocation(
   BrazilianState? state,
-  ElectionRound round,
-  ExplorerView view, {
+  ResultMode mode, {
   bool abroad = false,
   String? municipality,
   String? country,
@@ -30,10 +29,7 @@ String explorerLocation(
       : state == null
       ? '/'
       : '/uf/${state.code}${municipality == null ? '' : '/municipio/$municipality'}',
-  queryParameters: {
-    'turno': round == ElectionRound.first ? '1' : '2',
-    'visao': view.name,
-  },
+  queryParameters: {'modo': mode.queryValue},
 ).toString();
 
 class ExplorerPage extends StatefulWidget {
@@ -110,8 +106,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
   void _navigate({
     BrazilianState? state,
     bool reset = false,
-    ElectionRound? round,
-    ExplorerView? view,
+    ResultMode? mode,
     String? municipality,
     bool clearMunicipality = false,
     bool abroad = false,
@@ -122,8 +117,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
     context.go(
       explorerLocation(
         reset || world ? null : state ?? c.selected,
-        round ?? c.round,
-        view ?? c.view,
+        mode ?? c.mode,
         abroad: world,
         country: world
             ? (worldReset || abroad ? null : country ?? c.countryCode)
@@ -179,9 +173,12 @@ class _ExplorerPageState extends State<ExplorerPage> {
   Widget build(BuildContext context) => ListenableBuilder(
     listenable: c,
     builder: (context, _) => PopScope(
-      canPop: c.territoryCode == null,
+      canPop:
+          c.selected == null &&
+          c.countryCode == null &&
+          c.municipalityCode == null,
       onPopInvokedWithResult: (didPop, result) {
-        if (!didPop && c.territoryCode != null) _back();
+        if (!didPop) _back();
       },
       child: Scaffold(
         body: SafeArea(
@@ -369,16 +366,12 @@ class _ExplorerPageState extends State<ExplorerPage> {
         crossAxisAlignment: WrapCrossAlignment.center,
         children: [
           TextButton(
-            key: const ValueKey('breadcrumb-brasil'),
-            onPressed: () => _navigate(reset: true),
-            child: const Text('Brasil'),
+            key: ValueKey(c.abroad ? 'breadcrumb-mundo' : 'breadcrumb-brasil'),
+            onPressed: () =>
+                c.abroad ? _navigate(worldReset: true) : _navigate(reset: true),
+            child: Text(c.abroad ? 'Mundo' : 'Brasil'),
           ),
           if (c.abroad) ...[
-            const Icon(Icons.chevron_right, size: 16),
-            TextButton(
-              onPressed: () => _navigate(worldReset: true),
-              child: const Text('Mundo'),
-            ),
             if (c.mapCountryCode != null) ...[
               const Icon(Icons.chevron_right, size: 16),
               TextButton(
@@ -386,6 +379,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
                   country: c.mapCountryCode,
                   clearMunicipality: true,
                 ),
+                key: const ValueKey('breadcrumb-country'),
                 child: Text(
                   c.countries
                           .where((v) => v.iso == c.mapCountryCode)
@@ -399,7 +393,18 @@ class _ExplorerPageState extends State<ExplorerPage> {
             const Icon(Icons.chevron_right, size: 16),
             TextButton(
               onPressed: () => _navigate(clearMunicipality: true),
+              key: const ValueKey('breadcrumb-uf'),
               child: Text(c.selected!.code),
+            ),
+          ],
+          if (c.municipality != null) ...[
+            const Icon(Icons.chevron_right, size: 16),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              child: Text(
+                c.municipality!.municipality.name,
+                key: const ValueKey('breadcrumb-locality'),
+              ),
             ),
           ],
         ],
@@ -535,6 +540,24 @@ class _ExplorerPageState extends State<ExplorerPage> {
         const SizedBox(height: 4),
         const Text('Eleições Presidenciais 2026'),
         const SizedBox(height: 18),
+        SegmentedButton<ResultMode>(
+          key: const ValueKey('result-mode'),
+          showSelectedIcon: false,
+          style: SegmentedButton.styleFrom(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 14),
+            textStyle: Theme.of(context).textTheme.labelMedium,
+          ),
+          segments: [
+            for (final mode in ResultMode.values)
+              ButtonSegment(
+                value: mode,
+                label: Text(mode.label, key: ValueKey('mode-${mode.name}')),
+              ),
+          ],
+          selected: {c.mode},
+          onSelectionChanged: (value) => _navigate(mode: value.single),
+        ),
+        const SizedBox(height: 18),
         if (national) ...[
           Text(
             c.synthetic
@@ -595,41 +618,9 @@ class _ExplorerPageState extends State<ExplorerPage> {
             ),
         ],
         const Divider(),
-        Wrap(
-          spacing: 8,
-          runSpacing: 4,
-          children: [
-            for (final round in ElectionRound.values)
-              ChoiceChip(
-                key: ValueKey('round-${round.index + 1}'),
-                label: Text('${round.index + 1}º turno'),
-                selected: c.round == round,
-                onSelected: (_) => _navigate(round: round),
-              ),
-          ],
-        ),
-        const SizedBox(height: 14),
-        Wrap(
-          spacing: 4,
-          children: [
-            for (final entry in const [
-              (ExplorerView.summary, 'Resumo'),
-              (ExplorerView.comparison, 'Comparar'),
-            ])
-              TextButton(
-                key: ValueKey('view-${entry.$1.name}'),
-                style: TextButton.styleFrom(
-                  backgroundColor: c.view == entry.$1
-                      ? Theme.of(context).colorScheme.secondaryContainer
-                      : null,
-                ),
-                onPressed: () => _navigate(view: entry.$1),
-                child: Text(entry.$2),
-              ),
-          ],
-        ),
         const SizedBox(height: 26),
-        if (rounds == null || !rounds.containsKey(c.round))
+        if (rounds == null ||
+            (c.mode.round != null && !rounds.containsKey(c.mode.round)))
           StatusMessage(
             message: municipal && c.municipalStatus == LoadStatus.loading
                 ? 'Abrindo município…'
@@ -639,31 +630,30 @@ class _ExplorerPageState extends State<ExplorerPage> {
                       : 'Município ou turno não disponível neste conjunto.'
                 : AppStrings.empty,
           )
-        else if (c.view == ExplorerView.summary)
-          _summary(context, rounds[c.round]!),
-        if (c.view == ExplorerView.comparison && rounds != null)
-          if (rounds.containsKey(ElectionRound.first) &&
-              rounds.containsKey(ElectionRound.second)) ...[
-            Text(
-              'Entre um turno e outro',
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            const SizedBox(height: 8),
-            Text(
-              c.synthetic
-                  ? 'DEMONSTRAÇÃO · valores e variações fictícios'
-                  : 'Contagens publicadas · aptos e candidaturas podem mudar',
-            ),
-            const SizedBox(height: 20),
-            ComparisonChart(
-              first: rounds[ElectionRound.first]!,
-              second: rounds[ElectionRound.second]!,
-              synthetic: c.synthetic,
-              percentages: _percentages,
-            ),
-            const Text(AppStrings.interpretation),
-          ] else
-            const StatusMessage(message: 'A comparação requer os dois turnos.'),
+        else if (c.mode.round != null)
+          _summary(context, rounds[c.mode.round]!)
+        else if (rounds.containsKey(ElectionRound.first) &&
+            rounds.containsKey(ElectionRound.second)) ...[
+          Text(
+            'Entre um turno e outro',
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+          const SizedBox(height: 8),
+          Text(
+            c.synthetic
+                ? 'DEMONSTRAÇÃO · valores e variações fictícios'
+                : 'Contagens publicadas · aptos e candidaturas podem mudar',
+          ),
+          const SizedBox(height: 20),
+          ComparisonChart(
+            first: rounds[ElectionRound.first]!,
+            second: rounds[ElectionRound.second]!,
+            synthetic: c.synthetic,
+            percentages: _percentages,
+          ),
+          const Text(AppStrings.interpretation),
+        ] else
+          const StatusMessage(message: 'A comparação requer os dois turnos.'),
         const Divider(),
         TextButton.icon(
           onPressed: () =>
@@ -680,8 +670,8 @@ class _ExplorerPageState extends State<ExplorerPage> {
                     ? (c.dataset!.overseas == null ? '27 UFs · exterior não incluído' : '27 UFs + exterior fictício')
                     : c.abroad
                     ? 'Votação no exterior'
-                    : c.territoryCode} · ${c.round.index + 1}º turno'
-              : 'Fonte: dados abertos do TSE · processamento independente pelo VotoAberto\nPrévia local · ${c.round.index + 1}º turno',
+                    : c.territoryCode} · ${c.mode.label}'
+              : 'Fonte: dados abertos do TSE · processamento independente pelo VotoAberto\nPrévia local · ${c.mode.label}',
           style: Theme.of(context).textTheme.labelSmall,
         ),
       ],
@@ -729,7 +719,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
         _metric(context, 'Votos contabilizados', count(t.counted)),
         if (!c.abroad &&
             c.territoryCode == null &&
-            c.dataset?.domestic?.rounds[c.round] != null)
+            c.dataset?.domestic?.rounds[c.mode.round] != null)
           ExpansionTile(
             tilePadding: EdgeInsets.zero,
             title: const Text('Brasil doméstico · 27 UFs'),
@@ -737,7 +727,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
               ListTile(
                 contentPadding: EdgeInsets.zero,
                 title: Text(
-                  '${count(c.dataset!.domestic!.rounds[c.round]!.totals.counted)} votos contabilizados',
+                  '${count(c.dataset!.domestic!.rounds[c.mode.round]!.totals.counted)} votos contabilizados',
                 ),
                 subtitle: const Text(
                   'Recorte sem votação no exterior. O resultado Brasil acima inclui o exterior.',
@@ -815,7 +805,11 @@ class _ExplorerPageState extends State<ExplorerPage> {
           TextButton.icon(
             key: const ValueKey('geographic-back'),
             onPressed: _back,
-            icon: const Icon(Icons.west),
+            icon: Icon(
+              c.countryCode == null && c.municipalityCode == null
+                  ? Icons.flag_outlined
+                  : Icons.west,
+            ),
             label: Text(
               c.municipalityCode != null
                   ? c.mapCountryCode == null
@@ -823,7 +817,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
                         : 'Voltar ao país'
                   : c.countryCode != null
                   ? 'Voltar ao Mundo'
-                  : 'Voltar ao Brasil',
+                  : 'Consultar votação no Brasil',
             ),
           ),
           if (c.countryCode != null || c.municipalityCode != null)
@@ -850,7 +844,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
           ),
         if (c.countryCode == null) ...[
           Text(
-            '${c.activeCountries.length} países ou territórios com votação neste turno.',
+            '${c.activeCountries.length} países ou territórios com votação ${c.mode == ResultMode.comparison ? 'em pelo menos um dos turnos' : 'neste turno'}.',
           ),
           if (c.unmappedLocalities.isNotEmpty)
             Text(
@@ -858,11 +852,11 @@ class _ExplorerPageState extends State<ExplorerPage> {
             ),
           const SizedBox(height: 12),
           DropdownButtonFormField<String>(
-            key: ValueKey('country-selector-${c.round.name}'),
+            key: ValueKey('country-selector-${c.mode.name}'),
             initialValue: null,
             isExpanded: true,
             decoration: const InputDecoration(
-              labelText: 'País com votação neste turno',
+              labelText: 'País com votação no recorte',
             ),
             items: [
               for (final country in c.countries.where(
@@ -901,8 +895,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
             onSelect: (code) => context.go(
               explorerLocation(
                 null,
-                c.round,
-                c.view,
+                c.mode,
                 abroad: true,
                 country: c.countries
                     .where(
@@ -929,8 +922,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
                   onTap: () => context.go(
                     explorerLocation(
                       null,
-                      c.round,
-                      c.view,
+                      c.mode,
                       abroad: true,
                       municipality: loc.municipality.code,
                     ),
@@ -941,7 +933,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
       ],
       const SizedBox(height: 12),
       const Text(
-        'Cores indicam presença de dados neste turno. Cinza: sem registros associados. Fronteiras cartográficas não representam reconhecimento oficial de disputas territoriais.',
+        'Cores indicam presença de dados no recorte selecionado. Cinza: sem registros associados. Fronteiras cartográficas não representam reconhecimento oficial de disputas territoriais.',
         style: TextStyle(fontSize: 12),
       ),
     ],

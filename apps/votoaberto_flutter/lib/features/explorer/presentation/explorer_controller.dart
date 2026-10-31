@@ -5,7 +5,9 @@ import '../../elections/domain/election_repository.dart';
 import '../../elections/domain/geography.dart';
 import '../../map/domain/geographic_catalog.dart';
 
-enum ExplorerView { summary, comparison }
+export 'result_mode.dart';
+
+import 'result_mode.dart';
 
 enum LoadStatus { loading, ready, error }
 
@@ -16,8 +18,7 @@ class ExplorerController extends ChangeNotifier {
   ElectionDataset? dataset;
   LoadStatus status = LoadStatus.loading;
   BrazilianState? selected;
-  ElectionRound round = ElectionRound.first;
-  ExplorerView view = ExplorerView.summary;
+  ResultMode mode = ResultMode.first;
   ThemeMode theme = ThemeMode.light;
   int _request = 0;
   bool _disposed = false;
@@ -38,7 +39,11 @@ class ExplorerController extends ChangeNotifier {
           ? geography?.foreign[municipalityCode]?.iso
           : null);
   Set<String> get activeCountries => countries
-      .where((c) => (c.rounds[round]?.totals.counted ?? 0) > 0)
+      .where(
+        (c) => mode.round == null
+            ? c.rounds.values.any((r) => r.totals.counted > 0)
+            : (c.rounds[mode.round]?.totals.counted ?? 0) > 0,
+      )
       .map((c) => c.iso)
       .toSet();
   List<MunicipalitySummary> get visibleMunicipalities =>
@@ -82,8 +87,7 @@ class ExplorerController extends ChangeNotifier {
   /// Router is the source of navigation state; a selection needs no new fetch.
   void navigate(
     BrazilianState? state,
-    ElectionRound nextRound,
-    ExplorerView nextView, {
+    ResultMode nextMode, {
     bool notify = true,
     bool overseas = false,
     String? municipality,
@@ -92,8 +96,7 @@ class ExplorerController extends ChangeNotifier {
     if (overseas) state = null;
     if (!overseas) country = null;
     if (selected == state &&
-        round == nextRound &&
-        view == nextView &&
+        mode == nextMode &&
         abroad == overseas &&
         countryCode == country &&
         municipalityCode == municipality) {
@@ -104,8 +107,7 @@ class ExplorerController extends ChangeNotifier {
     abroad = overseas;
     countryCode = country;
     municipalityCode = municipality;
-    round = nextRound;
-    view = nextView;
+    mode = nextMode;
     if (territoryChanged) {
       _municipalRequest++;
       municipalities = const [];

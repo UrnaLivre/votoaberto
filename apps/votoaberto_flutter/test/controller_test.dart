@@ -23,19 +23,15 @@ void main() {
     addTearDown(c.dispose);
     await c.load();
     expect(c.status, LoadStatus.ready);
-    c.navigate(BrazilianState.sp, ElectionRound.first, ExplorerView.summary);
-    c.navigate(
-      BrazilianState.df,
-      ElectionRound.second,
-      ExplorerView.comparison,
-    );
+    c.navigate(BrazilianState.sp, ResultMode.first);
+    c.navigate(BrazilianState.df, ResultMode.comparison);
     expect(c.selected, BrazilianState.df);
-    expect(c.round, ElectionRound.second);
+    expect(c.mode, ResultMode.comparison);
     expect(c.results, c.dataset!.results(BrazilianState.df));
     c.toggleTheme();
     expect(c.theme, ThemeMode.dark);
     expect(c.selected, BrazilianState.df);
-    c.navigate(null, c.round, c.view);
+    c.navigate(null, c.mode);
     expect(c.selected, isNull);
     expect(c.results, c.dataset!.national.rounds);
   });
@@ -48,12 +44,8 @@ void main() {
       addTearDown(c.dispose);
       final first = c.load();
       final second = c.load();
-      c.navigate(BrazilianState.ac, ElectionRound.first, ExplorerView.summary);
-      c.navigate(
-        BrazilianState.rj,
-        ElectionRound.second,
-        ExplorerView.comparison,
-      );
+      c.navigate(BrazilianState.ac, ResultMode.first);
+      c.navigate(BrazilianState.rj, ResultMode.comparison);
       repo.requests[1].complete(
         await MockElectionRepository().load(Election.demonstration),
       );

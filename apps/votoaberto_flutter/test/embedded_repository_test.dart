@@ -203,19 +203,9 @@ void main() {
       final c = ExplorerController(repo);
       addTearDown(c.dispose);
       await c.load();
-      c.navigate(
-        BrazilianState.ac,
-        ElectionRound.first,
-        ExplorerView.summary,
-        municipality: '00001',
-      );
+      c.navigate(BrazilianState.ac, ResultMode.first, municipality: '00001');
       await Future<void>.delayed(Duration.zero);
-      c.navigate(
-        BrazilianState.sc,
-        ElectionRound.second,
-        ExplorerView.summary,
-        municipality: '00002',
-      );
+      c.navigate(BrazilianState.sc, ResultMode.second, municipality: '00002');
       await Future<void>.delayed(Duration.zero);
       final sc = MunicipalitySummary(
         municipality: Municipality(
@@ -231,7 +221,7 @@ void main() {
       await Future<void>.delayed(Duration.zero);
       expect(c.municipality?.municipality.name, 'SC FICTÍCIO');
       expect(c.municipalStatus, LoadStatus.ready);
-      expect(c.round, ElectionRound.second);
+      expect(c.mode, ResultMode.second);
     },
   );
 }

@@ -182,51 +182,28 @@ class ComparisonChart extends StatelessWidget {
                   style: Theme.of(context).textTheme.labelMedium,
                 ),
               ),
-          ] else
-            Padding(
-              padding: const EdgeInsets.only(bottom: 16),
-              child: Text(
-                '${candidate.candidate.name}: ${count(candidate.votes)} votos no 1º turno '
-                '${percentages && first.totals.complete('valid') ? '(${percent(candidate.shareOfValid(first.totals.valid))} dos válidos). ' : ''}'
-                '${_participationStatus(candidate.candidate, second, '2º turno')}',
-              ),
-            ),
+          ],
         ],
-        for (final candidate in second.candidates.where(
-          (c) => !first.candidates.any(
-            (a) => a.candidate.sameCandidateAs(c.candidate),
+        if (!first.candidates.any(
+          (a) => second.candidates.any(
+            (b) => a.candidate.sameCandidateAs(b.candidate),
           ),
         ))
-          Padding(
-            padding: const EdgeInsets.only(bottom: 16),
-            child: Text(
-              '${candidate.candidate.name}: ${count(candidate.votes)} votos no 2º turno. '
-              '${_participationStatus(candidate.candidate, first, '1º turno')}',
-            ),
+          const Text(
+            'Não há candidaturas com votos e identidade confirmada nos dois turnos neste recorte.',
+          ),
+        if (first.candidates.any(
+          (a) => second.candidates.any(
+            (b) =>
+                a.candidate.comparisonKey == b.candidate.comparisonKey &&
+                !a.candidate.sameCandidateAs(b.candidate),
+          ),
+        ))
+          const Text(
+            'Correspondência de identidade entre turnos não confirmada.',
           ),
       ],
     );
-  }
-
-  String _participationStatus(
-    Candidate candidate,
-    RoundResult other,
-    String round,
-  ) {
-    final participants = [
-      for (final result in other.candidates) result.candidate,
-      ...other.unreportedCandidates,
-    ];
-    if (participants.any(
-      (c) =>
-          c.comparisonKey == candidate.comparisonKey &&
-          !c.sameCandidateAs(candidate),
-    )) {
-      return 'Correspondência de identidade entre turnos não confirmada.';
-    }
-    return other.unreportedCandidates.any((c) => c.sameCandidateAs(candidate))
-        ? 'Sem registro neste recorte do $round.'
-        : 'Não disputa o $round.';
   }
 
   Widget _pair(

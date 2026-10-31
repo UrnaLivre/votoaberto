@@ -83,9 +83,9 @@ void main() {
         tester.widget<Text>(find.byKey(const ValueKey('panel-title'))).data,
         'São FICTÍCIO',
       );
-      await tapVisible(tester, find.byKey(const ValueKey('round-2')));
-      await tapVisible(tester, find.byKey(const ValueKey('view-comparison')));
-      expect(find.textContaining('Não disputa o 2º turno.'), findsOneWidget);
+      await tapVisible(tester, find.byKey(const ValueKey('mode-second')));
+      await tapVisible(tester, find.byKey(const ValueKey('mode-comparison')));
+      expect(find.textContaining('Não disputa o 2º turno.'), findsNothing);
       await tapVisible(tester, find.byKey(const ValueKey('back-uf')));
       expect(
         tester.widget<Text>(find.byKey(const ValueKey('panel-title'))).data,
@@ -118,7 +118,7 @@ void main() {
       find.text('Localidade eleitoral ou turno não disponível neste conjunto.'),
       findsOneWidget,
     );
-    await tapVisible(tester, find.byKey(const ValueKey('round-1')));
+    await tapVisible(tester, find.byKey(const ValueKey('mode-first')));
     expect(find.byKey(const ValueKey('turnout-rate')), findsOneWidget);
   });
 
