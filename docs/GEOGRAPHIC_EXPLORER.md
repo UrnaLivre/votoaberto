@@ -10,6 +10,14 @@ no residual. Fontes, critérios, conflitos e reprodução em
 As contagens e a descrição do edital nas seções históricas abaixo documentam
 o ponto de partida M5; os JSONs eleitorais M4 e a cartografia foram preservados.
 
+Na M5.3, o botão **Casos especiais (2)** na visão geral Mundo reúne as explicações
+e os resultados existentes de Bruxelas e Trípoli em um diálogo com duas abas,
+sem alterar rota, modo, residual ou agregados. A mensagem numérica de cobertura
+parcial saiu do painel principal; ressalvas metodológicas e as mensagens de
+agregação parcial por país continuam preservadas. Outras localidades pendentes
+continuam acessíveis em uma lista própria. Os deep links anteriores permanecem.
+Detalhes em [M5.3 — casos especiais](M5_3_SPECIAL_CASES_REPORT.md).
+
 O app continua offline, sem API/backend, tiles, SQLite embarcado ou pacote novo de
 mapas. Resumo e Comparar usam os mesmos componentes em Brasil, UF, município,
 Mundo, país/território e localidade eleitoral. O total Brasil continua incluindo

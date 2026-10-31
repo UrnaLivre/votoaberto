@@ -214,6 +214,10 @@ com 26 novas correspondências documentais, sem alterar resultados ou cartografi
 [Investigação individual, fontes e pendências](docs/M5_2_ZZ_COUNTRY_INVESTIGATION.md)
 e [reconciliação exata dos dois turnos](docs/M5_2_VALIDATION_SUMMARY.json).
 
+M5.3 apresenta Bruxelas e Trípoli em uma janela de **Casos especiais**, acessível
+na visão geral Mundo, com resultados existentes e explicações documentais.
+[Implementação, validação e prévia local](docs/M5_3_SPECIAL_CASES_REPORT.md).
+
 Resumo/Comparar, marcadores para 5.571 identificadores municipais e mapa mundial offline.
 Bruxelas e Trípoli permanecem sem atribuição integral a um país, com acesso aos
 resultados preservado e totais reconciliados. Os relatórios M5 abaixo registram
