@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:votoaberto/app/strings.dart';
@@ -8,6 +10,7 @@ import 'package:votoaberto/main.dart' as app;
 import 'package:votoaberto/features/map/presentation/brazil_map.dart';
 import 'package:votoaberto/features/map/presentation/world_map.dart';
 import 'package:go_router/go_router.dart';
+import 'package:votoaberto/features/explorer/presentation/round_summary.dart';
 
 class NoHttp extends HttpOverrides {
   int attempts = 0;
@@ -16,6 +19,24 @@ class NoHttp extends HttpOverrides {
     attempts++;
     throw StateError('HTTP bloqueado no smoke offline da aplicação');
   }
+}
+
+Future<void> captureDialog(WidgetTester tester, String name) async {
+  const output = String.fromEnvironment('QA_SCREENSHOTS');
+  if (output.isEmpty) return;
+  final boundary = tester.renderObject<RenderRepaintBoundary>(
+    find
+        .ancestor(
+          of: find.byKey(const ValueKey('special-cases-surface')),
+          matching: find.byType(RepaintBoundary),
+        )
+        .first,
+  );
+  final picture = await boundary.toImage(pixelRatio: 1);
+  final bytes = await picture.toByteData(format: ui.ImageByteFormat.png);
+  await Directory(output).create(recursive: true);
+  await File('$output/$name.png').writeAsBytes(bytes!.buffer.asUint8List());
+  picture.dispose();
 }
 
 void main() {
@@ -101,7 +122,74 @@ void main() {
     metrics['world_selection_ms'] = clock.elapsedMicroseconds / 1000;
     expect(find.text('371.651'), findsOneWidget);
     expect(tester.widget<WorldMap>(find.byType(WorldMap)).active.length, 100);
-    expect(find.textContaining('143 de 145'), findsOneWidget);
+    expect(find.textContaining('Cobertura por país parcial'), findsNothing);
+    expect(find.text('Sem país confirmado (2)'), findsNothing);
+    final worldRoute = router.routeInformationProvider.value.uri;
+    await tester.ensureVisible(
+      find.byKey(const ValueKey('special-cases-open')),
+    );
+    await tester.tap(find.byKey(const ValueKey('special-cases-open')));
+    await tester.pumpAndSettle();
+    expect(find.text('Localidade eleitoral TSE 29432'), findsOneWidget);
+    await captureDialog(tester, 'bruxelas-light-desktop');
+    expect(
+      tester
+          .widget<RoundSummary>(
+            find.byKey(const ValueKey('special-result-29432-first')),
+          )
+          .result
+          .totals
+          .counted,
+      5091,
+    );
+    expect(
+      tester
+          .widget<RoundSummary>(
+            find.byKey(const ValueKey('special-result-29432-second')),
+          )
+          .result
+          .totals
+          .counted,
+      5326,
+    );
+    await tester.tap(find.byKey(const ValueKey('special-tab-30686')));
+    await tester.pumpAndSettle();
+    expect(
+      tester
+          .widget<RoundSummary>(
+            find.byKey(const ValueKey('special-result-30686-first')),
+          )
+          .result
+          .totals
+          .counted,
+      2,
+    );
+    expect(
+      find.byKey(const ValueKey('special-result-30686-second')),
+      findsNothing,
+    );
+    expect(
+      find.text(
+        'Não há registro de resultados desta localidade para o 2º turno na base consultada.',
+      ),
+      findsOneWidget,
+    );
+    await captureDialog(tester, 'tripoli-light-desktop');
+    await tester.tap(find.byKey(const ValueKey('special-cases-close')));
+    await tester.pumpAndSettle();
+    expect(router.routeInformationProvider.value.uri, worldRoute);
+    await tester.tap(find.byKey(const ValueKey('theme-toggle')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const ValueKey('special-cases-open')));
+    await tester.pumpAndSettle();
+    await captureDialog(tester, 'bruxelas-dark-desktop');
+    await tester.tap(find.byKey(const ValueKey('special-tab-30686')));
+    await tester.pumpAndSettle();
+    await captureDialog(tester, 'tripoli-dark-desktop');
+    await tester.tap(find.byKey(const ValueKey('special-cases-close')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const ValueKey('theme-toggle')));
+    await tester.pumpAndSettle();
     for (final mode in ['1', '2', 'comparacao']) {
       router.go('/mundo/NP/localidade/29173?modo=$mode');
       await tester.pumpAndSettle();

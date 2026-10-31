@@ -8,6 +8,7 @@ import '../../map/domain/geographic_catalog.dart';
 export 'result_mode.dart';
 
 import 'result_mode.dart';
+import 'overseas_special_case.dart';
 
 enum LoadStatus { loading, ready, error }
 
@@ -29,6 +30,30 @@ class ExplorerController extends ChangeNotifier {
   int _geographicRequest = 0;
   List<CountrySummary> countries = const [];
   List<MunicipalitySummary> unmappedLocalities = const [];
+  List<OverseasSpecialCase> get specialCases {
+    final catalog = geography;
+    if (catalog == null ||
+        catalog.sourceDatasetId != dataset?.provenance.version) {
+      return const [];
+    }
+    return OverseasSpecialCase.values
+        .where(
+          (entry) =>
+              entry.matches(catalog.foreign[entry.code]) &&
+              unmappedLocalities.any(
+                (loc) => loc.municipality.code == entry.code,
+              ),
+        )
+        .toList(growable: false);
+  }
+
+  List<MunicipalitySummary> get otherUnmappedLocalities {
+    final known = specialCases.map((entry) => entry.code).toSet();
+    return unmappedLocalities
+        .where((loc) => !known.contains(loc.municipality.code))
+        .toList(growable: false);
+  }
+
   CountrySummary? get country =>
       countries.where((c) => c.iso == countryCode).firstOrNull;
   String? get mapCountryCode =>
