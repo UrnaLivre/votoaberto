@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import '../../elections/domain/geography.dart';
 import '../domain/brazil_geometry.dart';
 import '../domain/geographic_catalog.dart';
+import 'map_controls.dart';
 
 class BrazilMap extends StatefulWidget {
   const BrazilMap({
@@ -183,31 +184,25 @@ class _BrazilMapState extends State<BrazilMap>
                           ),
                         ),
                       ),
-                    Positioned(
-                      top: 14,
-                      left: 16,
-                      right: 16,
-                      child: IgnorePointer(
-                        child: Text(
-                          _focused
-                              ? '${_keyboard.name} · Enter para selecionar'
-                              : _hovered?.name ?? 'Selecione um estado no mapa',
-                          style: Theme.of(context).textTheme.labelMedium,
-                        ),
-                      ),
+                    MapCaption(
+                      _focused
+                          ? '${_keyboard.name} · Enter para selecionar'
+                          : _hovered?.name ?? 'Selecione um estado no mapa',
                     ),
                     Positioned(
                       bottom: 12,
                       left: 12,
-                      child: FilledButton.tonalIcon(
-                        key: const ValueKey('map-reset'),
+                      child: MapResetButton(
+                        visible: widget.selected != null,
+                        buttonKey: const ValueKey('map-reset'),
                         onPressed: widget.onReset,
-                        icon: const Icon(Icons.public, size: 18),
-                        label: const Text('Brasil'),
                       ),
                     ),
                     Positioned(
-                      bottom: 18,
+                      bottom:
+                          constraints.maxWidth < 440 && widget.selected != null
+                          ? 72
+                          : 18,
                       right: 16,
                       child: IgnorePointer(
                         child: Text(
@@ -271,11 +266,7 @@ class BrazilMapPainter extends CustomPainter {
           ? colors.primary
           : over
           ? colors.tertiaryContainer
-          : Color.lerp(
-              colors.surfaceContainerHighest,
-              colors.primaryContainer,
-              .3 + (shape.state.index % 4) * .1,
-            )!;
+          : mapRegionFill(colors, shape.state.index);
       canvas.drawPath(shape.path, Paint()..color = fill);
       canvas.drawPath(
         shape.path,

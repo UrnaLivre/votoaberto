@@ -11,6 +11,7 @@ import 'package:votoaberto/features/elections/domain/election.dart';
 import 'package:votoaberto/features/elections/domain/election_repository.dart';
 import 'package:votoaberto/features/map/domain/brazil_geometry.dart';
 import 'package:votoaberto/features/map/presentation/brazil_map.dart';
+import 'package:votoaberto/features/explorer/presentation/result_mode.dart';
 
 class ErrorRepository implements ElectionRepository {
   @override
@@ -123,8 +124,12 @@ void main() {
       'Brasil',
     );
     expect(
-      tester.widget<ChoiceChip>(find.byKey(const ValueKey('round-2'))).selected,
-      isTrue,
+      tester
+          .widget<SegmentedButton<ResultMode>>(
+            find.byKey(const ValueKey('result-mode')),
+          )
+          .selected,
+      {ResultMode.second},
     );
   });
 
@@ -146,9 +151,11 @@ void main() {
       );
       expect(
         tester
-            .widget<ChoiceChip>(find.byKey(const ValueKey('round-2')))
+            .widget<SegmentedButton<ResultMode>>(
+              find.byKey(const ValueKey('result-mode')),
+            )
             .selected,
-        isTrue,
+        {ResultMode.second},
       );
       expect(tester.takeException(), isNull);
     }
@@ -187,18 +194,18 @@ void main() {
         'São Paulo',
       );
       expect(find.text(AppStrings.demo), findsOneWidget);
-      await reveal(tester, find.byKey(const ValueKey('round-2')));
-      await tester.tap(find.byKey(const ValueKey('round-2')));
+      await reveal(tester, find.byKey(const ValueKey('mode-second')));
+      await tester.tap(find.byKey(const ValueKey('mode-second')));
       await tester.pumpAndSettle();
       expect(
         tester.widget<Text>(find.byKey(const ValueKey('panel-title'))).data,
         'São Paulo',
       );
-      await reveal(tester, find.byKey(const ValueKey('view-comparison')));
-      await tester.tap(find.byKey(const ValueKey('view-comparison')));
+      await reveal(tester, find.byKey(const ValueKey('mode-comparison')));
+      await tester.tap(find.byKey(const ValueKey('mode-comparison')));
       await tester.pumpAndSettle();
       expect(find.text('Entre um turno e outro'), findsOneWidget);
-      expect(find.textContaining('Não disputa o 2º turno.'), findsNWidgets(2));
+      expect(find.textContaining('Não disputa o 2º turno.'), findsNothing);
       await reveal(tester, find.byKey(const ValueKey('back-brasil')));
       await tester.tap(find.byKey(const ValueKey('back-brasil')));
       await tester.pumpAndSettle();

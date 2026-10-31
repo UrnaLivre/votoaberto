@@ -35,7 +35,7 @@ void main() {
     metrics['first_national_frame_ms'] = clock.elapsedMicroseconds / 1000;
     expect(find.text(AppStrings.demo), findsNothing);
     expect(find.text('119.306.034'), findsOneWidget);
-    final round2 = find.byKey(const ValueKey('round-2'));
+    final round2 = find.byKey(const ValueKey('mode-second'));
     await tester.ensureVisible(round2);
     clock.reset();
     await tester.tap(round2);
@@ -86,9 +86,15 @@ void main() {
     );
     expect(tester.state(find.byType(BrazilMap)), same(mapState));
     expect(find.byKey(const ValueKey('municipal-marker')), findsOneWidget);
+    await tester.tap(find.byKey(const ValueKey('map-reset')));
+    await tester.pumpAndSettle();
+    expect(find.text('124.082.273'), findsOneWidget);
+    expect(find.byKey(const ValueKey('municipal-marker')), findsNothing);
+    expect(find.byKey(const ValueKey('map-reset')), findsNothing);
     final router = GoRouter.of(
       tester.element(find.byKey(const ValueKey('map-title'))),
     );
+    expect(router.routeInformationProvider.value.uri.toString(), '/?modo=2');
     clock.reset();
     router.go('/mundo?turno=2&visao=summary');
     await tester.pumpAndSettle();
@@ -116,6 +122,19 @@ void main() {
       'BOSTON',
     );
     expect(find.text('Entre um turno e outro'), findsOneWidget);
+    expect(
+      router.routeInformationProvider.value.uri.toString(),
+      '/mundo/US/localidade/29416?modo=comparacao',
+    );
+    await tester.tap(find.byKey(const ValueKey('world-map-reset')));
+    await tester.pumpAndSettle();
+    expect(
+      router.routeInformationProvider.value.uri.toString(),
+      '/mundo?modo=comparacao',
+    );
+    expect(find.byKey(const ValueKey('world-map-reset')), findsNothing);
+    expect(find.text('Entre um turno e outro'), findsOneWidget);
+    expect(find.byKey(const ValueKey('breadcrumb-brasil')), findsNothing);
     router.go('/mundo/localidade/29432?turno=1');
     await tester.pumpAndSettle();
     expect(

@@ -44,22 +44,15 @@ class _VotoAbertoAppState extends State<VotoAbertoApp> {
     redirect: (context, state) {
       final path = state.uri.path;
       final uf = state.pathParameters['uf']?.toUpperCase();
-      final requestedRound = state.uri.queryParameters['turno'];
-      final requestedView = state.uri.queryParameters['visao'];
-      if (requestedView == 'insights') {
-        return state.uri
-            .replace(
-              queryParameters: {
-                ...state.uri.queryParameters,
-                'visao': 'summary',
-              },
-            )
-            .toString();
-      }
-      if ((requestedRound != null && !['1', '2'].contains(requestedRound)) ||
-          (requestedView != null &&
-              !ExplorerView.values.any((v) => v.name == requestedView))) {
-        return '/indisponivel';
+      if (path == '/indisponivel') return null;
+      final mode = ResultMode.fromQuery(state.uri.queryParameters);
+      if (mode == null) return '/indisponivel';
+      final query = {...state.uri.queryParameters}
+        ..remove('turno')
+        ..remove('visao')
+        ..['modo'] = mode.queryValue;
+      if (state.uri.query != Uri(queryParameters: query).query) {
+        return state.uri.replace(queryParameters: query).toString();
       }
       if (uf != null &&
           BrazilianState.fromCode(uf) == null &&
@@ -82,19 +75,11 @@ class _VotoAbertoAppState extends State<VotoAbertoApp> {
         return '/indisponivel';
       }
       if (path == '/' || path.startsWith('/uf/') || path.startsWith('/mundo')) {
-        final round = state.uri.queryParameters['turno'] == '2'
-            ? ElectionRound.second
-            : ElectionRound.first;
-        final viewName = state.uri.queryParameters['visao'];
-        final view =
-            ExplorerView.values.where((v) => v.name == viewName).firstOrNull ??
-            ExplorerView.summary;
         // The router rebuilds the Page itself; notifying during its initial
         // parse would mark an ancestor dirty while MaterialApp is building.
         controller.navigate(
           BrazilianState.fromCode(uf),
-          round,
-          view,
+          mode,
           notify: false,
           overseas: path.startsWith('/mundo'),
           country: country,

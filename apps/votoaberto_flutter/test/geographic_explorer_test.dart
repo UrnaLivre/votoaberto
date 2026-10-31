@@ -172,7 +172,7 @@ void main() {
       expect(title(tester), 'São FICTÍCIO');
       final uri = router(tester).routeInformationProvider.value.uri;
       expect(uri.path, '/uf/SC/municipio/00001');
-      expect(uri.queryParameters, {'turno': '2', 'visao': 'summary'});
+      expect(uri.queryParameters, {'modo': '2'});
     },
   );
 
@@ -213,7 +213,7 @@ void main() {
       expect(map().active, {'US', 'PT'});
       expect(map().active.contains('BR'), isFalse);
       expect(find.text('200'), findsOneWidget);
-      await tap(tester, find.byKey(const ValueKey('round-2')));
+      await tap(tester, find.byKey(const ValueKey('mode-second')));
       expect(map().active, {'US'});
       expect(find.text('100'), findsOneWidget);
       expect(find.textContaining('ZZ'), findsNothing);
@@ -366,18 +366,13 @@ void main() {
       await c.load();
       c.navigate(
         BrazilianState.sc,
-        ElectionRound.first,
-        ExplorerView.summary,
+        ResultMode.first,
         overseas: true,
         country: 'US',
       );
       await Future<void>.delayed(Duration.zero);
       expect(c.selected, isNull);
-      c.navigate(
-        BrazilianState.sc,
-        ElectionRound.second,
-        ExplorerView.comparison,
-      );
+      c.navigate(BrazilianState.sc, ResultMode.comparison);
       await Future<void>.delayed(Duration.zero);
       repo.requests['ZZ']!.complete([]);
       repo.requests['SC']!.complete([]);

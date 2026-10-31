@@ -125,7 +125,7 @@ void main() {
   );
 
   testWidgets(
-    'conflicting source IDs show unconfirmed identity, not nonparticipation',
+    'conflicting source IDs never produce candidate bars or isolated rows',
     (tester) async {
       const conflicting = Candidate(
         'second:11',
@@ -142,10 +142,12 @@ void main() {
         find.textContaining(
           'Correspondência de identidade entre turnos não confirmada.',
         ),
-        findsNWidgets(2),
+        findsOneWidget,
       );
       expect(find.textContaining('Não disputa'), findsNothing);
       expect(find.textContaining('Dos válidos:'), findsNothing);
+      expect(find.textContaining('José FICTÍCIO'), findsNothing);
+      expect(find.textContaining('Outra grafia'), findsNothing);
     },
   );
 
@@ -164,9 +166,40 @@ void main() {
       );
       expect(
         find.textContaining('Sem registro neste recorte do 2º turno.'),
-        findsOneWidget,
+        findsNothing,
       );
       expect(find.textContaining('Não disputa o 2º turno.'), findsNothing);
+      expect(find.textContaining('José FICTÍCIO'), findsNothing);
+      expect(find.textContaining('Outro FICTÍCIO'), findsNothing);
+    },
+  );
+
+  testWidgets(
+    'only candidates with confirmed votes in both rounds have paired bars',
+    (tester) async {
+      final original = result(ElectionRound.first, firstCandidate, 90);
+      final first = RoundResult(
+        round: ElectionRound.first,
+        totals: original.totals,
+        candidates: [
+          CandidateResult(firstCandidate, 45),
+          CandidateResult(
+            const Candidate('first:22', 'Exclusivo FICTÍCIO', number: '22'),
+            45,
+          ),
+        ],
+      );
+      await showComparison(
+        tester,
+        first,
+        result(ElectionRound.second, secondCandidate, 100),
+      );
+      expect(find.text('José FICTÍCIO'), findsOneWidget);
+      expect(find.textContaining('Exclusivo FICTÍCIO'), findsNothing);
+      expect(
+        find.textContaining('Dos válidos: 50,0% → 100,0%'),
+        findsOneWidget,
+      );
     },
   );
 
