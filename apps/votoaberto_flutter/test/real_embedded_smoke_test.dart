@@ -21,6 +21,10 @@ class LocalRealBundle extends CachingAssetBundle {
 
 void main() {
   const enabled = bool.fromEnvironment('RUN_REAL_EMBEDDED');
+  const expectedReadiness = String.fromEnvironment(
+    'EXPECTED_REAL_READINESS',
+    defaultValue: 'not_ready',
+  );
   TestWidgetsFlutterBinding.ensureInitialized();
   final metrics = <String, Object>{};
   tearDownAll(() {
@@ -48,7 +52,7 @@ void main() {
       metrics['initial_dataset_debug_ms'] = clock.elapsedMicroseconds / 1000;
       expect(bundle.reads.where((p) => p.contains('municipalities/')), isEmpty);
       expect(data.provenance.synthetic, isFalse);
-      expect(data.provenance.publicReadiness, 'not_ready');
+      expect(data.provenance.publicReadiness, expectedReadiness);
       expect(
         data.national.rounds[ElectionRound.first]!.totals.valid,
         119306034,

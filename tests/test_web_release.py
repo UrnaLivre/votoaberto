@@ -117,7 +117,8 @@ def test_readiness_cannot_be_overridden_by_operator_approval(tmp_path, monkeypat
         module.require_approved(tmp_path)
 
 
-def test_approval_pins_exact_dataset_and_terms(tmp_path, monkeypatch):
+@pytest.mark.parametrize("mismatched_key", ["manifest_sha256", "dataset_id"])
+def test_approval_pins_exact_dataset_and_terms(tmp_path, monkeypatch, mismatched_key):
     module = tool()
     ready = {"status": "ready_for_declared_scope", "blockers": []}
     (tmp_path / "manifest.json").write_text(
@@ -145,9 +146,59 @@ def test_approval_pins_exact_dataset_and_terms(tmp_path, monkeypatch):
     }
     approval.write_text(json.dumps(payload), encoding="utf8")
     assert module.require_approved(tmp_path, approval) == meta
-    payload["manifest_sha256"] = "b" * 64
+    payload[mismatched_key] = "b" * 64
     approval.write_text(json.dumps(payload), encoding="utf8")
     with pytest.raises(module.ImportFailure, match="aprovação"):
+        module.require_approved(tmp_path, approval)
+
+
+@pytest.mark.parametrize(
+    "missing",
+    ["approved", "policy_id", "review_sha256", "reviewed_by", "reviewed_on", "metadata_release_id"],
+)
+def test_metadata_release_requires_explicit_bound_provenance_approval(
+    tmp_path, monkeypatch, missing
+):
+    module = tool()
+    ready = {"status": "ready_for_declared_scope", "blockers": []}
+    manifest = {
+        "public_readiness": ready,
+        "source_assessment": {"public_readiness": ready},
+        "metadata_release_id": "test-metadata",
+        "provenance_review": {"policy_id": "test-policy", "review_sha256": "a" * 64},
+    }
+    (tmp_path / "manifest.json").write_text(json.dumps(manifest), encoding="utf8")
+    monkeypatch.setattr(module, "resolve_release", lambda path: tmp_path)
+    meta = {"dataset_id": "test-only", "manifest_sha256": "a" * 64}
+    monkeypatch.setattr(module, "build_metadata", lambda *args: meta)
+    decision = {
+        "approved": True,
+        "policy_id": "test-policy",
+        "review_sha256": "a" * 64,
+        "reviewed_by": "test harness",
+        "reviewed_on": "2030-01-01",
+    }
+    payload = {
+        **meta,
+        "release_tag": "test-only",
+        "metadata_release_id": "test-metadata",
+        "provenance_approval": decision,
+        "redistribution_review": {
+            "approved": True,
+            "source_terms_url": "https://example.invalid",
+            "reviewed_by": "test harness",
+            "reviewed_on": "2030-01-01",
+        },
+    }
+    approval = tmp_path / "approval.json"
+    approval.write_text(json.dumps(payload), encoding="utf8")
+    assert module.require_approved(tmp_path, approval) == meta
+    if missing == "metadata_release_id":
+        payload[missing] = "different"
+    else:
+        del decision[missing]
+    approval.write_text(json.dumps(payload), encoding="utf8")
+    with pytest.raises(module.ImportFailure, match="proveniência/política"):
         module.require_approved(tmp_path, approval)
 
 

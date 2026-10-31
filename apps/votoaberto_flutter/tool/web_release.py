@@ -48,6 +48,20 @@ def require_approved(source, approval_path=None):
             )
     approval = read_json(approval_path or APP / "web-data-approval.json")
     review = approval.get("redistribution_review", {})
+    if "provenance_review" in manifest:
+        provenance = manifest["provenance_review"]
+        decision = approval.get("provenance_approval", {})
+        if (
+            approval.get("metadata_release_id") != manifest["metadata_release_id"]
+            or decision.get("approved") is not True
+            or decision.get("policy_id") != provenance["policy_id"]
+            or decision.get("review_sha256") != provenance["review_sha256"]
+            or not decision.get("reviewed_by")
+            or not decision.get("reviewed_on")
+        ):
+            raise ImportFailure(
+                "Publicação bloqueada: aprovação explícita de proveniência/política ausente ou divergente"
+            )
     if (
         approval.get("dataset_id") != meta["dataset_id"]
         or approval.get("manifest_sha256") != meta["manifest_sha256"]
@@ -209,7 +223,7 @@ def unpack(archive_path, destination, approval_path=None):
     with zipfile.ZipFile(archive_path) as archive:
         members = archive.infolist()
         names = [item.filename for item in members]
-        if len(names) != len(set(names)) or len(names) > 32:
+        if len(names) != len(set(names)) or len(names) > 33:
             raise ImportFailure("Bundle duplicado ou com arquivos inesperados")
         manifest_info = archive.getinfo("manifest.json")
         if manifest_info.file_size > MAX_FILE_BYTES:
