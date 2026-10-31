@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../elections/domain/geography.dart';
 import '../domain/brazil_geometry.dart';
+import '../domain/geographic_catalog.dart';
 
 class BrazilMap extends StatefulWidget {
   const BrazilMap({
@@ -11,11 +12,15 @@ class BrazilMap extends StatefulWidget {
     required this.selected,
     required this.onSelect,
     required this.onReset,
+    this.location,
+    this.locationName,
   });
   final BrazilGeometry geometry;
   final BrazilianState? selected;
   final ValueChanged<BrazilianState> onSelect;
   final VoidCallback onReset;
+  final MunicipalLocation? location;
+  final String? locationName;
 
   @override
   State<BrazilMap> createState() => _BrazilMapState();
@@ -27,7 +32,15 @@ class _BrazilMapState extends State<BrazilMap>
     vsync: this,
     duration: const Duration(milliseconds: 540),
   );
-  late Rect _from = widget.geometry.viewFor(widget.selected);
+  Rect _target() {
+    final view = widget.geometry.viewFor(widget.selected);
+    final point = widget.location?.point;
+    return point == null || view.contains(point)
+        ? view
+        : view.expandToInclude(Rect.fromCircle(center: point, radius: .6));
+  }
+
+  late Rect _from = _target();
   late Rect _to = _from;
   BrazilianState? _hovered;
   BrazilianState _keyboard = BrazilianState.ac;
@@ -39,11 +52,12 @@ class _BrazilMapState extends State<BrazilMap>
   void didUpdateWidget(covariant BrazilMap oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.selected != widget.selected ||
+        oldWidget.location != widget.location ||
         oldWidget.geometry != widget.geometry) {
       final current = _view;
       _animation.stop();
       _from = current;
-      _to = widget.geometry.viewFor(widget.selected);
+      _to = _target();
       _hovered = null;
       if (widget.selected != null) _keyboard = widget.selected!;
       if (MediaQuery.disableAnimationsOf(context)) {
@@ -149,6 +163,26 @@ class _BrazilMapState extends State<BrazilMap>
                         ),
                       ),
                     ),
+                    if (widget.location != null)
+                      Positioned(
+                        left: viewport.toScreen(widget.location!.point).dx - 14,
+                        top: viewport.toScreen(widget.location!.point).dy - 28,
+                        child: IgnorePointer(
+                          child: Semantics(
+                            label:
+                                '${widget.locationName}. ${widget.location!.kind == 'seat' ? 'Sede municipal' : 'Ponto representativo'}. Não indica urna ou local de votação.',
+                            child: Icon(
+                              Icons.location_on,
+                              key: const ValueKey('municipal-marker'),
+                              size: 28,
+                              color: colors.error,
+                              shadows: [
+                                Shadow(color: colors.surface, blurRadius: 3),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
                     Positioned(
                       top: 14,
                       left: 16,

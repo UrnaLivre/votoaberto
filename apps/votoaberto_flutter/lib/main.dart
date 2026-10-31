@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'app/votoaberto_app.dart';
+import 'app/strings.dart';
 import 'features/elections/data/embedded_election_repository.dart';
 import 'features/elections/data/mock_election_repository.dart';
 import 'features/elections/domain/election.dart';
@@ -28,6 +29,9 @@ void main() {
       'assets/fonts/LICENSE-Roboto.txt',
     );
     yield LicenseEntryWithLineBreaks(['Roboto'], license);
+    yield const LicenseEntryWithLineBreaks([
+      'IBGE / TSE / TRE-DF / Natural Earth',
+    ], AppStrings.geographicMethodology);
   });
   // Composition root: the UI only receives the ElectionRepository contract.
   final mode = _configuration.mode;

@@ -116,8 +116,10 @@ Future<void> showMethodology(
                         'Totais parciais são identificados; valores indisponíveis não são zero. '
                         'As listas de candidatos e os aptos podem mudar entre turnos. ${AppStrings.interpretation}\n\n'
                         'SHA-256 compara bytes; não é assinatura nem certificação. VotoAberto é independente do TSE. '
-                        'Cartografia IBGE, Malhas Geográficas v3, simplificada por UF; sem localização de equipamentos ou votação no exterior.',
+                        'Malha de UFs: IBGE, Malhas Geográficas v3, simplificada; sem localização de equipamentos.',
             ),
+            const SizedBox(height: 16),
+            const SelectableText(AppStrings.geographicMethodology),
           ],
         ),
       ),
@@ -127,7 +129,7 @@ Future<void> showMethodology(
         onPressed: () => showLicensePage(
           context: context,
           applicationName: AppStrings.title,
-          applicationVersion: '0.4.0',
+          applicationVersion: '0.5.0',
         ),
         child: const Text('Licenças de software'),
       ),

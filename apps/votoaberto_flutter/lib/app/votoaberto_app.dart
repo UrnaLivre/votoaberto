@@ -8,6 +8,8 @@ import '../features/elections/domain/geography.dart';
 import '../features/explorer/presentation/explorer_controller.dart';
 import '../features/explorer/presentation/explorer_page.dart';
 import '../features/map/domain/brazil_geometry.dart';
+import '../features/map/domain/geographic_catalog.dart';
+import '../features/map/domain/world_geometry.dart';
 import 'strings.dart';
 import 'theme.dart';
 
@@ -17,21 +19,26 @@ class VotoAbertoApp extends StatefulWidget {
     required this.repository,
     this.initialLocation,
     this.geometryLoader,
+    this.geographicLoader,
+    this.worldLoader,
     this.election = Election.demonstration,
   });
   final ElectionRepository repository;
   final String? initialLocation;
   final Future<BrazilGeometry> Function()? geometryLoader;
+  final Future<GeographicCatalog> Function()? geographicLoader;
+  final Future<WorldGeometry> Function()? worldLoader;
   final Election election;
   @override
   State<VotoAbertoApp> createState() => _VotoAbertoAppState();
 }
 
 class _VotoAbertoAppState extends State<VotoAbertoApp> {
-  late final controller = ExplorerController(
-    widget.repository,
-    election: widget.election,
-  )..load();
+  late final geographicAssets = GeographicAssets();
+  late final controller =
+      ExplorerController(widget.repository, election: widget.election)
+        ..loadGeography(widget.geographicLoader ?? geographicAssets.load)
+        ..load();
   late final router = GoRouter(
     initialLocation: widget.initialLocation,
     redirect: (context, state) {
@@ -39,6 +46,16 @@ class _VotoAbertoAppState extends State<VotoAbertoApp> {
       final uf = state.pathParameters['uf']?.toUpperCase();
       final requestedRound = state.uri.queryParameters['turno'];
       final requestedView = state.uri.queryParameters['visao'];
+      if (requestedView == 'insights') {
+        return state.uri
+            .replace(
+              queryParameters: {
+                ...state.uri.queryParameters,
+                'visao': 'summary',
+              },
+            )
+            .toString();
+      }
       if ((requestedRound != null && !['1', '2'].contains(requestedRound)) ||
           (requestedView != null &&
               !ExplorerView.values.any((v) => v.name == requestedView))) {
@@ -49,7 +66,22 @@ class _VotoAbertoAppState extends State<VotoAbertoApp> {
           !(uf == 'ZZ' && widget.election.id != Election.demonstration.id)) {
         return '/indisponivel';
       }
-      if (path == '/' || path.startsWith('/uf/')) {
+      if (uf == 'ZZ') {
+        final locality = state.pathParameters['municipality'];
+        return state.uri
+            .replace(
+              path: locality == null ? '/mundo' : '/mundo/localidade/$locality',
+            )
+            .toString();
+      }
+      final country = state.pathParameters['country']?.toUpperCase();
+      final municipality = state.pathParameters['municipality'];
+      if ((country != null && !RegExp(r'^[A-Z]{2}$').hasMatch(country)) ||
+          (municipality != null &&
+              !RegExp(r'^\d{1,8}$').hasMatch(municipality))) {
+        return '/indisponivel';
+      }
+      if (path == '/' || path.startsWith('/uf/') || path.startsWith('/mundo')) {
         final round = state.uri.queryParameters['turno'] == '2'
             ? ElectionRound.second
             : ElectionRound.first;
@@ -64,8 +96,9 @@ class _VotoAbertoAppState extends State<VotoAbertoApp> {
           round,
           view,
           notify: false,
-          overseas: uf == 'ZZ',
-          municipality: state.pathParameters['municipality'],
+          overseas: path.startsWith('/mundo'),
+          country: country,
+          municipality: municipality,
         );
       }
       return null;
@@ -75,6 +108,19 @@ class _VotoAbertoAppState extends State<VotoAbertoApp> {
       GoRoute(path: '/uf/:uf', pageBuilder: (context, state) => _explorer()),
       GoRoute(
         path: '/uf/:uf/municipio/:municipality',
+        pageBuilder: (context, state) => _explorer(),
+      ),
+      GoRoute(path: '/mundo', pageBuilder: (context, state) => _explorer()),
+      GoRoute(
+        path: '/mundo/localidade/:municipality',
+        pageBuilder: (context, state) => _explorer(),
+      ),
+      GoRoute(
+        path: '/mundo/:country',
+        pageBuilder: (context, state) => _explorer(),
+      ),
+      GoRoute(
+        path: '/mundo/:country/localidade/:municipality',
         pageBuilder: (context, state) => _explorer(),
       ),
       GoRoute(
@@ -92,6 +138,11 @@ class _VotoAbertoAppState extends State<VotoAbertoApp> {
       key: const ValueKey('explorer'),
       controller: controller,
       geometryLoader: widget.geometryLoader,
+      worldLoader:
+          widget.worldLoader ??
+          () async => WorldGeometry.decode(
+            await geographicAssets.read('world.geojson'),
+          ),
     ),
   );
 

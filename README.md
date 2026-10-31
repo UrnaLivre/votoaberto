@@ -205,3 +205,16 @@ Contribuições, sugestões de acessibilidade, revisão de métodos estatístico
 The **M1 demonstration** remains explicitly fictional. M2 adds the shared engine and Auditor; M3.1 produced the local presidential SQLite database. M4 exports independently validated compact JSONs for national/state/municipal and overseas Flutter consultation. Real builds remain local previews: public readiness is still `not_ready`, and real datasets are excluded from Git. No results API or public deployment was introduced. Web offline across browser sessions is not guaranteed. Statistical outliers do not establish misconduct; VotoAberto is **not affiliated with or endorsed by the TSE**. See the [M4 report](docs/M4_COMPLETION_REPORT.md).
 
 The source code is MIT-licensed; third-party datasets, maps and trademarks retain their own terms.
+
+
+## M5 — Explorador geográfico Brasil e Mundo
+
+Resumo/Comparar, marcadores para 5.571 identificadores municipais e mapa mundial offline.
+A correspondência exterior confirma 117 de 145 localidades em 80 países/territórios;
+28 permanecem sem país, com acesso aos resultados preservado e totais reconciliados.
+
+- [Relatório de entrega e pendências M5](docs/M5_COMPLETION_REPORT.md)
+- [Fontes, arquitetura, licenças e reprodução](docs/GEOGRAPHIC_EXPLORER.md)
+- [Resumo verificável de cobertura, totais, builds e preservação](docs/M5_VALIDATION_SUMMARY.json)
+
+Sem API, alteração de releases eleitorais anteriores ou reprocessamento de ZIPs de votação.

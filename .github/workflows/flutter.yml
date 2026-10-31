@@ -3,9 +3,9 @@ name: Flutter
 on:
   push:
     # Validate the current working branch without tying CI to its temporary name.
-    paths: ['apps/votoaberto_flutter/**', 'pipelines/tse_importer/embedded*.py', '.github/workflows/flutter.yml']
+    paths: ['apps/votoaberto_flutter/**', 'pipelines/tse_importer/embedded*.py', 'pipelines/tse_importer/country_exporter.py', 'tools/geography/**', '.github/workflows/flutter.yml']
   pull_request:
-    paths: ['apps/votoaberto_flutter/**', 'pipelines/tse_importer/embedded*.py', '.github/workflows/flutter.yml']
+    paths: ['apps/votoaberto_flutter/**', 'pipelines/tse_importer/embedded*.py', 'pipelines/tse_importer/country_exporter.py', 'tools/geography/**', '.github/workflows/flutter.yml']
   workflow_dispatch:
 
 permissions:

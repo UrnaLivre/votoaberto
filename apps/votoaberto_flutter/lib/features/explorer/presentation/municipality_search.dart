@@ -84,7 +84,7 @@ class _MunicipalitySearchState extends State<MunicipalitySearch> {
                     key: ValueKey('municipality-${city.code}'),
                     title: Text(city.name),
                     subtitle: Text(
-                      '${city.territoryCode} · código TSE ${city.code}',
+                      '${widget.abroad ? 'Localidade eleitoral' : city.territoryCode} · código TSE ${city.code}',
                     ),
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () => select(city.code),
