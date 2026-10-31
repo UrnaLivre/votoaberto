@@ -1,0 +1,224 @@
+{
+  "base": "fe83f6b",
+  "branch": "feat/m5-visual-navigation-polish",
+  "functional_commits": [
+    "bc8b82d",
+    "5a18cdc"
+  ],
+  "flutter": {
+    "passed": 111,
+    "optional_real_skipped": 7,
+    "coverage_lines": 2004,
+    "coverage_hit": 1921,
+    "coverage_percent": 95.86,
+    "analyze": "pass"
+  },
+  "python": {
+    "passed": 146,
+    "skipped": 2,
+    "ruff_format_check": "pass",
+    "ruff_check": "pass"
+  },
+  "native_smoke": {
+    "passed": 1,
+    "application_http_attempts": 0
+  },
+  "builds": {
+    "web": {
+      "real_json": 32,
+      "geo_files": 5,
+      "hashes_match": true,
+      "synthetic_json": 0
+    },
+    "windows": {
+      "real_json": 32,
+      "geo_files": 5,
+      "hashes_match": true,
+      "synthetic_json": 0
+    },
+    "apk": {
+      "real_json": 32,
+      "geo_files": 5,
+      "hashes_match": true,
+      "synthetic_json": 0
+    }
+  },
+  "build_bytes": {
+    "web": 48956622,
+    "windows": 35142210,
+    "apk": 155960173
+  },
+  "apk_sha256": "61ea6b0a0e28101e1bcfbb7bfcc4f75987b60d42a599c31f6c7553376f95ad8c",
+  "preservation": {
+    "protected_files": 175,
+    "protected_bytes": 2340107525,
+    "protected_before_sha256": "03ae24442a75b3e290c591905676dde43406df9e5f8a01a1c0bf9ad2c4257544",
+    "protected_after_sha256": "03ae24442a75b3e290c591905676dde43406df9e5f8a01a1c0bf9ad2c4257544",
+    "original_files": 113,
+    "original_bytes": 5463547311,
+    "originals_before_sha256": "5a28d9635d56fb9ffbe94b025eed9e4d83b847ee2c4dce9cbfe2459a59282664",
+    "originals_after_sha256": "5a28d9635d56fb9ffbe94b025eed9e4d83b847ee2c4dce9cbfe2459a59282664",
+    "unchanged": [
+      "sha256",
+      "bytes",
+      "mtime_ns",
+      "inode"
+    ],
+    "real_json": 32,
+    "real_bytes": 4475495,
+    "geo": [
+      {
+        "name": "br_states.geojson",
+        "bytes": 251135,
+        "sha256": "09bc90c2391229ed1b07f11bbde0986180139f64b5e882379d8926c21eff0052"
+      },
+      {
+        "name": "manifest.json",
+        "bytes": 1839,
+        "sha256": "e7e5f78f267c2f29245a3df1ef13172dedffb9a4aee7be3c71316ae117143b6b"
+      },
+      {
+        "name": "municipal_locations.json",
+        "bytes": 331831,
+        "sha256": "b71dc3461ac3292fff3ea997978889e96304ac5be882fb435b7c3bcddaebd011"
+      },
+      {
+        "name": "overseas_correspondence.json",
+        "bytes": 56691,
+        "sha256": "3b9924c27d4ae691d16f5e8f80d75363445bc5abac29e5621578a395dd404d5f"
+      },
+      {
+        "name": "world.geojson",
+        "bytes": 697008,
+        "sha256": "2bf9d5b50da3b76ca389f10fd96537affb82113375dfa26e0caff6741fe82103"
+      }
+    ],
+    "additional_asset_bytes": 0
+  },
+  "visual_captures": [
+    {
+      "path": ".local/m5_1/comparison-light-1366x768.jpg",
+      "captured_size": [
+        1366,
+        768
+      ]
+    },
+    {
+      "path": ".local/m5_1/country-light-1366x768.jpg",
+      "captured_size": [
+        1366,
+        768
+      ]
+    },
+    {
+      "path": ".local/m5_1/locality-light-1366x768.jpg",
+      "captured_size": [
+        1366,
+        768
+      ]
+    },
+    {
+      "path": ".local/m5_1/municipality-dark-1366x768.jpg",
+      "captured_size": [
+        1366,
+        768
+      ]
+    },
+    {
+      "path": ".local/m5_1/municipality-dark-390x844.jpg",
+      "captured_size": [
+        390,
+        843
+      ]
+    },
+    {
+      "path": ".local/m5_1/municipality-light-1366x768.jpg",
+      "captured_size": [
+        1366,
+        768
+      ]
+    },
+    {
+      "path": ".local/m5_1/municipality-light-390x844.jpg",
+      "captured_size": [
+        390,
+        843
+      ]
+    },
+    {
+      "path": ".local/m5_1/world-dark-1366x768.jpg",
+      "captured_size": [
+        1366,
+        768
+      ]
+    },
+    {
+      "path": ".local/m5_1/world-dark-1920x1080.jpg",
+      "captured_size": [
+        1920,
+        1061
+      ]
+    },
+    {
+      "path": ".local/m5_1/world-dark-390x844.jpg",
+      "captured_size": [
+        390,
+        843
+      ]
+    },
+    {
+      "path": ".local/m5_1/world-dark-768x1024.jpg",
+      "captured_size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "path": ".local/m5_1/world-light-1366x768.jpg",
+      "captured_size": [
+        1366,
+        768
+      ]
+    },
+    {
+      "path": ".local/m5_1/world-light-1920x1080.jpg",
+      "captured_size": [
+        1920,
+        1061
+      ]
+    },
+    {
+      "path": ".local/m5_1/world-light-390x844.jpg",
+      "captured_size": [
+        390,
+        843
+      ]
+    },
+    {
+      "path": ".local/m5_1/world-light-768x1024.jpg",
+      "captured_size": [
+        768,
+        1024
+      ]
+    }
+  ],
+  "visual_viewports": [
+    [
+      1366,
+      768
+    ],
+    [
+      1920,
+      1080
+    ],
+    [
+      390,
+      844
+    ],
+    [
+      768,
+      1024
+    ]
+  ],
+  "visual_note": "Both themes inspected. Native IAB captures can omit the bottom 19px at a 1920x1080 DOM viewport, or one pixel at 390x844; exact sizes also covered in Flutter tests. No image resampling."
+}
