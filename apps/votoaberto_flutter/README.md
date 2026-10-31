@@ -1,5 +1,8 @@
 # VotoAberto Flutter — M4
 
+Build e operação Web em produção: [WEB_DEPLOYMENT.md](../../docs/WEB_DEPLOYMENT.md).
+O comando de publicação exige dados reais aprovados; fixtures são exclusivas do CI.
+
 Consulta por Brasil/UF/município e exterior nos dois turnos. Modos explícitos:
 `demo` (mock M1), `fixture` (JSON fictício do CI), `real` (JSON gerado localmente).
 A prévia real preserva `public_readiness: not_ready`; dados reais ficam fora do Git.
