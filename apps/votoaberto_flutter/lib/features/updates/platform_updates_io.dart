@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:package_info_plus/package_info_plus.dart';
+
 import 'android_update_provider.dart';
 import 'app_version_info.dart';
 import 'update_service.dart';

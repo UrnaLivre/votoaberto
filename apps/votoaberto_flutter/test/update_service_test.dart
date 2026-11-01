@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:in_app_update/in_app_update.dart' as play;
@@ -139,41 +140,35 @@ void main() {
     },
   );
 
-  test(
-    'installed metadata is read from the package rather than a hardcoded version',
-    () async {
-      PackageInfo.setMockInitialValues(
-        appName: 'Voto Aberto',
-        packageName: 'br.com.urnalivre.votoaberto',
-        version: '0.6.0',
-        buildNumber: '8',
-        buildSignature: 'test',
-      );
-      expect((await installedAppVersion())!.identity, '0.6.0+8');
-    },
-  );
+  test('installed metadata is read from the package rather than a hardcoded version', () async {
+    PackageInfo.setMockInitialValues(
+      appName: 'Voto Aberto',
+      packageName: 'br.com.urnalivre.votoaberto',
+      version: '0.6.0',
+      buildNumber: '8',
+      buildSignature: 'test',
+    );
+    expect((await installedAppVersion())!.identity, '0.6.0+8');
+  });
 
-  test(
-    'Android recognizes a previously downloaded update without another download',
-    () async {
-      final client = PlayClient(status: play.InstallStatus.downloaded);
-      final service = UpdateService(
-        AndroidUpdateProvider(
-          client,
-          installedBuild: 3,
-          isPlayInstall: () async => true,
-        ),
-        Notices(),
-      );
-      expect(
-        (await service.checkOnce()).availability,
-        UpdateAvailability.readyToInstall,
-      );
-      await service.start();
-      expect(client.downloads, 0);
-      expect(client.completions, 1);
-    },
-  );
+  test('Android recognizes a previously downloaded update without another download', () async {
+    final client = PlayClient(status: play.InstallStatus.downloaded);
+    final service = UpdateService(
+      AndroidUpdateProvider(
+        client,
+        installedBuild: 3,
+        isPlayInstall: () async => true,
+      ),
+      Notices(),
+    );
+    expect(
+      (await service.checkOnce()).availability,
+      UpdateAvailability.readyToInstall,
+    );
+    await service.start();
+    expect(client.downloads, 0);
+    expect(client.completions, 1);
+  });
 
   for (final state in [
     UpdateAvailability.upToDate,
@@ -239,8 +234,8 @@ void main() {
           release('5.0.0+10', host: 'evil.example'),
           release('4.0.0+10', digest: false),
           {'tag_name': 'app-v3.0.0+10'},
-        release('3.0.0+2'),
-        release('0.5.1+4'),
+          release('3.0.0+2'),
+          release('0.5.1+4'),
           release('0.6.0+5'),
         ],
       );

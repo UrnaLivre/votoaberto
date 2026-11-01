@@ -1,8 +1,10 @@
 import 'dart:collection';
 import 'dart:convert';
+
 import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+
 import '../domain/election.dart';
 import '../domain/election_repository.dart';
 import '../domain/geography.dart';
@@ -106,9 +108,8 @@ class EmbeddedElectionRepository implements MunicipalElectionRepository {
     }
     if (m['dataset_id'] is! String ||
         m['source_sqlite_sha256'] is! String ||
-        !RegExp(
-          r'^[a-f0-9]{64}$',
-        ).hasMatch(m['source_sqlite_sha256'] as String) ||
+        !RegExp(r'^[a-f0-9]{64}$')
+            .hasMatch(m['source_sqlite_sha256'] as String) ||
         m['source_schema_version'] != 1 ||
         m['public_readiness'] is! Map ||
         m['territories'] is! List ||

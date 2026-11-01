@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -15,6 +16,7 @@ import 'package:votoaberto/features/map/domain/geographic_catalog.dart';
 import 'package:votoaberto/features/map/domain/world_geometry.dart';
 import 'package:votoaberto/features/map/presentation/brazil_map.dart';
 import 'package:votoaberto/features/map/presentation/world_map.dart';
+
 import 'embedded_repository_test.dart'
     show FixtureBundle, PendingMunicipalRepository;
 import 'country_evidence_test.dart' show registerCatalog, registerFixture;
@@ -415,61 +417,55 @@ void main() {
     expect(g.hitTest(const Offset(179.5, 17), {}), isNull);
   });
 
-  test(
-    'late exterior load cannot replace domestic selection or mix UF and country',
-    () async {
-      final repo = PendingMunicipalRepository();
-      final c = ExplorerController(repo);
-      addTearDown(c.dispose);
-      await c.load();
-      c.navigate(
-        BrazilianState.sc,
-        ResultMode.first,
-        overseas: true,
-        country: 'US',
-      );
-      await Future<void>.delayed(Duration.zero);
-      expect(c.selected, isNull);
-      c.navigate(BrazilianState.sc, ResultMode.comparison);
-      await Future<void>.delayed(Duration.zero);
-      repo.requests['ZZ']!.complete([]);
-      repo.requests['SC']!.complete([]);
-      await Future<void>.delayed(Duration.zero);
-      expect(c.abroad, isFalse);
-      expect(c.countryCode, isNull);
-      expect(c.territoryCode, 'SC');
-      expect(c.countries, isEmpty);
-    },
-  );
+  test('late exterior load cannot replace domestic selection or mix UF and country', () async {
+    final repo = PendingMunicipalRepository();
+    final c = ExplorerController(repo);
+    addTearDown(c.dispose);
+    await c.load();
+    c.navigate(
+      BrazilianState.sc,
+      ResultMode.first,
+      overseas: true,
+      country: 'US',
+    );
+    await Future<void>.delayed(Duration.zero);
+    expect(c.selected, isNull);
+    c.navigate(BrazilianState.sc, ResultMode.comparison);
+    await Future<void>.delayed(Duration.zero);
+    repo.requests['ZZ']!.complete([]);
+    repo.requests['SC']!.complete([]);
+    await Future<void>.delayed(Duration.zero);
+    expect(c.abroad, isFalse);
+    expect(c.countryCode, isNull);
+    expect(c.territoryCode, 'SC');
+    expect(c.countries, isEmpty);
+  });
 
-  test(
-    'country aggregation retains missing fields, candidates and per-turn membership',
-    () async {
-      final repo = EmbeddedElectionRepository(
-        bundle: FixtureBundle(),
-        assetRoot: 'assets/data/synthetic',
-        expectedNature: 'synthetic',
+  test('country aggregation retains missing fields, candidates and per-turn membership', () async {
+    final repo = EmbeddedElectionRepository(
+      bundle: FixtureBundle(),
+      assetRoot: 'assets/data/synthetic',
+      expectedNature: 'synthetic',
+    );
+    final locals = await repo.loadMunicipalities(
+      Election.presidential2026,
+      'ZZ',
+    );
+    final sum = aggregateLocalities(locals);
+    final dataset = await repo.load(Election.presidential2026);
+    for (final round in ElectionRound.values) {
+      expect(
+        sum[round]!.totals.counted,
+        dataset.overseas!.rounds[round]!.totals.counted,
       );
-      final locals = await repo.loadMunicipalities(
-        Election.presidential2026,
-        'ZZ',
+      expect(
+        sum[round]!.totals.availableSections,
+        dataset.overseas!.rounds[round]!.totals.availableSections,
       );
-      final sum = aggregateLocalities(locals);
-      final dataset = await repo.load(Election.presidential2026);
-      for (final round in ElectionRound.values) {
-        expect(
-          sum[round]!.totals.counted,
-          dataset.overseas!.rounds[round]!.totals.counted,
-        );
-        expect(
-          sum[round]!.totals.availableSections,
-          dataset.overseas!.rounds[round]!.totals.availableSections,
-        );
-        expect(
-          sum[round]!.candidates.map((c) => c.votes),
-          dataset.overseas!.rounds[round]!.candidates.map((c) => c.votes),
-        );
-      }
-    },
-  );
+      expect(
+        sum[round]!.candidates.map((c) => c.votes),
+        dataset.overseas!.rounds[round]!.candidates.map((c) => c.votes),
+      );
+    }
+  });
 }

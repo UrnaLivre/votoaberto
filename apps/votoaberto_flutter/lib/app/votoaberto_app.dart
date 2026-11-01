@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
+
 import '../core/widgets.dart';
 import '../core/institutional_link.dart';
 import '../features/elections/domain/election.dart';

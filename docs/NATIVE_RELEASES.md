@@ -70,7 +70,8 @@ de deploy existentes continuam independentes. Debug/profile também não consult
 Escolha: [`in_app_update` 5.0.0](https://pub.dev/packages/in_app_update), MIT,
 adaptador das APIs oficiais, mantido com migração recente para Kotlin integrado
 do AGP 9. Requer Flutter >=3.44/Dart >=3.12, compatível com Flutter 3.47.8 fixado
-no CI e AGP 9.1 do projeto. O lockfile registra a resolução exata. Não há scraper
+no CI e AGP 9.1 do projeto. O lockfile registra a resolução exata. As dependências
+resolvidas usam Dart >=3.13, fornecido pelo SDK Flutter fixado. Não há scraper
 de loja, link fictício de listagem, download de APK ou atualização imediata padrão.
 
 `package_info_plus` confirma installerStore `com.android.vending` antes de consultar

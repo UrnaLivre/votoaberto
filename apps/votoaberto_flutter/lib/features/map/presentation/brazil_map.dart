@@ -1,6 +1,8 @@
 import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import '../../elections/domain/geography.dart';
 import '../domain/brazil_geometry.dart';
 import '../domain/geographic_catalog.dart';

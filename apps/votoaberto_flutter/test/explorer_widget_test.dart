@@ -309,9 +309,8 @@ void main() {
   ) async {
     await open(tester);
     // The painted surface is inside the map's keyboard Focus.
-    Focus.of(
-      tester.element(find.byKey(const ValueKey('brazil-map-paint'))),
-    ).requestFocus();
+    Focus.of(tester.element(find.byKey(const ValueKey('brazil-map-paint'))))
+        .requestFocus();
     await tester.pump();
     await tester.sendKeyEvent(LogicalKeyboardKey.arrowRight);
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);

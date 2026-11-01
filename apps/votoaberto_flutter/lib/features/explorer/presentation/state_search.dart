@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../../app/strings.dart';
 import '../../../core/formatters.dart';
 import '../../elections/domain/geography.dart';

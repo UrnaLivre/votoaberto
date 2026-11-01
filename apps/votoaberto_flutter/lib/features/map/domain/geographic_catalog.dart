@@ -1,6 +1,8 @@
 import 'dart:convert';
+
 import 'package:crypto/crypto.dart';
 import 'package:flutter/services.dart';
+
 import 'brazil_geometry.dart';
 import 'country_evidence.dart';
 

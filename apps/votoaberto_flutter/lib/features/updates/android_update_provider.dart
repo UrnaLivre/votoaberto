@@ -1,4 +1,5 @@
 import 'package:in_app_update/in_app_update.dart' as play;
+
 import 'update_service.dart';
 
 abstract interface class PlayUpdateClient {

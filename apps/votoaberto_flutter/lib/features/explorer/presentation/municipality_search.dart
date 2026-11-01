@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../../core/formatters.dart';
 import '../../elections/domain/election.dart';
 
@@ -23,9 +24,9 @@ class _MunicipalitySearchState extends State<MunicipalitySearch> {
     final query = normalizeSearch(value);
     return widget.municipalities
         .where(
-          (s) => normalizeSearch(
-            '${s.municipality.name} ${s.municipality.code}',
-          ).contains(query),
+          (s) =>
+              normalizeSearch('${s.municipality.name} ${s.municipality.code}')
+                  .contains(query),
         )
         .toList();
   }

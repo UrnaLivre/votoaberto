@@ -1,6 +1,8 @@
 import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
 import 'app_version_info.dart';
 import 'platform_updates.dart';
 import 'update_service.dart';
@@ -48,6 +50,7 @@ class _ReleaseHostState extends State<ReleaseHost> {
     if (!mounted || installed == null) return;
     final updates = service = widget.serviceFactory(installed);
     final result = await updates.checkOnce();
+    if (!mounted) return;
     if (await updates.claimNotice(result) && mounted) {
       setState(() => notice = result);
     }

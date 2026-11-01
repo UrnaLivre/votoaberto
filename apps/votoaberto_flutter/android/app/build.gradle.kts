@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
@@ -5,7 +7,7 @@ plugins {
 }
 
 // Operator-owned upload key. Play App Signing owns the distribution key.
-val uploadProperties = java.util.Properties()
+val uploadProperties = Properties()
 val uploadPropertiesFile = rootProject.file("key.properties")
 if (uploadPropertiesFile.exists()) {
     uploadPropertiesFile.inputStream().use { uploadProperties.load(it) }

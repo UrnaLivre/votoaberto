@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../app/strings.dart';
 import '../features/elections/domain/election.dart';
 

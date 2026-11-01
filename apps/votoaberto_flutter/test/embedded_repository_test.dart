@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:votoaberto/features/elections/data/embedded_election_repository.dart';
@@ -23,9 +24,9 @@ class FixtureBundle extends CachingAssetBundle {
   final files = <String, Uint8List>{};
   final calls = <String>[];
   void changeManifest(void Function(Map<String, dynamic>) mutate) {
-    final value =
-        jsonDecode(utf8.decode(files['assets/data/synthetic/manifest.json']!))
-            as Map<String, dynamic>;
+    final value = jsonDecode(
+      utf8.decode(files['assets/data/synthetic/manifest.json']!),
+    ) as Map<String, dynamic>;
     mutate(value);
     files['assets/data/synthetic/manifest.json'] = Uint8List.fromList(
       utf8.encode(jsonEncode(value)),
@@ -66,44 +67,38 @@ void main() {
     cacheCapacity: capacity,
   );
 
-  test(
-    'manifest, lazy per-UF assets, exact national/domestic/ZZ totals and textual codes',
-    () async {
-      final bundle = FixtureBundle();
-      final repo = repository(bundle);
-      final data = await repo.load(Election.presidential2026);
-      expect(
-        bundle.calls.any((key) => key.contains('municipalities/')),
-        isFalse,
-      );
-      expect(data.states.length, 27);
-      expect(data.national.rounds[ElectionRound.first]!.totals.counted, 5600);
-      expect(data.domestic!.rounds[ElectionRound.first]!.totals.counted, 5400);
-      expect(data.overseas!.rounds[ElectionRound.first]!.totals.counted, 200);
-      expect(data.overseas!.rounds[ElectionRound.second]!.totals.counted, 100);
-      final cities = await repo.loadMunicipalities(
-        Election.presidential2026,
-        'SC',
-      );
-      expect(cities.first.municipality.code, '00001');
-      expect(cities.first.municipality.name, 'São FICTÍCIO');
-      expect(cities.first.rounds[ElectionRound.first]!.candidates.length, 3);
-      expect(cities.first.rounds[ElectionRound.second]!.candidates.length, 2);
-      expect(
-        cities.first.rounds[ElectionRound.second]!.candidates.any(
-          (c) => c.candidate.number == '33',
-        ),
-        isFalse,
-      );
-      await repo.loadMunicipalities(Election.presidential2026, 'SC');
-      expect(
-        bundle.calls
-            .where((key) => key.endsWith('municipalities/SC.json'))
-            .length,
-        1,
-      );
-    },
-  );
+  test('manifest, lazy per-UF assets, exact national/domestic/ZZ totals and textual codes', () async {
+    final bundle = FixtureBundle();
+    final repo = repository(bundle);
+    final data = await repo.load(Election.presidential2026);
+    expect(bundle.calls.any((key) => key.contains('municipalities/')), isFalse);
+    expect(data.states.length, 27);
+    expect(data.national.rounds[ElectionRound.first]!.totals.counted, 5600);
+    expect(data.domestic!.rounds[ElectionRound.first]!.totals.counted, 5400);
+    expect(data.overseas!.rounds[ElectionRound.first]!.totals.counted, 200);
+    expect(data.overseas!.rounds[ElectionRound.second]!.totals.counted, 100);
+    final cities = await repo.loadMunicipalities(
+      Election.presidential2026,
+      'SC',
+    );
+    expect(cities.first.municipality.code, '00001');
+    expect(cities.first.municipality.name, 'São FICTÍCIO');
+    expect(cities.first.rounds[ElectionRound.first]!.candidates.length, 3);
+    expect(cities.first.rounds[ElectionRound.second]!.candidates.length, 2);
+    expect(
+      cities.first.rounds[ElectionRound.second]!.candidates.any(
+        (c) => c.candidate.number == '33',
+      ),
+      isFalse,
+    );
+    await repo.loadMunicipalities(Election.presidential2026, 'SC');
+    expect(
+      bundle.calls
+          .where((key) => key.endsWith('municipalities/SC.json'))
+          .length,
+      1,
+    );
+  });
 
   test('bounded LRU and cross-UF cache reuse', () async {
     final bundle = FixtureBundle();
