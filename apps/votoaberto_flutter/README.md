@@ -1,11 +1,14 @@
-# VotoAberto Flutter — M4
+# VotoAberto Flutter
 
 Build e operação Web em produção: [WEB_DEPLOYMENT.md](../../docs/WEB_DEPLOYMENT.md).
 O comando de publicação exige dados reais aprovados; fixtures são exclusivas do CI.
+Versionamento, atualizações e build Windows/AAB controlado: [NATIVE_RELEASES.md](../../docs/NATIVE_RELEASES.md).
+Android e Windows ainda não foram publicados. A versão atual é `0.5.0+3`.
 
 Consulta por Brasil/UF/município e exterior nos dois turnos. Modos explícitos:
-`demo` (mock M1), `fixture` (JSON fictício do CI), `real` (JSON gerado localmente).
-A prévia real preserva `public_readiness: not_ready`; dados reais ficam fora do Git.
+`demo` (mock M1), `fixture` (JSON fictício do CI), `real` (JSON validado).
+Produção reutiliza o pacote aprovado `web-data-2026-v1`; prévias locais não aprovadas
+continuam bloqueadas para distribuição. Dados reais ficam fora do Git.
 [Operação, contrato, builds e limites offline](../../docs/EMBEDDED_DATA_MVP.md).
 [Evidências M4](../../docs/M4_COMPLETION_REPORT.md).
 

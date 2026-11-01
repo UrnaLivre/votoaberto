@@ -1,14 +1,15 @@
 # VotoAberto
 
-Preparação Web/Cloudflare: [guia de publicação](docs/WEB_DEPLOYMENT.md) e
-[relatório de validação](docs/WEB_RELEASE_REPORT.md). A infraestrutura exige dados
-e redistribuição aprovados; a base local atual permanece `not_ready` e não foi publicada.
+Web em produção: [Voto Aberto](https://votoaberto.urnalivre.com.br/), com o pacote
+aprovado `web-data-2026-v1`. [Operação Web](docs/WEB_DEPLOYMENT.md).
+M7 prepara versionamento, atualizações e builds nativos; Android e Windows ainda
+não foram publicados. [Fundação nativa e critérios M8/M9](docs/NATIVE_RELEASES.md).
 
 **Explore, compare e confira os resultados eleitorais brasileiros.**
 
 [English summary](#english-summary) · [Visão do projeto](docs/VISION.md) · [Arquitetura proposta](docs/ARCHITECTURE.md) · [Arquitetura de dados](docs/DATA_ARCHITECTURE.md) · [Dados e proveniência](docs/DATA_POLICY.md) · [Roadmap](docs/ROADMAP.md) · [Como contribuir](CONTRIBUTING.md)
 
-> **M4 — consulta municipal embarcada em prévia local.** O Flutter preserva a demonstração M1 e acrescenta um modo real explícito por JSONs derivados da release M3.1. Brasil, 27 UFs, municípios e exterior nos dois turnos funcionam sem API de resultados. Prontidão pública permanece `not_ready`; originais e derivados reais ficam fora do Git, sem publicação remota. [Operação](docs/EMBEDDED_DATA_MVP.md) · [Evidências M4](docs/M4_COMPLETION_REPORT.md).
+> **Histórico M4 — consulta municipal embarcada em prévia local.** O Flutter preserva a demonstração M1 e acrescenta um modo real explícito por JSONs derivados da release M3.1. Brasil, 27 UFs, municípios e exterior nos dois turnos funcionam sem API de resultados. A prévia M4 permanecia `not_ready`; a aprovação posterior para o escopo declarado está registrada na M6.1. Originais e derivados reais ficam fora do Git. [Operação](docs/EMBEDDED_DATA_MVP.md) · [Evidências M4](docs/M4_COMPLETION_REPORT.md).
 
 O **VotoAberto** é um projeto de software livre do ecossistema [UrnaLivre](https://urnalivre.com.br/) para facilitar a exploração, a comparação e a conferência independente dos **dados eleitorais oficiais publicados pelo Tribunal Superior Eleitoral (TSE)**. A proposta é transformar conjuntos de dados complexos em consultas transparentes, acessíveis e reproduzíveis — sem substituir os documentos de origem.
 

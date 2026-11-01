@@ -93,7 +93,9 @@ def selected_assets(mode):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=["run", "web", "windows", "apk", "native-test"])
+    parser.add_argument(
+        "command", choices=["run", "web", "windows", "apk", "appbundle", "native-test"]
+    )
     parser.add_argument("--mode", choices=["demo", "fixture", "real"], required=True)
     parser.add_argument(
         "--source", type=Path, help="Release JSON validada, obrigatória na primeira instalação real"
@@ -103,17 +105,23 @@ def main(argv=None):
     parser.add_argument(
         "--production",
         action="store_true",
-        help="Exige dados e redistribuição aprovados para publicação Web",
+        help="Exige dados e redistribuição aprovados para builds de produção",
     )
     parser.add_argument("--device", default="windows", help="Dispositivo do smoke nativo opcional")
     args, extra = parser.parse_known_args(argv)
     try:
         if args.production:
-            if args.command != "web" or args.mode != "real":
-                raise ImportFailure("Produção exige build Web com --mode real")
+            if args.command not in {"web", "windows", "appbundle"} or args.mode != "real":
+                raise ImportFailure("Produção exige Web, Windows ou AAB com --mode real")
+            if args.command != "web" and extra:
+                raise ImportFailure(
+                    "Build nativo de produção não aceita overrides de flags/target/versão"
+                )
             from web_release import require_approved
 
             require_approved(args.source or APP / "assets/data/real")
+        if args.command == "appbundle" and not args.production:
+            raise ImportFailure("AAB exige --production e dados reais aprovados")
         if args.command == "native-test" and args.mode != "real":
             raise ImportFailure("O smoke nativo real exige --mode real")
         if args.command == "web" and any(
@@ -134,6 +142,15 @@ def main(argv=None):
             ]
             print(json.dumps(meta), flush=True)
         flutter = resolve_flutter(args.flutter)
+        native_info = None
+        if args.production and args.command != "web":
+            from native_release import prepare_build
+
+            native_info = prepare_build(APP, args.command, meta)
+            flags += [
+                "--dart-define=VOTOABERTO_APP_COMMIT=" + native_info["commit"],
+                "--dart-define=VOTOABERTO_DATA_RELEASE=" + native_info["data_release_tag"],
+            ]
         command = (
             [flutter, "run"]
             if args.command == "run"
@@ -170,6 +187,10 @@ def main(argv=None):
         with selected_assets(args.mode):
             if args.command == "web":
                 clean_web_output()
+            elif native_info:
+                from native_release import clean_output
+
+                clean_output(APP, args.command)
             try:
                 code = subprocess.call(command, cwd=APP, env=environment, shell=False)
             except OSError as error:
@@ -182,8 +203,19 @@ def main(argv=None):
             from web_release import write_build_info
 
             write_build_info(APP, args.mode)
+        elif not code and native_info:
+            from native_release import audit_and_record
+
+            audit_and_record(APP, args.command, native_info)
         return code
-    except (OSError, ValueError, KeyError, TypeError, ImportFailure) as error:
+    except (
+        OSError,
+        ValueError,
+        KeyError,
+        TypeError,
+        subprocess.SubprocessError,
+        ImportFailure,
+    ) as error:
         print("Erro: " + str(error), file=sys.stderr)
         return 2
 
