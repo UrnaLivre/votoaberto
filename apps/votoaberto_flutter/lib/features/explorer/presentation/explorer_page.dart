@@ -896,7 +896,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
   );
 
   Widget _footer(BuildContext context) => Text(
-    'VotoAberto 0.5.0 · ${AppStrings.independence}',
+    'VotoAberto · ${AppStrings.independence}',
     style: Theme.of(context).textTheme.labelSmall,
   );
 }

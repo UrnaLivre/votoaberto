@@ -21,6 +21,10 @@ Windows, Flutter **3.47.8**, Dart **3.13.7**, Python **3.12**.
 | actionlint em todos os workflows | Aprovado |
 | Build Web fixture + auditoria | Aprovado, 82 arquivos, dataset fixture exclusivo |
 | Playwright Web fixture | **7 aprovados, 1 condicional de dados reais ignorado** |
+| Build Web real + auditoria de produção | Aprovado com pacote aprovado, sem deploy |
+| Playwright Web real | **8 aprovados**, incluindo caso especial do exterior |
+| `npm run deploy:check` | Dry-run aprovado, sem publicação |
+| Gradle `:app:bundleRelease --dry-run` sem upload key | Recusa esperada e explícita; nenhum AAB assinado |
 | Download e unpack da release aprovada | Aprovado com manifesto/hashes/proveniência |
 | Preflight Windows e AAB de produção (`--dry-run`) | Aprovado, mesma identidade de dados da Web |
 
@@ -36,7 +40,7 @@ formatação mecânica de arquivos existentes; não altera seus testes ou cálcu
 ## Identidade dos dados
 
 - Release existente: `web-data-2026-v1`, asset `votoaberto-web-data.zip`, **5.703.023 bytes**.
-- SHA-256 do ZIP informado pelo GitHub: `6e065f31ee56d1c2fbbb51a80cbcd5d9f041d27ba176e5fe8a32647ab573513b`.
+- SHA-256 do ZIP conferido localmente e igual ao digest GitHub: `6e065f31ee56d1c2fbbb51a80cbcd5d9f041d27ba176e5fe8a32647ab573513b`.
 - Dataset: `e4e9c9cb5189ab5d4e124bfc`.
 - Metadata release: `cf1a3b405d96fb5dd676f025`.
 - Manifesto: `c1dd2ae876eecfd685d67bb5f53bb7efd223c8db5772a76a83b773b0da2a54e3`.
@@ -49,14 +53,16 @@ Não constitui compilação nativa real nem validação de assinatura.
 
 O primeiro CI confirmou o build Windows. Identificou diferenças de formatação
 Dart 3.13 e um import Kotlin sombreado na configuração de assinatura Android;
-ambos corrigidos no commit `991d159`. As matrizes finais serão conferidas antes
-de encerrar a entrega. Não há auto-merge configurado por esta missão.
+ambos corrigidos no commit `991d159`. A matriz final e seus logs estão na aba
+[Checks do PR](https://github.com/UrnaLivre/votoaberto/pull/10/checks); o resultado
+consolidado fica na descrição do PR. Não há auto-merge configurado por esta missão.
 
 ## Arquivos e responsabilidades
 
 - `lib/features/updates/`: modelos, serviço, adaptadores Android/Windows/Web, aviso e Sobre.
 - `lib/app/votoaberto_app.dart`, `lib/features/explorer/presentation/explorer_page.dart`:
-  composição da interface, preservando router e consulta eleitoral.
+  composição da interface, preservando router e consulta eleitoral. A versão fixa
+  antiga do rodapé foi removida; Sobre consulta a versão instalada.
 - `pubspec.yaml`, `pubspec.lock`, `windows/flutter/generated_plugins.cmake`:
   dependências resolvidas e registro gerado de plugin.
 - `tool/embedded_build.py`, `tool/native_release.py`, `tests/test_native_release.py`:
