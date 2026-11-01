@@ -86,6 +86,7 @@ def clean_output(app, platform):
         shutil.rmtree(output)
     else:
         output.unlink(missing_ok=True)
+    (app / "build/native-release" / platform / "native-release.json").unlink(missing_ok=True)
 
 
 def audit_dataset(root, app, info):
@@ -105,6 +106,8 @@ def audit_dataset(root, app, info):
 
 
 def audit_and_record(app, platform, info):
+    if git(app, "status", "--porcelain") or git(app, "rev-parse", "HEAD") != info["commit"]:
+        raise ImportFailure("Código/commit mudou durante o build; recibo recusado")
     output = output_path(app, platform)
     if platform == "windows":
         for name in (

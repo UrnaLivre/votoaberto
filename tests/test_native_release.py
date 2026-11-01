@@ -93,15 +93,17 @@ def test_production_requires_clean_identifiable_commit(tmp_path, monkeypatch):
         native.prepare_build(tmp_path, "windows", {})
 
 
-def test_windows_requires_complete_bundle(tmp_path):
+def test_windows_requires_complete_bundle(tmp_path, monkeypatch):
+    monkeypatch.setattr(native, "git", lambda app, *args: "" if args[0] == "status" else "commit")
     output = native.output_path(tmp_path, "windows")
     output.mkdir(parents=True)
     (output / "votoaberto.exe").write_bytes(b"exe only")
     with pytest.raises(ImportFailure, match="incompleto"):
-        native.audit_and_record(tmp_path, "windows", {})
+        native.audit_and_record(tmp_path, "windows", {"commit": "commit"})
 
 
 def test_aab_audits_actual_packaged_bytes_before_receipt(tmp_path, monkeypatch):
+    monkeypatch.setattr(native, "git", lambda app, *args: "" if args[0] == "status" else "commit")
     output = native.output_path(tmp_path, "appbundle")
     output.parent.mkdir(parents=True)
     prefix = "base/assets/flutter_assets/assets/data/"
@@ -115,11 +117,22 @@ def test_aab_audits_actual_packaged_bytes_before_receipt(tmp_path, monkeypatch):
         return {"dataset_id": "approved"}
 
     monkeypatch.setattr(native, "require_approved", approve)
-    report = native.audit_and_record(tmp_path, "appbundle", {"dataset_id": "approved"})
+    report = native.audit_and_record(
+        tmp_path, "appbundle", {"dataset_id": "approved", "commit": "commit"}
+    )
     receipt = json.loads(report.read_text())
     assert seen == [b"{}"]
     assert receipt["artifacts"][0]["path"] == "app-release.aab"
     assert len(receipt["artifacts"][0]["sha256"]) == 64
+
+
+@pytest.mark.parametrize("status,head", [(" M lib/main.dart", "commit"), ("", "another-commit")])
+def test_source_change_during_build_never_gets_a_release_receipt(
+    tmp_path, monkeypatch, status, head
+):
+    monkeypatch.setattr(native, "git", lambda app, *args: status if args[0] == "status" else head)
+    with pytest.raises(ImportFailure, match="mudou durante"):
+        native.audit_and_record(tmp_path, "windows", {"commit": "commit"})
 
 
 def test_existing_approval_and_web_workflow_are_shared():
