@@ -7,6 +7,7 @@ import '../../../app/strings.dart';
 import '../../../core/formatters.dart';
 import '../../../core/institutional_link.dart';
 import '../../../core/widgets.dart';
+import '../../updates/release_host.dart';
 import '../../elections/domain/election.dart';
 import '../../elections/domain/geography.dart';
 import '../../map/domain/brazil_geometry.dart';
@@ -348,6 +349,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
                     : Icons.dark_mode_outlined,
               ),
             ),
+            const ReleaseAboutButton(),
             IconButton(
               tooltip: AppStrings.methodology,
               onPressed: c.dataset == null
@@ -894,7 +896,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
   );
 
   Widget _footer(BuildContext context) => Text(
-    'VotoAberto 0.5.0 · ${AppStrings.independence}',
+    'VotoAberto · ${AppStrings.independence}',
     style: Theme.of(context).textTheme.labelSmall,
   );
 }

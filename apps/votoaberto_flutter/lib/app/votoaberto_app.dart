@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
+
 import '../core/widgets.dart';
 import '../core/institutional_link.dart';
 import '../features/elections/domain/election.dart';
@@ -12,6 +13,7 @@ import '../features/explorer/presentation/explorer_page.dart';
 import '../features/map/domain/brazil_geometry.dart';
 import '../features/map/domain/geographic_catalog.dart';
 import '../features/map/domain/world_geometry.dart';
+import '../features/updates/release_host.dart';
 import 'strings.dart';
 import 'theme.dart';
 
@@ -173,6 +175,7 @@ class _VotoAbertoAppState extends State<VotoAbertoApp> {
       darkTheme: AppTheme.build(Brightness.dark),
       themeMode: controller.theme,
       routerConfig: router,
+      builder: (context, child) => ReleaseHost(child: child!),
     ),
   );
 }

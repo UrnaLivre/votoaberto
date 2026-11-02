@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../../core/formatters.dart';
 import '../../elections/domain/election.dart';
 import 'result_charts.dart';

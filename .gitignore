@@ -15,6 +15,10 @@
 *.pfx
 *.pem
 *.key
+*.jks
+*.keystore
+*.p12
+**/key.properties
 secrets.json
 
 # Python / notebooks / processing

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -17,6 +18,7 @@ import 'package:votoaberto/features/explorer/presentation/result_charts.dart';
 import 'package:votoaberto/features/explorer/presentation/round_summary.dart';
 import 'package:votoaberto/features/map/domain/brazil_geometry.dart';
 import 'package:votoaberto/features/map/domain/geographic_catalog.dart';
+
 import 'embedded_repository_test.dart' show FixtureBundle;
 import 'geographic_explorer_test.dart' show fixtureWorld, tap;
 import 'geographic_explorer_test.dart' as geo;

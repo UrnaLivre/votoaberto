@@ -1,0 +1,118 @@
+name: Native production build (controlled, no publication)
+
+on:
+  workflow_dispatch:
+    inputs:
+      platform:
+        description: Production artifact to prepare (never publishes)
+        type: choice
+        required: true
+        options: [windows, android]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: native-production-${{ inputs.platform }}-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  FLUTTER_SUPPRESS_ANALYTICS: 'true'
+  DART_SUPPRESS_ANALYTICS: 'true'
+
+jobs:
+  authorize-ref:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Refuse native production outside main
+        env:
+          PRODUCTION_REF: ${{ github.ref }}
+        run: |
+          test "$PRODUCTION_REF" = refs/heads/main || { echo '::error::Native production requires branch main'; exit 1; }
+
+  build:
+    needs: authorize-ref
+    if: github.ref == 'refs/heads/main'
+    # Environment approval and keys are operator-managed for M8/M9.
+    environment: native-production
+    runs-on: ${{ inputs.platform == 'windows' && 'windows-latest' || 'ubuntu-latest' }}
+    timeout-minutes: 45
+    defaults:
+      run:
+        shell: bash
+        working-directory: apps/votoaberto_flutter
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.47.8'
+          channel: stable
+          cache: true
+      - run: flutter pub get --enforce-lockfile
+      - name: Download the same reviewed dataset as Web
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          tag=$(python -c "import json; print(json.load(open('web-data-approval.json'))['release_tag'])")
+          test -n "$tag"
+          gh release download "$tag" --pattern votoaberto-web-data.zip --dir ../../.local/native-data
+          python tool/web_release.py unpack --archive ../../.local/native-data/votoaberto-web-data.zip --destination ../../.local/native-data/verified
+      - name: Prepare operator upload key (Android only)
+        if: inputs.platform == 'android'
+        env:
+          UPLOAD_KEY: ${{ secrets.ANDROID_UPLOAD_KEY_BASE64 }}
+          ANDROID_UPLOAD_STORE_PASSWORD: ${{ secrets.ANDROID_UPLOAD_STORE_PASSWORD }}
+          ANDROID_UPLOAD_KEY_ALIAS: ${{ secrets.ANDROID_UPLOAD_KEY_ALIAS }}
+          ANDROID_UPLOAD_KEY_PASSWORD: ${{ secrets.ANDROID_UPLOAD_KEY_PASSWORD }}
+        run: |
+          test -n "$UPLOAD_KEY" && test -n "$ANDROID_UPLOAD_STORE_PASSWORD" && test -n "$ANDROID_UPLOAD_KEY_ALIAS" && test -n "$ANDROID_UPLOAD_KEY_PASSWORD" || { echo 'Operator upload key is required; see docs/NATIVE_RELEASES.md'; exit 1; }
+          umask 077
+          printf '%s' "$UPLOAD_KEY" | base64 --decode > "$RUNNER_TEMP/votoaberto-upload.jks"
+      - name: Build audited Android App Bundle
+        if: inputs.platform == 'android'
+        env:
+          ANDROID_UPLOAD_STORE_FILE: ${{ runner.temp }}/votoaberto-upload.jks
+          ANDROID_UPLOAD_STORE_PASSWORD: ${{ secrets.ANDROID_UPLOAD_STORE_PASSWORD }}
+          ANDROID_UPLOAD_KEY_ALIAS: ${{ secrets.ANDROID_UPLOAD_KEY_ALIAS }}
+          ANDROID_UPLOAD_KEY_PASSWORD: ${{ secrets.ANDROID_UPLOAD_KEY_PASSWORD }}
+        run: python tool/embedded_build.py appbundle --mode real --production --source ../../.local/native-data/verified
+      - name: Build audited Windows bundle (no installer)
+        if: inputs.platform == 'windows'
+        run: python tool/embedded_build.py windows --mode real --production --source ../../.local/native-data/verified
+      - name: Revalidate accepted Android artifact before upload
+        if: inputs.platform == 'android'
+        run: python tool/native_release.py verify-android
+      - name: Record SDK used for reproduction
+        run: flutter --version --machine > build/native-release/flutter-sdk.json
+      - uses: actions/upload-artifact@v4
+        if: inputs.platform == 'android'
+        with:
+          name: votoaberto-android-aab-${{ github.sha }}
+          path: |
+            apps/votoaberto_flutter/build/native-release/appbundle/app-release.aab
+            apps/votoaberto_flutter/build/native-release/appbundle/native-release.json
+            apps/votoaberto_flutter/build/native-release/flutter-sdk.json
+          if-no-files-found: error
+          retention-days: 14
+      - uses: actions/upload-artifact@v4
+        if: inputs.platform == 'windows'
+        with:
+          name: votoaberto-windows-bundle-${{ github.sha }}
+          path: |
+            apps/votoaberto_flutter/build/windows/x64/runner/Release/
+            apps/votoaberto_flutter/build/native-release/
+          if-no-files-found: error
+          retention-days: 14
+      - name: Remove temporary upload key
+        if: always() && inputs.platform == 'android'
+        run: rm -f -- "$RUNNER_TEMP/votoaberto-upload.jks"

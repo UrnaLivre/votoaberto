@@ -93,10 +93,36 @@ A base é elegível localmente, com `public_readiness: not_ready`; a presença d
 [Contrato e operação](EMBEDDED_DATA_MVP.md), [relatório e limites](M4_COMPLETION_REPORT.md).
 Assets reais ficam fora do Git; `not_ready` continua bloqueando publicação pública.
 
+## M6 — Web em produção
+
+- [x] Publicação Web via GitHub Actions e Cloudflare, independente do site institucional
+- [x] Pacote eleitoral aprovado `web-data-2026-v1`, revisão de proveniência e hashes
+
+## M7 — Fundação de releases nativas
+
+- [x] Versão unificada, Sobre e contrato de atualização testável por plataforma
+- [x] Integração Play flexível preparada; Windows com consulta e instalação desabilitada
+- [x] Build manual Windows/AAB com mesmo pacote aprovado da Web e auditoria dos assets
+- [x] Preparação de upload key e documentação operacional, sem publicação nativa
+
+[Arquitetura e critérios M8/M9](NATIVE_RELEASES.md), [validação](M7_VALIDATION.md).
+
+## M8 — Android / Google Play (pendente)
+
+- [ ] Listagem, Play App Signing e upload key sob controle do operador
+- [ ] AAB assinado, testes físicos/offline e In-App Updates em faixa da Play
+- [ ] Revisão dos requisitos e publicação autorizada exclusivamente pela Google Play
+
+## M9 — Windows instalável (pendente)
+
+- [ ] Instalador EXE completo, identidade estável, assinatura e validação de integridade
+- [ ] Instalação/upgrade/desinstalação e preservação das configurações testadas
+- [ ] Atualização consentida e release `app-vX.Y.Z+N` no GitHub
+
 ## Etapas posteriores — Análises públicas e distribuição
 
 - [ ] Gráficos exploratórios com cálculos testados e contexto explicativo
-- [ ] Web e Android validados e publicados, distribuição Windows
+- [ ] Concluir distribuição Android/Windows e avaliar iOS pela App Store
 - [ ] Testes de acessibilidade, desempenho e segurança
 - [ ] Guia de leitura crítica: correlações, vieses, inferências e limites
 - [ ] Política de revisão, correção e versionamento dos dados publicados

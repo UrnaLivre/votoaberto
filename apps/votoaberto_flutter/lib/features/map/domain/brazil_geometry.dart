@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math' as math;
 import 'dart:ui';
+
 import '../../elections/domain/geography.dart';
 
 /// Rendering adapter for GeoJSON Polygon / MultiPolygon, including interior

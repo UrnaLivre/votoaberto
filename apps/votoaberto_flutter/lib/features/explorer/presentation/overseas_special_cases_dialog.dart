@@ -1,6 +1,8 @@
 import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import '../../../core/widgets.dart';
 import '../../elections/domain/election.dart';
 import 'explorer_controller.dart';
@@ -174,8 +176,7 @@ class _CaseContent extends StatelessWidget {
               locality == null ||
               !controller.specialCases.contains(entry))
             const StatusMessage(
-              message:
-                  'Localidade ausente ou indisponível neste conjunto consultado.',
+              message: 'Localidade ausente ou indisponível neste conjunto consultado.',
             )
           else ...[
             for (final round in ElectionRound.values) ...[

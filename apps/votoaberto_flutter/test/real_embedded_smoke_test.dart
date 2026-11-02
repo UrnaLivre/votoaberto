@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -30,9 +31,8 @@ void main() {
   tearDownAll(() {
     if (enabled) {
       final root = Directory('../../.local')..createSync(recursive: true);
-      File(
-        '${root.path}/m4-real-flutter-metrics.json',
-      ).writeAsStringSync('${jsonEncode(metrics)}\n');
+      File('${root.path}/m4-real-flutter-metrics.json')
+          .writeAsStringSync('${jsonEncode(metrics)}\n');
     }
   });
   EmbeddedElectionRepository repo(LocalRealBundle bundle) =>
@@ -42,63 +42,53 @@ void main() {
         expectedNature: 'official-derived',
       );
 
-  test(
-    'real assets: M3 reference totals, lazy reads, geography and measured decoding',
-    () async {
-      final bundle = LocalRealBundle();
-      final repository = repo(bundle);
-      final clock = Stopwatch()..start();
-      final data = await repository.load(Election.presidential2026);
-      metrics['initial_dataset_debug_ms'] = clock.elapsedMicroseconds / 1000;
-      expect(bundle.reads.where((p) => p.contains('municipalities/')), isEmpty);
-      expect(data.provenance.synthetic, isFalse);
-      expect(data.provenance.publicReadiness, expectedReadiness);
-      expect(
-        data.national.rounds[ElectionRound.first]!.totals.valid,
-        119306034,
+  test('real assets: M3 reference totals, lazy reads, geography and measured decoding', () async {
+    final bundle = LocalRealBundle();
+    final repository = repo(bundle);
+    final clock = Stopwatch()..start();
+    final data = await repository.load(Election.presidential2026);
+    metrics['initial_dataset_debug_ms'] = clock.elapsedMicroseconds / 1000;
+    expect(bundle.reads.where((p) => p.contains('municipalities/')), isEmpty);
+    expect(data.provenance.synthetic, isFalse);
+    expect(data.provenance.publicReadiness, expectedReadiness);
+    expect(data.national.rounds[ElectionRound.first]!.totals.valid, 119306034);
+    expect(data.national.rounds[ElectionRound.second]!.totals.valid, 124082273);
+    expect(
+      data.national.rounds[ElectionRound.first]!.candidates,
+      hasLength(13),
+    );
+    expect(
+      data.national.rounds[ElectionRound.second]!.candidates,
+      hasLength(2),
+    );
+    expect(
+      data.national.rounds[ElectionRound.first]!.candidates
+          .firstWhere((c) => c.candidate.number == '13')
+          .votes,
+      53879538,
+    );
+    expect(
+      data.national.rounds[ElectionRound.second]!.candidates
+          .firstWhere((c) => c.candidate.number == '22')
+          .votes,
+      59826041,
+    );
+    for (final uf in ['SP', 'AC', 'RS', 'SC', 'ZZ']) {
+      clock.reset();
+      final cities = await repository.loadMunicipalities(
+        Election.presidential2026,
+        uf,
       );
-      expect(
-        data.national.rounds[ElectionRound.second]!.totals.valid,
-        124082273,
-      );
-      expect(
-        data.national.rounds[ElectionRound.first]!.candidates,
-        hasLength(13),
-      );
-      expect(
-        data.national.rounds[ElectionRound.second]!.candidates,
-        hasLength(2),
-      );
-      expect(
-        data.national.rounds[ElectionRound.first]!.candidates
-            .firstWhere((c) => c.candidate.number == '13')
-            .votes,
-        53879538,
-      );
-      expect(
-        data.national.rounds[ElectionRound.second]!.candidates
-            .firstWhere((c) => c.candidate.number == '22')
-            .votes,
-        59826041,
-      );
-      for (final uf in ['SP', 'AC', 'RS', 'SC', 'ZZ']) {
-        clock.reset();
-        final cities = await repository.loadMunicipalities(
-          Election.presidential2026,
-          uf,
-        );
-        metrics['${uf}_load_debug_ms'] = clock.elapsedMicroseconds / 1000;
-        clock.reset();
-        final matches = cities
-            .where((c) => normalizeSearch(c.municipality.name).contains('sao'))
-            .toList();
-        metrics['${uf}_search_debug_ms'] = clock.elapsedMicroseconds / 1000;
-        metrics['${uf}_search_matches'] = matches.length;
-        expect(cities, isNotEmpty);
-      }
-    },
-    skip: !enabled,
-  );
+      metrics['${uf}_load_debug_ms'] = clock.elapsedMicroseconds / 1000;
+      clock.reset();
+      final matches = cities
+          .where((c) => normalizeSearch(c.municipality.name).contains('sao'))
+          .toList();
+      metrics['${uf}_search_debug_ms'] = clock.elapsedMicroseconds / 1000;
+      metrics['${uf}_search_matches'] = matches.length;
+      expect(cities, isNotEmpty);
+    }
+  }, skip: !enabled);
 
   for (final scope in ['BR', 'SP', 'AC', 'RS', 'SC', 'ZZ']) {
     testWidgets('real UI $scope, both rounds and candidate percentages', (

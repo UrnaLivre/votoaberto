@@ -1,0 +1,6 @@
+# Copy to ignored android/key.properties. Use an absolute path and operator-owned key.
+# Never commit keys or passwords. Do not reuse another application's identity.
+storeFile=C:/private/votoaberto-upload.jks
+storePassword=REPLACE_LOCALLY
+keyAlias=votoaberto-upload
+keyPassword=REPLACE_LOCALLY

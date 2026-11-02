@@ -1,5 +1,7 @@
 import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
+
 import '../../../core/formatters.dart';
 import '../../elections/domain/election.dart';
 
@@ -74,9 +76,9 @@ class DistributionChart extends StatelessWidget {
                     value: share,
                     minHeight: 7,
                     color: _candidateColors[colorIndex],
-                    backgroundColor: Theme.of(
-                      context,
-                    ).colorScheme.surfaceContainerHighest,
+                    backgroundColor: Theme.of(context)
+                        .colorScheme
+                        .surfaceContainerHighest,
                     stopIndicatorRadius: 0,
                   ),
                 ),
@@ -274,9 +276,9 @@ class ComparisonChart extends StatelessWidget {
             color: color,
             minHeight: 6,
             stopIndicatorRadius: 0,
-            backgroundColor: Theme.of(
-              context,
-            ).colorScheme.surfaceContainerHighest,
+            backgroundColor: Theme.of(context)
+                .colorScheme
+                .surfaceContainerHighest,
           ),
         ),
       ),
