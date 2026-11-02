@@ -91,3 +91,25 @@ AAB real assinado, listagem/políticas e testes de atualização em faixa Play c
 versionCode maior. M9 depende do instalador completo, assinatura, validação dos
 bytes/publisher, consentimento e testes de instalação/upgrade/desinstalação.
 Download e execução de instalador Windows permanecem desabilitados.
+
+## M7.1 — Revisão operacional antes do merge
+
+Escopo: gate Android ligado ao wrapper, validação dos arquivos/configuração
+efetivos no Gradle, cópia AAB auditada e reverificação antes do upload; workflow
+nativo restrito a main. Nenhuma alteração no serviço de atualização ou no deploy Web.
+
+Arquivos: `android/app/build.gradle.kts`, `tool/embedded_build.py` e
+`tool/native_release.py` implementam os gates e a saída aceita;
+`tests/test_native_release.py` cobre recusas e adulteração; `native-production.yml`
+restringe a ref e os artefatos; `data-engine.yml` valida mudanças no workflow nativo
+com Python/actionlint; `flutter.yml` executa a integração negativa do Gradle após
+o APK fixture. Esta documentação descreve a garantia e seus limites.
+
+A integração negativa usa uma chave **temporária de teste, válida por um dia**, com
+subject explícito M7.1 Temporary Test. Senha gerada só em memória, entrada por
+variável de ambiente do keytool, sem impressão, recibo ou upload. A chave é removida
+ao terminar. Não é upload key oficial nem identidade de distribuição definitiva.
+
+As evidências locais desta revisão ficam em `.local/m71/`; os resultados finais
+e links do CI da M7.1 são consolidados na descrição do PR #10. Os resultados M7
+acima são históricos e não substituem essa nova execução.

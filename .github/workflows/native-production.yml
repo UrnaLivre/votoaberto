@@ -21,7 +21,18 @@ env:
   DART_SUPPRESS_ANALYTICS: 'true'
 
 jobs:
+  authorize-ref:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Refuse native production outside main
+        env:
+          PRODUCTION_REF: ${{ github.ref }}
+        run: |
+          test "$PRODUCTION_REF" = refs/heads/main || { echo '::error::Native production requires branch main'; exit 1; }
+
   build:
+    needs: authorize-ref
+    if: github.ref == 'refs/heads/main'
     # Environment approval and keys are operator-managed for M8/M9.
     environment: native-production
     runs-on: ${{ inputs.platform == 'windows' && 'windows-latest' || 'ubuntu-latest' }}
@@ -78,6 +89,9 @@ jobs:
       - name: Build audited Windows bundle (no installer)
         if: inputs.platform == 'windows'
         run: python tool/embedded_build.py windows --mode real --production --source ../../.local/native-data/verified
+      - name: Revalidate accepted Android artifact before upload
+        if: inputs.platform == 'android'
+        run: python tool/native_release.py verify-android
       - name: Record SDK used for reproduction
         run: flutter --version --machine > build/native-release/flutter-sdk.json
       - uses: actions/upload-artifact@v4
@@ -85,8 +99,9 @@ jobs:
         with:
           name: votoaberto-android-aab-${{ github.sha }}
           path: |
-            apps/votoaberto_flutter/build/app/outputs/bundle/release/app-release.aab
-            apps/votoaberto_flutter/build/native-release/
+            apps/votoaberto_flutter/build/native-release/appbundle/app-release.aab
+            apps/votoaberto_flutter/build/native-release/appbundle/native-release.json
+            apps/votoaberto_flutter/build/native-release/flutter-sdk.json
           if-no-files-found: error
           retention-days: 14
       - uses: actions/upload-artifact@v4

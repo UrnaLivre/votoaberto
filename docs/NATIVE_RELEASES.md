@@ -131,14 +131,51 @@ então emite o recibo. Saída nativa anterior é removida da área gerada para i
 reaproveitamento de artefato antigo. As limitações e resultados metodológicos
 originais permanecem nos dados, na interface e na documentação de proveniência.
 
+### M7.1 — Garantia operacional Android
+
+O Gradle recusa tarefas Release sem upload key e sem o contexto ativo do wrapper.
+O contexto (`VOTOABERTO_RELEASE_PYTHON` e lock de build) é coordenação local,
+**não é credencial nem prova de integridade**. Antes de compilar, o gate Python
+revalida os arquivos em `assets/data/real` contra a aprovação existente, incluindo
+todos os hashes. Exige seleção exclusiva desses assets, entrypoint `lib/main.dart`
+e os dart-defines efetivos do Gradle coerentes com dataset, manifesto, commit,
+release de dados e versão. Declarar `real` ou um hash em uma flag não aprova arquivos.
+Debug, testes e Web mantêm o comportamento anterior.
+
+Após compilar, o wrapper copia o AAB para staging e audita **essa cópia** antes de
+aceitá-la em `build/native-release/appbundle/app-release.aab`. O recibo contém o
+hash dessa saída. Antes de upload de artefatos, `native_release.py verify-android`
+exige recibo/commit/versão coerentes, confere o hash e repete a auditoria do dataset
+dentro do AAB aceito. O workflow não disponibiliza o AAB bruto do Gradle. Falhas
+não geram uma nova aceitação; o início de um novo build invalida aceitação anterior.
+
+Limite: o proprietário de uma máquina pode alterar scripts/Gradle, forjar contexto
+ou usar sua chave em comandos arbitrários. Um recibo JSON não é assinatura ou
+atestado remoto. Não prometemos impedir qualquer AAB local assinado, nem provar
+comportamento de código malicioso ou toolchain adulterada. A garantia é do processo
+oficial em checkout revisado, com ferramentas confiáveis: somente a saída auditada
+e revalidada é aceita por esse workflow. A M8 deverá conservar essa verificação
+antes de qualquer upload Play e verificar assinatura/certificado da upload key;
+a posse de uma chave, sozinha, não aprova uma distribuição.
+
 ## Operação de build controlado
 
 CI de qualidade continua criando Web/Windows/APK debug com fixtures e executando
 testes Flutter/Python/browser. Isso não constitui uma release pronta para loja.
-O novo workflow é **somente workflow_dispatch**, `contents: read`, sem deploy,
-criação de GitHub Release ou upload à Play. O operador deve configurar o environment
-`native-production` com revisores/restrição de branches antes do uso; o YAML não
-cria essas proteções. Escolher um commit revisado, com CI verde, e a plataforma.
+O workflow é **somente workflow_dispatch**, `contents: read`, sem deploy,
+criação de GitHub Release ou upload à Play. Um job inicial falha para qualquer
+ref diferente de `refs/heads/main`; o job com environment/secrets também exige main.
+Tags com nome main e branches de desenvolvimento são recusadas.
+
+O operador ainda deve configurar no GitHub o environment `native-production`:
+revisores obrigatórios, impedir autoaprovação quando disponível, e deployment
+branches selecionadas permitindo **somente a branch `main`**, sem tags ou curingas.
+Manter os secrets de assinatura nesse environment, proteger main com revisão de PR
+e CI e restringir bypass administrativo conforme os recursos da organização.
+O YAML não cria essas políticas; a restrição do environment é necessária porque
+um workflow alterado numa branch pode remover o seu próprio `if`. Não executar
+produção antes dessas proteções. Escolher main revisada, com CI verde, e a plataforma.
+Mudanças em `native-production.yml` acionam a matriz Python e actionlint no Data Engine.
 Artefatos de Actions expiram em 14 dias e são resultados de preparação; o bundle
 Windows não é ainda instalável nem um release público suportado.
 
@@ -150,7 +187,11 @@ flutter pub get --enforce-lockfile
 python tool/web_release.py unpack --archive <votoaberto-web-data.zip> --destination <verified>
 python tool/embedded_build.py windows --mode real --production --source <verified>
 python tool/embedded_build.py appbundle --mode real --production --source <verified>
+python tool/native_release.py verify-android
 ```
+
+Para Android, a saída aceita é `build/native-release/appbundle/app-release.aab`
+com seu `native-release.json`. Não usar diretamente `build/app/outputs/bundle/`.
 
 ### Android / M8
 

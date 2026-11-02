@@ -184,6 +184,8 @@ def main(argv=None):
             "DART_SUPPRESS_ANALYTICS": "true",
             "CI": "true",
         }
+        if native_info and args.command == "appbundle":
+            environment["VOTOABERTO_RELEASE_PYTHON"] = sys.executable
         with selected_assets(args.mode):
             if args.command == "web":
                 clean_web_output()

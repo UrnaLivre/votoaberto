@@ -64,8 +64,24 @@ android {
 }
 
 gradle.taskGraph.whenReady {
-    if (allTasks.any { it.project == project && it.name.contains("Release") } && !hasUploadKey) {
-        throw GradleException("Release requires an operator-controlled upload key; see docs/NATIVE_RELEASES.md")
+    if (allTasks.any { it.project == project && it.name.contains("Release") }) {
+        if (!hasUploadKey) {
+            throw GradleException("Release requires an operator-controlled upload key; see docs/NATIVE_RELEASES.md")
+        }
+        val guardPython = System.getenv("VOTOABERTO_RELEASE_PYTHON")
+            ?: throw GradleException("Android Release requires tool/embedded_build.py appbundle --mode real --production")
+        // This context prevents accidental direct builds. The Python gate also
+        // validates actual approved bytes, selected assets and effective defines.
+        val guard = ProcessBuilder(guardPython, "tool/native_release.py", "android-preflight")
+            .directory(rootProject.projectDir.parentFile)
+            .inheritIO()
+        guard.environment()["VOTOABERTO_GRADLE_DART_DEFINES"] =
+            providers.gradleProperty("dart-defines").orNull ?: ""
+        guard.environment()["VOTOABERTO_GRADLE_TARGET"] =
+            providers.gradleProperty("target").orNull ?: "lib/main.dart"
+        if (guard.start().waitFor() != 0) {
+            throw GradleException("Android Release preflight rejected; use the approved production wrapper")
+        }
     }
 }
 

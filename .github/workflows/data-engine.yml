@@ -1,13 +1,20 @@
 name: Data Engine
 on:
   push:
-    paths: ['pipelines/**', 'apps/votoaberto_auditor/**', 'apps/votoaberto_flutter/tool/**', 'tools/generate_embedded_fixture.py', 'tools/geography/**', 'tools/provenance/**', 'tests/**', 'pyproject.toml', '.github/workflows/data-engine.yml']
+    paths: ['pipelines/**', 'apps/votoaberto_auditor/**', 'apps/votoaberto_flutter/tool/**', 'tools/generate_embedded_fixture.py', 'tools/geography/**', 'tools/provenance/**', 'tests/**', 'pyproject.toml', '.github/workflows/data-engine.yml', '.github/workflows/native-production.yml']
   pull_request:
-    paths: ['pipelines/**', 'apps/votoaberto_auditor/**', 'apps/votoaberto_flutter/tool/**', 'tools/generate_embedded_fixture.py', 'tools/geography/**', 'tools/provenance/**', 'tests/**', 'pyproject.toml', '.github/workflows/data-engine.yml']
+    paths: ['pipelines/**', 'apps/votoaberto_auditor/**', 'apps/votoaberto_flutter/tool/**', 'tools/generate_embedded_fixture.py', 'tools/geography/**', 'tools/provenance/**', 'tests/**', 'pyproject.toml', '.github/workflows/data-engine.yml', '.github/workflows/native-production.yml']
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
+  workflows:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker://rhysd/actionlint:1.7.12
+
   python:
     strategy:
       matrix:
